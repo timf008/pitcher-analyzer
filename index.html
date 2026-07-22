@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pitcher Analyzer (Stathead Edition)</title>
+    <link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+    <header class="header">
+    <h1><span id="spinner1">⚾</span> Pitcher Analyzer <span class="subtitle">Stathead Edition</span></h1>
+</header>
+
+        <!-- Row 1 -->
+<section class="controls row">
+    <div class="input-group">
+        <label for="playerName">Player Name</label>
+        <input type="text" id="playerName" placeholder="Jacob Misiorowski">
+    </div>
+
+    <div class="input-group">
+        <label for="seasonSelect">Season</label>
+        <select id="seasonSelect">
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+        </select>
+    </div>
+
+    <button id="loadBtn">Load🔍</button>
+    <button id="trendBtn">Trend📈</button>
+    <button id="leadersBtn">Leaders🏅</button>
+
+</section>
+
+<!-- Row 2 -->
+<section class="controls row">
+    <div class="input-group">
+        <label for="playerName2">Player Name (Compare)</label>
+        <input type="text" id="playerName2" placeholder="Paul Skenes">
+    </div>
+
+    <div class="input-group">
+        <label for="seasonSelect2">Season</label>
+        <select id="seasonSelect2">
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+        </select>
+    </div>
+
+    <button id="compareBtn">Compare🆚</button>
+    <button id="swapBtn">Swap🔀</button>
+    <button id="resetBtn" class="reset">Reset</button>
+
+</section>
+
+
+
+        <hr>
+
+        <!-- Metric Grid -->
+<section class="metrics">
+    <h2>Pitching Profile</h2>
+
+    <div class="metric-row">
+        <span class="metric-label">ERA</span>
+        <span class="metric-raw" id="raw-era">--</span>
+        <div class="battery" id="battery-era"></div>
+        <span class="metric-score" id="score-era">--</span>
+    </div>
+
+    <div class="metric-row">
+        <span class="metric-label">WHIP</span>
+        <span class="metric-raw" id="raw-whip">--</span>
+        <div class="battery" id="battery-whip"></div>
+        <span class="metric-score" id="score-whip">--</span>
+    </div>
+
+    <div class="metric-row">
+        <span class="metric-label">K%</span>
+        <span class="metric-raw" id="raw-kpct">--</span>
+        <div class="battery" id="battery-kpct"></div>
+        <span class="metric-score" id="score-kpct">--</span>
+    </div>
+
+    <div class="metric-row">
+        <span class="metric-label">BB%</span>
+        <span class="metric-raw" id="raw-bbpct">--</span>
+        <div class="battery" id="battery-bbpct"></div>
+        <span class="metric-score" id="score-bbpct">--</span>
+    </div>
+
+    <div class="metric-row">
+        <span class="metric-label">K/BB</span>
+        <span class="metric-raw" id="raw-kbb">--</span>
+        <div class="battery" id="battery-kbb"></div>
+        <span class="metric-score" id="score-kbb">--</span>
+    </div>
+</section>
+
+
+        <hr>
+
+<div class="overall-card">
+    <div class="overall-card-tab" id="playerTab">Player:--</div>
+
+<img id="playerPhoto" class="player-photo" 
+     src="/pitcher-analyzer/images/pitcher.png" 
+     alt="Player Photo">
+
+
+    <section class="overall">
+
+        <div class="overall-top">
+            <p>Overall Score: <span id="overallScore">--</span></p>
+            <p>XP: <span id="xpScore">--</span></p>
+            <p>Tier: <span id="overallTier">--</span></p>
+        </div>
+
+        <div class="battery overall-battery" id="battery-overall"></div>
+
+        <div class="scouting-note">
+            <label>Note: </label>
+            <p id="scoutingNote">--</p>
+            <p>Percentile: <span id="overallPercentile">--</span></p>
+        </div>
+    </section>
+</div>
+
+
+<hr>
+
+
+
+       <!-- Trend Modal (Season Comparison) -->
+<div id="trendModal" class="modal hidden">
+    <div class="modal-content">
+        <span id="trendClose" class="close">&times;</span>
+        <h2 id="trendTitle">Season Comparison</h2>
+
+        <div id="trendBody">
+            <!-- JS will inject the comparison table here -->
+        </div>
+    </div>
+</div>
+
+
+
+       <!-- Compare Modal -->
+<div id="compareModal" class="modal">
+    <div class="modal-content compare-box">
+        <span id="compareClose" class="close">&times;</span>
+        <h2 id="compareTitle">Pitcher Comparison</h2>
+
+        <table id="compareTable">
+            <thead>
+                <tr>
+                    <th>Stat</th>
+                    <th id="compareName1">Player 1</th>
+                    <th id="compareName2">Player 2</th>
+                </tr>
+            </thead>
+            <tbody id="compareBody">
+                <!-- Filled dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="leadersModal" class="modal">
+    <div class="modal-content leaders-modal">
+        <span id="leadersClose" class="close">&times;</span>
+        <h2 id="leadersTitle">League Leaders</h2>
+
+        <table class="leaders-table">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Team</th>
+		    <th>XP</th>
+                    <th>Overall Score</th>
+		    <th>Rank</th>
+                </tr>
+            </thead>
+            <tbody id="leadersBody">
+                <!-- JS will inject rows here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+        <footer class="footer">
+            <small>Data source: Stathead (Sports Reference). Pitcher Analyzer – personal analytics tool.</small>
+<div id="lastUpdated"></div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>

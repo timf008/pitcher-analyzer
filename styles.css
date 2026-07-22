@@ -1,0 +1,725 @@
+/* -----------------------------------------
+   Pitcher Analyzer CSS Styles
+----------------------------------------- */
+
+/* -----------------------------------------
+   Global
+----------------------------------------- */
+
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: linear-gradient(135deg, #e8eef5, #f7f9fc);
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+.container {
+    width: 680px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 35px 45px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    border: 3px solid #000000;
+    padding: 20px;
+    font-family: monospace;
+}
+
+
+/* -----------------------------------------
+   Header
+----------------------------------------- */
+
+.header h1 {
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 0.55em;
+    color: #777;
+}
+
+/* -----------------------------------------
+   Controls
+----------------------------------------- */
+
+.controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    padding: 18px;
+    background: #f3f6fa;
+    border-radius: 12px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+input, select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #cfd6e0;
+    border-radius: 8px;
+    background: #ffffff;
+    transition: 0.2s;
+    font-family: monospace;
+}
+
+input:focus, select:focus {
+    border-color: #0077ff;
+    box-shadow: 0 0 4px rgba(0,119,255,0.4);
+}
+
+button {
+    padding: 10px 18px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #0077ff, #005fcc);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: 0.2s;
+    font-family: monospace;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.18);
+}
+
+
+
+
+
+button.reset {
+    background: linear-gradient(135deg, #d9534f, #b52b27);
+}
+
+button.reset:hover {
+    transform: translateY(-2px);
+}
+
+.controls.row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.controls.row button {
+    height: 38px;
+    padding: 0 14px;
+}
+ 
+
+/* -----------------------------------------
+   Metric Grid
+----------------------------------------- */
+
+.metrics {
+    margin-top: 20px;
+}
+
+.metrics h2,
+.overall h2 {
+    margin-bottom: 18px;
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.metric-row {
+    display: flex;
+    grid-template-columns: 120px 70px 1fr 60px;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #f9fbfe;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.metric-label {
+    font-weight: 600;
+    width: 70px;
+    display: inline-block;
+}
+
+.metric-raw {
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+    width: 50px;
+    display: inline-block;
+}
+
+
+.metric-score {
+    text-align: right;
+    font-weight: 700;
+    font-size: 1.05em;
+    width: 40px;
+    display: inline-block;
+}
+
+.metric-row .battery {
+    flex: 1;
+}
+
+
+/* -----------------------------------------
+   Overall Section
+----------------------------------------- */
+
+.overall {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.overall-top {
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ⭐ Overall battery — FIXED (now visible) */
+.overall-battery {
+    height: 26px;
+    width: 600px;
+    max-width: 600px;
+    margin: 0 auto !important;
+}
+
+.overall-battery::after {
+    background: var(--color);
+}
+
+
+.scouting-note label {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+/* Card container */
+.overall-card {
+    background: #f8f9fc;
+    border: 1px solid #d4d9e2;
+    border-radius: 10px;
+    padding: 20px 24px;
+    max-width: 650px;
+    margin: 40px auto 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    position: relative;
+    display: flex;
+    gap: 20px;
+}
+
+/* File tab */
+.overall-card-tab {
+    position: absolute;
+    top: -18px;
+    left: 20px;
+    background: #ffffff;
+    border: 1px solid #d4d9e2;
+    border-bottom: none;
+    padding: 6px 14px;
+    border-radius: 8px 8px 0 0;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+}
+
+
+/* -----------------------------------------
+   Trend Modal
+----------------------------------------- */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 14px;
+    max-width: 650px;
+    width: 100%;
+    max-height: 90vh;        /* ⭐ keeps all 20 rows visible */
+    overflow-y: auto;        /* ⭐ scrolls inside modal */
+    padding: 30px;
+    box-shadow: 0 0 18px rgba(0,0,0,0.25);
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+}
+
+
+.close {
+    float: right;
+    font-size: 1.6em;
+    cursor: pointer;
+    color: #444;
+}
+
+.no-data-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.1rem;
+    color: #cc0000;
+    font-weight: bold;
+}
+
+/* -----------------------------------------
+   Trend Modal (Season Comparison)
+----------------------------------------- */
+
+#trendModal .modal-content {
+    width: 600px;
+    max-width: 90%;
+    background: #1e1e1e !important;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+/* Title */
+#trendTitle {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Trend Table */
+.trend-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.trend-table th,
+.trend-table td {
+    padding: 8px;
+    border-bottom: 1px solid #444;
+    text-align: center;
+}
+
+.trend-table th {
+    font-weight: bold;
+}
+
+/* Arrows */
+.trend-table td:last-child {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+/* Close button */
+#trendClose {
+    float: right;
+    font-size: 1.6em;
+    cursor: pointer;
+    color: #bbb;
+}
+
+#trendClose:hover {
+    color: #fff;
+}
+
+/* -----------------------------------------
+   Trend Arrow Colors (Match Compare Modal)
+----------------------------------------- */
+
+.trend-up {
+    color: #4caf50; /* green */
+    font-weight: 700;
+}
+
+.trend-down {
+    color: #e53935; /* red */
+    font-weight: 700;
+}
+
+.trend-flat {
+    color: #cccccc; /* gray */
+    font-weight: 700;
+}
+
+
+
+
+/* -----------------------------------------
+   Compare Modal
+----------------------------------------- */
+.compare-box {
+    width: 600px;
+    max-width: 90%;
+    background: #1e1e1e !important;
+    padding: 20px;
+    border-radius: 10px;
+    color: White;
+}
+
+#compareTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size:  16px;
+}
+
+#compareTable th, #compareTable td {
+    padding: 8px;
+    border-bottom: 1px solid #444;
+    text-align: center;
+}
+
+#compareTable th {
+    font-weight: bold;
+}
+
+#compareTitle {
+    text-align: center;
+    width: 100%;
+}
+
+/* -----------------------------------------
+   Compare Win - Lose Indicator
+----------------------------------------- */
+.win {
+    color: #4caf50; /* green */
+    font-weight: 700;
+}
+
+.lose {
+    color: #e53935; /* red */
+    opacity: 0.85;
+}
+
+.tie {
+    color: #cccccc;
+}
+
+/* -----------------------------------------
+   Leaders Modal
+----------------------------------------- */
+
+#leadersModal .modal-content {
+    width: 600px;
+    max-width: 90%;
+    background: #1e1e1e !important;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+
+    /* ⭐ FIX: allow scrolling so all 20 rows appear */
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+
+/* Title */
+#leadersTitle {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Leaders Table */
+.leaders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.leaders-table th,
+.leaders-table td {
+    padding: 8px;
+    border-bottom: 1px solid #444;
+    text-align: center;
+}
+
+.leaders-table th {
+    font-weight: bold;
+}
+
+/* Close button */
+#leadersClose {
+    float: right;
+    font-size: 1.6em;
+    cursor: pointer;
+    color: #bbb;
+}
+
+#leadersClose:hover {
+    color: #fff;
+}
+
+#leadersModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+
+/* -----------------------------------------
+   Trend Emoji Buttons
+----------------------------------------- */
+.trend-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 6px;
+
+    width: 22px;          /* square width  */
+    height: 22px;         /* square height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;      /* emoji size */
+    line-height: 1;
+
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity .15s ease, transform .15s ease;
+}
+
+.trend-btn:hover {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+/* -----------------------------------------
+   Rank Modal
+----------------------------------------- */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  display: none;            /* JS sets to flex */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;            /* prevents content from touching edges */
+  box-sizing: border-box;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+
+.rank-table {
+    margin: 0 auto;      /* centers the table */
+    width: 100%;         /* makes it fill the modal */
+    border-collapse: collapse;
+}
+
+
+.close {
+    font-size: 1.6em;
+    cursor: pointer;
+    color: #444;
+}
+
+#rankClose {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.6em;
+    color: #444;
+    z-index: 10; /* ensure it's above everything */
+}
+
+.no-data-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.1rem;
+    color: #cc0000;
+    font-weight: bold;
+}
+
+.tier-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+/* Tier colors */
+.tier-great {
+    background-color: #d4af37; /* gold */
+}
+
+.tier-good {
+    background-color: #2ecc71; /* green */
+}
+
+.tier-fair {
+    background-color: #3498db; /* blue */
+}
+
+.tier-average {
+    background-color: #7f8c8d; /* gray */
+}
+
+.tier-belowavg {
+    background-color: #e74c3c; /* red */
+}
+
+/* -----------------------------------------
+   Scouting Note W-L Spacing
+----------------------------------------- */
+#scoutingNote {
+    white-space: pre-line;
+}
+
+
+/* -----------------------------------------
+   Latest Update Timestamp
+----------------------------------------- */
+.update-date {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 6px;
+}
+
+/* -----------------------------------------
+   Baseball Spinner
+----------------------------------------- */
+.spin {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* -----------------------------------------
+   FINAL OVERRIDE — Forces overall battery to render
+----------------------------------------- */
+.overall-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.battery {
+    position: relative;
+    background: #dfe6ef;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 14px;
+    width: 120px;
+
+    --fill: 0%;
+    --color: #00c853;
+}
+
+.battery::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: var(--fill);
+    background: var(--color);
+    transition: width 0.4s ease;
+}
+
+
+
+
+.overall-battery {
+    height: 26px !important;
+    width: 100% !important;
+    max-width: 600px !important;
+}
+
+.overall-battery::after {
+    background: var(--color) !important;
+}
+
+
+/* FINAL FIX — force overall battery height */
+.overall .overall-battery {
+    height: 26px !important;
+    min-height: 26px !important;
+    min-width: 520px;
+}
+
+
+
+
+/* -----------------------------------------
+   Footer
+----------------------------------------- */
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.85em;
+    color: #777;
+}
+
+.player-photo {
+  width: 90px;
+  height: 200px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
