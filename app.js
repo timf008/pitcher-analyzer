@@ -35,6 +35,17 @@ function toOrdinal(n) {
     return n + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 
+// -------------------------------
+// Convert Name to Title Case (Player Tab)
+// -------------------------------
+function toTitleCase(str) {
+    return str
+        .toLowerCase()
+        .split(" ")
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+}
+
 
 // =====================================================
 // Utility: Normalize name to match R script (First Last)
@@ -66,14 +77,17 @@ async function loadPitcher(name, season, silent = false) {
     const arr = Array.isArray(data) ? data : [data];
 
     // ⭐ Only update tab if NOT silent
-    if (!silent && arr && arr.length > 0) {
-        const playerName = arr[0].Name || clean;
-        const team = arr[0].Team || "";
-        document.getElementById("playerTab").textContent =
-            `${playerName}${team ? " — " + team : ""} (${season})`;
-    }
+if (!silent && arr && arr.length > 0) {
+    const rawName = arr[0].Name || clean;
+    const playerName = toTitleCase(rawName);
+    const team = arr[0].Team || "";
 
-    return arr;
+    document.getElementById("playerTab").textContent =
+        `${playerName}${team ? " — " + team : ""} (${season})`;
+}
+
+return arr;
+
 }
 
 
