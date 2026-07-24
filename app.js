@@ -693,43 +693,30 @@ function buildLeadersTable(arr) {
     // Sort by OVERALL score (backend computed)
     const sorted = [...filtered].sort((a, b) => b.overall - a.overall);
 
-    // ⭐ Top 10 badges (same pattern as batters)
-    const top10 = sorted.slice(0, 10);
-    top10.forEach((p, i) => {
-        p.Badge =
-            i === 0 ? "🔥 #1" :
-            i === 1 ? "⭐ #2" :
-            i === 2 ? "⭐ #3" :
-            "🏅 Top 10";
-    });
+    // Top 50 pitchers
+    const top50 = sorted.slice(0, 50);
 
-    // ⭐ Ensure pitchers 11–20 have no badge (empty string, not undefined)
-    const rest = sorted.slice(10, 20);
-    rest.forEach(p => {
-        p.Badge = "";
-    });
-
-    // ⭐ Now slice top 20 for display
-    const top20 = sorted.slice(0, 20);
-
-    // Build table rows (Top 20)
-    top20.forEach(p => {
+    // Build table rows (#1–50)
+    top50.forEach((p, index) => {
         p.Player = normalizeName(p.Player);
         p.Name   = normalizeName(p.Name);
 
+        const rank = index + 1; // ⭐ numeric rank
+
         const row = document.createElement("tr");
         row.innerHTML = `
+            <td>${rank}</td>
             <td>${p.Player}</td>
             <td>${p.Team}</td>
             <td>${Math.round(p.XP)}</td>
             <td>${p.overall.toFixed(2)}</td>
-            <td>${p.Badge}</td>
         `;
         tbody.appendChild(row);
     });
 
     document.getElementById("leadersModal").style.display = "flex";
 }
+
 
 
 
