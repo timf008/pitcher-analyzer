@@ -145,12 +145,17 @@ function updateKBB(raw, score)     { updateMetric("raw-kbb",  "battery-kbb",  "s
 
 
 // -------------------------------
-// Overall score + tier
+// Overall score + XP + tier
 // -------------------------------
 function updateOverall(score) {
     document.getElementById("overallScore").textContent = safeFixed(score, 1);
     updateBattery("battery-overall", safeScore(score));
 }
+
+function updateXP(xp) {
+    document.getElementById("xpScore").textContent = safeFixed(xp, 0);
+}
+
 
 function getTierClass(tier) {
     switch (tier) {
@@ -386,6 +391,7 @@ async function handleLoad() {
         updateOverall(overall);
         updateTier(overall);
         updateScoutingNote(p);
+        updateXP(p.XP);
 
         // ⭐ ADD THIS — now data is defined
         document.getElementById("overallPercentile").textContent =
