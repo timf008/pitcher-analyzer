@@ -231,6 +231,22 @@ function updateScoutingNote(p) {
     document.getElementById("scoutingNote").innerHTML = note;
 }
 
+// -------------------------------
+// Pitcher XP Score Function
+// -------------------------------
+function computePitcherXP(p) {
+    if (!p) return null;
+
+    const xp =
+        (p.Kpct * 2) +
+        (p.KBB * 10) -
+        (p.ERA * 3) -
+        (p.WHIP * 5) -
+        (p.BBpct * 2);
+
+    return xp + 1000; // ⭐ Pitchers get +1000 baseline
+}
+
 
 // -------------------------------
 // Weighted Overall Score (5‑metric model)
@@ -578,12 +594,17 @@ async function showCompareModal() {
             kbbScore: s2_KBB
         });
 
+        const xp1 = computePitcherXP(data1);
+        const xp2 = computePitcherXP(data2);
+
+
         const stats = [
             ["ERA",  Number(data1.ERA),  Number(data2.ERA),  Number(data1.ERA).toFixed(2),  Number(data2.ERA).toFixed(2)],
             ["WHIP", Number(data1.WHIP), Number(data2.WHIP), Number(data1.WHIP).toFixed(2), Number(data2.WHIP).toFixed(2)],
             ["K%",   Number(data1.Kpct), Number(data2.Kpct), Number(data1.Kpct).toFixed(2), Number(data2.Kpct).toFixed(2)],
             ["BB%",  Number(data1.BBpct),Number(data2.BBpct),Number(data1.BBpct).toFixed(2),Number(data2.BBpct).toFixed(2)],
             ["K/BB", Number(data1.KBB),  Number(data2.KBB),  Number(data1.KBB).toFixed(2),  Number(data2.KBB).toFixed(2)],
+["XP", xp1, xp2, Math.round(xp1), Math.round(xp2)],
             ["Overall Score", Number(overall1), Number(overall2), Number(overall1).toFixed(2), Number(overall2).toFixed(2)]
         ];
 
