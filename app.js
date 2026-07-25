@@ -51,12 +51,19 @@ function toTitleCase(str) {
 // Utility: Normalize name to match R script (First Last)
 // =====================================================
 function normalizeNameFrontend(x) {
-    return x
-        .normalize("NFKD")               // strip accents
-        .replace(/[^\w\s-]/g, "")        // remove non-ASCII
-        .replace(/\s+/g, " ")            // collapse spaces
-        .trim();                         // keep First Last order
+    x = x.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+    x = x.replace(/[,*#†+]/g, "");
+    x = x.replace(/\./g, "");
+    x = x.replace(/\s+/g, " ").trim();
+
+    if (x.includes(",")) {
+        const [last, first] = x.split(",").map(s => s.trim());
+        x = `${first} ${last}`;
+    }
+
+    return x.toUpperCase();
 }
+
 
 
 // -------------------------------
