@@ -345,6 +345,10 @@ async function handleLoad() {
         // ⭐ Always normalize to object
         const p = Array.isArray(data) ? data[0] : data;
 
+console.log("FULL pitcher object from backend:", p);
+console.log("XP field:", p?.XP);
+
+
         // ⭐ Only 5 metrics now
         const eraScore   = scoreERA(p.ERA);
         const whipScore  = scoreWHIP(p.WHIP);
