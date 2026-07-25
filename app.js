@@ -309,36 +309,7 @@ function scoreKBB(kbb) {
 // function scoreHR9(hr9) { ... }
 // function scoreFIP(fip) { ... }
 
-// -------------------------------
-// Calculate XP
-// -------------------------------
-async function handleLoadPitcher() {
-    const name = document.getElementById("playerName").value;
-    const season = document.getElementById("seasonSelect").value;
 
-    const pitchers = await loadPitcher(name, season);
-
-    if (!pitchers || pitchers.length === 0) {
-        document.getElementById("xpScore").textContent = "--";
-        return;
-    }
-
-    const p = pitchers[0];
-
-    const xp =
-    (p.Kpct * 2) +
-    (p.KBB * 10) -
-    (p.ERA * 3) -
-    (p.WHIP * 5) -
-    (p.BBpct * 2);
-
-// Add 1000
-const finalXP = xp + 1000;
-
-// No decimals
-document.getElementById("xpScore").textContent = Math.round(finalXP);
-
-}
 
 // -------------------------------
 // Main: Load player + update UI (backend-only)
@@ -925,7 +896,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("loadBtn").addEventListener("click", handleLoad);
     document.getElementById("resetBtn").addEventListener("click", handleReset);
     document.getElementById("compareBtn").addEventListener("click", showCompareModal);
-    document.getElementById("loadBtn").addEventListener("click", handleLoadPitcher);
 
 
     loadLastUpdated(currentSeason);
