@@ -400,7 +400,6 @@ async function handleLoad() {
     }
 }
 
-
 // -------------------------------
 // Trend Handler (Season Comparison)
 // -------------------------------
@@ -440,6 +439,27 @@ async function handleTrend() {
             return;
         }
 
+        // ⭐ Compute XP for both seasons
+        curr.XP = computePitcherXP(curr);
+        prev.XP = computePitcherXP(prev);
+
+        // ⭐ Compute Overall Score for both seasons
+        curr.OverallScore = computeWeightedOverall({
+            eraScore: scoreERA(curr.ERA),
+            whipScore: scoreWHIP(curr.WHIP),
+            kpctScore: scoreKpct(curr.Kpct),
+            bbpctScore: scoreBBpct(curr.BBpct),
+            kbbScore: scoreKBB(curr.KBB)
+        });
+
+        prev.OverallScore = computeWeightedOverall({
+            eraScore: scoreERA(prev.ERA),
+            whipScore: scoreWHIP(prev.WHIP),
+            kpctScore: scoreKpct(prev.Kpct),
+            bbpctScore: scoreBBpct(prev.BBpct),
+            kbbScore: scoreKBB(prev.KBB)
+        });
+
         const html = buildSeasonComparison(curr, prev, season, lastSeason);
 
         document.getElementById("trendTitle").textContent =
@@ -453,9 +473,6 @@ async function handleTrend() {
     }
 }
 
-
-
-
 // -------------------------------
 // Trend Table (Season Comparison)
 // -------------------------------
@@ -466,7 +483,11 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
         { key: "WHIP",  label: "WHIP",  higherIsBetter: false },
         { key: "Kpct",  label: "K%",    higherIsBetter: true  },
         { key: "BBpct", label: "BB%",   higherIsBetter: false },
-        { key: "KBB",   label: "K/BB",  higherIsBetter: true  }
+        { key: "KBB",   label: "K/BB",  higherIsBetter: true  },
+
+        // ⭐ NEW
+        { key: "XP",            label: "XP",            higherIsBetter: true },
+        { key: "OverallScore",  label: "Overall Score", higherIsBetter: true }
     ];
 
     let rows = stats.map(s => {
@@ -486,15 +507,34 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
             arrow === "▼" ? "trend-down" :
             "trend-flat";
 
-        return `
-    <tr>
-        <td>${s.label}</td>
-        <td>${isNaN(a) ? "--" : a.toFixed(2)}</td>
-        <td>${isNaN(b) ? "--" : b.toFixed(2)}</td>
-        <td class="${arrowClass}">${arrow}</td>
-    </tr>
-`;
+        // ⭐ Formatting rules
+        let dispA, dispB;
 
+        if (s.key === "ERA" || s.key === "WHIP") {
+            dispA = isNaN(a) ? "--" : a.toFixed(2);
+            dispB = isNaN(b) ? "--" : b.toFixed(2);
+        }
+        else if (s.key === "Kpct" || s.key === "BBpct" || s.key === "KBB") {
+            dispA = isNaN(a) ? "--" : a.toFixed(1);
+            dispB = isNaN(b) ? "--" : b.toFixed(1);
+        }
+        else if (s.key === "XP") {
+            dispA = isNaN(a) ? "--" : Math.round(a);
+            dispB = isNaN(b) ? "--" : Math.round(b);
+        }
+        else if (s.key === "OverallScore") {
+            dispA = isNaN(a) ? "--" : a.toFixed(1);
+            dispB = isNaN(b) ? "--" : b.toFixed(1);
+        }
+
+        return `
+        <tr>
+            <td>${s.label}</td>
+            <td>${dispA}</td>
+            <td>${dispB}</td>
+            <td class="${arrowClass}">${arrow}</td>
+        </tr>
+        `;
     }).join("");
 
     return `
@@ -513,6 +553,7 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
         </table>
     `;
 }
+
 
 // -------------------------------
 // Compare Button
