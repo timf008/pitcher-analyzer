@@ -279,7 +279,7 @@ button.reset:hover {
     border-radius: 14px;
     max-width: 650px;
     width: 100%;
-    max-height: 90vh;        /* ⭐ keeps all 20 rows visible */
+    max-height: 90dvh;        /* ⭐ keeps all 20 rows visible */
     overflow-y: auto;        /* ⭐ scrolls inside modal */
     padding: 30px;
     box-shadow: 0 0 18px rgba(0,0,0,0.25);
@@ -493,8 +493,8 @@ button.reset:hover {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100dvh;
     background: rgba(0, 0, 0, 0.6);
     display: none;
     justify-content: center;
