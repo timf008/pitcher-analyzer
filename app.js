@@ -244,7 +244,7 @@ function updateScoutingNote(p) {
 }
 
 // -------------------------------
-// Pitcher XP Score Function
+// Pitcher XP Score Function (updated)
 // -------------------------------
 function computePitcherXP(p) {
     if (!p) return null;
@@ -252,12 +252,13 @@ function computePitcherXP(p) {
     const xp =
         (p.Kpct * 2) +
         (p.KBB * 10) -
-        (p.ERA * 3) -
-        (p.WHIP * 5) -
-        (p.BBpct * 2);
+        (p.ERA * 15) -
+        (p.WHIP * 40) -
+        (p.BBpct * 10);
 
     return xp + 1000; // ⭐ Pitchers get +1000 baseline
 }
+
 
 
 // -------------------------------
