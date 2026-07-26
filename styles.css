@@ -274,6 +274,12 @@ button.reset:hover {
     display: none;
 }
 
+.modal-container {
+    position: relative;
+    z-index: 99999;
+    background: #fff; /* prevents transparency */
+}
+
 .modal-content {
     background: #ffffff;
     border-radius: 14px;
