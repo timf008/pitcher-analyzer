@@ -740,8 +740,8 @@ function buildLeadersTable(arr) {
     const tbody = document.getElementById("leadersBody");
     tbody.innerHTML = "";
 
-    // Only pitchers with >5 GS
-    const filtered = arr.filter(p => p.GS > 5);
+    
+    const filtered = arr;
 
     // Sort by OVERALL score (backend computed)
     const sorted = [...filtered].sort((a, b) => b.overall - a.overall);
