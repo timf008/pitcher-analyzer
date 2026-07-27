@@ -216,11 +216,12 @@ function updateScoutingNote(p) {
     else if (p.BBpct > 9) concerns.push("elevated walk rate that may limit consistency");
     else if (p.BBpct > 11) concerns.push("high‑risk command profile with frequent free passes");
 
-    // ⭐ FIP block removed (no longer part of the model)
-
     let note = "";
 
-    if (strengths.length && !concerns.length) {
+    // NEW: neutral fallback
+    if (!strengths.length && !concerns.length) {
+        note = "Neutral underlying profile with no standout strengths or red flags.";
+    } else if (strengths.length && !concerns.length) {
         note = "Profile built on " +
             strengths.join(", ").replace(/, ([^,]*)$/, " and $1") + ".";
     } else if (!strengths.length && concerns.length) {
@@ -242,6 +243,7 @@ function updateScoutingNote(p) {
 
     document.getElementById("scoutingNote").innerHTML = note;
 }
+
 
 // -------------------------------
 // Pitcher XP Score Function (updated)
