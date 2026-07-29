@@ -4,6 +4,13 @@
 // -----------------------------------------------------
 
 // -------------------------------
+// Display League Averages XP + Overall Score
+// -------------------------------
+
+const season = 2026;
+loadLeagueAverages(season);
+
+// -------------------------------
 // Safe helpers
 // -------------------------------
 function safeFixed(value, digits = 1) {
@@ -149,6 +156,7 @@ function updateWHIP(raw, score)    { updateMetric("raw-whip", "battery-whip", "s
 function updateKpct(raw, score)    { updateMetric("raw-kpct", "battery-kpct", "score-kpct", raw, score); }
 function updateBBpct(raw, score)   { updateMetric("raw-bbpct","battery-bbpct","score-bbpct",raw, score); }
 function updateKBB(raw, score)     { updateMetric("raw-kbb",  "battery-kbb",  "score-kbb",  raw, score); }
+
 
 
 // -------------------------------
@@ -390,6 +398,32 @@ console.log("XP field:", p?.XP);
         spin.classList.remove("spin");
     }
 }
+
+// -------------------------------
+// Pitcher League Averages XP + Overall Score
+// -------------------------------
+function loadleagueAverages(season) {
+    fetch(`https://pitcher-analyzer-backend.onrender.com/api/pitching/averages?season=${season}`)
+        .then(res => res.json())
+        .then(data => {
+            // Handle both formats:
+            // 1) { league_avg_XP: 842.1, league_avg_overall: 3.4 }
+            // 2) [ { league_avg_XP: 842.1, league_avg_overall: 3.4 } ]
+            const avg = Array.isArray(data) ? data[0] : data;
+
+            document.getElementById("pitcher-league-avg-xp").textContent =
+                avg.league_avg_XP.toFixed(1);
+
+            document.getElementById("pitcher-league-avg-overall").textContent =
+                avg.league_avg_overall.toFixed(2);
+        })
+        .catch(err => {
+            console.error("Error fetching pitcher league averages:", err);
+            document.getElementById("pitcher-league-avg-xp").textContent = "N/A";
+            document.getElementById("pitcher-league-avg-overall").textContent = "N/A";
+        });
+}
+
 
 // -------------------------------
 // Trend Handler (Season Comparison)
