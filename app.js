@@ -8,7 +8,7 @@
 // -------------------------------
 
 const season = 2026;
-loadLeagueAverages(season);
+loadleagueAverages(season);
 
 // -------------------------------
 // Safe helpers
