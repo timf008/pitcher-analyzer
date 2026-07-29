@@ -411,16 +411,16 @@ function loadleagueAverages(season) {
             // 2) [ { league_avg_XP: 842.1, league_avg_overall: 3.4 } ]
             const avg = Array.isArray(data) ? data[0] : data;
 
-            document.getElementById("pitcher-league-avg-xp").textContent =
+            document.getElementById("league-avg-xp").textContent =
                 avg.league_avg_XP.toFixed(1);
 
-            document.getElementById("pitcher-league-avg-overall").textContent =
+            document.getElementById("league-avg-overall").textContent =
                 avg.league_avg_overall.toFixed(2);
         })
         .catch(err => {
             console.error("Error fetching pitcher league averages:", err);
-            document.getElementById("pitcher-league-avg-xp").textContent = "N/A";
-            document.getElementById("pitcher-league-avg-overall").textContent = "N/A";
+            document.getElementById("league-avg-xp").textContent = "N/A";
+            document.getElementById("league-avg-overall").textContent = "N/A";
         });
 }
 
