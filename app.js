@@ -7,8 +7,11 @@
 // Display League Averages XP + Overall Score
 // -------------------------------
 
-const season = 2026;
-loadleagueAverages(season);
+document.getElementById("seasonSelect").addEventListener("change", () => {
+    const season = document.getElementById("seasonSelect").value;
+    loadleagueAverages(season);
+});
+
 
 // -------------------------------
 // Safe helpers
