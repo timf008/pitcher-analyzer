@@ -412,10 +412,10 @@ function loadleagueAverages(season) {
             const avg = Array.isArray(data) ? data[0] : data;
 
             document.getElementById("league-avg-xp").textContent =
-                avg.league_avg_XP.toFixed(1);
+                Math.round(avg.league_avg_XP);
 
             document.getElementById("league-avg-overall").textContent =
-                avg.league_avg_overall.toFixed(2);
+                avg.league_avg_overall.toFixed(1);
         })
         .catch(err => {
             console.error("Error fetching pitcher league averages:", err);
