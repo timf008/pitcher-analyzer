@@ -9,7 +9,7 @@
 
 const season = 2026;
 loadleagueAverages(season);
-loadPlayerofDay(season);
+loadplayerofDay(season);
 
 // -------------------------------
 // Safe helpers
@@ -428,7 +428,7 @@ function loadleagueAverages(season) {
 // -------------------------------
 // Load Player of the Day
 // -------------------------------
-function loadPlayerOfDay(season) {
+function loadplayerofDay(season) {
     fetch(`https://pitcher-analyzer-backend.onrender.com/api/player-of-day?season=${season}`)
         .then(res => res.json())
         .then(player => {
