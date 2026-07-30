@@ -435,7 +435,7 @@ function loadPlayerOfDay(season) {
 
             console.log("Player of the Day JSON:", player);
 
-            document.getElementById("pod-name").textContent = player.Name;
+            document.getElementById("pod-name").textContent = player.Player;
             document.getElementById("pod-team").textContent = player.Team;
 
             document.getElementById("pod-overall").textContent =
@@ -448,6 +448,7 @@ function loadPlayerOfDay(season) {
             console.error("Error loading Player of the Day:", err);
         });
 }
+
 
 
 
