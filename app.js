@@ -428,19 +428,27 @@ function loadleagueAverages(season) {
 // -------------------------------
 // Load Player of the Day
 // -------------------------------
-function loadplayerofDay(season) {
+function loadPlayerOfDay(season) {
     fetch(`https://pitcher-analyzer-backend.onrender.com/api/player-of-day?season=${season}`)
         .then(res => res.json())
         .then(player => {
+
+            console.log("Player of the Day JSON:", player);
+
             document.getElementById("pod-name").textContent = player.Name;
             document.getElementById("pod-team").textContent = player.Team;
-            document.getElementById("pod-overall").textContent = player.overall.toFixed(1);
-            document.getElementById("pod-xp").textContent = Math.round(player.XP);
-        })
-        .catch(err => console.error("Error loading Player of the Day:", err));
-console.log("Player of the Day JSON:", player);
 
+            document.getElementById("pod-overall").textContent =
+                Number(player.overall).toFixed(1);
+
+            document.getElementById("pod-xp").textContent =
+                Math.round(player.XP);
+        })
+        .catch(err => {
+            console.error("Error loading Player of the Day:", err);
+        });
 }
+
 
 
 // -------------------------------
