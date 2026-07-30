@@ -662,6 +662,40 @@ button.reset:hover {
     max-width: 260px;
 }
 
+/* -----------------------------------------
+   Player of the Day
+----------------------------------------- */
+#player-of-day {
+    background: #f8f9fa;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 14px 18px;
+    max-width: 280px;
+    margin: 20px auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    font-family: Arial, sans-serif;
+}
+
+#player-of-day h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+#player-of-day p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #444;
+}
+
+#player-of-day span {
+    font-weight: 600;
+    color: #222;
+}
+
 
 
 /* -----------------------------------------
