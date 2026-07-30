@@ -9,7 +9,7 @@
 
 const season = 2026;
 loadleagueAverages(season);
-loadplayerofDay(season);
+loadPlayerOfDay(season);
 
 // -------------------------------
 // Safe helpers
