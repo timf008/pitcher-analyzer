@@ -9,6 +9,7 @@
 
 const season = 2026;
 loadleagueAverages(season);
+loadPlayerofDay(season);
 
 // -------------------------------
 // Safe helpers
@@ -422,6 +423,21 @@ function loadleagueAverages(season) {
             document.getElementById("league-avg-xp").textContent = "N/A";
             document.getElementById("league-avg-overall").textContent = "N/A";
         });
+}
+
+// -------------------------------
+// Load Player of the Day
+// -------------------------------
+function loadPlayerOfDay(season) {
+    fetch(`https://pitcher-analyzer-backend.onrender.com/api/player-of-day?season=${season}`)
+        .then(res => res.json())
+        .then(player => {
+            document.getElementById("pod-name").textContent = player.Name;
+            document.getElementById("pod-team").textContent = player.Team;
+            document.getElementById("pod-overall").textContent = player.overall.toFixed(1);
+            document.getElementById("pod-xp").textContent = Math.round(player.XP);
+        })
+        .catch(err => console.error("Error loading Player of the Day:", err));
 }
 
 
