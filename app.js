@@ -438,6 +438,8 @@ function loadplayerofDay(season) {
             document.getElementById("pod-xp").textContent = Math.round(player.XP);
         })
         .catch(err => console.error("Error loading Player of the Day:", err));
+console.log("Player of the Day JSON:", player);
+
 }
 
 
