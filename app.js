@@ -443,11 +443,16 @@ function loadPlayerOfDay(season) {
 
             document.getElementById("pod-xp").textContent =
                 Math.round(player.XP);
+
+            // NEW: W/L + Games
+            const recordText = `${player.Player} is ${player.W}-${player.L} across ${player.G} games.`;
+            document.getElementById("pod-record").textContent = recordText;
         })
         .catch(err => {
             console.error("Error loading Player of the Day:", err);
         });
 }
+
 
 
 
