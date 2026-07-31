@@ -454,57 +454,6 @@ function loadPlayerOfDay(season) {
 }
 
 // -------------------------------
-// Fetch Today's Games (MLB API) - Ticker
-// -------------------------------
-async function getMLBSchedule(dateStr) {
-  const url = `https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=${dateStr}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.dates?.[0]?.games || [];
-}
-
-// -------------------------------
-// Render Today's Games (MLB API) - Ticker
-// -------------------------------
-function formatScheduleForTicker(games) {
-  return games
-    .map(g => {
-      const away = g.teams.away.team.name;   // FIXED
-      const home = g.teams.home.team.name;   // FIXED
-
-      const date = new Date(g.gameDate);
-      const time = date.toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "2-digit"
-      });
-
-      return `${away} @ ${home} — ${time}`;
-    })
-    .join(" • ");
-}
-
-// -------------------------------
-// Inject into MLB Schedule Span
-// -------------------------------
-function injectScheduleIntoTicker(scheduleStr) {
-  const scheduleSpan = document.getElementById("mlb-schedule");
-  scheduleSpan.textContent = scheduleStr;
-}
-
-// -------------------------------
-// Main Runner
-// -------------------------------
-async function updateTickerWithSchedule() {
-  const today = new Date().toISOString().split("T")[0];
-  const games = await getMLBSchedule(today);
-
-  const scheduleStr = formatScheduleForTicker(games);
-  injectScheduleIntoTicker(scheduleStr);
-}
-
-updateTickerWithSchedule();
-
-// -------------------------------
 // Trend Handler (Season Comparison)
 // -------------------------------
 async function handleTrend() {
