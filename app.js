@@ -455,8 +455,6 @@ function loadPlayerOfDay(season) {
 
 
 
-
-
 // -------------------------------
 // Trend Handler (Season Comparison)
 // -------------------------------
