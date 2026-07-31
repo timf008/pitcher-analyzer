@@ -500,9 +500,32 @@ async function updateTickerWithSchedule() {
 
   const scheduleStr = formatScheduleForTicker(games);
   injectScheduleIntoTicker(scheduleStr);
+  controlTickerSpeed();
 }
 
 updateTickerWithSchedule();
+
+// -------------------------------
+// Ticker Speed
+// -------------------------------
+
+function controlTickerSpeed() {
+  const tickerText = document.getElementById("ticker-text");
+  const track = document.querySelector("#player-ticker .ticker-track");
+
+  if (!tickerText || !track) return;
+
+  // Measure how wide the ticker content is
+  const textWidth = tickerText.offsetWidth;
+
+  // Measure viewport width
+  const viewportWidth = window.innerWidth;
+
+  // Longer text → longer animation duration
+  const duration = (textWidth / viewportWidth) * 12; // adjust multiplier if needed
+
+  track.style.animationDuration = `${duration}s`;
+}
 
 
 
