@@ -500,8 +500,6 @@ async function updateTickerWithSchedule() {
 
   const scheduleStr = formatScheduleForTicker(games);
   injectScheduleIntoTicker(scheduleStr);
-
-  adjustTickerSpeed(); // NEW
 }
 
 updateTickerWithSchedule();
