@@ -469,8 +469,8 @@ async function getMLBSchedule(dateStr) {
 function formatScheduleForTicker(games) {
   return games
     .map(g => {
-      const away = g.teams.away.team.teamName;
-      const home = g.teams.home.team.teamName;
+      const away = g.teams.away.team.name;   // FIXED
+      const home = g.teams.home.team.name;   // FIXED
 
       const date = new Date(g.gameDate);
       const time = date.toLocaleTimeString([], {
@@ -503,7 +503,6 @@ async function updateTickerWithSchedule() {
 }
 
 updateTickerWithSchedule();
-
 
 
 
