@@ -426,7 +426,7 @@ function loadleagueAverages(season) {
 }
 
 // -------------------------------
-// Load Player of the Day
+// Load Player of the Day - Ticker
 // -------------------------------
 function loadPlayerOfDay(season) {
     fetch(`https://pitcher-analyzer-backend.onrender.com/api/player-of-day?season=${season}`)
@@ -452,6 +452,59 @@ function loadPlayerOfDay(season) {
             console.error("Error loading Player of the Day:", err);
         });
 }
+
+// -------------------------------
+// Fetch Today's Games (MLB API) - Ticker
+// -------------------------------
+async function getMLBSchedule(dateStr) {
+  const url = `https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=${dateStr}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.dates?.[0]?.games || [];
+}
+
+// -------------------------------
+// Render Today's Games (MLB API) - Ticker
+// -------------------------------
+function formatScheduleForTicker(games) {
+  return games
+    .map(g => {
+      const away = g.teams.away.team.abbreviation;
+      const home = g.teams.home.team.abbreviation;
+
+      // Convert gameDate → local time
+      const date = new Date(g.gameDate);
+      const time = date.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit"
+      });
+
+      return `${away} @ ${home} — ${time}`;
+    })
+    .join(" • ");
+}
+
+// -------------------------------
+// Inject into MLB Schedule Span
+// -------------------------------
+function injectScheduleIntoTicker(scheduleStr) {
+  const scheduleSpan = document.getElementById("mlb-schedule");
+  scheduleSpan.textContent = scheduleStr;
+}
+
+// -------------------------------
+// Main Runner
+// -------------------------------
+async function updateTickerWithSchedule() {
+  const today = new Date().toISOString().split("T")[0];
+  const games = await getMLBSchedule(today);
+
+  const scheduleStr = formatScheduleForTicker(games);
+  injectScheduleIntoTicker(scheduleStr);
+}
+
+updateTickerWithSchedule();
+
 
 
 
