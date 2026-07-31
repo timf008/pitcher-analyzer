@@ -681,6 +681,8 @@ button.reset:hover {
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
     font-size: 15px;
     font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 
 #ticker-text {
