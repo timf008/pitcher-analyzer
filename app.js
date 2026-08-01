@@ -386,6 +386,7 @@ console.log("XP field:", p?.XP);
         updateTier(overall);
         updateScoutingNote(p);
         updateXP(p.XP);
+        updateIdentityBadge(p.XP, overall);
 
         // ⭐ ADD THIS — now data is defined
         document.getElementById("overallPercentile").textContent =
@@ -832,11 +833,32 @@ function buildLeadersTable(arr) {
     document.getElementById("leadersModal").style.display = "flex";
 }
 
+// -------------------------------
+// Light Up Fantasy Badge
+// -------------------------------
+function classifyPlayer(xp, skill) {
+    if (xp >= 995 && skill >= 8.0) return "breakout";
+    if (xp <= 940 && skill >= 7.5) return "sleeper";
+    if (xp >= 995 && skill <= 6.5) return "overperformer";
+    return "neutral";
+}
 
 
+function updateIdentityBadge() {
+    const xp = parseFloat(document.getElementById("xpScore").textContent);
+    const skill = parseFloat(document.getElementById("overallScore").textContent);
 
+    const identity = classifyPlayer(xp, skill);
 
+    document.querySelectorAll(".identity-badge").forEach(badge => {
+        badge.classList.remove("active");
+    });
 
+    if (identity !== "neutral") {
+        const badge = document.querySelector(`.identity-badge.${identity}`);
+        if (badge) badge.classList.add("active");
+    }
+}
 
 
 // -------------------------------
