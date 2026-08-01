@@ -707,7 +707,6 @@ button.reset:hover {
 /* Identity Badge */
 #player-identity-key {
     font-size: 13px;
-    margin-top: 12px;
     padding: 10px 14px;
     background: #fafafa;
     border-radius: 6px;
@@ -740,7 +739,6 @@ button.reset:hover {
     padding: 10px 14px;
     border-radius: 6px;
     border: 1px solid #ddd;
-    margin-top: 15px;
 }
 
 .info-title {
