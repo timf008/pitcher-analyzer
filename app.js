@@ -834,7 +834,7 @@ function buildLeadersTable(arr) {
 }
 
 // -------------------------------
-// Light Up Fantasy Badge
+// Light Up Fantasy Badge (Pitchers)
 // -------------------------------
 function classifyPlayer(xp, skill) {
     if (xp >= 980 && skill >= 8.0) return "breakout";
@@ -843,22 +843,31 @@ function classifyPlayer(xp, skill) {
     return "neutral";
 }
 
-
 function updateIdentityBadge() {
     const xp = parseFloat(document.getElementById("xpScore").textContent);
     const skill = parseFloat(document.getElementById("overallScore").textContent);
 
     const identity = classifyPlayer(xp, skill);
 
+    // Clear all active states
     document.querySelectorAll(".identity-badge").forEach(badge => {
         badge.classList.remove("active");
     });
 
+    // Light up the correct one
     if (identity !== "neutral") {
         const badge = document.querySelector(`.identity-badge.${identity}`);
         if (badge) badge.classList.add("active");
     }
 }
+
+// Optional: call this inside your reset button
+function clearIdentityBadges() {
+    document.querySelectorAll(".identity-badge").forEach(badge => {
+        badge.classList.remove("active");
+    });
+}
+
 
 
 // -------------------------------
@@ -931,6 +940,7 @@ function handleReset() {
     document.getElementById("xpScore").innerHTML = "--";
     document.getElementById("playerTab").textContent = "Player:--";
     document.getElementById("playerPhoto").src = "images/pitcher.png";
+    clearIdentityBadges();
 
 }
 
