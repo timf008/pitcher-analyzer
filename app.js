@@ -837,9 +837,9 @@ function buildLeadersTable(arr) {
 // Light Up Fantasy Badge
 // -------------------------------
 function classifyPlayer(xp, skill) {
-    if (xp >= 995 && skill >= 8.0) return "breakout";
-    if (xp <= 940 && skill >= 7.5) return "sleeper";
-    if (xp >= 995 && skill <= 6.5) return "overperformer";
+    if (xp >= 980 && skill >= 8.0) return "breakout";
+    if (xp <= 960 && skill >= 7.0) return "sleeper";
+    if (xp >= 930 && skill <= 6.5) return "overperformer";
     return "neutral";
 }
 
