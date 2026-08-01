@@ -695,7 +695,8 @@ button.reset:hover {
     display: flex;
     gap: 16px;
     margin-top: 20px;
-    align-items: flex-start;
+    align-items: stretch;
+    justify-content: center;
 }
 
 /* Make all children equal width */
