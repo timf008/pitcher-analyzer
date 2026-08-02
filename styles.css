@@ -732,12 +732,14 @@ button.reset:hover {
 
 .identity-badge.active {
     opacity: 1;
-    transform: scale(1.15);
+    transform: scale(1.4);
 }
 
 .identity-badge.sleeper { background: #4a90e2; }
 .identity-badge.overperformer { background: #f5a623; }
 .identity-badge.breakout { background: #7ed321; }
+.identity-badge.consistent { background: #9b9b9b;
+}
 
 /* League Averages */
 #league-averages {
