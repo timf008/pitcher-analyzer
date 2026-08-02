@@ -840,8 +840,10 @@ function classifyPlayer(xp, skill) {
     if (xp >= 980 && skill >= 8.0) return "breakout";
     if (xp <= 960 && skill >= 7.0) return "sleeper";
     if (xp >= 930 && skill <= 6.5) return "overperformer";
+    if (xp >= 900 && skill >= 4.5) return "consistent";
     return "neutral";
 }
+
 
 function updateIdentityBadge() {
     const xp = parseFloat(document.getElementById("xpScore").textContent);
