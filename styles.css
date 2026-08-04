@@ -765,7 +765,29 @@ button.reset:hover {
     text-align: center;
 }
 
+/* -----------------------------------------
+   Monthly Index
+----------------------------------------- */
+.indexWrapper {
+    margin: 30px auto;
+    padding: 18px 22px;
+    max-width: 320px;
+    background: #fafafa;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
 
+/* Keep indexHeader — styled to match your info-title */
+.indexHeader {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #333;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
 
 /* -----------------------------------------
    Footer
