@@ -836,16 +836,39 @@ function buildLeadersTable(arr) {
 // -------------------------------
 // Light Up Fantasy Badge (Pitchers)
 // -------------------------------
-function classifyPlayer(xp, skill) {
-    if (xp > 930 && skill >= 7.0) return "breakout";
-    if (xp <= 930 && skill >= 6.0) return "sleeper";
-    if (xp >= 930 && skill <= 6.0) return "overperformer";
-    if (xp < 930 && skill >= 4.5) return "consistent";
+
+// XP tier backbone tuned to your pitcher dataset
+function xpTierPitcher(xp) {
+    if (xp >= 1000) return "breakout";
+    if (xp >= 950)  return "overperformer";
+    if (xp >= 900)  return "sleeper";
+    if (xp >= 880)  return "consistent";
     return "neutral";
+}
+
+// Skill modifier tuned for pitcher volatility
+function applyPitcherSkillModifier(tier, skill) {
+    const order = ["neutral", "consistent", "sleeper", "overperformer", "breakout"];
+    let index = order.indexOf(tier);
+
+    if (skill >= 7.0) index++;     // bump up
+    if (skill <= 5.5) index--;     // bump down
+
+    index = Math.max(0, Math.min(order.length - 1, index));
+    return order[index];
+}
+
+// Final pitcher classifier (patched)
+function classifyPlayer(xp, skill) {
+    const base = xpTierPitcher(xp);
+    return applyPitcherSkillModifier(base, skill);
 }
 
 
 
+// -------------------------------
+// DOM Badge Update
+// -------------------------------
 function updateIdentityBadge() {
     const xp = parseFloat(document.getElementById("xpScore").textContent);
     const skill = parseFloat(document.getElementById("overallScore").textContent);
@@ -870,6 +893,7 @@ function clearIdentityBadges() {
         badge.classList.remove("active");
     });
 }
+
 
 
 
