@@ -770,24 +770,48 @@ button.reset:hover {
    Monthly Index
 ----------------------------------------- */
 .indexWrapper {
-    margin: 30px auto;
-    padding: 18px 22px;
-    max-width: 320px;
-    background: #fafafa;
-    border: 1px solid #e2e2e2;
-    border-radius: 6px;
-    text-align: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* Keep indexHeader — styled to match your info-title */
 .indexHeader {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 14px;
-    color: #333;
-    text-align: center;
-    letter-spacing: 0.3px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.reportGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.reportCard {
+  background: #f7f7f7;
+  border-radius: 10px;
+  padding: 18px;
+  text-decoration: none;
+  color: #222;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.reportCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.reportTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.reportDesc {
+  font-size: 0.9rem;
+  color: #555;
 }
 
 /* -----------------------------------------
