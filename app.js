@@ -1016,6 +1016,7 @@ function handleReset() {
     document.getElementById("playerTab").textContent = "Player:--";
     document.getElementById("playerPhoto").src = "images/pitcher.png";
     clearIdentityBadges();
+    clearStateBadges();
 
 }
 
