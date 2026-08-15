@@ -749,6 +749,60 @@ button.reset:hover {
 .identity-badge.consistent { background: #9b9b9b;
 }
 
+/* -----------------------------------------
+   Player State Key
+----------------------------------------- */
+/* Player State Key */
+#player-state-key {
+    font-size: 13px;
+    padding: 10px 14px;
+    background: #fafafa;
+    border-radius: 6px;
+    border: 1px solid #e2e2e2;
+}
+
+/* State Badge */
+.state-badge {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+    opacity: 0.35;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Active State (mirrors identity-badge.active) */
+.state-badge.active {
+    opacity: 1;
+    transform: scale(1.2);
+    animation: pulse 1.4s ease-in-out infinite;
+}
+
+/* Reuse your existing pulse animation */
+@keyframes pulse {
+    0%   { transform: scale(1.2); }
+    50%  { transform: scale(1.4); }
+    100% { transform: scale(1.2); }
+}
+
+/* State Colors */
+.state-badge.strong {
+    background: #2ecc71; /* green */
+}
+
+.state-badge.stable {
+    background: #3498db; /* blue */
+}
+
+.state-badge.vulnerable {
+    background: #f1c40f; /* yellow */
+}
+
+.state-badge.high-risk {
+    background: #e74c3c; /* red */
+}
+
 /* League Averages */
 #league-averages {
     font-size: 14px;
