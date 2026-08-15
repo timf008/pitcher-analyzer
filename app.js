@@ -387,6 +387,10 @@ console.log("XP field:", p?.XP);
         updateScoutingNote(p);
         updateXP(p.XP);
         updateIdentityBadge(p.XP, overall);
+        const div = calculatePitcherDivergence(p.XP, overall);
+        const state = pitcherDivergenceState(div.divergencePct);
+        updateStateBadge(state);
+
 
         // ⭐ ADD THIS — now data is defined
         document.getElementById("overallPercentile").textContent =
@@ -863,6 +867,50 @@ function classifyPlayer(xp, skill) {
     const base = xpTierPitcher(xp);
     return applyPitcherSkillModifier(base, skill);
 }
+
+// -------------------------------
+// Calculate Divergence (Pitchers)
+// -------------------------------
+function calculatePitcherDivergence(xp, overall) {
+    const expectedXP = 798.38 + (23.66 * overall);
+    const divergence = (xp - expectedXP) / expectedXP;
+
+    return {
+        expectedXP,
+        divergence,
+        divergencePct: divergence * 100
+    };
+}
+
+// -------------------------------
+// Divergence → Fantasy State (Pitchers)
+// -------------------------------
+function pitcherDivergenceState(divergencePct) {
+    if (divergencePct > 2.44) return "strong";
+    if (divergencePct >= -2.44) return "stable";
+    if (divergencePct >= -4.88) return "vulnerable";
+    return "high-risk";
+}
+
+// -------------------------------
+// Update State Badge
+// -------------------------------
+function updateStateBadge(state) {
+    clearStateBadges();
+
+    const badge = document.querySelector(`.state-badge.${state}`);
+    if (badge) badge.classList.add("active");
+}
+
+// -------------------------------
+// Clear State Badges
+// -------------------------------
+function clearStateBadges() {
+    document.querySelectorAll(".state-badge").forEach(badge => {
+        badge.classList.remove("active");
+    });
+}
+
 
 
 
