@@ -718,7 +718,7 @@ button.reset:hover {
     padding: 10px 14px;
     background: #fafafa;
     border-radius: 6px;
-    border: 1px solid #e2e2e2;
+    border: 2px solid #006CD5;
 }
 
 .identity-badge {
@@ -758,7 +758,7 @@ button.reset:hover {
     padding: 10px 14px;
     background: #fafafa;
     border-radius: 6px;
-    border: 1px solid #e2e2e2;
+    border: 2px solid #26A460;
 }
 
 /* State Badge */
@@ -819,6 +819,54 @@ button.reset:hover {
     color: #333;
     text-align: center;
 }
+
+
+/* -----------------------------------------
+   Player Value Key
+----------------------------------------- */
+#player-value-key {
+    font-size: 13px;
+    padding: 10px 14px;
+    background: #fafafa;
+    border-radius: 6px;
+    border: 2px solid #FD8E02;
+}
+
+/* Value Badge (same structure as identity/state) */
+.value-badge {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+    opacity: 0.35;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Active Value Badge */
+.value-badge.active {
+    opacity: 1;
+    transform: scale(1.2);
+    animation: pulse 1.4s ease-in-out infinite;
+}
+
+/* Value Colors (distinct from State) */
+.value-badge.extreme {
+    background: #8e44ad; /* purple */
+}
+
+.value-badge.elevated {
+    background: #16a085; /* teal */
+}
+
+.value-badge.below {
+    background: #d35400; /* orange */
+}
+
+.value-badge.suppressed {
+    background: #7f8c8d; /* muted gray */
+}
+
 
 /* -----------------------------------------
    Monthly Index
