@@ -8,7 +8,6 @@
 // -------------------------------
 
 const season = 2026;
-loadleagueAverages(season);
 loadPlayerOfDay(season);
 
 // -------------------------------
