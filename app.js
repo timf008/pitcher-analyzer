@@ -107,9 +107,6 @@ return arr;
 
 
 
-
-
-
 // -------------------------------
 // Battery fill updater
 // -------------------------------
@@ -334,8 +331,6 @@ function scoreKBB(kbb) {
 // Main: Load player + update UI (backend-only)
 // -------------------------------
 async function handleLoad() {
-    const spin = document.getElementById("spinner1");
-    spin.classList.add("spin");
 
     try {
         const name = document.getElementById("playerName").value.trim();
@@ -357,9 +352,8 @@ async function handleLoad() {
         // ⭐ Always normalize to object
         const p = Array.isArray(data) ? data[0] : data;
 
-console.log("FULL pitcher object from backend:", p);
-console.log("XP field:", p?.XP);
-
+        console.log("FULL pitcher object from backend:", p);
+        console.log("XP field:", p?.XP);
 
         // ⭐ Only 5 metrics now
         const eraScore   = scoreERA(p.ERA);
@@ -387,48 +381,22 @@ console.log("XP field:", p?.XP);
         updateScoutingNote(p);
         updateXP(p.XP);
         updateIdentityBadge(p.XP, overall);
+
         const div = calculatePitcherDivergence(p.XP, overall);
         const state = pitcherDivergenceState(div.divergencePct);
         updateStateBadge(state);
 
-
         // ⭐ ADD THIS — now data is defined
         document.getElementById("overallPercentile").textContent =
-    p.Overall_pct !== undefined
-        ? toOrdinal(Math.round(p.Overall_pct))
-        : "--";
+            p.Overall_pct !== undefined
+                ? toOrdinal(Math.round(p.Overall_pct))
+                : "--";
 
     } catch (err) {
         console.error("Error loading player:", err);
-    } finally {
-        spin.classList.remove("spin");
     }
 }
 
-// -------------------------------
-// Pitcher League Averages XP + Overall Score
-// -------------------------------
-function loadleagueAverages(season) {
-    fetch(`https://pitcher-analyzer-backend.onrender.com/api/pitching/averages?season=${season}`)
-        .then(res => res.json())
-        .then(data => {
-            // Handle both formats:
-            // 1) { league_avg_XP: 842.1, league_avg_overall: 3.4 }
-            // 2) [ { league_avg_XP: 842.1, league_avg_overall: 3.4 } ]
-            const avg = Array.isArray(data) ? data[0] : data;
-
-            document.getElementById("league-avg-xp").textContent =
-                Math.round(avg.league_avg_XP);
-
-            document.getElementById("league-avg-overall").textContent =
-                avg.league_avg_overall.toFixed(1);
-        })
-        .catch(err => {
-            console.error("Error fetching pitcher league averages:", err);
-            document.getElementById("league-avg-xp").textContent = "N/A";
-            document.getElementById("league-avg-overall").textContent = "N/A";
-        });
-}
 
 // -------------------------------
 // Load Player of the Day - Ticker
@@ -462,8 +430,6 @@ function loadPlayerOfDay(season) {
 // Trend Handler (Season Comparison)
 // -------------------------------
 async function handleTrend() {
-    const spin = document.getElementById("spinner1");
-    spin.classList.add("spin");
 
     try {
         const rawName = document.getElementById("playerName").value.trim();
@@ -526,10 +492,11 @@ async function handleTrend() {
         document.getElementById("trendBody").innerHTML = html;
         document.getElementById("trendModal").style.display = "flex";
 
-    } finally {
-        spin.classList.remove("spin");
+    } catch (err) {
+        console.error("Trend error:", err);
     }
 }
+
 
 // -------------------------------
 // Trend Table (Season Comparison)
@@ -612,14 +579,10 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
     `;
 }
 
-
 // -------------------------------
 // Compare Button
 // -------------------------------
-
 async function showCompareModal() {
-    const spin = document.getElementById("spinner1");
-    spin.classList.add("spin");
 
     console.log("COMPARE BUTTON CLICKED");
 
@@ -644,7 +607,6 @@ async function showCompareModal() {
 
         const data1Arr = await loadPitcher(p1_raw, s1, true);
         const data2Arr = await loadPitcher(p2_raw, s2, true);
-
 
         const data1 = Array.isArray(data1Arr) ? data1Arr[0] : data1Arr;
         const data2 = Array.isArray(data2Arr) ? data2Arr[0] : data2Arr;
@@ -696,14 +658,13 @@ async function showCompareModal() {
         const xp1 = computePitcherXP(data1);
         const xp2 = computePitcherXP(data2);
 
-
         const stats = [
             ["ERA",  Number(data1.ERA),  Number(data2.ERA),  Number(data1.ERA).toFixed(2),  Number(data2.ERA).toFixed(2)],
             ["WHIP", Number(data1.WHIP), Number(data2.WHIP), Number(data1.WHIP).toFixed(2), Number(data2.WHIP).toFixed(2)],
             ["K%",   Number(data1.Kpct), Number(data2.Kpct), Number(data1.Kpct).toFixed(2), Number(data2.Kpct).toFixed(2)],
             ["BB%",  Number(data1.BBpct),Number(data2.BBpct),Number(data1.BBpct).toFixed(2),Number(data2.BBpct).toFixed(2)],
             ["K/BB", Number(data1.KBB),  Number(data2.KBB),  Number(data1.KBB).toFixed(2),  Number(data2.KBB).toFixed(2)],
-["XP", xp1, xp2, Math.round(xp1), Math.round(xp2)],
+            ["XP", xp1, xp2, Math.round(xp1), Math.round(xp2)],
             ["Overall Score", Number(overall1), Number(overall2), Number(overall1).toFixed(2), Number(overall2).toFixed(2)]
         ];
 
@@ -739,10 +700,9 @@ async function showCompareModal() {
 
     } catch (err) {
         console.error("Compare error:", err);
-    } finally {
-        spin.classList.remove("spin");
     }
 }
+
 
 
 // -------------------------------
@@ -757,8 +717,6 @@ function handleLeaders() {
 // Leaders Loader
 // -------------------------------
 async function loadLeaders() {
-    const spin = document.getElementById("spinner1");
-    spin.classList.add("spin");
 
     try {
         const season = document.getElementById("seasonSelect").value;
@@ -777,10 +735,9 @@ async function loadLeaders() {
     } catch (err) {
         console.error("Pitching Leaders error:", err);
         alert("Error loading leaderboard.");
-    } finally {
-        spin.classList.remove("spin");
     }
 }
+
 
 // -------------------------------
 // Leaders Table Name Normalization
