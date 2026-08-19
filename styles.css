@@ -30,6 +30,21 @@ body {
   font-weight: 600;
 }
 
+/* -----------------------------------------
+   Batter Analyzer Wordmark Image
+----------------------------------------- */
+.header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.header .pitcher-analyzer {
+    width: 550px;        /* your target size */
+    max-width: 100%;     /* prevents overflow on small screens */
+    height: auto;
+    display: block;
+    margin: 0 auto;      /* centers the image */
+}
 
 
 /* -----------------------------------------
