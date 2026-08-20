@@ -39,7 +39,7 @@ body {
 }
 
 .header .pitcher-analyzer {
-    width: 550px;        /* your target size */
+    width: 500px;        /* your target size */
     max-width: 100%;     /* prevents overflow on small screens */
     height: auto;
     display: block;
