@@ -47,9 +47,19 @@ function toOrdinal(n) {
 // -------------------------------
 function toTitleCase(str) {
     return str
-        .toLowerCase()
         .split(" ")
-        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .map(word =>
+            word.split("-")
+                .map(part => {
+                    // Detect initials even if input is "cj", "Cj", or "cJ"
+                    if (/^[A-Za-z]{2}$/.test(part)) {
+                        return part.toUpperCase(); // Force CJ, JT, JR, etc.
+                    }
+
+                    return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+                })
+                .join("-")
+        )
         .join(" ");
 }
 
