@@ -933,12 +933,16 @@ button.reset:hover {
     background: #16a085; /* teal */
 }
 
+.value-badge.expected {
+    background: #0578c5; /* blue */
+}
+
 .value-badge.below {
-    background: #d35400; /* orange */
+    background: #f5a606; /* orange */
 }
 
 .value-badge.suppressed {
-    background: #7f8c8d; /* muted gray */
+    background: #d35400; /* red */
 }
 
 
