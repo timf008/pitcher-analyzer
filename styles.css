@@ -945,6 +945,33 @@ button.reset:hover {
     background: #d35400; /* red */
 }
 
+/* -----------------------------------------
+   Leaders Table Fantasy Identity
+----------------------------------------- */
+.leader-identity {
+    font-weight: 700;
+}
+
+.leader-identity.breakout {
+    color: green;
+}
+
+.leader-identity.overperformer {
+    color: orange;
+}
+
+.leader-identity.sleeper {
+    color: blue;
+}
+
+.leader-identity.consistent {
+    color: #444;
+}
+
+.leader-identity.neutral {
+    color: #777;
+}
+
 
 /* -----------------------------------------
    Monthly Index
