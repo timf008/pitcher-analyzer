@@ -1216,7 +1216,7 @@ function handleReset() {
     clearValueBadges();
     
     // Clear Fantasy Summary
-document.getElementById("summaryIdentity").textContent = "--";
+document.getElementById("summaryIdentity").textContent = "Fantasy Identity: --";
 document.getElementById("summaryIdentityText").textContent =
     "Load a player to view their Fantasy Identity analysis.";
 
