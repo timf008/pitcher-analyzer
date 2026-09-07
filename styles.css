@@ -999,7 +999,7 @@ button.reset:hover {
 }
 
 .fantasy-summary-title {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 700;
     margin-bottom: 12px;
     color: #0f243e;
@@ -1014,13 +1014,13 @@ button.reset:hover {
 }
 
 .fantasy-summary-item strong {
-    font-size: 12px;
+    font-size: 14px;
     color: #222;
 }
 
 .fantasy-summary-item p {
     margin: 3px 0 0;
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.4;
     color: #555;
 }
