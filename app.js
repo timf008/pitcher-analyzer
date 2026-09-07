@@ -1214,6 +1214,19 @@ function handleReset() {
     clearIdentityBadges();
     clearStateBadges();
     clearValueBadges();
+    
+    // Clear Fantasy Summary
+document.getElementById("summaryIdentity").textContent = "--";
+document.getElementById("summaryIdentityText").textContent =
+    "Load a player to view their Fantasy Identity analysis.";
+
+document.getElementById("summaryState").textContent = "Fantasy State: --";
+document.getElementById("summaryStateText").textContent =
+    "Load a player to view their Fantasy State analysis.";
+
+document.getElementById("summaryValue").textContent = "Fantasy Value: --";
+document.getElementById("summaryValueText").textContent =
+    "Load a player to view their Fantasy Value analysis.";
 
 }
 
