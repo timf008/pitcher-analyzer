@@ -1047,6 +1047,7 @@ function handleReset() {
     document.getElementById("playerPhoto").src = "images/pitcher.png";
     clearIdentityBadges();
     clearStateBadges();
+    clearValueBadges();
 
 }
 
