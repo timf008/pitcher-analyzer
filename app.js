@@ -779,16 +779,15 @@ function normalizeName(raw) {
 }
 
 // -------------------------------
-// Leaders Table Builder (PATCHED)
+// Leaders Table Builder
 // -------------------------------
 function buildLeadersTable(arr) {
     const tbody = document.getElementById("leadersBody");
     tbody.innerHTML = "";
 
-    
     const filtered = arr;
 
-    // Sort by OVERALL score (backend computed)
+    // Sort by OVERALL score
     const sorted = [...filtered].sort((a, b) => b.overall - a.overall);
 
     // Top 50 pitchers
@@ -799,16 +798,26 @@ function buildLeadersTable(arr) {
         p.Player = normalizeName(p.Player);
         p.Name   = normalizeName(p.Name);
 
-        const rank = index + 1; // ⭐ numeric rank
+        const rank = index + 1;
+
+        const identity = p.identity || "Neutral";
+        const identityClass = identity.toLowerCase();
 
         const row = document.createElement("tr");
+
         row.innerHTML = `
             <td>${rank}</td>
             <td>${p.Player}</td>
             <td>${p.Team}</td>
             <td>${Math.round(p.XP)}</td>
             <td>${p.overall.toFixed(2)}</td>
+            <td>
+                <span class="leader-identity ${identityClass}">
+                    ${identity}
+                </span>
+            </td>
         `;
+
         tbody.appendChild(row);
     });
 
