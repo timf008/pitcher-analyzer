@@ -972,6 +972,20 @@ button.reset:hover {
     color: #777;
 }
 
+/* -----------------------------------------
+   Leaders Table Clickable Name
+----------------------------------------- */
+.leader-player-link {
+    all: unset;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+}
+
+.leader-player-link:hover {
+    text-decoration: underline;
+}
+
 
 /* -----------------------------------------
    Monthly Index
