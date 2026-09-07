@@ -953,19 +953,19 @@ button.reset:hover {
 }
 
 .leader-identity.breakout {
-    color: green;
+    color: #7ed321;
 }
 
 .leader-identity.overperformer {
-    color: orange;
+    color: #f5a623;
 }
 
 .leader-identity.sleeper {
-    color: blue;
+    color: #4a90e2;
 }
 
 .leader-identity.consistent {
-    color: #444;
+    color: #9b9b9b;
 }
 
 .leader-identity.neutral {
