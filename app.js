@@ -795,8 +795,10 @@ function buildLeadersTable(arr) {
 
     // Build table rows (#1–50)
     top50.forEach((p, index) => {
-        p.Player = normalizeName(p.Player);
-        p.Name   = normalizeName(p.Name);
+        const originalPlayer = p.Player;
+
+        const displayPlayer = normalizeName(p.Player);
+        p.Name = normalizeName(p.Name);
 
         const rank = index + 1;
 
@@ -807,7 +809,14 @@ function buildLeadersTable(arr) {
 
         row.innerHTML = `
             <td>${rank}</td>
-            <td>${p.Player}</td>
+            <td>
+                <button
+                    type="button"
+                    class="leader-player-link"
+                >
+                    ${displayPlayer}
+                </button>
+            </td>
             <td>${p.Team}</td>
             <td>${Math.round(p.XP)}</td>
             <td>${p.overall.toFixed(2)}</td>
@@ -817,6 +826,17 @@ function buildLeadersTable(arr) {
                 </span>
             </td>
         `;
+
+        // Click player name → load into Pitcher Analyzer
+        const playerButton = row.querySelector(".leader-player-link");
+
+        playerButton.addEventListener("click", async () => {
+            document.getElementById("playerName").value = originalPlayer;
+
+            document.getElementById("leadersModal").style.display = "none";
+
+            await handleLoad();
+        });
 
         tbody.appendChild(row);
     });
