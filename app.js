@@ -385,27 +385,42 @@ async function handleLoad() {
         });
 
         updateOverall(overall);
-        updateTier(overall);
-        updateScoutingNote(p);
-        updateXP(p.XP);
-        updateIdentityBadge(p.XP, overall);
+updateTier(overall);
+updateScoutingNote(p);
+updateXP(p.XP);
+updateIdentityBadge();
 
-        // -------------------------------
-        // Fantasy State
-        // -------------------------------
-        const div = calculatePitcherDivergence(p.XP, overall);
-        const state = pitcherDivergenceState(div.divergencePct);
-        updateStateBadge(state);
+// -------------------------------
+// Fantasy Identity
+// -------------------------------
+const identity = classifyPlayer(p.XP, overall);
 
-        // -------------------------------
-        // Fantasy Value
-        // -------------------------------
-        const fantasyValue = getFantasyValue(
-            p.OverallDivergence,
-            p.OverallDivergenceSD
-        );
+// -------------------------------
+// Fantasy State
+// -------------------------------
+const div = calculatePitcherDivergence(p.XP, overall);
+const state = pitcherDivergenceState(div.divergencePct);
 
-        updateValueBadge(fantasyValue);
+updateStateBadge(state);
+
+// -------------------------------
+// Fantasy Value
+// -------------------------------
+const fantasyValue = getFantasyValue(
+    p.OverallDivergence,
+    p.OverallDivergenceSD
+);
+
+updateValueBadge(fantasyValue);
+
+// -------------------------------
+// Fantasy Summary
+// -------------------------------
+updateFantasySummary(
+    identity,
+    state,
+    fantasyValue
+);
 
         // ⭐ Overall percentile
         document.getElementById("overallPercentile").textContent =
@@ -999,6 +1014,128 @@ function clearIdentityBadges() {
     document.querySelectorAll(".identity-badge").forEach(badge => {
         badge.classList.remove("active");
     });
+}
+
+// -------------------------------
+// Fantasy Summary
+// -------------------------------
+function updateFantasySummary(identity, state, value) {
+
+    const identityTitle = document.getElementById("summaryIdentity");
+    const identityText  = document.getElementById("summaryIdentityText");
+
+    const stateTitle = document.getElementById("summaryState");
+    const stateText  = document.getElementById("summaryStateText");
+
+    const valueTitle = document.getElementById("summaryValue");
+    const valueText  = document.getElementById("summaryValueText");
+
+    if (
+        !identityTitle || !identityText ||
+        !stateTitle || !stateText ||
+        !valueTitle || !valueText
+    ) return;
+
+    // -------------------------------
+    // Fantasy Identity
+    // -------------------------------
+    const identityLabels = {
+        breakout: "Breakout Star",
+        overperformer: "Overperformer",
+        sleeper: "Sleeper Candidate",
+        consistent: "Consistent Performer",
+        neutral: "Neutral"
+    };
+
+    const identityDescriptions = {
+        breakout:
+            "This player's production and underlying profile both indicate high-level performance.",
+
+        overperformer:
+            "This player's production is running ahead of the strength of their underlying profile.",
+
+        sleeper:
+            "This player's underlying profile is stronger than their current production tier suggests.",
+
+        consistent:
+            "This player's production and underlying profile are generally aligned.",
+
+        neutral:
+            "This player currently does not show a strong Fantasy Identity signal."
+    };
+
+    // -------------------------------
+    // Fantasy State
+    // -------------------------------
+    const stateLabels = {
+        strong: "Strong",
+        stable: "Stable",
+        vulnerable: "Vulnerable",
+        "high-risk": "High Risk"
+    };
+
+    const stateDescriptions = {
+        strong:
+            "Current production is outperforming the expected level implied by the player's underlying profile.",
+
+        stable:
+            "Current production is generally aligned with the player's underlying profile.",
+
+        vulnerable:
+            "Current production may be difficult to sustain relative to the player's underlying profile.",
+
+        "high-risk":
+            "Current production is showing significant instability relative to the player's underlying profile."
+    };
+
+    // -------------------------------
+    // Fantasy Value
+    // -------------------------------
+    const valueLabels = {
+        extreme: "Extreme",
+        elevated: "Elevated",
+        expected: "Expected",
+        below: "Below Expected",
+        suppressed: "Suppressed"
+    };
+
+    const valueDescriptions = {
+        extreme:
+            "This player's Fantasy Value signal is far above the expected range.",
+
+        elevated:
+            "This player's Fantasy Value signal is above the expected range.",
+
+        expected:
+            "This player's Fantasy Value signal is within the expected range.",
+
+        below:
+            "This player's Fantasy Value signal is below the expected range.",
+
+        suppressed:
+            "This player's Fantasy Value signal is well below the expected range."
+    };
+
+    // -------------------------------
+    // Update Summary
+    // -------------------------------
+    identityTitle.textContent =
+        `Fantasy Identity: ${identityLabels[identity] || "--"}`;
+
+    identityText.textContent =
+        identityDescriptions[identity] || "";
+
+    stateTitle.textContent =
+        `Fantasy State: ${stateLabels[state] || "--"}`;
+
+    stateText.textContent =
+        stateDescriptions[state] || "";
+
+    valueTitle.textContent =
+        `Fantasy Value: ${valueLabels[value] || "--"}`;
+
+    valueText.textContent =
+        valueDescriptions[value] || "";
 }
 
 
