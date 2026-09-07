@@ -335,7 +335,6 @@ function scoreKBB(kbb) {
 // function scoreFIP(fip) { ... }
 
 
-
 // -------------------------------
 // Main: Load player + update UI (backend-only)
 // -------------------------------
@@ -391,11 +390,24 @@ async function handleLoad() {
         updateXP(p.XP);
         updateIdentityBadge(p.XP, overall);
 
+        // -------------------------------
+        // Fantasy State
+        // -------------------------------
         const div = calculatePitcherDivergence(p.XP, overall);
         const state = pitcherDivergenceState(div.divergencePct);
         updateStateBadge(state);
 
-        // ⭐ ADD THIS — now data is defined
+        // -------------------------------
+        // Fantasy Value
+        // -------------------------------
+        const fantasyValue = getFantasyValue(
+            p.OverallDivergence,
+            p.OverallDivergenceSD
+        );
+
+        updateValueBadge(fantasyValue);
+
+        // ⭐ Overall percentile
         document.getElementById("overallPercentile").textContent =
             p.Overall_pct !== undefined
                 ? toOrdinal(Math.round(p.Overall_pct))
@@ -859,6 +871,47 @@ function pitcherDivergenceState(divergencePct) {
 }
 
 // -------------------------------
+// Divergence → Fantasy Value
+// -------------------------------
+function getFantasyValue(overallDivergence, divergenceSD) {
+    if (
+        overallDivergence == null ||
+        divergenceSD == null ||
+        divergenceSD === 0
+    ) {
+        return "expected";
+    }
+
+    const z = overallDivergence / divergenceSD;
+
+    if (z <= -1.5) return "extreme";
+    if (z <= -0.5) return "elevated";
+    if (z >= 1.5) return "suppressed";
+    if (z >= 0.5) return "below";
+
+    return "expected";
+}
+
+// -------------------------------
+// Update Fantasy Value Badge
+// -------------------------------
+function updateValueBadge(value) {
+    const container = document.getElementById("player-value-key");
+
+    if (!container) return;
+
+    container.querySelectorAll(".value-badge").forEach(badge => {
+        badge.classList.remove("active");
+    });
+
+    const badge = container.querySelector(`.value-badge.${value}`);
+
+    if (badge) {
+        badge.classList.add("active");
+    }
+}
+
+// -------------------------------
 // Update State Badge
 // -------------------------------
 function updateStateBadge(state) {
@@ -877,7 +930,18 @@ function clearStateBadges() {
     });
 }
 
+// -------------------------------
+// Clear Fantasy Value Badges
+// -------------------------------
+function clearValueBadges() {
+    const container = document.getElementById("player-value-key");
 
+    if (!container) return;
+
+    container.querySelectorAll(".value-badge").forEach(badge => {
+        badge.classList.remove("active");
+    });
+}
 
 
 // -------------------------------
