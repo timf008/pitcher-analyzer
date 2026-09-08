@@ -846,7 +846,7 @@ function buildLeadersTable(arr) {
         const playerButton = row.querySelector(".leader-player-link");
 
         playerButton.addEventListener("click", async () => {
-            document.getElementById("playerName").value = originalPlayer;
+            document.getElementById("playerName").value = displayPlayer;
 
             document.getElementById("leadersModal").style.display = "none";
 
