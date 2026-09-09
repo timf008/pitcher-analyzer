@@ -987,7 +987,6 @@ function clearValueBadges() {
     });
 }
 
-
 // -------------------------------
 // DOM Badge Update
 // -------------------------------
@@ -997,19 +996,12 @@ function updateIdentityBadge() {
 
     const identity = classifyPlayer(xp, skill);
 
-    // Clear all active states
-    document.querySelectorAll(".identity-badge").forEach(badge => {
-        badge.classList.remove("active");
-    });
+    clearIdentityBadges();
 
-    // Light up the correct one
-    if (identity !== "neutral") {
-        const badge = document.querySelector(`.identity-badge.${identity}`);
-        if (badge) badge.classList.add("active");
-    }
+    const badge = document.querySelector(`.identity-badge.${identity}`);
+    if (badge) badge.classList.add("active");
 }
 
-// Optional: call this inside your reset button
 function clearIdentityBadges() {
     document.querySelectorAll(".identity-badge").forEach(badge => {
         badge.classList.remove("active");
