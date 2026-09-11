@@ -768,6 +768,21 @@ button.reset:hover {
   margin: 0 auto; /* optional: centers the image */
 }
 
+/* ------------------------------
+   Fantasy Edge Panel
+------------------------------ */
+
+.fantasy-edge-panel {
+    margin-top: 24px;
+    padding: 20px 24px 24px;
+
+    background: #f8fbff;
+    border: 1px solid #cbd6e2;
+    border-radius: 12px;
+
+    box-shadow: 0 2px 8px rgba(15, 36, 62, 0.06);
+}
+
 /* -----------------------------------------
    Idenity Badge
 ----------------------------------------- */
@@ -1042,4 +1057,260 @@ button.reset:hover {
   border-radius: 10px;
   margin-bottom: 10px;
   margin-top: 20px;
+}
+
+/* ------------------------------
+   What to Watch
+------------------------------ */
+
+.watch-section {
+    margin-top: 24px;
+    padding: 18px 20px 20px;
+
+    background: #f8fbff;
+    border: 1px solid #cbd6e2;
+    border-radius: 12px;
+
+    box-shadow: 0 2px 8px rgba(15, 36, 62, 0.06);
+}
+
+
+/* ------------------------------
+   Header
+------------------------------ */
+
+.watch-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 16px;
+}
+
+.watch-header h3 {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    color: #0f243e;
+
+    white-space: nowrap;
+}
+
+.watch-header::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #cbd6e2;
+}
+
+.watch-header span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    color: #6f7b89;
+
+    white-space: nowrap;
+}
+
+
+/* ------------------------------
+   Card Grid
+------------------------------ */
+
+.watch-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+
+/* ------------------------------
+   Individual Card
+------------------------------ */
+
+.watch-card {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 14px;
+
+    min-height: 120px;
+
+    padding: 16px;
+
+    background: white;
+
+    border: 1px solid #d6dee7;
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+
+/* ------------------------------
+   Icon
+------------------------------ */
+
+.watch-icon {
+    flex: 0 0 38px;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 22px;
+    font-weight: 900;
+
+    color: white;
+}
+
+
+/* ------------------------------
+   Card Text Area
+------------------------------ */
+
+.watch-content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.watch-title {
+    margin-bottom: 6px;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+.watch-text {
+    font-size: 14px;
+
+    line-height: 1.4;
+
+    color: #28323d;
+}
+
+.watch-stat {
+    margin-top: 10px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: #77818d;
+}
+
+
+/* ------------------------------
+   GOOD / STRENGTH
+------------------------------ */
+
+.watch-good {
+    background: #f1fbf5;
+
+    border-color: #b9dfc6;
+}
+
+.watch-good .watch-icon {
+    background: #16a05d;
+}
+
+.watch-good .watch-title {
+    color: #13894f;
+}
+
+
+/* ------------------------------
+   NEUTRAL / MONITOR
+------------------------------ */
+
+.watch-neutral {
+    background: #fff9ef;
+
+    border-color: #f0cf94;
+}
+
+.watch-neutral .watch-icon {
+    background: #f5a623;
+}
+
+.watch-neutral .watch-title {
+    color: #e47e00;
+}
+
+
+/* ------------------------------
+   BAD / CONCERN
+------------------------------ */
+
+.watch-bad {
+    background: #fff4f4;
+
+    border-color: #e7b5b5;
+}
+
+.watch-bad .watch-icon {
+    background: #d50000;
+}
+
+.watch-bad .watch-title {
+    color: #c30000;
+}
+
+
+/* ------------------------------
+   Mobile
+------------------------------ */
+
+@media (max-width: 850px) {
+
+    .watch-section {
+        padding: 16px;
+    }
+
+    .watch-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .watch-header {
+        flex-wrap: wrap;
+
+        gap: 6px;
+    }
+
+    .watch-header::after {
+        display: none;
+    }
+
+    .watch-header span {
+        width: 100%;
+
+        white-space: normal;
+    }
+
+    .watch-title {
+        font-size: 15px;
+    }
+
+    .watch-card {
+        min-height: auto;
+    }
+
 }
