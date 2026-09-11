@@ -390,6 +390,211 @@ updateScoutingNote(p);
 updateXP(p.XP);
 updateIdentityBadge();
 
+updateWhatToWatch({
+    ERA: { raw: p.ERA, score: eraScore },
+    WHIP: { raw: p.WHIP, score: whipScore },
+    Kpct: { raw: p.Kpct, score: kpctScore },
+    BBpct: { raw: p.BBpct, score: bbpctScore },
+    KBB: { raw: p.KBB, score: kbbScore }
+});
+
+// -------------------------------
+// What to Watch
+// -------------------------------
+function updateWhatToWatch(metrics) {
+
+    const watchGrid = document.getElementById("watchGrid");
+
+    if (!watchGrid) return;
+
+    const items = [
+
+        {
+            key: "ERA",
+            title: "Run Prevention",
+            raw: metrics.ERA.raw,
+            score: metrics.ERA.score,
+
+            goodText:
+                "Strong run prevention is a major strength.",
+
+            neutralText:
+                "Run prevention is solid but not a defining strength.",
+
+            badText:
+                "Elevated run production allowed may limit overall effectiveness."
+        },
+
+        {
+            key: "WHIP",
+            title: "Traffic Control",
+            raw: metrics.WHIP.raw,
+            score: metrics.WHIP.score,
+
+            goodText:
+                "Strong WHIP reflects excellent control of baserunners.",
+
+            neutralText:
+                "Baserunner traffic is manageable but worth monitoring.",
+
+            badText:
+                "Elevated baserunner traffic creates additional pressure and scoring risk."
+        },
+
+        {
+            key: "Kpct",
+            title: "Strikeout Ability",
+            raw: metrics.Kpct.raw,
+            score: metrics.Kpct.score,
+
+            goodText:
+                "Strong strikeout production creates consistent swing-and-miss value.",
+
+            neutralText:
+                "Strikeout production is solid but not a defining strength.",
+
+            badText:
+                "Limited strikeout production reduces the ability to generate outs independently."
+        },
+
+        {
+            key: "BBpct",
+            title: "Command",
+            raw: metrics.BBpct.raw,
+            score: metrics.BBpct.score,
+
+            goodText:
+                "Low walk rate reflects strong command and limits free baserunners.",
+
+            neutralText:
+                "Walk rate is manageable but remains worth monitoring.",
+
+            badText:
+                "Elevated walk rate may create unnecessary baserunners and innings stress."
+        },
+
+        {
+            key: "KBB",
+            title: "Strikeout-to-Walk Control",
+            raw: metrics.KBB.raw,
+            score: metrics.KBB.score,
+
+            goodText:
+                "Strong strikeout-to-walk balance reflects efficient pitcher control.",
+
+            neutralText:
+                "Strikeout-to-walk balance is solid but not a defining strength.",
+
+            badText:
+                "Weak strikeout-to-walk balance may reduce overall pitching efficiency."
+        }
+
+    ];
+
+
+    // --------------------------------
+    // Classify each metric
+    // --------------------------------
+    items.forEach(item => {
+
+        if (item.score >= 8) {
+
+            item.type = "good";
+            item.icon = "↑";
+            item.text = item.goodText;
+
+            item.importance = (item.score - 8) / 2;
+
+        }
+        else if (item.score >= 5) {
+
+            item.type = "neutral";
+            item.icon = "−";
+            item.text = item.neutralText;
+
+            item.importance = 0;
+
+        }
+        else {
+
+            item.type = "bad";
+            item.icon = "↓";
+            item.text = item.badText;
+
+            item.importance = (5 - item.score) / 5;
+
+        }
+
+    });
+
+
+    // --------------------------------
+    // Find the three most meaningful
+    // --------------------------------
+    items.sort((a, b) => b.importance - a.importance);
+
+    const selected = items.slice(0, 3);
+
+
+    // --------------------------------
+    // Build cards
+    // --------------------------------
+    watchGrid.innerHTML = selected.map(item => {
+
+        let rawDisplay;
+
+        if (item.key === "ERA") {
+            rawDisplay = Number(item.raw).toFixed(2);
+        }
+        else if (item.key === "WHIP") {
+            rawDisplay = Number(item.raw).toFixed(2);
+        }
+        else if (item.key === "KBB") {
+            rawDisplay = Number(item.raw).toFixed(2);
+        }
+        else {
+            rawDisplay = Number(item.raw).toFixed(1) + "%";
+        }
+
+        const statLabel = {
+            ERA: "ERA",
+            WHIP: "WHIP",
+            Kpct: "K%",
+            BBpct: "BB%",
+            KBB: "K/BB"
+        }[item.key];
+
+
+        return `
+            <div class="watch-card watch-${item.type}">
+
+                <div class="watch-icon">
+                    ${item.icon}
+                </div>
+
+                <div class="watch-content">
+
+                    <div class="watch-title">
+                        ${item.title}
+                    </div>
+
+                    <div class="watch-text">
+                        ${item.text}
+                    </div>
+
+                    <div class="watch-stat">
+                        ${statLabel}: ${rawDisplay}
+                        (${item.score.toFixed(1)}/10)
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+    }).join("");
+}
+
 // -------------------------------
 // Fantasy Identity
 // -------------------------------
@@ -1174,6 +1379,13 @@ document.getElementById("swapBtn").onclick = function () {
 // Reset UI
 // -------------------------------
 function handleReset() {
+
+    // Clear What to Watch
+const watchGrid = document.getElementById("watchGrid");
+
+if (watchGrid) {
+    watchGrid.innerHTML = "";
+}
 
     // Clear leader-related UI FIRST
     clearLeaderState();
