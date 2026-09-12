@@ -1,1605 +1,336 @@
-/* -----------------------------------------
-   Pitcher Analyzer CSS Styles
------------------------------------------ */
-
-/* -----------------------------------------
-   Global
------------------------------------------ */
-
-body {
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    background: linear-gradient(135deg, #e8eef5, #f7f9fc);
-    margin: 0;
-    padding: 0;
-    color: #222;
-}
-
-.container {
-    width: 680px;
-    margin: 40px auto;
-    background: #ffffff;
-    padding: 35px 45px;
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    border: 3px solid #000000;
-    padding: 20px;
-}
-
-.section-title {
-  font-size: 1.2em;
-  font-weight: 600;
-}
-
-/* -----------------------------------------
-   Batter Analyzer Wordmark Image
------------------------------------------ */
-.header {
-    text-align: center;
-    padding: 20px 0;
-}
-
-.header .pitcher-analyzer {
-    width: 450px;        /* your target size */
-    max-width: 100%;     /* prevents overflow on small screens */
-    height: auto;
-    display: block;
-    margin: 0 auto;      /* centers the image */
-}
-
-
-/* -----------------------------------------
-   Header
------------------------------------------ */
-
-.header h1 {
-    text-align: center;
-    margin-bottom: 5px;
-    font-size: 2.2em;
-    font-weight: 700;
-}
-
-.subtitle {
-    font-size: 0.55em;
-    color: #777;
-}
-
-/* -----------------------------------------
-   Controls
------------------------------------------ */
-
-.controls {
-    display: flex;
-    align-items: flex-end;
-    gap: 25px;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
-    padding: 18px;
-    background: #f3f6fa;
-    border-radius: 12px;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.input-group label {
-    font-size: 14px;
-    margin-bottom: 4px;
-    font-weight: 600;
-}
-
-input, select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #cfd6e0;
-    border-radius: 8px;
-    background: #ffffff;
-    transition: 0.2s;
-}
-
-input:focus, select:focus {
-    border-color: #0077ff;
-    box-shadow: 0 0 4px rgba(0,119,255,0.4);
-}
-
-button {
-    padding: 10px 18px;
-    font-size: 14px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #0077ff, #005fcc);
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-    transition: 0.2s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.18);
-}
-
-
-
-
-
-button.reset {
-    background: linear-gradient(135deg, #d9534f, #b52b27);
-}
-
-button.reset:hover {
-    transform: translateY(-2px);
-}
-
-.controls.row {
-    display: flex;
-    gap: 12px;
-    align-items: flex-end;
-    margin-bottom: 15px;
-}
-
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.controls.row button {
-    height: 38px;
-    padding: 0 14px;
-}
- 
-
-/* -----------------------------------------
-   Metric Grid
------------------------------------------ */
-
-.metrics {
-    margin-top: 20px;
-}
-
-.metrics h2,
-.overall h2 {
-    margin-bottom: 18px;
-    font-size: 1.2em;
-    font-weight: 600;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pitcher Analyzer (Stathead Edition)</title>
+    <link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+    <div class="container">
+
+<!-- Header -->
+    <header class="header">
+    <img src="images/pitcher_analyzer.png" class="pitcher-analyzer" alt="Pitcher Analyzer">
+
+</header>
+
+<div id="player-ticker">
+  <span id="ticker-text">
+    Pitcher of the Day — <span id="pod-name">...</span> (<span id="pod-team">...</span>)
+    • Overall: <span id="pod-overall">...</span>
+    • XP: <span id="pod-xp">...</span>
+    • <span id="pod-record">...</span>
+    • <span class="ticker-status">Notice: Constantly Updating UI, Scoring Engine, Data, and Ongoing Improvements</span>
+  </span>
+</div>
+
+
+<h2 class="section-title">👤Player Search</h2>
+
+        <!-- Row 1 -->
+<section class="controls row">
+    <div class="input-group">
+        <label for="playerName">Player Name</label>
+        <input type="text" id="playerName" placeholder="Jacob Misiorowski">
+    </div>
+
+    <div class="input-group">
+        <label for="seasonSelect">Season</label>
+        <select id="seasonSelect">
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+        </select>
+    </div>
+
+    <button id="loadBtn">Load🔍</button>
+    <button id="trendBtn">Trend📈</button>
+    <button id="leadersBtn">Leaders🏅</button>
+
+</section>
+
+<!-- Row 2 -->
+<section class="controls row">
+    <div class="input-group">
+        <label for="playerName2">Player Name (Compare)</label>
+        <input type="text" id="playerName2" placeholder="Paul Skenes">
+    </div>
+
+    <div class="input-group">
+        <label for="seasonSelect2">Season</label>
+        <select id="seasonSelect2">
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+        </select>
+    </div>
+
+    <button id="compareBtn">Compare🆚</button>
+    <button id="swapBtn">Swap🔀</button>
+    <button id="resetBtn" class="reset">Reset</button>
+
+</section>
+
+
+
+        <hr>
+
+        <!-- Metric Grid -->
+<section class="metrics">
+    <h2>📊Pitching Profile</h2>
+
+    <div class="metric-row">
+        <span class="metric-label">ERA</span>
+        <span class="metric-raw" id="raw-era">--</span>
+        <div class="battery" id="battery-era"></div>
+        <span class="metric-score" id="score-era">--</span>
+    </div>
+
+    <div class="metric-row">
+        <span class="metric-label">WHIP</span>
+        <span class="metric-raw" id="raw-whip">--</span>
+        <div class="battery" id="battery-whip"></div>
+        <span class="metric-score" id="score-whip">--</span>
+    </div>
 
-.metric-row {
-    display: flex;
-    grid-template-columns: 120px 70px 1fr 60px;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    background: #f9fbfe;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
+    <div class="metric-row">
+        <span class="metric-label">K%</span>
+        <span class="metric-raw" id="raw-kpct">--</span>
+        <div class="battery" id="battery-kpct"></div>
+        <span class="metric-score" id="score-kpct">--</span>
+    </div>
 
-.metric-label {
-    font-weight: 600;
-    width: 70px;
-    display: inline-block;
-}
+    <div class="metric-row">
+        <span class="metric-label">BB%</span>
+        <span class="metric-raw" id="raw-bbpct">--</span>
+        <div class="battery" id="battery-bbpct"></div>
+        <span class="metric-score" id="score-bbpct">--</span>
+    </div>
 
-.metric-raw {
-    font-weight: 600;
-    color: #333;
-    text-align: right;
-    width: 50px;
-    display: inline-block;
-}
+    <div class="metric-row">
+        <span class="metric-label">K/BB</span>
+        <span class="metric-raw" id="raw-kbb">--</span>
+        <div class="battery" id="battery-kbb"></div>
+        <span class="metric-score" id="score-kbb">--</span>
+    </div>
+</section>
 
 
-.metric-score {
-    text-align: right;
-    font-weight: 700;
-    font-size: 1.05em;
-    width: 40px;
-    display: inline-block;
-}
+<hr>
 
-.metric-row .battery {
-    flex: 1;
-}
+<h2 class="section-title">📇Player Card</h2>
 
+<div class="overall-card">
+    <div class="overall-card-tab" id="playerTab">Player:--</div>
 
-/* -----------------------------------------
-   Overall Section
------------------------------------------ */
+<img id="playerPhoto" class="player-photo" 
+     src="/images/pitcher.png" 
+     alt="Player Photo">
 
-.overall {
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
 
-/* -----------------------------------------
-   Overall Score / XP / Tier
------------------------------------------ */
+    <section class="overall">
+
+        <div class="overall-top">
+            <p>Overall Score: <span id="overallScore">--</span></p>
+            <p>XP: <span id="xpScore">--</span></p>
+            <p>Tier: <span id="overallTier">--</span></p>
+        </div>
+
+        <div class="battery overall-battery" id="battery-overall"></div>
+
+        <div class="scouting-note">
+
+    <div class="scouting-content">
+        <div class="scouting-title">
+            <span class="scouting-icon">▤</span>
+            <label>SCOUTING NOTE</label>
+        </div>
+
+        <p id="scoutingNote">--</p>
+    </div>
+
+    <div class="percentile-box">
+        <span class="percentile-label">PERCENTILE</span>
+        <span id="overallPercentile">--</span>
+    </div>
+
+</div>
+    </section>
+</div>
+
+<!-- What to Watch -->
+<div class="watch-section">
+
+    <div class="watch-header">
+        <h3>WHAT TO WATCH</h3>
+        <span>Key strengths and areas to monitor</span>
+    </div>
 
-.overall-top {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
+    <div class="watch-grid" id="watchGrid">
+        <!-- Cards generated dynamically by JavaScript -->
+    </div>
+
+</div>
 
-    width: 100%;
-    margin-bottom: 16px;
-
-    background: #ffffff;
-
-    border: 1px solid #d7e0e8;
-    border-radius: 10px;
-
-    overflow: hidden;
-
-    box-shadow: 0 2px 6px rgba(15, 36, 62, 0.06);
-}
-
-
-/* Each stat */
-
-.overall-top p {
-    flex: 1;
-
-    margin: 0;
-    padding: 12px 14px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    color: #607286;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-
-    text-align: center;
-}
-
-
-/* Vertical dividers */
-
-.overall-top p + p {
-    border-left: 1px solid #d7e0e8;
-}
-
-
-/* Overall Score + XP values */
-
-.overall-top span {
-    display: block;
-
-    margin-top: 5px;
-
-    color: #0f243e;
-
-    font-size: 27px;
-    font-weight: 800;
-
-    line-height: 1;
-
-    letter-spacing: 0;
-
-    text-transform: none;
-}
-
-
-/* Tier badge */
-
-.overall-top #overallTier .tier-badge {
-    color: #ffffff !important;
-    font-size: 20px;
-    font-weight: 800;
-}
-
-/* ⭐ Overall battery — FIXED (now visible) */
-.overall-battery {
-    height: 26px;
-    width: 600px;
-    max-width: 600px;
-    margin: 0 auto !important;
-}
-
-.overall-battery::after {
-    background: var(--color);
-}
-
-
-/* Card container */
-.overall-card {
-    background: #F4F7FB;
-
-    border: 1px solid #cbd6e2;
-    border-radius: 14px;
-
-    padding: 24px 26px;
-
-    max-width: 650px;
-    margin: 40px auto 20px;
-
-    box-shadow:
-        0 4px 12px rgba(15, 36, 62, 0.08),
-        0 1px 3px rgba(15, 36, 62, 0.05);
-
-    position: relative;
-
-    display: flex;
-    gap: 22px;
-}
-
-/* File tab */
-.overall-card-tab {
-    position: absolute;
-    top: -19px;
-    left: 20px;
-
-    background: #ffffff;
-
-    border: 1px solid #cbd6e2;
-    border-bottom: none;
-    border-top: 3px solid #0f243e;
-
-    padding: 6px 16px 7px;
-
-    border-radius: 8px 8px 0 0;
-
-    font-weight: 800;
-    font-size: 15px;
-    letter-spacing: 0.2px;
-
-    color: #0f243e;
-
-    box-shadow:
-        0 -3px 6px rgba(15, 36, 62, 0.06);
-
-    z-index: 2;
-}
-
-/* -----------------------------------------
-   Scouting Note Panel
------------------------------------------ */
-
-.scouting-note {
-    display: flex;
-    align-items: stretch;
-    margin-top: 20px;
-
-    background: #f7f9fc;
-    border: 1px solid #e1e7ef;
-    border-radius: 16px;
-
-    overflow: hidden;
-}
-
-/* Main note area */
-.scouting-content {
-    flex: 1;
-    padding: 20px 24px;
-}
-
-/* SCOUTING NOTE heading */
-.scouting-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    margin-bottom: 10px;
-}
-
-.scouting-title label {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #536b89;
-}
-
-.scouting-icon {
-    font-size: 20px;
-    color: #536b89;
-}
-
-/* Generated scouting text */
-#scoutingNote {
-    margin: 0;
-
-    white-space: pre-line;
-    font-style: italic;
-
-    font-size: 17px;
-    line-height: 1.55;
-    color: #102743;
-}
-
-
-/* -----------------------------------------
-   Percentile
------------------------------------------ */
-
-.percentile-box {
-    min-width: 150px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px 24px;
-
-    border-left: 1px solid #d8e0ea;
-}
-
-.percentile-label {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: #536b89;
-
-    margin-bottom: 8px;
-}
-
-#overallPercentile {
-    font-size: 30px;
-    font-weight: 800;
-    color: #102743;
-}
-
-
-/* -----------------------------------------
-   Mobile
------------------------------------------ */
-
-@media (max-width: 700px) {
-
-    .scouting-note {
-        flex-direction: column;
-    }
-
-    .percentile-box {
-        min-width: 0;
-
-        border-left: none;
-        border-top: 1px solid #d8e0ea;
-
-        padding: 14px 20px;
-    }
-}
-
-/* -----------------------------------------
-   Trend Modal
------------------------------------------ */
-
-.modal {
-  position: fixed;
-  inset: 0; /* replaces top:0; left:0; width:100%; height:100%; */
-  background: rgba(0,0,0,0.55);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.modal.hidden {
-    display: none;
-}
-
-.modal-container {
-    position: relative;
-    z-index: 99999;
-    background: #fff; /* prevents transparency */
-}
-
-.modal-content {
-    background: #ffffff;
-    border-radius: 14px;
-    max-width: 650px;
-    width: 100%;
-    max-height: 90dvh;        /* ⭐ keeps all 20 rows visible */
-    overflow-y: auto;        /* ⭐ scrolls inside modal */
-    padding: 30px;
-    box-shadow: 0 0 18px rgba(0,0,0,0.25);
-    box-sizing: border-box;
-    text-align: center;
-    position: relative;
-}
-
-
-.close {
-    float: right;
-    font-size: 1.6em;
-    cursor: pointer;
-    color: #444;
-}
-
-.no-data-message {
-    text-align: center;
-    padding: 20px;
-    font-size: 1.1rem;
-    color: #cc0000;
-    font-weight: bold;
-}
-
-/* -----------------------------------------
-   Trend Modal (Season Comparison)
------------------------------------------ */
-
-#trendModal .modal-content {
-    width: 600px;
-    max-width: 90%;
-    background: #FFFFFF !important;
-    padding: 20px;
-    border-radius: 10px;
-    color: black;
-}
-
-/* Title */
-#trendTitle {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-/* Trend Table */
-.trend-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    font-size: 16px;
-}
-
-.trend-table th,
-.trend-table td {
-    padding: 8px;
-    border-bottom: 1px solid #444;
-    text-align: center;
-}
-
-.trend-table th {
-    font-weight: bold;
-}
-
-/* Arrows */
-.trend-table td:last-child {
-    font-size: 1.3em;
-    font-weight: bold;
-}
-
-/* Close button */
-#trendClose {
-    float: right;
-    font-size: 1.6em;
-    cursor: pointer;
-    color: #bbb;
-}
-
-#trendClose:hover {
-    color: #fff;
-}
-
-/* -----------------------------------------
-   Trend Arrow Colors (Match Compare Modal)
------------------------------------------ */
-
-.trend-up {
-    color: #4caf50; /* green */
-    font-weight: 700;
-}
-
-.trend-down {
-    color: #e53935; /* red */
-    font-weight: 700;
-}
-
-.trend-flat {
-    color: #cccccc; /* gray */
-    font-weight: 700;
-}
-
-
-
-
-/* -----------------------------------------
-   Compare Modal
------------------------------------------ */
-.compare-box {
-    width: 600px;
-    max-width: 90%;
-    background: #FFFFFF !important;
-    padding: 20px;
-    border-radius: 10px;
-    color: black;
-}
-
-#compareTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    font-size:  16px;
-}
-
-#compareTable th, #compareTable td {
-    padding: 8px;
-    border-bottom: 1px solid #444;
-    text-align: center;
-}
-
-#compareTable th {
-    font-weight: bold;
-}
-
-#compareTitle {
-    text-align: center;
-    width: 100%;
-}
-
-/* -----------------------------------------
-   Compare Win - Lose Indicator
------------------------------------------ */
-.win {
-    color: #4caf50; /* green */
-    font-weight: 700;
-}
-
-.lose {
-    color: #e53935; /* red */
-    opacity: 0.85;
-}
-
-.tie {
-    color: #cccccc;
-}
-
-/* -----------------------------------------
-   Leaders Modal
------------------------------------------ */
-
-#leadersModal .modal-content {
-    width: 600px;
-    max-width: 90%;
-    background: #FFFFFF !important;
-    padding: 20px;
-    border-radius: 10px;
-    color: black;
-
-    /* ⭐ FIX: allow scrolling so all 20 rows appear */
-    overflow-y: auto;
-    max-height: 90vh;
-}
-
-
-/* Title */
-#leadersTitle {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-/* Leaders Table */
-.leaders-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-.leaders-table th,
-.leaders-table td {
-    padding: 8px;
-    border-bottom: 1px solid #444;
-    text-align: center;
-}
-
-.leaders-table th {
-    font-weight: bold;
-}
-
-/* Close button */
-#leadersClose {
-    float: right;
-    font-size: 1.6em;
-    cursor: pointer;
-    color: #bbb;
-}
-
-#leadersClose:hover {
-    color: #fff;
-}
-
-#leadersModal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100dvh;
-    background: rgba(0, 0, 0, 0.6);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-/* -----------------------------------------
-   Modals
------------------------------------------ */
-
-
-.modal.hidden {
-    display: none;
-}
-
-
-.close {
-    font-size: 1.6em;
-    cursor: pointer;
-    color: #444;
-}
-
-
-.no-data-message {
-    text-align: center;
-    padding: 20px;
-    font-size: 1.1rem;
-    color: #cc0000;
-    font-weight: bold;
-}
-
-.tier-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-
-/* Tier colors */
-.tier-great {
-    background-color: #d4af37; /* gold */
-}
-
-.tier-good {
-    background-color: #2ecc71; /* green */
-}
-
-.tier-fair {
-    background-color: #3498db; /* blue */
-}
-
-.tier-average {
-    background-color: #7f8c8d; /* gray */
-}
-
-.tier-belowavg {
-    background-color: #e74c3c; /* red */
-}
-
-
-/* -----------------------------------------
-   Latest Update Timestamp
------------------------------------------ */
-.update-date {
-  font-size: 0.9rem;
-  color: #888;
-  margin-top: 6px;
-}
-
-/* -----------------------------------------
-   Baseball Spinner
------------------------------------------ */
-.spin {
-    display: inline-block;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-}
-
-/* -----------------------------------------
-   FINAL OVERRIDE — Forces overall battery to render
------------------------------------------ */
-.overall-top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.battery {
-    position: relative;
-    isolation: isolate;
-
-    background: linear-gradient(
-        to bottom,
-        #edf1f5 0%,
-        #d9e0e8 100%
-    );
-
-    border-radius: 5px;
-    overflow: hidden;
-    height: 16px;
-    width: 120px;
-
-    border: 1px solid rgba(0, 0, 0, 0.08);
-
-    box-shadow:
-        inset 0 1px 3px rgba(0, 0, 0, 0.15),
-        0 1px 2px rgba(0, 0, 0, 0.06);
-
-    --fill: 0%;
-    --color: #00c853;
-}
-
-
-/* Colored health fill */
-.battery::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    z-index: 1;
-
-    width: var(--fill);
-
-    background: linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--color) 88%, white),
-        var(--color)
-    );
-
-    border-radius: 4px;
-
-    transition: width 0.4s ease;
-
-    box-shadow:
-        inset 0 1px 1px rgba(255, 255, 255, 0.35);
-}
-
-
-/* Health meter dividers */
-.battery::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    z-index: 2;
-
-    pointer-events: none;
-
-    background: repeating-linear-gradient(
-        to right,
-        transparent 0,
-        transparent calc(10% - 1px),
-        rgba(255, 255, 255, 0.25) calc(10% - 1px),
-        rgba(255, 255, 255, 0.25) 10%
-    );
-}
-
-
-
-.overall-battery {
-    height: 26px !important;
-    width: 100% !important;
-    max-width: 600px !important;
-}
-
-.overall-battery::after {
-    background: var(--color) !important;
-}
-
-
-/* FINAL FIX — force overall battery height */
-.overall .overall-battery {
-    height: 26px !important;
-    min-height: 26px !important;
-    min-width: 520px;
-}
-
-
-/* -----------------------------------------
-   Player of the Day Ticker (TimBaseball Theme)
------------------------------------------ */
-#player-ticker {
-    width: 100%;
-    background: #ffffff;
-    color: #222;
-    padding: 10px 0;
-    overflow: hidden;
-    white-space: nowrap;
-
-    border-top: 2px solid #000000;
-    border-bottom: 2px solid #000000;
-
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: 12px;
-    margin-bottom: 12px;
-}
-
-#ticker-text {
-    display: inline-block;
-    padding-left: 100%;
-    animation: ticker-scroll 22s linear infinite;
-}
-
-@keyframes ticker-scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-/* -----------------------------------------
-   Fantasy Edge Image
------------------------------------------ */
-
-.fantasy-edge {
-  width: 450px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto; /* optional: centers the image */
-}
-
-/* ------------------------------
-   Fantasy Edge Panel
------------------------------- */
-
-.fantasy-edge-panel {
-    margin-top: 24px;
-    padding: 22px 24px 26px;
-
-    background: #f8fbff;
-
-    border: 1px solid #cbd6e2;
-    border-radius: 14px;
-
-    box-shadow:
-        0 4px 12px rgba(15, 36, 62, 0.07);
-}
-
-
-/* ------------------------------
-   Bottom Info Row
------------------------------- */
-
-#bottom-info-row {
-    display: flex;
-
-    gap: 14px;
-
-    margin-top: 20px;
-    margin-bottom: 10px;
-
-    align-items: stretch;
-    justify-content: center;
-}
-
-
-/* Equal-width cards */
-
-#bottom-info-row > div {
-    flex: 1;
-
-    max-width: 260px;
-}
-
-
-/* ------------------------------
-   Shared Card Styling
------------------------------- */
-
-#player-identity-key,
-#player-state-key,
-#player-value-key {
-    font-size: 13px;
-
-    padding: 14px 16px;
-
-    background: #ffffff;
-
-    border-radius: 10px;
-
-    box-shadow:
-        0 2px 6px rgba(15, 36, 62, 0.05);
-}
-
-
-/* Identity */
-
-#player-identity-key {
-    border: 2px solid #006CD5;
-}
-
-
-/* State */
-
-#player-state-key {
-    border: 2px solid #26A460;
-}
-
-
-/* Value */
-
-#player-value-key {
-    border: 2px solid #FD8E02;
-}
-
-
-/* ------------------------------
-   Titles
------------------------------- */
-
-.info-title {
-    margin: 0 0 12px;
-
-    padding-bottom: 8px;
-
-    font-size: 15px;
-    font-weight: 800;
-
-    color: #0f243e;
-
-    text-align: center;
-
-    letter-spacing: 0.3px;
-
-    border-bottom: 1px solid #e1e7ee;
-}
-
-
-/* ------------------------------
-   List Rows
------------------------------- */
-
-#player-identity-key p,
-#player-state-key p,
-#player-value-key p {
-    margin: 8px 0;
-
-    display: flex;
-
-    align-items: center;
-
-    line-height: 1.25;
-
-    color: #38495a;
-}
-
-
-/* ------------------------------
-   Shared Badge Structure
------------------------------- */
-
-.identity-badge,
-.state-badge,
-.value-badge {
-    display: inline-block;
-
-    flex: 0 0 auto;
-
-    width: 12px;
-    height: 12px;
-
-    margin-right: 8px;
-
-    border-radius: 50%;
-
-    opacity: 0.30;
-
-    transition:
-        opacity 0.25s ease,
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-
-/* Active Badge */
-
-.identity-badge.active,
-.state-badge.active,
-.value-badge.active {
-    opacity: 1;
-
-    transform: scale(1.2);
-
-    animation: pulse 1.4s ease-in-out infinite;
-
-    box-shadow:
-        0 0 0 3px rgba(15, 36, 62, 0.08);
-}
-
-
-/* One pulse animation for all three */
-
-@keyframes pulse {
-
-    0% {
-        transform: scale(1.2);
-    }
-
-    50% {
-        transform: scale(1.4);
-    }
-
-    100% {
-        transform: scale(1.2);
-    }
-}
-
-
-/* ------------------------------
-   Identity Colors
------------------------------- */
-
-.identity-badge.sleeper {
-    background: #4a90e2;
-}
-
-.identity-badge.overperformer {
-    background: #f5a623;
-}
-
-.identity-badge.breakout {
-    background: #7ed321;
-}
-
-.identity-badge.consistent {
-    background: #9b9b9b;
-}
-
-.identity-badge.neutral {
-    background: #5b5b5b;
-}
-
-
-/* ------------------------------
-   State Colors
------------------------------- */
-
-.state-badge.strong {
-    background: #2ecc71;
-}
-
-.state-badge.stable {
-    background: #3498db;
-}
-
-.state-badge.vulnerable {
-    background: #f1c40f;
-}
-
-.state-badge.high-risk {
-    background: #e74c3c;
-}
-
-
-/* ------------------------------
-   Value Colors
------------------------------- */
-
-.value-badge.extreme {
-    background: #8e44ad;
-}
-
-.value-badge.elevated {
-    background: #16a085;
-}
-
-.value-badge.expected {
-    background: #0578c5;
-}
-
-.value-badge.below {
-    background: #f5a606;
-}
-
-.value-badge.suppressed {
-    background: #d35400;
-}
-
-
-/* ------------------------------
-   League Averages
------------------------------- */
-
-#league-averages {
-    font-size: 14px;
-
-    background: #f7f7f7;
-
-    padding: 10px 14px;
-
-    border-radius: 6px;
-
-    border: 1px solid #ddd;
-}
-
-
-/* ------------------------------
-   Mobile
------------------------------- */
-
-@media (max-width: 750px) {
-
-    #bottom-info-row {
-        flex-direction: column;
-    }
-
-    #bottom-info-row > div {
-        max-width: none;
-        width: 100%;
-    }
-
-}
-
-/* -----------------------------------------
-   Leaders Table Fantasy Identity
------------------------------------------ */
-.leader-identity {
-    font-weight: 700;
-}
-
-.leader-identity.breakout {
-    color: #7ed321;
-}
-
-.leader-identity.overperformer {
-    color: #f5a623;
-}
-
-.leader-identity.sleeper {
-    color: #4a90e2;
-}
-
-.leader-identity.consistent {
-    color: #9b9b9b;
-}
-
-.leader-identity.neutral {
-    color: #777;
-}
-
-/* -----------------------------------------
-   Leaders Table Clickable Name
------------------------------------------ */
-.leader-player-link {
-    all: unset;
-    cursor: pointer;
-    font: inherit;
-    color: inherit;
-}
-
-.leader-player-link:hover {
-    text-decoration: underline;
-}
-
-/* -----------------------------------------
-   Fantasy Summary
------------------------------------------ */
-.fantasy-summary {
-    margin-top: 12px;
-    padding: 14px 16px;
-    border: 1px solid #cfd6df;
-    border-radius: 6px;
-    background: #f8fafc;
-    text-align: left;
-}
-
-.fantasy-summary-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #0f243e;
-}
-
-.fantasy-summary-item {
-    margin-bottom: 12px;
-}
-
-.fantasy-summary-item:last-child {
-    margin-bottom: 0;
-}
-
-.fantasy-summary-item strong {
-    font-size: 14px;
-    color: #222;
-}
-
-.fantasy-summary-item p {
-    margin: 3px 0 0;
-    font-size: 14px;
-    line-height: 1.4;
-    color: #555;
-}
-
-/* -----------------------------------------
-   Footer
------------------------------------------ */
-
-.footer {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 0.85em;
-    color: #777;
-}
-
-.player-photo {
-  width: 90px;
-  height: 200px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  margin-top: 20px;
-}
-
-/* ------------------------------
-   What to Watch
------------------------------- */
-
-.watch-section {
-    margin-top: 24px;
-    padding: 18px 20px 20px;
-
-    background: #f8fbff;
-    border: 1px solid #cbd6e2;
-    border-radius: 12px;
-
-    box-shadow: 0 2px 8px rgba(15, 36, 62, 0.06);
-}
-
-
-/* ------------------------------
-   Header
------------------------------- */
-
-.watch-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    margin-bottom: 16px;
-}
-
-.watch-header h3 {
-    margin: 0;
-
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: 2px;
-
-    color: #0f243e;
-
-    white-space: nowrap;
-}
-
-.watch-header::after {
-    content: "";
-
-    flex: 1;
-
-    height: 1px;
-
-    background: #cbd6e2;
-}
-
-.watch-header span {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-
-    text-transform: uppercase;
-
-    color: #6f7b89;
-
-    white-space: nowrap;
-}
-
-
-/* ------------------------------
-   Card Grid
------------------------------- */
-
-.watch-grid {
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 14px;
-}
-
-
-/* ------------------------------
-   Individual Card
------------------------------- */
-
-.watch-card {
-    display: flex;
-    align-items: flex-start;
-
-    gap: 14px;
-
-    min-height: 120px;
-
-    padding: 16px;
-
-    background: white;
-
-    border: 1px solid #d6dee7;
-    border-radius: 10px;
-
-    box-sizing: border-box;
-}
-
-
-/* ------------------------------
-   Icon
------------------------------- */
-
-.watch-icon {
-    flex: 0 0 38px;
-
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    font-size: 22px;
-    font-weight: 900;
-
-    color: white;
-}
-
-
-/* ------------------------------
-   Card Text Area
------------------------------- */
-
-.watch-content {
-    flex: 1;
-
-    min-width: 0;
-}
-
-.watch-title {
-    margin-bottom: 6px;
-
-    font-size: 16px;
-    font-weight: 800;
-
-    text-transform: uppercase;
-}
-
-.watch-text {
-    font-size: 14px;
-
-    line-height: 1.4;
-
-    color: #28323d;
-}
-
-.watch-stat {
-    margin-top: 10px;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    color: #77818d;
-}
-
-
-/* ------------------------------
-   GOOD / STRENGTH
------------------------------- */
-
-.watch-good {
-    background: #f1fbf5;
-
-    border-color: #b9dfc6;
-}
-
-.watch-good .watch-icon {
-    background: #16a05d;
-}
-
-.watch-good .watch-title {
-    color: #13894f;
-}
-
-
-/* ------------------------------
-   NEUTRAL / MONITOR
------------------------------- */
-
-.watch-neutral {
-    background: #fff9ef;
-
-    border-color: #f0cf94;
-}
-
-.watch-neutral .watch-icon {
-    background: #f5a623;
-}
-
-.watch-neutral .watch-title {
-    color: #e47e00;
-}
-
-
-/* ------------------------------
-   BAD / CONCERN
------------------------------- */
-
-.watch-bad {
-    background: #fff4f4;
-
-    border-color: #e7b5b5;
-}
-
-.watch-bad .watch-icon {
-    background: #d50000;
-}
-
-.watch-bad .watch-title {
-    color: #c30000;
-}
-
-
-/* ------------------------------
-   Mobile
------------------------------- */
-
-@media (max-width: 850px) {
-
-    .watch-section {
-        padding: 16px;
-    }
-
-    .watch-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .watch-header {
-        flex-wrap: wrap;
-
-        gap: 6px;
-    }
-
-    .watch-header::after {
-        display: none;
-    }
-
-    .watch-header span {
-        width: 100%;
-
-        white-space: normal;
-    }
-
-    .watch-title {
-        font-size: 15px;
-    }
-
-    .watch-card {
-        min-height: auto;
-    }
-
-}
+<div class="fantasy-edge-panel">
+
+    <img
+        src="images/fantasy_edge.png"
+        class="fantasy-edge"
+        alt="Fantasy Edge"
+    >
+
+    <div id="bottom-info-row">
+
+        <div id="player-identity-key">
+            <h3 class="info-title">Fantasy Identity</h3>
+
+            <p><span class="identity-badge breakout"></span> Breakout Star</p>
+            <p><span class="identity-badge overperformer"></span> Overperformer</p>
+            <p><span class="identity-badge sleeper"></span> Sleeper Candidate</p>
+            <p><span class="identity-badge consistent"></span> Consistent Performer</p>
+            <p><span class="identity-badge neutral"></span> Neutral</p>
+        </div>
+
+        <div id="player-state-key">
+            <h3 class="info-title">Fantasy State</h3>
+
+            <p><span class="state-badge strong"></span> Strong</p>
+            <p><span class="state-badge stable"></span> Stable</p>
+            <p><span class="state-badge vulnerable"></span> Vulnerable</p>
+            <p><span class="state-badge high-risk"></span> High Risk</p>
+        </div>
+
+        <div id="player-value-key">
+            <h3 class="info-title">Fantasy Value</h3>
+
+            <p><span class="value-badge extreme"></span> Extreme</p>
+            <p><span class="value-badge elevated"></span> Elevated</p>
+            <p><span class="value-badge expected"></span> Expected</p>
+            <p><span class="value-badge below"></span> Below Expected</p>
+            <p><span class="value-badge suppressed"></span> Suppressed</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- -----------------------------------------
+     Fantasy Summary
+------------------------------------------ -->
+<div class="fantasy-summary" id="fantasySummary">
+
+    <div class="fantasy-summary-title">
+        📋 Fantasy Summary
+    </div>
+
+    <div class="fantasy-summary-item">
+        <strong id="summaryIdentity">Fantasy Identity: --</strong>
+        <p id="summaryIdentityText">
+            Load a player to view their Fantasy Identity analysis.
+        </p>
+    </div>
+
+    <div class="fantasy-summary-item">
+        <strong id="summaryState">Fantasy State: --</strong>
+        <p id="summaryStateText">
+            Load a player to view their Fantasy State analysis.
+        </p>
+    </div>
+
+    <div class="fantasy-summary-item">
+        <strong id="summaryValue">Fantasy Value: --</strong>
+        <p id="summaryValueText">
+            Load a player to view their Fantasy Value analysis.
+        </p>
+    </div>
+
+</div>
+
+<hr>
+
+
+       <!-- Trend Modal (Season Comparison) -->
+<div id="trendModal" class="modal hidden">
+    <div class="modal-content">
+        <span id="trendClose" class="close">&times;</span>
+        <h2 id="trendTitle">Season Comparison</h2>
+
+        <div id="trendBody">
+            <!-- JS will inject the comparison table here -->
+        </div>
+    </div>
+</div>
+
+
+
+       <!-- Compare Modal -->
+<div id="compareModal" class="modal">
+    <div class="modal-content compare-box">
+        <span id="compareClose" class="close">&times;</span>
+        <h2 id="compareTitle">Pitcher Comparison</h2>
+
+        <table id="compareTable">
+            <thead>
+                <tr>
+                    <th>Stat</th>
+                    <th id="compareName1">Player 1</th>
+                    <th id="compareName2">Player 2</th>
+                </tr>
+            </thead>
+            <tbody id="compareBody">
+                <!-- Filled dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="leadersModal" class="modal">
+    <div class="modal-content leaders-modal">
+        <span id="leadersClose" class="close">&times;</span>
+        <h2 id="leadersTitle">League Leaders</h2>
+
+        <table class="leaders-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+		    <th>Team</th>
+                    <th>XP</th>
+		    <th>Overall Score</th>
+                    <th>Fantasy Identity</th>
+                </tr>
+            </thead>
+            <tbody id="leadersBody">
+                <!-- JS will inject rows here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+        <footer class="footer">
+            <small>Data source: Stathead (Sports Reference). Pitcher Analyzer – personal analytics tool.</small>
+<div id="lastUpdated"></div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>
