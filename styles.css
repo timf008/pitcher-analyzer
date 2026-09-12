@@ -1077,42 +1077,119 @@ select:focus {
     min-width: 520px;
 }
 
-
 /* -----------------------------------------
-   Player of the Day Ticker (TimBaseball Theme)
+   Pitcher of the Day - Compact
 ----------------------------------------- */
+
 #player-ticker {
+    display: flex;
+    align-items: center;
+
     width: 100%;
+    height: 34px;
+    margin: 8px 0 12px;
+
     background: #ffffff;
-    color: #222;
-    padding: 10px 0;
+
+    border: 1px solid #cbd6e2;
+    border-radius: 6px;
+
     overflow: hidden;
-    white-space: nowrap;
 
-    border-top: 2px solid #000000;
-    border-bottom: 2px solid #000000;
-
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 5px rgba(15, 36, 62, 0.06);
 
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: 12px;
-    margin-bottom: 12px;
 }
 
-#ticker-text {
-    display: inline-block;
-    padding-left: 100%;
-    animation: ticker-scroll 22s linear infinite;
+
+/* Navy label */
+
+#player-ticker .ticker-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    height: 100%;
+    box-sizing: border-box;
+
+    padding: 0 10px;
+
+    flex-shrink: 0;
+
+    background: #0f243e;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
 }
 
-@keyframes ticker-scroll {
-    0% {
-        transform: translateX(0);
+#player-ticker .ticker-star {
+    font-size: 12px;
+}
+
+
+/* Player information */
+
+#player-ticker .ticker-player {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    min-width: 0;
+    padding: 0 10px;
+
+    white-space: nowrap;
+
+    color: #0f243e;
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+
+/* Dividers */
+
+#player-ticker .ticker-divider {
+    width: 1px;
+    height: 13px;
+
+    flex-shrink: 0;
+
+    background: #cbd6e2;
+}
+
+#pod-overall,
+#pod-xp {
+    font-weight: 800;
+}
+
+
+/* -----------------------------------------
+   Mobile
+----------------------------------------- */
+
+@media (max-width: 700px) {
+
+    #player-ticker {
+        height: 32px;
     }
-    100% {
-        transform: translateX(-100%);
+
+    #player-ticker .ticker-label {
+        padding: 0 7px;
+        font-size: 9px;
+    }
+
+    #player-ticker .ticker-star {
+        font-size: 10px;
+    }
+
+    #player-ticker .ticker-player {
+        gap: 6px;
+        padding: 0 7px;
+        font-size: 10px;
+
+        overflow: hidden;
     }
 }
 
