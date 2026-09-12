@@ -1,5 +1,5 @@
 /* -----------------------------------------
-   Batter Analyzer CSS Styles
+   Pitcher Analyzer CSS Styles
 ----------------------------------------- */
 
 /* -----------------------------------------
@@ -31,14 +31,14 @@ body {
 }
 
 /* -----------------------------------------
-   Batter Analyzer Wordmark Image
+   Pitcher Analyzer Wordmark Image
 ----------------------------------------- */
 .header {
     text-align: center;
     padding: 20px 0;
 }
 
-.header .batter-analyzer {
+.header .pitcher-analyzer {
     width: 450px;        /* your target size */
     max-width: 100%;     /* prevents overflow on small screens */
     height: auto;
@@ -47,7 +47,7 @@ body {
 }
 
 /* -----------------------------------------
-   Batter Analyzer Tagline
+   Pitcher Analyzer Tagline
 ----------------------------------------- */
 .analyzer-tagline {
     margin-top: 8px;
@@ -214,7 +214,7 @@ select:focus {
 .controls.row button.reset {
     background: linear-gradient(135deg, #d9534f, #b52b27);
 }
-
+ 
 /* -----------------------------------------
    Pitching Metrics Panel
 ----------------------------------------- */
@@ -379,6 +379,9 @@ select:focus {
     box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
 }
 
+
+/* Navy Header */
+
 .analytics-header {
     background: #0f243e;
     padding: 16px 20px;
@@ -394,12 +397,16 @@ select:focus {
     letter-spacing: 0.4px;
 }
 
+
+/* Analytics Body */
+
 .analytics-panel .overall-card {
     margin: 0;
     border: none;
     border-radius: 0;
     box-shadow: none;
 }
+
 
 /* -----------------------------------------
    Overall Section
@@ -493,6 +500,14 @@ select:focus {
     color: #ffffff !important;
     font-size: 20px;
     font-weight: 800;
+}
+
+/* ⭐ Overall battery — FIXED (now visible) */
+.overall-battery {
+    height: 26px;
+    width: 600px;
+    max-width: 600px;
+    margin: 0 auto !important;
 }
 
 .overall-battery::after {
@@ -647,11 +662,10 @@ select:focus {
     }
 }
 
-
-
 /* -----------------------------------------
    Trend Modal
 ----------------------------------------- */
+
 .modal {
   position: fixed;
   inset: 0; /* replaces top:0; left:0; width:100%; height:100%; */
@@ -663,6 +677,9 @@ select:focus {
   box-sizing: border-box;
 }
 
+.modal.hidden {
+    display: none;
+}
 
 .modal-container {
     position: relative;
@@ -670,18 +687,20 @@ select:focus {
     background: #fff; /* prevents transparency */
 }
 
-
-.modal.hidden {
-    display: none;
-}
-
 .modal-content {
     background: #ffffff;
-    padding: 30px;
-    width: 650px;
     border-radius: 14px;
+    max-width: 650px;
+    width: 100%;
+    max-height: 90dvh;        /* ⭐ keeps all 20 rows visible */
+    overflow-y: auto;        /* ⭐ scrolls inside modal */
+    padding: 30px;
     box-shadow: 0 0 18px rgba(0,0,0,0.25);
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
 }
+
 
 .close {
     float: right;
@@ -793,7 +812,7 @@ select:focus {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    font-size: 16px;
+    font-size:  16px;
 }
 
 #compareTable th, #compareTable td {
@@ -810,7 +829,6 @@ select:focus {
     text-align: center;
     width: 100%;
 }
-
 
 /* -----------------------------------------
    Compare Win - Lose Indicator
@@ -830,7 +848,7 @@ select:focus {
 }
 
 /* -----------------------------------------
-   Leaders Modal (Dark Theme)
+   Leaders Modal
 ----------------------------------------- */
 
 #leadersModal .modal-content {
@@ -840,9 +858,12 @@ select:focus {
     padding: 20px;
     border-radius: 10px;
     color: black;
+
+    /* ⭐ FIX: allow scrolling so all 20 rows appear */
     overflow-y: auto;
     max-height: 90vh;
 }
+
 
 /* Title */
 #leadersTitle {
@@ -894,7 +915,6 @@ select:focus {
     z-index: 9999;
 }
 
-
 /* -----------------------------------------
    Modals
 ----------------------------------------- */
@@ -904,18 +924,13 @@ select:focus {
     display: none;
 }
 
-.modal-content {
-  background: white;
-  border-radius: 10px;
-  max-width: 600px;         /* prevents full-width stretching */
-  width: 100%;
-  max-height: 90dvh;         /* ⭐ prevents vertical overflow */
-  overflow-y: auto;         /* ⭐ scrolls INSIDE the modal */
-  padding: 20px;
-  box-sizing: border-box;
-  text-align: center;
-  position: relative;
+
+.close {
+    font-size: 1.6em;
+    cursor: pointer;
+    color: #444;
 }
+
 
 .no-data-message {
     text-align: center;
@@ -980,10 +995,111 @@ select:focus {
 }
 
 /* -----------------------------------------
-   Batter of the Day - Compact
+   FINAL OVERRIDE — Forces overall battery to render
+----------------------------------------- */
+.overall-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.battery {
+    position: relative;
+    isolation: isolate;
+
+    background: linear-gradient(
+        to bottom,
+        #edf1f5 0%,
+        #d9e0e8 100%
+    );
+
+    border-radius: 5px;
+    overflow: hidden;
+    height: 16px;
+    width: 120px;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    box-shadow:
+        inset 0 1px 3px rgba(0, 0, 0, 0.15),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+
+    --fill: 0%;
+    --color: #00c853;
+}
+
+
+/* Colored health fill */
+.battery::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    z-index: 1;
+
+    width: var(--fill);
+
+    background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color) 88%, white),
+        var(--color)
+    );
+
+    border-radius: 4px;
+
+    transition: width 0.4s ease;
+
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+
+
+/* Health meter dividers */
+.battery::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    background: repeating-linear-gradient(
+        to right,
+        transparent 0,
+        transparent calc(10% - 1px),
+        rgba(255, 255, 255, 0.25) calc(10% - 1px),
+        rgba(255, 255, 255, 0.25) 10%
+    );
+}
+
+
+
+.overall-battery {
+    height: 26px !important;
+    width: 100% !important;
+    max-width: 600px !important;
+}
+
+.overall-battery::after {
+    background: var(--color) !important;
+}
+
+
+/* FINAL FIX — force overall battery height */
+.overall .overall-battery {
+    height: 26px !important;
+    min-height: 26px !important;
+    min-width: 520px;
+}
+
+/* -----------------------------------------
+   Pitcher of the Day - Compact
 ----------------------------------------- */
 
-#batter-ticker {
+#player-ticker {
     display: flex;
     align-items: center;
 
@@ -1006,7 +1122,7 @@ select:focus {
 
 /* Navy label */
 
-.ticker-label {
+#player-ticker .ticker-label {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -1026,14 +1142,14 @@ select:focus {
     letter-spacing: 0.3px;
 }
 
-.ticker-star {
+#player-ticker .ticker-star {
     font-size: 12px;
 }
 
 
 /* Player information */
 
-.ticker-player {
+#player-ticker .ticker-player {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1052,7 +1168,7 @@ select:focus {
 
 /* Dividers */
 
-.ticker-divider {
+#player-ticker .ticker-divider {
     width: 1px;
     height: 13px;
 
@@ -1061,37 +1177,37 @@ select:focus {
     background: #cbd6e2;
 }
 
-#bod-overall,
-#bod-xp {
+#pod-overall,
+#pod-xp {
     font-weight: 800;
 }
 
+
+/* -----------------------------------------
+   Mobile
+----------------------------------------- */
+
 @media (max-width: 700px) {
 
-    #batter-ticker {
+    #player-ticker {
         height: 32px;
     }
 
-    .ticker-label {
+    #player-ticker .ticker-label {
         padding: 0 7px;
         font-size: 9px;
     }
 
-    .ticker-star {
+    #player-ticker .ticker-star {
         font-size: 10px;
     }
 
-    .ticker-player {
+    #player-ticker .ticker-player {
         gap: 6px;
         padding: 0 7px;
         font-size: 10px;
 
         overflow: hidden;
-    }
-
-    #bod-summary {
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
 }
 
@@ -1479,7 +1595,6 @@ select:focus {
     color: #555;
 }
 
-
 /* -----------------------------------------
    Footer
 ----------------------------------------- */
@@ -1489,107 +1604,6 @@ select:focus {
     margin-top: 30px;
     font-size: 0.85em;
     color: #777;
-}
-
-/* -----------------------------------------
-   FINAL OVERRIDE — Forces overall battery to render
------------------------------------------ */
-.overall-top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-
-.battery {
-    position: relative;
-    isolation: isolate;
-
-    background: linear-gradient(
-        to bottom,
-        #edf1f5 0%,
-        #d9e0e8 100%
-    );
-
-    border-radius: 5px;
-    overflow: hidden;
-    height: 16px;
-    width: 120px;
-
-    border: 1px solid rgba(0, 0, 0, 0.08);
-
-    box-shadow:
-        inset 0 1px 3px rgba(0, 0, 0, 0.15),
-        0 1px 2px rgba(0, 0, 0, 0.06);
-
-    --fill: 0%;
-    --color: #00c853;
-}
-
-
-/* Colored health fill */
-.battery::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    z-index: 1;
-
-    width: var(--fill);
-
-    background: linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--color) 88%, white),
-        var(--color)
-    );
-
-    border-radius: 4px;
-
-    transition: width 0.4s ease;
-
-    box-shadow:
-        inset 0 1px 1px rgba(255, 255, 255, 0.35);
-}
-
-
-/* Health meter dividers */
-.battery::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    z-index: 2;
-
-    pointer-events: none;
-
-    background: repeating-linear-gradient(
-        to right,
-        transparent 0,
-        transparent calc(10% - 1px),
-        rgba(255, 255, 255, 0.25) calc(10% - 1px),
-        rgba(255, 255, 255, 0.25) 10%
-    );
-}
-
-
-.overall-battery {
-    height: 26px !important;
-    width: 100% !important;
-    max-width: 600px !important;
-}
-
-.overall-battery::after {
-    background: var(--color) !important;
-}
-
-
-/* FINAL FIX — force overall battery height */
-.overall .overall-battery {
-    height: 26px !important;
-    min-height: 26px !important;
-    min-width: 450px;
 }
 
 /* ------------------------------
