@@ -345,6 +345,50 @@ select:focus {
     text-align: center;
 }
 
+/* -----------------------------------------
+   Player Analytics Panel
+----------------------------------------- */
+
+.analytics-panel {
+    margin-top: 20px;
+    margin-bottom: 24px;
+
+    background: #ffffff;
+    border: 1px solid #dbe4ee;
+    border-radius: 16px;
+    overflow: hidden;
+
+    box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
+}
+
+
+/* Navy Header */
+
+.analytics-header {
+    background: #0f243e;
+    padding: 16px 20px;
+}
+
+.analytics-header h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+
+/* Analytics Body */
+
+.analytics-panel .overall-card {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
 
 /* -----------------------------------------
    Overall Section
