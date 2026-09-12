@@ -371,26 +371,51 @@
 </div>
 
 
-
-       <!-- Compare Modal -->
+<!-- Compare Modal -->
 <div id="compareModal" class="modal">
-    <div class="modal-content compare-box">
-        <span id="compareClose" class="close">&times;</span>
-        <h2 id="compareTitle">Pitcher Comparison</h2>
 
-        <table id="compareTable">
-            <thead>
-                <tr>
-                    <th>Stat</th>
-                    <th id="compareName1">Player 1</th>
-                    <th id="compareName2">Player 2</th>
-                </tr>
-            </thead>
-            <tbody id="compareBody">
-                <!-- Filled dynamically -->
-            </tbody>
-        </table>
+    <div class="modal-content compare-box">
+
+        <div class="compare-header">
+
+            <div>
+                <h2 id="compareTitle">Pitcher Comparison</h2>
+                <div class="compare-subtitle">
+                    Side-by-side comparison of key pitching metrics
+                </div>
+            </div>
+
+            <span id="compareClose" class="close">&times;</span>
+
+        </div>
+
+        <div class="compare-content">
+
+            <table id="compareTable">
+
+                <thead>
+                    <tr>
+                        <th>Stat</th>
+                        <th id="compareName1">Player 1</th>
+                        <th id="compareName2">Player 2</th>
+                        <th>Difference</th>
+                    </tr>
+                </thead>
+
+                <tbody id="compareBody">
+                    <!-- Filled dynamically -->
+                </tbody>
+
+            </table>
+
+            <div class="compare-footer">
+                Green indicates the stronger value for the metric.
+            </div>
+
+        </div>
+
     </div>
+
 </div>
 
 <div id="leadersModal" class="modal">
