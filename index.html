@@ -18,13 +18,31 @@
 </header>
 
 <div id="player-ticker">
-  <span id="ticker-text">
-    Pitcher of the Day — <span id="pod-name">...</span> (<span id="pod-team">...</span>)
-    • Overall: <span id="pod-overall">...</span>
-    • XP: <span id="pod-xp">...</span>
-    • <span id="pod-record">...</span>
-    • <span class="ticker-status">Notice: Constantly Updating UI, Scoring Engine, Data, and Ongoing Improvements</span>
-  </span>
+
+    <div class="ticker-label">
+        <span class="ticker-star">★</span>
+        <span>PITCHER OF THE DAY</span>
+    </div>
+
+    <div class="ticker-player">
+        <strong>
+            <span id="pod-name">...</span>
+            (<span id="pod-team">...</span>)
+        </strong>
+
+        <span class="ticker-divider"></span>
+
+        <span>
+            OVR <strong id="pod-overall">...</strong>
+        </span>
+
+        <span class="ticker-divider"></span>
+
+        <span>
+            XP <strong id="pod-xp">...</strong>
+        </span>
+    </div>
+
 </div>
 
 
