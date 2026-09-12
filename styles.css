@@ -718,79 +718,285 @@ select:focus {
 }
 
 /* -----------------------------------------
-   Trend Modal (Season Comparison)
+   Trend Modal
+----------------------------------------- */
+
+#trendModal {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100dvh;
+
+    background: rgba(15, 36, 62, 0.55);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    z-index: 9999;
+}
+
+
+/* -----------------------------------------
+   Modal Shell
 ----------------------------------------- */
 
 #trendModal .modal-content {
-    width: 600px;
-    max-width: 90%;
-    background: #FFFFFF !important;
-    padding: 20px;
-    border-radius: 10px;
-    color: black;
+    width: 720px;
+    max-width: 95%;
+
+    max-height: 90vh;
+
+    padding: 0;
+
+    background: #ffffff !important;
+    color: #0f243e;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.28),
+        0 4px 14px rgba(15, 36, 62, 0.15);
 }
 
-/* Title */
+
+/* -----------------------------------------
+   Navy Header
+----------------------------------------- */
+
+.trend-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 22px;
+
+    background: linear-gradient(135deg, #0b131d, #0f3e73);
+
+    color: #ffffff;
+}
+
 #trendTitle {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
+    margin: 0;
+
+    text-align: left;
+
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
 }
 
-/* Trend Table */
-.trend-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    font-size: 16px;
+.trend-subtitle {
+    margin-top: 3px;
+
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+
+    color: #b9d4ef;
 }
 
-.trend-table th,
-.trend-table td {
-    padding: 8px;
-    border-bottom: 1px solid #444;
-    text-align: center;
-}
 
-.trend-table th {
-    font-weight: bold;
-}
+/* -----------------------------------------
+   Close Button
+----------------------------------------- */
 
-/* Arrows */
-.trend-table td:last-child {
-    font-size: 1.3em;
-    font-weight: bold;
-}
-
-/* Close button */
 #trendClose {
-    float: right;
-    font-size: 1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: #ffffff;
+
+    font-size: 24px;
+    line-height: 1;
+
     cursor: pointer;
-    color: #bbb;
+
+    transition: 0.2s;
 }
 
 #trendClose:hover {
-    color: #fff;
+    background: rgba(255, 255, 255, 0.22);
+    transform: rotate(90deg);
 }
 
+
 /* -----------------------------------------
-   Trend Arrow Colors (Match Compare Modal)
+   Modal Body
+----------------------------------------- */
+
+.trend-content {
+    padding: 18px 20px 16px;
+}
+
+
+/* -----------------------------------------
+   Trend Table
+----------------------------------------- */
+
+.trend-table {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    overflow: hidden;
+
+    border: 1px solid #dbe4ee;
+    border-radius: 12px;
+
+    font-size: 15px;
+}
+
+.trend-table th {
+    padding: 12px 10px;
+
+    background: #f4f7fb;
+
+    border-bottom: 1px solid #dbe4ee;
+
+    color: #405a78;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+
+    text-align: center;
+}
+
+.trend-table td {
+    padding: 12px 10px;
+
+    border-bottom: 1px solid #edf1f5;
+
+    text-align: center;
+
+    color: #0f243e;
+}
+
+.trend-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Alternating rows */
+
+.trend-table tbody tr:nth-child(even) {
+    background: #fbfcfe;
+}
+
+
+/* Stat column */
+
+.trend-table td:first-child {
+    font-weight: 800;
+}
+
+
+/* Trend column */
+
+.trend-table td:last-child {
+    font-size: 1.15em;
+    font-weight: 800;
+}
+
+
+/* -----------------------------------------
+   Trend Arrow Colors
 ----------------------------------------- */
 
 .trend-up {
-    color: #4caf50; /* green */
-    font-weight: 700;
+    color: #4caf50;
+    font-weight: 800;
 }
 
 .trend-down {
-    color: #e53935; /* red */
-    font-weight: 700;
+    color: #e53935;
+    font-weight: 800;
 }
 
 .trend-flat {
-    color: #cccccc; /* gray */
-    font-weight: 700;
+    color: #9b9b9b;
+    font-weight: 800;
+}
+
+
+/* -----------------------------------------
+   Footer Note
+----------------------------------------- */
+
+.trend-footer {
+    margin-top: 14px;
+
+    padding: 10px 12px;
+
+    background: #f4f7fb;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+
+    color: #5d7189;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* -----------------------------------------
+   Mobile
+----------------------------------------- */
+
+@media (max-width: 700px) {
+
+    #trendModal {
+        padding: 8px;
+    }
+
+    #trendModal .modal-content {
+        width: 100%;
+        max-width: 100%;
+
+        border-radius: 12px;
+    }
+
+    .trend-header {
+        padding: 14px 16px;
+    }
+
+    #trendTitle {
+        font-size: 1.2rem;
+    }
+
+    .trend-subtitle {
+        font-size: 10px;
+    }
+
+    .trend-content {
+        padding: 12px;
+    }
+
+    .trend-table {
+        font-size: 13px;
+    }
+
+    .trend-table th,
+    .trend-table td {
+        padding: 9px 6px;
+    }
 }
 
 
