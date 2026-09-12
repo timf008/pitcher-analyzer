@@ -152,58 +152,152 @@ button.reset:hover {
     padding: 0 14px;
 }
  
-
 /* -----------------------------------------
-   Metric Grid
+   Pitching Metrics Panel
 ----------------------------------------- */
 
 .metrics {
     margin-top: 20px;
+    background: #ffffff;
+    border: 1px solid #dbe4ee;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
 }
 
-.metrics h2,
-.overall h2 {
-    margin-bottom: 18px;
-    font-size: 1.2em;
-    font-weight: 600;
+
+/* -----------------------------------------
+   Header
+----------------------------------------- */
+
+.metrics-header {
+    background: #0f243e;
+    padding: 16px 20px;
 }
+
+.metrics-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+
+/* -----------------------------------------
+   Column Labels
+----------------------------------------- */
+
+.metrics-columns {
+    display: grid;
+    grid-template-columns: 150px 90px 1fr 70px;
+    align-items: center;
+
+    padding: 10px 18px;
+
+    background: #f4f7fb;
+    border-bottom: 1px solid #dbe4ee;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: #5d7189;
+}
+
+.metrics-columns span:nth-child(2),
+.metrics-columns span:nth-child(4) {
+    text-align: center;
+}
+
+
+/* -----------------------------------------
+   Metric Rows
+----------------------------------------- */
 
 .metric-row {
-    display: flex;
-    grid-template-columns: 120px 70px 1fr 60px;
+    display: grid;
+    grid-template-columns: 150px 90px 1fr 70px;
     align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
+
+    gap: 14px;
+    padding: 14px 18px;
+
+    background: #ffffff;
+    border-bottom: 1px solid #edf1f5;
+}
+
+.metric-row:last-child {
+    border-bottom: none;
+}
+
+.metric-row:hover {
     background: #f9fbfe;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+
+/* -----------------------------------------
+   Metric Name
+----------------------------------------- */
+
+.metric-name {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
 .metric-label {
-    font-weight: 600;
-    width: 70px;
-    display: inline-block;
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f243e;
 }
+
+.metric-direction {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #7a8da5;
+}
+
+
+/* -----------------------------------------
+   Raw Value
+----------------------------------------- */
 
 .metric-raw {
-    font-weight: 600;
-    color: #333;
-    text-align: right;
-    width: 50px;
-    display: inline-block;
-}
-
-
-.metric-score {
-    text-align: right;
+    font-size: 18px;
     font-weight: 700;
-    font-size: 1.05em;
-    width: 40px;
-    display: inline-block;
+    color: #0f243e;
+    text-align: center;
 }
+
+
+/* -----------------------------------------
+   Battery
+----------------------------------------- */
 
 .metric-row .battery {
-    flex: 1;
+    width: 100%;
+}
+
+
+/* -----------------------------------------
+   Score
+----------------------------------------- */
+
+.metric-score {
+    justify-self: center;
+
+    min-width: 52px;
+
+    padding: 8px 10px;
+
+    background: #f1f5f9;
+    border-radius: 8px;
+
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f243e;
+    text-align: center;
 }
 
 
@@ -1326,14 +1420,6 @@ button.reset:hover {
     margin-top: 30px;
     font-size: 0.85em;
     color: #777;
-}
-
-.player-photo {
-  width: 90px;
-  height: 200px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  margin-top: 20px;
 }
 
 /* ------------------------------
