@@ -914,26 +914,27 @@ select:focus {
     font-weight: 800;
 }
 
-
 /* -----------------------------------------
    Trend Arrow Colors
 ----------------------------------------- */
 
-.trend-up {
-    color: #4caf50;
+.trend-table .trend-up,
+.trend-table td.trend-up {
+    color: #4caf50 !important;
     font-weight: 800;
 }
 
-.trend-down {
-    color: #e53935;
+.trend-table .trend-down,
+.trend-table td.trend-down {
+    color: #e53935 !important;
     font-weight: 800;
 }
 
-.trend-flat {
-    color: #9b9b9b;
+.trend-table .trend-flat,
+.trend-table td.trend-flat {
+    color: #9b9b9b !important;
     font-weight: 800;
 }
-
 
 /* -----------------------------------------
    Footer Note
