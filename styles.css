@@ -64,20 +64,63 @@ body {
 }
 
 /* -----------------------------------------
-   Controls
+   Player Search Panel
 ----------------------------------------- */
 
-.controls {
+.search-panel {
+    margin-bottom: 24px;
+    background: #ffffff;
+    border: 1px solid #dbe4ee;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
+}
+
+
+/* Navy Header */
+
+.search-header {
+    background: #0f243e;
+    padding: 16px 20px;
+}
+
+.search-header h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+
+/* Search Body */
+
+.search-body {
+    padding: 18px 20px 6px;
+}
+
+
+/* -----------------------------------------
+   Control Rows
+----------------------------------------- */
+
+.controls.row {
     display: flex;
     align-items: flex-end;
-    gap: 25px;
+    gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 25px;
-    padding: 18px;
-    background: #f3f6fa;
-    border-radius: 12px;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+
+    margin: 0 0 14px;
+    padding: 0;
+
+    background: transparent;
+    box-shadow: none;
 }
+
+
+/* -----------------------------------------
+   Inputs
+----------------------------------------- */
 
 .input-group {
     display: flex;
@@ -85,71 +128,73 @@ body {
 }
 
 .input-group label {
-    font-size: 14px;
-    margin-bottom: 4px;
-    font-weight: 600;
+    margin-bottom: 5px;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+
+    color: #536b89;
 }
 
-input, select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #cfd6e0;
+input,
+select {
+    height: 38px;
+    box-sizing: border-box;
+
+    padding: 0 10px;
+
+    font-size: 15px;
+    color: #0f243e;
+
+    border: 1px solid #cfd8e3;
     border-radius: 8px;
     background: #ffffff;
+
     transition: 0.2s;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
+    outline: none;
     border-color: #0077ff;
-    box-shadow: 0 0 4px rgba(0,119,255,0.4);
-}
-
-button {
-    padding: 10px 18px;
-    font-size: 14px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #0077ff, #005fcc);
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-    transition: 0.2s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.18);
+    box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.12);
 }
 
 
-
-
-
-button.reset {
-    background: linear-gradient(135deg, #d9534f, #b52b27);
-}
-
-button.reset:hover {
-    transform: translateY(-2px);
-}
-
-.controls.row {
-    display: flex;
-    gap: 12px;
-    align-items: flex-end;
-    margin-bottom: 15px;
-}
-
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-}
+/* -----------------------------------------
+   Buttons
+----------------------------------------- */
 
 .controls.row button {
     height: 38px;
-    padding: 0 14px;
+    padding: 0 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: linear-gradient(135deg, #0077ff, #005fcc);
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+    transition: 0.2s;
+}
+
+.controls.row button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.16);
+}
+
+
+/* Reset */
+
+.controls.row button.reset {
+    background: linear-gradient(135deg, #d9534f, #b52b27);
 }
  
 /* -----------------------------------------
