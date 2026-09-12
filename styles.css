@@ -322,31 +322,51 @@ button.reset:hover {
 /* Card container */
 .overall-card {
     background: #F4F7FB;
-    border: 3px solid #CBD5E1;
-    border-radius: 10px;
-    padding: 20px 24px;
+
+    border: 1px solid #cbd6e2;
+    border-radius: 14px;
+
+    padding: 24px 26px;
+
     max-width: 650px;
     margin: 40px auto 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+
+    box-shadow:
+        0 4px 12px rgba(15, 36, 62, 0.08),
+        0 1px 3px rgba(15, 36, 62, 0.05);
+
     position: relative;
+
     display: flex;
-    gap: 20px;
+    gap: 22px;
 }
 
 /* File tab */
 .overall-card-tab {
     position: absolute;
-    top: -18px;
+    top: -19px;
     left: 20px;
+
     background: #ffffff;
-    border: 1px solid #d4d9e2;
+
+    border: 1px solid #cbd6e2;
     border-bottom: none;
-    padding: 6px 14px;
+    border-top: 3px solid #0f243e;
+
+    padding: 6px 16px 7px;
+
     border-radius: 8px 8px 0 0;
-    font-weight: 700;
-    font-size: 16px;
-    color: #2c3e50;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+
+    color: #0f243e;
+
+    box-shadow:
+        0 -3px 6px rgba(15, 36, 62, 0.06);
+
+    z-index: 2;
 }
 
 
