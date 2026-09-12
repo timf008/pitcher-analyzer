@@ -373,26 +373,47 @@
 </div>
 
 <div id="leadersModal" class="modal">
-    <div class="modal-content leaders-modal">
-        <span id="leadersClose" class="close">&times;</span>
-        <h2 id="leadersTitle">League Leaders</h2>
 
-        <table class="leaders-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Player</th>
-		    <th>Team</th>
-                    <th>XP</th>
-		    <th>Overall Score</th>
-                    <th>Fantasy Identity</th>
-                </tr>
-            </thead>
-            <tbody id="leadersBody">
-                <!-- JS will inject rows here -->
-            </tbody>
-        </table>
+    <div class="modal-content leaders-modal">
+
+        <div class="leaders-header">
+
+            <div>
+                <h2 id="leadersTitle">League Leaders</h2>
+                <div class="leaders-subtitle">
+                    Top 50 • Sorted by Overall Score
+                </div>
+            </div>
+
+            <span id="leadersClose" class="close">&times;</span>
+
+        </div>
+
+        <div class="leaders-table-wrap">
+
+            <table class="leaders-table">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Player</th>
+                        <th>Team</th>
+                        <th>XP</th>
+                        <th>Overall Score</th>
+                        <th>Fantasy Identity</th>
+                    </tr>
+                </thead>
+
+                <tbody id="leadersBody">
+                    <!-- JS will inject rows here -->
+                </tbody>
+
+            </table>
+
+        </div>
+
     </div>
+
 </div>
 
 
