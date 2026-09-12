@@ -336,17 +336,38 @@
 
 <hr>
 
-
-       <!-- Trend Modal (Season Comparison) -->
+<!-- Trend Modal (Season Comparison) -->
 <div id="trendModal" class="modal hidden">
-    <div class="modal-content">
-        <span id="trendClose" class="close">&times;</span>
-        <h2 id="trendTitle">Season Comparison</h2>
 
-        <div id="trendBody">
-            <!-- JS will inject the comparison table here -->
+    <div class="modal-content trend-modal">
+
+        <div class="trend-header">
+
+            <div>
+                <h2 id="trendTitle">Season Comparison</h2>
+                <div class="trend-subtitle">
+                    Year-over-year performance by key metrics
+                </div>
+            </div>
+
+            <span id="trendClose" class="close">&times;</span>
+
         </div>
+
+        <div class="trend-content">
+
+            <div id="trendBody">
+                <!-- JS injects comparison table here -->
+            </div>
+
+            <div class="trend-footer">
+                Trend shows the direction of change between seasons.
+            </div>
+
+        </div>
+
     </div>
+
 </div>
 
 
