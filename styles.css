@@ -851,68 +851,328 @@ select:focus {
    Leaders Modal
 ----------------------------------------- */
 
-#leadersModal .modal-content {
-    width: 600px;
-    max-width: 90%;
-    background: #FFFFFF !important;
-    padding: 20px;
-    border-radius: 10px;
-    color: black;
-
-    /* ⭐ FIX: allow scrolling so all 20 rows appear */
-    overflow-y: auto;
-    max-height: 90vh;
-}
-
-
-/* Title */
-#leadersTitle {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-/* Leaders Table */
-.leaders-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-.leaders-table th,
-.leaders-table td {
-    padding: 8px;
-    border-bottom: 1px solid #444;
-    text-align: center;
-}
-
-.leaders-table th {
-    font-weight: bold;
-}
-
-/* Close button */
-#leadersClose {
-    float: right;
-    font-size: 1.6em;
-    cursor: pointer;
-    color: #bbb;
-}
-
-#leadersClose:hover {
-    color: #fff;
-}
-
 #leadersModal {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
+
     width: 100%;
     height: 100dvh;
-    background: rgba(0, 0, 0, 0.6);
+
+    background: rgba(15, 36, 62, 0.55);
+
     display: none;
     justify-content: center;
     align-items: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
     z-index: 9999;
+}
+
+
+/* -----------------------------------------
+   Modal Shell
+----------------------------------------- */
+
+#leadersModal .modal-content {
+    width: 760px;
+    max-width: 95%;
+
+    max-height: 88vh;
+
+    padding: 0;
+
+    background: #ffffff !important;
+    color: #0f243e;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.28),
+        0 4px 14px rgba(15, 36, 62, 0.15);
+}
+
+
+/* -----------------------------------------
+   Navy Header
+----------------------------------------- */
+
+.leaders-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 22px;
+
+    background: linear-gradient(135deg, #0b131d, #0f3e73);
+
+    color: #ffffff;
+}
+
+#leadersTitle {
+    margin: 0;
+
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+
+    text-align: left;
+}
+
+.leaders-subtitle {
+    margin-top: 3px;
+
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+
+    color: #b9d4ef;
+}
+
+
+/* -----------------------------------------
+   Close Button
+----------------------------------------- */
+
+#leadersClose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: #ffffff;
+
+    font-size: 24px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#leadersClose:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: rotate(90deg);
+}
+
+
+/* -----------------------------------------
+   Scroll Area
+----------------------------------------- */
+
+.leaders-table-wrap {
+    max-height: calc(88vh - 78px);
+    overflow-y: auto;
+}
+
+
+/* -----------------------------------------
+   Leaders Table
+----------------------------------------- */
+
+.leaders-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    background: #ffffff;
+}
+
+.leaders-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    background: #f4f7fb;
+
+    box-shadow: 0 2px 4px rgba(15, 36, 62, 0.06);
+}
+
+.leaders-table th {
+    padding: 12px 10px;
+
+    border-bottom: 1px solid #dbe4ee;
+
+    color: #405a78;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+
+    text-align: center;
+}
+
+.leaders-table td {
+    padding: 11px 10px;
+
+    border-bottom: 1px solid #edf1f5;
+
+    text-align: center;
+
+    font-size: 14px;
+    color: #0f243e;
+}
+
+
+/* Slight zebra striping */
+
+.leaders-table tbody tr:nth-child(even) {
+    background: #fbfcfe;
+}
+
+
+/* Hover */
+
+.leaders-table tbody tr {
+    transition: 0.15s;
+}
+
+.leaders-table tbody tr:hover {
+    background: #eef5fc;
+}
+
+
+/* -----------------------------------------
+   Rank Column
+----------------------------------------- */
+
+.leaders-table th:first-child,
+.leaders-table td:first-child {
+    width: 42px;
+    font-weight: 800;
+}
+
+
+/* -----------------------------------------
+   Clickable Player Name
+----------------------------------------- */
+
+.leader-player-link {
+    all: unset;
+
+    cursor: pointer;
+
+    font: inherit;
+    font-weight: 700;
+
+    color: #0067d9;
+}
+
+.leader-player-link:hover {
+    text-decoration: underline;
+}
+
+
+/* -----------------------------------------
+   Fantasy Identity Pills
+----------------------------------------- */
+
+.leader-identity {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 105px;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+/* Breakout */
+
+.leader-identity.breakout {
+    color: #176b11;
+    background: rgba(126, 211, 33, 0.18);
+    border: 1px solid rgba(126, 211, 33, 0.45);
+}
+
+
+/* Overperformer */
+
+.leader-identity.overperformer {
+    color: #a65d00;
+    background: rgba(245, 166, 35, 0.18);
+    border: 1px solid rgba(245, 166, 35, 0.45);
+}
+
+
+/* Sleeper */
+
+.leader-identity.sleeper {
+    color: #1d5fa8;
+    background: rgba(74, 144, 226, 0.16);
+    border: 1px solid rgba(74, 144, 226, 0.4);
+}
+
+
+/* Consistent */
+
+.leader-identity.consistent {
+    color: #666666;
+    background: rgba(155, 155, 155, 0.16);
+    border: 1px solid rgba(155, 155, 155, 0.35);
+}
+
+
+/* Neutral */
+
+.leader-identity.neutral {
+    color: #666;
+    background: #f1f3f5;
+    border: 1px solid #d6dbe1;
+}
+
+
+/* -----------------------------------------
+   Mobile
+----------------------------------------- */
+
+@media (max-width: 700px) {
+
+    #leadersModal {
+        padding: 8px;
+    }
+
+    #leadersModal .modal-content {
+        width: 100%;
+        max-width: 100%;
+        max-height: 94vh;
+        border-radius: 12px;
+    }
+
+    .leaders-header {
+        padding: 14px 16px;
+    }
+
+    #leadersTitle {
+        font-size: 1.2rem;
+    }
+
+    .leaders-subtitle {
+        font-size: 10px;
+    }
+
+    .leaders-table-wrap {
+        max-height: calc(94vh - 70px);
+        overflow-x: auto;
+    }
+
+    .leaders-table {
+        min-width: 650px;
+    }
 }
 
 /* -----------------------------------------
@@ -1515,46 +1775,6 @@ select:focus {
 
 }
 
-/* -----------------------------------------
-   Leaders Table Fantasy Identity
------------------------------------------ */
-.leader-identity {
-    font-weight: 700;
-}
-
-.leader-identity.breakout {
-    color: #7ed321;
-}
-
-.leader-identity.overperformer {
-    color: #f5a623;
-}
-
-.leader-identity.sleeper {
-    color: #4a90e2;
-}
-
-.leader-identity.consistent {
-    color: #9b9b9b;
-}
-
-.leader-identity.neutral {
-    color: #777;
-}
-
-/* -----------------------------------------
-   Leaders Table Clickable Name
------------------------------------------ */
-.leader-player-link {
-    all: unset;
-    cursor: pointer;
-    font: inherit;
-    color: inherit;
-}
-
-.leader-player-link:hover {
-    text-decoration: underline;
-}
 
 /* -----------------------------------------
    Fantasy Summary
