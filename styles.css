@@ -336,32 +336,20 @@ button.reset:hover {
     gap: 22px;
 }
 
-/* File tab */
-.overall-card-tab {
-    position: absolute;
-    top: -19px;
-    left: 20px;
+/* -----------------------------------------
+   Player Card Header
+----------------------------------------- */
 
-    background: #ffffff;
+.player-card-header {
+    margin-bottom: 18px;
+}
 
-    border: 1px solid #cbd6e2;
-    border-bottom: none;
-    border-top: 3px solid #0f243e;
-
-    padding: 6px 16px 7px;
-
-    border-radius: 8px 8px 0 0;
-
+.player-card-name {
+    font-size: 28px;
     font-weight: 800;
-    font-size: 15px;
-    letter-spacing: 0.2px;
-
+    letter-spacing: -0.4px;
     color: #0f243e;
-
-    box-shadow:
-        0 -3px 6px rgba(15, 36, 62, 0.06);
-
-    z-index: 2;
+    line-height: 1.15;
 }
 
 /* -----------------------------------------
