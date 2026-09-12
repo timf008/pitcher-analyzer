@@ -1000,58 +1000,303 @@ select:focus {
     }
 }
 
-
-
-
 /* -----------------------------------------
    Compare Modal
 ----------------------------------------- */
-.compare-box {
-    width: 600px;
-    max-width: 90%;
-    background: #FFFFFF !important;
-    padding: 20px;
-    border-radius: 10px;
-    color: black;
-}
 
-#compareTable {
+#compareModal {
+    position: fixed;
+    inset: 0;
+
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    font-size:  16px;
+    height: 100dvh;
+
+    background: rgba(15, 36, 62, 0.55);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    z-index: 9999;
 }
 
-#compareTable th, #compareTable td {
-    padding: 8px;
-    border-bottom: 1px solid #444;
-    text-align: center;
+
+/* Modal shell */
+
+#compareModal .compare-box {
+    width: 780px;
+    max-width: 95%;
+
+    padding: 0;
+
+    background: #ffffff !important;
+    color: #0f243e;
+
+    border-radius: 16px;
+    overflow: hidden;
+
+    box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.28),
+        0 4px 14px rgba(15, 36, 62, 0.15);
 }
 
-#compareTable th {
-    font-weight: bold;
+
+/* -----------------------------------------
+   Navy Header
+----------------------------------------- */
+
+.compare-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 22px;
+
+    background: linear-gradient(135deg, #0b131d, #0f3e73);
+
+    color: #ffffff;
 }
 
 #compareTitle {
-    text-align: center;
-    width: 100%;
+    margin: 0;
+
+    text-align: left;
+
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
 }
+
+.compare-subtitle {
+    margin-top: 3px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    color: #b9d4ef;
+}
+
+
+/* Close button */
+
+#compareClose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: #ffffff;
+
+    font-size: 24px;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#compareClose:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: rotate(90deg);
+}
+
 
 /* -----------------------------------------
-   Compare Win - Lose Indicator
+   Body
 ----------------------------------------- */
-.win {
-    color: #4caf50; /* green */
-    font-weight: 700;
+
+.compare-content {
+    padding: 18px 20px 16px;
 }
 
-.lose {
-    color: #e53935; /* red */
+
+/* -----------------------------------------
+   Comparison Table
+----------------------------------------- */
+
+#compareTable {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    border: 1px solid #dbe4ee;
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    font-size: 15px;
+}
+
+#compareTable th {
+    padding: 13px 10px;
+
+    background: #f4f7fb;
+
+    border-bottom: 1px solid #dbe4ee;
+
+    color: #405a78;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+
+    text-align: center;
+}
+
+#compareTable td {
+    padding: 12px 10px;
+
+    border-bottom: 1px solid #edf1f5;
+
+    text-align: center;
+
+    color: #0f243e;
+}
+
+#compareTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#compareTable tbody tr:nth-child(even) {
+    background: #fbfcfe;
+}
+
+
+/* Stat names */
+
+#compareTable td:first-child {
+    font-weight: 800;
+}
+
+
+/* -----------------------------------------
+   Winner / Loser
+----------------------------------------- */
+
+#compareTable .win {
+    color: #35a84a !important;
+    font-weight: 800;
+}
+
+#compareTable .lose {
+    color: #e53935 !important;
+    font-weight: 500;
     opacity: 0.85;
 }
 
-.tie {
-    color: #cccccc;
+#compareTable .tie {
+    color: #9b9b9b !important;
+    font-weight: 700;
+}
+
+
+/* -----------------------------------------
+   Difference Pills
+----------------------------------------- */
+
+.compare-difference {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 72px;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.compare-difference.positive {
+    color: #218838;
+    background: rgba(76, 175, 80, 0.14);
+}
+
+.compare-difference.negative {
+    color: #c62828;
+    background: rgba(229, 57, 53, 0.13);
+}
+
+.compare-difference.tie {
+    color: #777;
+    background: #f1f3f5;
+}
+
+
+/* -----------------------------------------
+   Footer
+----------------------------------------- */
+
+.compare-footer {
+    margin-top: 14px;
+
+    padding: 10px 12px;
+
+    background: #f4f7fb;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+
+    color: #5d7189;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* -----------------------------------------
+   Mobile
+----------------------------------------- */
+
+@media (max-width: 700px) {
+
+    #compareModal {
+        padding: 8px;
+    }
+
+    #compareModal .compare-box {
+        width: 100%;
+        max-width: 100%;
+
+        border-radius: 12px;
+    }
+
+    .compare-header {
+        padding: 14px 16px;
+    }
+
+    #compareTitle {
+        font-size: 1.2rem;
+    }
+
+    .compare-subtitle {
+        font-size: 10px;
+    }
+
+    .compare-content {
+        padding: 12px;
+        overflow-x: auto;
+    }
+
+    #compareTable {
+        min-width: 620px;
+        font-size: 13px;
+    }
+
+    #compareTable th,
+    #compareTable td {
+        padding: 9px 7px;
+    }
 }
 
 /* -----------------------------------------
