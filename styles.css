@@ -848,190 +848,290 @@ button.reset:hover {
 
 .fantasy-edge-panel {
     margin-top: 24px;
-    padding: 20px 24px 24px;
+    padding: 22px 24px 26px;
 
     background: #f8fbff;
-    border: 1px solid #cbd6e2;
-    border-radius: 12px;
 
-    box-shadow: 0 2px 8px rgba(15, 36, 62, 0.06);
+    border: 1px solid #cbd6e2;
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 12px rgba(15, 36, 62, 0.07);
 }
 
-/* -----------------------------------------
-   Idenity Badge
------------------------------------------ */
+
+/* ------------------------------
+   Bottom Info Row
+------------------------------ */
+
 #bottom-info-row {
     display: flex;
-    gap: 16px;
+
+    gap: 14px;
+
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+
     align-items: stretch;
     justify-content: center;
 }
 
-/* Make all children equal width */
+
+/* Equal-width cards */
+
 #bottom-info-row > div {
     flex: 1;
+
     max-width: 260px;
 }
 
-/* Identity Badge */
-#player-identity-key {
+
+/* ------------------------------
+   Shared Card Styling
+------------------------------ */
+
+#player-identity-key,
+#player-state-key,
+#player-value-key {
     font-size: 13px;
-    padding: 10px 14px;
-    background: #fafafa;
-    border-radius: 6px;
+
+    padding: 14px 16px;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 6px rgba(15, 36, 62, 0.05);
+}
+
+
+/* Identity */
+
+#player-identity-key {
     border: 2px solid #006CD5;
 }
 
-.identity-badge {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 6px;
-    opacity: 0.35;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
 
-.identity-badge.active {
-    opacity: 1;
-    transform: scale(1.2);
-    animation: pulse 1.4s ease-in-out infinite;
-}
+/* State */
 
-@keyframes pulse {
-    0%   { transform: scale(1.2); }
-    50%  { transform: scale(1.4); }
-    100% { transform: scale(1.2); }
-}
-
-.identity-badge.sleeper { background: #4a90e2; }
-.identity-badge.overperformer { background: #f5a623; }
-.identity-badge.breakout { background: #7ed321; }
-.identity-badge.consistent { background: #9b9b9b; }
-.identity-badge.neutral { background: #5b5b5b; }
-
-/* -----------------------------------------
-   Player State Key
------------------------------------------ */
-/* Player State Key */
 #player-state-key {
-    font-size: 13px;
-    padding: 10px 14px;
-    background: #fafafa;
-    border-radius: 6px;
     border: 2px solid #26A460;
 }
 
-/* State Badge */
-.state-badge {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 6px;
-    opacity: 0.35;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
 
-/* Active State (mirrors identity-badge.active) */
-.state-badge.active {
-    opacity: 1;
-    transform: scale(1.2);
-    animation: pulse 1.4s ease-in-out infinite;
-}
+/* Value */
 
-/* Reuse your existing pulse animation */
-@keyframes pulse {
-    0%   { transform: scale(1.2); }
-    50%  { transform: scale(1.4); }
-    100% { transform: scale(1.2); }
-}
-
-/* State Colors */
-.state-badge.strong {
-    background: #2ecc71; /* green */
-}
-
-.state-badge.stable {
-    background: #3498db; /* blue */
-}
-
-.state-badge.vulnerable {
-    background: #f1c40f; /* yellow */
-}
-
-.state-badge.high-risk {
-    background: #e74c3c; /* red */
-}
-
-/* League Averages */
-#league-averages {
-    font-size: 14px;
-    background: #f7f7f7;
-    padding: 10px 14px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-}
-
-.info-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #333;
-    text-align: center;
-}
-
-
-/* -----------------------------------------
-   Player Value Key
------------------------------------------ */
 #player-value-key {
-    font-size: 13px;
-    padding: 10px 14px;
-    background: #fafafa;
-    border-radius: 6px;
     border: 2px solid #FD8E02;
 }
 
-/* Value Badge (same structure as identity/state) */
+
+/* ------------------------------
+   Titles
+------------------------------ */
+
+.info-title {
+    margin: 0 0 12px;
+
+    padding-bottom: 8px;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    color: #0f243e;
+
+    text-align: center;
+
+    letter-spacing: 0.3px;
+
+    border-bottom: 1px solid #e1e7ee;
+}
+
+
+/* ------------------------------
+   List Rows
+------------------------------ */
+
+#player-identity-key p,
+#player-state-key p,
+#player-value-key p {
+    margin: 8px 0;
+
+    display: flex;
+
+    align-items: center;
+
+    line-height: 1.25;
+
+    color: #38495a;
+}
+
+
+/* ------------------------------
+   Shared Badge Structure
+------------------------------ */
+
+.identity-badge,
+.state-badge,
 .value-badge {
     display: inline-block;
+
+    flex: 0 0 auto;
+
     width: 12px;
     height: 12px;
+
+    margin-right: 8px;
+
     border-radius: 50%;
-    margin-right: 6px;
-    opacity: 0.35;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+
+    opacity: 0.30;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-/* Active Value Badge */
+
+/* Active Badge */
+
+.identity-badge.active,
+.state-badge.active,
 .value-badge.active {
     opacity: 1;
+
     transform: scale(1.2);
+
     animation: pulse 1.4s ease-in-out infinite;
+
+    box-shadow:
+        0 0 0 3px rgba(15, 36, 62, 0.08);
 }
 
-/* Value Colors (distinct from State) */
+
+/* One pulse animation for all three */
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(1.2);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+
+/* ------------------------------
+   Identity Colors
+------------------------------ */
+
+.identity-badge.sleeper {
+    background: #4a90e2;
+}
+
+.identity-badge.overperformer {
+    background: #f5a623;
+}
+
+.identity-badge.breakout {
+    background: #7ed321;
+}
+
+.identity-badge.consistent {
+    background: #9b9b9b;
+}
+
+.identity-badge.neutral {
+    background: #5b5b5b;
+}
+
+
+/* ------------------------------
+   State Colors
+------------------------------ */
+
+.state-badge.strong {
+    background: #2ecc71;
+}
+
+.state-badge.stable {
+    background: #3498db;
+}
+
+.state-badge.vulnerable {
+    background: #f1c40f;
+}
+
+.state-badge.high-risk {
+    background: #e74c3c;
+}
+
+
+/* ------------------------------
+   Value Colors
+------------------------------ */
+
 .value-badge.extreme {
-    background: #8e44ad; /* purple */
+    background: #8e44ad;
 }
 
 .value-badge.elevated {
-    background: #16a085; /* teal */
+    background: #16a085;
 }
 
 .value-badge.expected {
-    background: #0578c5; /* blue */
+    background: #0578c5;
 }
 
 .value-badge.below {
-    background: #f5a606; /* orange */
+    background: #f5a606;
 }
 
 .value-badge.suppressed {
-    background: #d35400; /* red */
+    background: #d35400;
+}
+
+
+/* ------------------------------
+   League Averages
+------------------------------ */
+
+#league-averages {
+    font-size: 14px;
+
+    background: #f7f7f7;
+
+    padding: 10px 14px;
+
+    border-radius: 6px;
+
+    border: 1px solid #ddd;
+}
+
+
+/* ------------------------------
+   Mobile
+------------------------------ */
+
+@media (max-width: 750px) {
+
+    #bottom-info-row {
+        flex-direction: column;
+    }
+
+    #bottom-info-row > div {
+        max-width: none;
+        width: 100%;
+    }
+
 }
 
 /* -----------------------------------------
