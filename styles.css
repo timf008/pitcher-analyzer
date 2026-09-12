@@ -218,13 +218,87 @@ button.reset:hover {
     gap: 12px;
 }
 
+/* -----------------------------------------
+   Overall Score / XP / Tier
+----------------------------------------- */
+
 .overall-top {
     display: flex;
-    justify-content: space-between;
-    max-width: 600px;
-    gap: 14px;
+    align-items: stretch;
     justify-content: center;
+
+    width: 100%;
+    margin-bottom: 16px;
+
+    background: #ffffff;
+
+    border: 1px solid #d7e0e8;
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 6px rgba(15, 36, 62, 0.06);
+}
+
+
+/* Each stat */
+
+.overall-top p {
+    flex: 1;
+
+    margin: 0;
+    padding: 12px 14px;
+
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+
+    color: #607286;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+
+    text-align: center;
+}
+
+
+/* Vertical dividers */
+
+.overall-top p + p {
+    border-left: 1px solid #d7e0e8;
+}
+
+
+/* Overall Score + XP values */
+
+.overall-top span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #0f243e;
+
+    font-size: 27px;
+    font-weight: 800;
+
+    line-height: 1;
+
+    letter-spacing: 0;
+
+    text-transform: none;
+}
+
+
+/* Tier badge */
+
+.overall-top #overallTier .tier-badge {
+    color: #ffffff !important;
+    font-size: 20px;
+    font-weight: 800;
 }
 
 /* ⭐ Overall battery — FIXED (now visible) */
