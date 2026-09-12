@@ -2,49 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pitcher Analyzer (Stathead Edition)</title>
+    <title>Batter Analyzer (Stathead Edition)</title>
     <link rel="stylesheet" href="styles.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
 
-    <div class="container">
+<div class="container">
 
 <!-- Header -->
     <header class="header">
-    <img src="images/pitcher_analyzer.png" class="pitcher-analyzer" alt="Pitcher Analyzer">
+    <img src="images/batter_analyzer.png" class="batter-analyzer" alt="Batter Analyzer">
+
+<div class="analyzer-tagline">
+    ANALYTICS <span>•</span> EVALUATION <span>•</span> INSIGHTS
+</div>
 
 </header>
 
-<div id="player-ticker">
+<div id="batter-ticker">
 
     <div class="ticker-label">
         <span class="ticker-star">★</span>
-        <span>PITCHER OF THE DAY</span>
+        <span>BATTER OF THE DAY</span>
     </div>
 
     <div class="ticker-player">
         <strong>
-            <span id="pod-name">...</span>
-            (<span id="pod-team">...</span>)
+            <span id="bod-name">...</span>
+            (<span id="bod-team">...</span>)
         </strong>
 
         <span class="ticker-divider"></span>
 
         <span>
-            OVR <strong id="pod-overall">...</strong>
+            OVR <strong id="bod-overall">...</strong>
         </span>
 
         <span class="ticker-divider"></span>
 
         <span>
-            XP <strong id="pod-xp">...</strong>
+            XP <strong id="bod-xp">...</strong>
         </span>
     </div>
 
 </div>
-
 
 <section class="search-panel">
 
@@ -56,9 +59,10 @@
 
         <!-- Row 1 -->
         <section class="controls row">
+
             <div class="input-group">
                 <label for="playerName">Player Name</label>
-                <input type="text" id="playerName" placeholder="Jacob Misiorowski">
+                <input type="text" id="playerName" placeholder="Kyle Schwarber">
             </div>
 
             <div class="input-group">
@@ -77,14 +81,16 @@
             <button id="loadBtn">Load 🔍</button>
             <button id="trendBtn">Trend 📈</button>
             <button id="leadersBtn">Leaders 🏅</button>
+
         </section>
 
 
         <!-- Row 2 -->
         <section class="controls row">
+
             <div class="input-group">
                 <label for="playerName2">Player Name (Compare)</label>
-                <input type="text" id="playerName2" placeholder="Paul Skenes">
+                <input type="text" id="playerName2" placeholder="Juan Soto">
             </div>
 
             <div class="input-group">
@@ -103,20 +109,20 @@
             <button id="compareBtn">Compare 🆚</button>
             <button id="swapBtn">Swap 🔀</button>
             <button id="resetBtn" class="reset">Reset</button>
+
         </section>
 
     </div>
 
 </section>
 
+    <hr>
 
-
-        <hr>
-
-        <!-- Metric Grid -->
+    <!-- Metric Grid -->
 <section class="metrics">
+
     <div class="metrics-header">
-        <h2>📊 Pitching Profile</h2>
+        <h2>📊 Batter Profile</h2>
     </div>
 
     <div class="metrics-columns">
@@ -128,34 +134,47 @@
 
     <div class="metric-row">
         <div class="metric-name">
-            <span class="metric-label">ERA</span>
-            <span class="metric-direction">LOWER IS BETTER</span>
+            <span class="metric-label">BA</span>
+            <span class="metric-direction">HIGHER IS BETTER</span>
         </div>
 
-        <span class="metric-raw" id="raw-era">--</span>
+        <span class="metric-raw" id="raw-ba">--</span>
 
-        <div class="battery" id="battery-era"></div>
+        <div class="battery" id="battery-ba"></div>
 
-        <span class="metric-score" id="score-era">--</span>
+        <span class="metric-score" id="score-ba">--</span>
     </div>
 
     <div class="metric-row">
         <div class="metric-name">
-            <span class="metric-label">WHIP</span>
-            <span class="metric-direction">LOWER IS BETTER</span>
+            <span class="metric-label">OBP</span>
+            <span class="metric-direction">HIGHER IS BETTER</span>
         </div>
 
-        <span class="metric-raw" id="raw-whip">--</span>
+        <span class="metric-raw" id="raw-obp">--</span>
 
-        <div class="battery" id="battery-whip"></div>
+        <div class="battery" id="battery-obp"></div>
 
-        <span class="metric-score" id="score-whip">--</span>
+        <span class="metric-score" id="score-obp">--</span>
+    </div>
+
+    <div class="metric-row">
+        <div class="metric-name">
+            <span class="metric-label">SLG</span>
+            <span class="metric-direction">HIGHER IS BETTER</span>
+        </div>
+
+        <span class="metric-raw" id="raw-slg">--</span>
+
+        <div class="battery" id="battery-slg"></div>
+
+        <span class="metric-score" id="score-slg">--</span>
     </div>
 
     <div class="metric-row">
         <div class="metric-name">
             <span class="metric-label">K%</span>
-            <span class="metric-direction">HIGHER IS BETTER</span>
+            <span class="metric-direction">LOWER IS BETTER</span>
         </div>
 
         <span class="metric-raw" id="raw-kpct">--</span>
@@ -168,7 +187,7 @@
     <div class="metric-row">
         <div class="metric-name">
             <span class="metric-label">BB%</span>
-            <span class="metric-direction">LOWER IS BETTER</span>
+            <span class="metric-direction">HIGHER IS BETTER</span>
         </div>
 
         <span class="metric-raw" id="raw-bbpct">--</span>
@@ -178,20 +197,7 @@
         <span class="metric-score" id="score-bbpct">--</span>
     </div>
 
-    <div class="metric-row">
-        <div class="metric-name">
-            <span class="metric-label">K/BB</span>
-            <span class="metric-direction">HIGHER IS BETTER</span>
-        </div>
-
-        <span class="metric-raw" id="raw-kbb">--</span>
-
-        <div class="battery" id="battery-kbb"></div>
-
-        <span class="metric-score" id="score-kbb">--</span>
-    </div>
 </section>
-
 
 <hr>
 
@@ -220,12 +226,14 @@
             <div class="scouting-note">
 
                 <div class="scouting-content">
+
                     <div class="scouting-title">
                         <span class="scouting-icon">▤</span>
                         <label>SCOUTING NOTE</label>
                     </div>
 
                     <p id="scoutingNote">--</p>
+
                 </div>
 
                 <div class="percentile-box">
@@ -333,40 +341,35 @@
 <hr>
 
 
-       <!-- Trend Modal (Season Comparison) -->
-<div id="trendModal" class="modal hidden">
-    <div class="modal-content">
-        <span id="trendClose" class="close">&times;</span>
-        <h2 id="trendTitle">Season Comparison</h2>
-
-        <div id="trendBody">
-            <!-- JS will inject the comparison table here -->
+    <!-- Trend Modal -->
+    <div id="trendModal" class="modal hidden">
+        <div class="modal-content">
+            <span id="trendClose" class="close">&times;</span>
+            <h2 id="trendTitle">Season Comparison (Batting)</h2>
+            <div id="trendBody"></div>
         </div>
     </div>
-</div>
 
 
+    <!-- Compare Modal -->
+    <div id="compareModal" class="modal">
+        <div class="modal-content compare-box">
+            <span id="compareClose" class="close">&times;</span>
+            <h2 id="compareTitle">Batter Comparison</h2>
 
-       <!-- Compare Modal -->
-<div id="compareModal" class="modal">
-    <div class="modal-content compare-box">
-        <span id="compareClose" class="close">&times;</span>
-        <h2 id="compareTitle">Pitcher Comparison</h2>
-
-        <table id="compareTable">
-            <thead>
-                <tr>
-                    <th>Stat</th>
-                    <th id="compareName1">Player 1</th>
-                    <th id="compareName2">Player 2</th>
-                </tr>
-            </thead>
-            <tbody id="compareBody">
-                <!-- Filled dynamically -->
-            </tbody>
-        </table>
+            <table id="compareTable">
+                <thead>
+                    <tr>
+                        <th>Stat</th>
+                        <th id="compareName1">Player 1</th>
+                        <th id="compareName2">Player 2</th>
+                    </tr>
+                </thead>
+                <tbody id="compareBody"></tbody>
+            </table>
+        </div>
     </div>
-</div>
+
 
 <div id="leadersModal" class="modal">
     <div class="modal-content leaders-modal">
@@ -392,17 +395,23 @@
 </div>
 
 
+    <footer class="footer">
+    <small>Data source: Stathead (Sports Reference). Batter Analyzer – personal analytics tool.</small>
+    <div id="lastUpdated"></div>
+</footer>
 
-        <footer class="footer">
-            <small>Data source: Stathead (Sports Reference). Pitcher Analyzer – personal analytics tool.</small>
-<div id="lastUpdated"></div>
-        </footer>
+</div>
 
-    </div>
+<!-- Load login system first -->
+<script src="https://raw.githubusercontent.com/timf008/timf008.github.io/main/login.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<!-- Load Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 
+<!-- Load batter analyzer logic -->
 <script src="app.js"></script>
 
 </body>
 </html>
+
+
