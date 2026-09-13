@@ -417,6 +417,7 @@ select:focus {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 100%;
 }
 
 /* -----------------------------------------
@@ -1797,7 +1798,7 @@ select:focus {
 .overall .overall-battery {
     height: 26px !important;
     min-height: 26px !important;
-    min-width: 520px;
+    min-width: 100%;
 }
 
 /* -----------------------------------------
