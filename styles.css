@@ -99,7 +99,7 @@ body {
 
 .search-header {
     background: #0f243e;
-    padding: 16px 20px;
+    padding: 10px 20px;
 }
 
 .search-header h2 {
@@ -236,7 +236,7 @@ select:focus {
 
 .metrics-header {
     background: #0f243e;
-    padding: 16px 20px;
+    padding: 10px 20px;
 }
 
 .metrics-header h2 {
@@ -385,7 +385,7 @@ select:focus {
 
 .analytics-header {
     background: #0f243e;
-    padding: 16px 20px;
+    padding: 10px 20px;
 }
 
 .analytics-header h2 {
