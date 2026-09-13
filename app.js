@@ -1427,7 +1427,7 @@ valueTitle.textContent =
 valueText.textContent =
     valueDescriptions[value] || "";
 
-
+}
 
 
 // -------------------------------
