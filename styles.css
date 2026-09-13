@@ -553,6 +553,7 @@ select:focus {
     letter-spacing: -0.4px;
     color: #0f243e;
     line-height: 1.15;
+    text-align: center;
 }
 
 /* -----------------------------------------
