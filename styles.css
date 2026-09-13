@@ -1944,349 +1944,428 @@ select:focus {
     }
 }
 
-/* -----------------------------------------
-   Fantasy Edge Image
------------------------------------------ */
-
-.fantasy-edge {
-  width: 450px;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto; /* optional: centers the image */
-}
-
-/* ------------------------------
-   Fantasy Edge Panel
------------------------------- */
+/* ==========================================
+   FANTASY EDGE
+========================================== */
 
 .fantasy-edge-panel {
     margin-top: 24px;
-    padding: 22px 24px 26px;
 
-    background: #f8fbff;
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f7fbff 100%
+        );
 
-    border: 1px solid #cbd6e2;
-    border-radius: 14px;
+    border: 1px solid #cfdbe8;
+    border-radius: 18px;
+
+    overflow: hidden;
 
     box-shadow:
-        0 4px 12px rgba(15, 36, 62, 0.07);
+        0 4px 14px rgba(15, 36, 62, 0.06);
 }
 
 
-/* ------------------------------
-   Bottom Info Row
------------------------------- */
+/* ==========================================
+   FANTASY EDGE HEADER
+========================================== */
 
-#bottom-info-row {
+.fantasy-edge-header {
+    padding: 30px 24px 24px;
+
+    text-align: center;
+}
+
+
+.fantasy-edge {
+    display: block;
+
+    width: min(650px, 80%);
+    height: auto;
+
+    margin: 0 auto;
+}
+
+
+.fantasy-edge-subtitle {
     display: flex;
+    align-items: center;
+    justify-content: center;
 
     gap: 14px;
 
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 15px;
 
-    align-items: stretch;
-    justify-content: center;
+    color: #536b89;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
 }
 
 
-/* Equal-width cards */
-
-#bottom-info-row > div {
-    flex: 1;
-
-    max-width: 260px;
+.fantasy-edge-subtitle span {
+    color: #0077ff;
 }
 
 
-/* ------------------------------
-   Shared Card Styling
------------------------------- */
+/* ==========================================
+   FANTASY SUMMARY
+========================================== */
 
-#player-identity-key,
-#player-state-key,
-#player-value-key {
-    font-size: 13px;
+.fantasy-summary {
+    margin: 0 24px 24px;
 
-    padding: 14px 16px;
+    padding: 22px;
 
     background: #ffffff;
 
-    border-radius: 10px;
+    border: 1px solid #dbe4ee;
+    border-radius: 16px;
 
     box-shadow:
-        0 2px 6px rgba(15, 36, 62, 0.05);
+        0 4px 14px rgba(15, 36, 62, 0.05);
+}
+
+
+/* ==========================================
+   SUMMARY HEADER
+========================================== */
+
+.fantasy-summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+.fantasy-summary-title {
+    color: #0f243e;
+
+    font-size: 24px;
+    font-weight: 800;
+}
+
+
+.fantasy-summary-subtitle {
+    margin-top: 5px;
+
+    color: #667d98;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+}
+
+
+.fantasy-summary-tagline {
+    padding: 9px 14px;
+
+    background: #edf5fc;
+
+    border-radius: 999px;
+
+    color: #3575b4;
+
+    font-size: 12px;
+    font-style: italic;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   SUMMARY GRID
+========================================== */
+
+.fantasy-summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+
+.fantasy-summary-item {
+    min-width: 0;
+    min-height: 180px;
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    border: 1px solid transparent;
 }
 
 
 /* Identity */
 
-#player-identity-key {
-    border: 2px solid #006CD5;
+.identity-summary-card {
+    background:
+        linear-gradient(
+            135deg,
+            #edf6ff,
+            #fafcff
+        );
+
+    border-color: #d8eaff;
 }
 
 
 /* State */
 
-#player-state-key {
-    border: 2px solid #26A460;
+.state-summary-card {
+    background:
+        linear-gradient(
+            135deg,
+            #ecfaf3,
+            #fbfefc
+        );
+
+    border-color: #d5f0e1;
 }
 
 
 /* Value */
 
-#player-value-key {
-    border: 2px solid #FD8E02;
+.value-summary-card {
+    background:
+        linear-gradient(
+            135deg,
+            #fff3e9,
+            #fffaf6
+        );
+
+    border-color: #ffe0c5;
 }
 
 
-/* ------------------------------
-   Titles
------------------------------- */
+/* ==========================================
+   CARD LABEL
+========================================== */
 
-.info-title {
-    margin: 0 0 12px;
+.summary-card-label {
+    margin-bottom: 8px;
 
-    padding-bottom: 8px;
+    color: #667d98;
 
-    font-size: 15px;
+    font-size: 10px;
     font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* ==========================================
+   CARD RESULT
+========================================== */
+
+.summary-card-result {
+    min-height: 34px;
+
+    display: flex;
+    align-items: center;
 
     color: #0f243e;
 
-    text-align: center;
+    font-size: 22px;
+    font-weight: 800;
 
-    letter-spacing: 0.3px;
-
-    border-bottom: 1px solid #e1e7ee;
+    line-height: 1.2;
 }
 
 
-/* ------------------------------
-   List Rows
------------------------------- */
+.summary-card-result strong {
+    font-weight: 800;
+}
 
-#player-identity-key p,
-#player-state-key p,
-#player-value-key p {
-    margin: 8px 0;
 
+/* ==========================================
+   SUMMARY ACCENTS
+========================================== */
+
+.summary-accent {
+    width: 100%;
+    height: 2px;
+
+    margin: 13px 0 16px;
+
+    background: #dce5ee;
+
+    position: relative;
+}
+
+
+.summary-accent::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 64px;
+    height: 2px;
+}
+
+
+.identity-summary-card .summary-accent::before {
+    background: #0878e8;
+}
+
+
+.state-summary-card .summary-accent::before {
+    background: #27a861;
+}
+
+
+.value-summary-card .summary-accent::before {
+    background: #ff7a00;
+}
+
+
+/* ==========================================
+   SUMMARY TEXT
+========================================== */
+
+.fantasy-summary-item p {
+    margin: 0;
+
+    color: #4e6682;
+
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+
+/* ==========================================
+   INFO STRIP
+========================================== */
+
+.fantasy-summary-info {
     display: flex;
-
     align-items: center;
 
-    line-height: 1.25;
+    gap: 10px;
 
-    color: #38495a;
-}
-
-
-/* ------------------------------
-   Shared Badge Structure
------------------------------- */
-
-.identity-badge,
-.state-badge,
-.value-badge {
-    display: inline-block;
-
-    flex: 0 0 auto;
-
-    width: 12px;
-    height: 12px;
-
-    margin-right: 8px;
-
-    border-radius: 50%;
-
-    opacity: 0.30;
-
-    transition:
-        opacity 0.25s ease,
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-
-/* Active Badge */
-
-.identity-badge.active,
-.state-badge.active,
-.value-badge.active {
-    opacity: 1;
-
-    transform: scale(1.2);
-
-    animation: pulse 1.4s ease-in-out infinite;
-
-    box-shadow:
-        0 0 0 3px rgba(15, 36, 62, 0.08);
-}
-
-
-/* One pulse animation for all three */
-
-@keyframes pulse {
-
-    0% {
-        transform: scale(1.2);
-    }
-
-    50% {
-        transform: scale(1.4);
-    }
-
-    100% {
-        transform: scale(1.2);
-    }
-}
-
-
-/* ------------------------------
-   Identity Colors
------------------------------- */
-
-.identity-badge.sleeper {
-    background: #4a90e2;
-}
-
-.identity-badge.overperformer {
-    background: #f5a623;
-}
-
-.identity-badge.breakout {
-    background: #7ed321;
-}
-
-.identity-badge.consistent {
-    background: #9b9b9b;
-}
-
-.identity-badge.neutral {
-    background: #5b5b5b;
-}
-
-
-/* ------------------------------
-   State Colors
------------------------------- */
-
-.state-badge.strong {
-    background: #2ecc71;
-}
-
-.state-badge.stable {
-    background: #3498db;
-}
-
-.state-badge.vulnerable {
-    background: #f1c40f;
-}
-
-.state-badge.high-risk {
-    background: #e74c3c;
-}
-
-
-/* ------------------------------
-   Value Colors
------------------------------- */
-
-.value-badge.extreme {
-    background: #8e44ad;
-}
-
-.value-badge.elevated {
-    background: #16a085;
-}
-
-.value-badge.expected {
-    background: #0578c5;
-}
-
-.value-badge.below {
-    background: #f5a606;
-}
-
-.value-badge.suppressed {
-    background: #d35400;
-}
-
-
-/* ------------------------------
-   League Averages
------------------------------- */
-
-#league-averages {
-    font-size: 14px;
-
-    background: #f7f7f7;
+    margin-top: 18px;
 
     padding: 10px 14px;
 
-    border-radius: 6px;
+    background: #eef6ff;
 
-    border: 1px solid #ddd;
+    border: 1px solid #d6e6f7;
+    border-radius: 8px;
+
+    color: #42698e;
+
+    font-size: 12px;
 }
 
 
-/* ------------------------------
-   Mobile
------------------------------- */
+.summary-info-icon {
+    width: 20px;
+    height: 20px;
 
-@media (max-width: 750px) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    #bottom-info-row {
+    flex-shrink: 0;
+
+    background: #1684df;
+
+    border-radius: 50%;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 900px) {
+
+    .fantasy-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .fantasy-summary-header {
         flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .fantasy-edge-header {
+        padding: 22px 14px 18px;
     }
 
-    #bottom-info-row > div {
-        max-width: none;
-        width: 100%;
+
+    .fantasy-edge {
+        width: 90%;
     }
 
-}
+
+    .fantasy-edge-subtitle {
+        flex-wrap: wrap;
+
+        gap: 8px;
+
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
 
 
-/* -----------------------------------------
-   Fantasy Summary
------------------------------------------ */
-.fantasy-summary {
-    margin-top: 12px;
-    padding: 14px 16px;
-    border: 1px solid #cfd6df;
-    border-radius: 6px;
-    background: #f8fafc;
-    text-align: left;
+    .fantasy-summary {
+        margin: 0 14px 16px;
+
+        padding: 16px;
+    }
+
+
+    .fantasy-summary-title {
+        font-size: 21px;
+    }
+
+
+    .fantasy-summary-tagline {
+        font-size: 11px;
+    }
+
+
+    .fantasy-summary-item {
+        min-height: 0;
+
+        padding: 17px;
+    }
+
+
+    .summary-card-result {
+        font-size: 20px;
+    }
 }
 
-.fantasy-summary-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #0f243e;
-}
-
-.fantasy-summary-item {
-    margin-bottom: 12px;
-}
-
-.fantasy-summary-item:last-child {
-    margin-bottom: 0;
-}
-
-.fantasy-summary-item strong {
-    font-size: 14px;
-    color: #222;
-}
-
-.fantasy-summary-item p {
-    margin: 3px 0 0;
-    font-size: 14px;
-    line-height: 1.4;
-    color: #555;
-}
 
 /* -----------------------------------------
    Footer
