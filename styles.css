@@ -221,6 +221,7 @@ select:focus {
 
 .metrics {
     margin-top: 20px;
+    margin-bottom: 20px;
     background: #ffffff;
     border: 1px solid #dbe4ee;
     border-radius: 16px;
