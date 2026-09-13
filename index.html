@@ -266,75 +266,127 @@
 
 <div class="fantasy-edge-panel">
 
-    <img
-        src="images/fantasy_edge.png"
-        class="fantasy-edge"
-        alt="Fantasy Edge"
-    >
+    <div class="fantasy-edge-header">
 
-    <div id="bottom-info-row">
+        <img
+            src="images/fantasy_edge.png"
+            class="fantasy-edge"
+            alt="Fantasy Edge"
+        >
 
-        <div id="player-identity-key">
-            <h3 class="info-title">Fantasy Identity</h3>
-
-            <p><span class="identity-badge breakout"></span> Breakout Star</p>
-            <p><span class="identity-badge overperformer"></span> Overperformer</p>
-            <p><span class="identity-badge sleeper"></span> Sleeper Candidate</p>
-            <p><span class="identity-badge consistent"></span> Consistent Performer</p>
-            <p><span class="identity-badge neutral"></span> Neutral</p>
-        </div>
-
-        <div id="player-state-key">
-            <h3 class="info-title">Fantasy State</h3>
-
-            <p><span class="state-badge strong"></span> Strong</p>
-            <p><span class="state-badge stable"></span> Stable</p>
-            <p><span class="state-badge vulnerable"></span> Vulnerable</p>
-            <p><span class="state-badge high-risk"></span> High Risk</p>
-        </div>
-
-        <div id="player-value-key">
-            <h3 class="info-title">Fantasy Value</h3>
-
-            <p><span class="value-badge extreme"></span> Extreme</p>
-            <p><span class="value-badge elevated"></span> Elevated</p>
-            <p><span class="value-badge expected"></span> Expected</p>
-            <p><span class="value-badge below"></span> Below Expected</p>
-            <p><span class="value-badge suppressed"></span> Suppressed</p>
+        <div class="fantasy-edge-subtitle">
+            IDENTIFY TALENT
+            <span>•</span>
+            ASSESS RISK
+            <span>•</span>
+            FIND VALUE
         </div>
 
     </div>
 
-</div>
 
-<!-- -----------------------------------------
-     Fantasy Summary
------------------------------------------- -->
-<div class="fantasy-summary" id="fantasySummary">
+    <!-- -----------------------------------------
+         Fantasy Summary
+    ------------------------------------------ -->
 
-    <div class="fantasy-summary-title">
-        📋 Fantasy Summary
-    </div>
+    <div class="fantasy-summary" id="fantasySummary">
 
-    <div class="fantasy-summary-item">
-        <strong id="summaryIdentity">Fantasy Identity: --</strong>
-        <p id="summaryIdentityText">
-            Load a player to view their Fantasy Identity analysis.
-        </p>
-    </div>
+        <div class="fantasy-summary-header">
 
-    <div class="fantasy-summary-item">
-        <strong id="summaryState">Fantasy State: --</strong>
-        <p id="summaryStateText">
-            Load a player to view their Fantasy State analysis.
-        </p>
-    </div>
+            <div>
+                <div class="fantasy-summary-title">
+                    📋 Fantasy Summary
+                </div>
 
-    <div class="fantasy-summary-item">
-        <strong id="summaryValue">Fantasy Value: --</strong>
-        <p id="summaryValueText">
-            Load a player to view their Fantasy Value analysis.
-        </p>
+                <div class="fantasy-summary-subtitle">
+                    KEY TAKEAWAYS FOR FANTASY MANAGERS
+                </div>
+            </div>
+
+            <div class="fantasy-summary-tagline">
+                Smarter insights. Better decisions.
+            </div>
+
+        </div>
+
+
+        <div class="fantasy-summary-grid">
+
+            <!-- Identity -->
+            <div class="fantasy-summary-item identity-summary-card">
+
+                <div class="summary-card-label">
+                    FANTASY IDENTITY
+                </div>
+
+                <div class="summary-card-result">
+                    <strong id="summaryIdentity">
+                        --
+                    </strong>
+                </div>
+
+                <div class="summary-accent"></div>
+
+                <p id="summaryIdentityText">
+                    Load a player to view their Fantasy Identity analysis.
+                </p>
+
+            </div>
+
+
+            <!-- State -->
+            <div class="fantasy-summary-item state-summary-card">
+
+                <div class="summary-card-label">
+                    FANTASY STATE
+                </div>
+
+                <div class="summary-card-result">
+                    <strong id="summaryState">
+                        --
+                    </strong>
+                </div>
+
+                <div class="summary-accent"></div>
+
+                <p id="summaryStateText">
+                    Load a player to view their Fantasy State analysis.
+                </p>
+
+            </div>
+
+
+            <!-- Value -->
+            <div class="fantasy-summary-item value-summary-card">
+
+                <div class="summary-card-label">
+                    FANTASY VALUE
+                </div>
+
+                <div class="summary-card-result">
+                    <strong id="summaryValue">
+                        --
+                    </strong>
+                </div>
+
+                <div class="summary-accent"></div>
+
+                <p id="summaryValueText">
+                    Load a player to view their Fantasy Value analysis.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="fantasy-summary-info">
+            <span class="summary-info-icon">i</span>
+
+            Fantasy Edge combines production, skill quality, and divergence
+            to provide a complete view of a player's fantasy profile.
+        </div>
+
     </div>
 
 </div>
