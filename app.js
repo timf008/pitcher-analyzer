@@ -1405,27 +1405,27 @@ function updateFantasySummary(identity, state, value) {
             "This player's Fantasy Value signal is well below the expected range."
     };
 
-    // -------------------------------
-    // Update Summary
-    // -------------------------------
-    identityTitle.textContent =
-        `Fantasy Identity: ${identityLabels[identity] || "--"}`;
+// -------------------------------
+// Update DOM
+// -------------------------------
 
-    identityText.textContent =
-        identityDescriptions[identity] || "";
+identityTitle.textContent =
+    identityLabels[identity] || "--";
 
-    stateTitle.textContent =
-        `Fantasy State: ${stateLabels[state] || "--"}`;
+identityText.textContent =
+    identityDescriptions[identity] || "";
 
-    stateText.textContent =
-        stateDescriptions[state] || "";
+stateTitle.textContent =
+    stateLabels[state] || "--";
 
-    valueTitle.textContent =
-        `Fantasy Value: ${valueLabels[value] || "--"}`;
+stateText.textContent =
+    stateDescriptions[state] || "";
 
-    valueText.textContent =
-        valueDescriptions[value] || "";
-}
+valueTitle.textContent =
+    valueLabels[value] || "--";
+
+valueText.textContent =
+    valueDescriptions[value] || "";
 
 
 
