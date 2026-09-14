@@ -492,40 +492,40 @@ function updateWhatToWatch(metrics) {
     ];
 
 
-    // --------------------------------
-    // Classify each metric
-    // --------------------------------
-    items.forEach(item => {
+// --------------------------------
+// Classify each metric
+// --------------------------------
+items.forEach(item => {
 
-        if (item.score >= 7) {
+    if (item.score >= 7) {
 
-            item.type = "good";
-            item.icon = "↑";
-            item.text = item.goodText;
+        item.type = "good";
+        item.icon = "↑";
+        item.text = item.goodText;
 
-            item.importance = (item.score - 7) / 3;
+        item.importance = (item.score - 7) / 3;
 
-        }
-        else if (item.score >= 5) {
+    }
+    else if (item.score >= 4) {
 
-            item.type = "neutral";
-            item.icon = "−";
-            item.text = item.neutralText;
+        item.type = "neutral";
+        item.icon = "−";
+        item.text = item.neutralText;
 
-            item.importance = 0;
+        item.importance = 0;
 
-        }
-        else {
+    }
+    else {
 
-            item.type = "bad";
-            item.icon = "↓";
-            item.text = item.badText;
+        item.type = "bad";
+        item.icon = "↓";
+        item.text = item.badText;
 
-            item.importance = (5 - item.score) / 5;
+        item.importance = (4 - item.score) / 4;
 
-        }
+    }
 
-    });
+});
 
 
     // --------------------------------
