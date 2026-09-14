@@ -2301,12 +2301,67 @@ select:focus {
 
     .fantasy-summary-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
     }
 
 
     .fantasy-summary-header {
         flex-direction: column;
         align-items: flex-start;
+
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+
+    .fantasy-summary {
+        padding: 16px;
+    }
+
+
+    .fantasy-summary-item {
+        min-height: 0;
+
+        padding: 14px 16px;
+    }
+
+
+    .summary-card-label {
+        margin-bottom: 5px;
+
+        font-size: 9px;
+    }
+
+
+    .summary-card-result {
+        min-height: 0;
+
+        font-size: 19px;
+    }
+
+
+    .summary-accent {
+        margin: 9px 0 10px;
+    }
+
+
+    .summary-accent::before {
+        width: 50px;
+    }
+
+
+    .fantasy-summary-item p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+
+    .fantasy-summary-info {
+        margin-top: 12px;
+
+        padding: 8px 12px;
+
+        font-size: 11px;
     }
 }
 
@@ -2340,7 +2395,7 @@ select:focus {
     .fantasy-summary {
         margin: 0 14px 16px;
 
-        padding: 16px;
+        padding: 14px;
     }
 
 
@@ -2357,12 +2412,12 @@ select:focus {
     .fantasy-summary-item {
         min-height: 0;
 
-        padding: 17px;
+        padding: 14px;
     }
 
 
     .summary-card-result {
-        font-size: 20px;
+        font-size: 19px;
     }
 }
 
