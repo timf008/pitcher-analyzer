@@ -107,7 +107,7 @@ if (!silent && arr && arr.length > 0) {
     const team = arr[0].Team || "";
 
     document.getElementById("playerTab").textContent =
-        `${playerName}${team ? " — " + team : ""} (${season})`;
+        `${playerName}${team ? " | " + team : ""} (${season})`;
 }
 
 return arr;
