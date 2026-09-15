@@ -256,24 +256,6 @@ select:focus {
 
 
 /* -----------------------------------------
-   Header
------------------------------------------ */
-
-.metrics-header {
-    background: #0f243e;
-    padding: 10px 20px;
-}
-
-.metrics-header h2 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: 0.4px;
-}
-
-
-/* -----------------------------------------
    Column Labels
 ----------------------------------------- */
 
