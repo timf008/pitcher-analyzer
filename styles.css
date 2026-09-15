@@ -2433,6 +2433,188 @@ select:focus {
     color: #777;
 }
 
+/* ==========================================
+   SEASON PRODUCTION
+========================================== */
+
+.season-production {
+    margin-top: 20px;
+    margin-bottom: 24px;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe4ee;
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 14px rgba(15, 36, 62, 0.06);
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.season-production-header {
+    display: flex;
+    align-items: center;
+
+    padding: 10px 20px;
+
+    background: #0f243e;
+}
+
+
+.season-production-header h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 1.1rem;
+    font-weight: 800;
+
+    letter-spacing: 0.4px;
+}
+
+
+.season-production-header span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #aebed0;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 1.6px;
+}
+
+
+/* ==========================================
+   STAT GRID
+========================================== */
+
+.season-production-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, minmax(0, 1fr));
+
+    background: #ffffff;
+}
+
+
+.production-stat {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+
+    padding: 17px 8px 19px;
+
+    text-align: center;
+
+    border-right: 1px solid #e3e9f0;
+}
+
+
+.production-stat:last-child {
+    border-right: none;
+}
+
+
+/* ==========================================
+   LABEL
+========================================== */
+
+.production-label {
+    margin-bottom: 6px;
+
+    color: #667d98;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+}
+
+
+/* ==========================================
+   VALUE
+========================================== */
+
+.production-stat strong {
+    color: #0f243e;
+
+    font-size: 24px;
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 900px) {
+
+    .season-production-grid {
+        grid-template-columns:
+            repeat(7, minmax(0, 1fr));
+    }
+
+    .production-stat {
+        padding: 14px 4px 16px;
+    }
+
+    .production-stat strong {
+        font-size: 20px;
+    }
+
+    .production-label {
+        font-size: 9px;
+    }
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .season-production-grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+    .production-stat {
+        padding: 14px 6px;
+
+        border-bottom: 1px solid #e3e9f0;
+    }
+
+    .production-stat:nth-child(4) {
+        border-right: none;
+    }
+
+    .production-stat:nth-child(n+5) {
+        border-bottom: none;
+    }
+
+    .production-stat strong {
+        font-size: 20px;
+    }
+}
+
 /* ------------------------------
    What to Watch
 ------------------------------ */
