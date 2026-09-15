@@ -364,25 +364,38 @@ async function handleLoad() {
         console.log("XP field:", p?.XP);
 
         // ⭐ Only 5 metrics now
-        const eraScore   = scoreERA(p.ERA);
-        const whipScore  = scoreWHIP(p.WHIP);
-        const kpctScore  = scoreKpct(p.Kpct);
-        const bbpctScore = scoreBBpct(p.BBpct);
-        const kbbScore   = scoreKBB(p.KBB);
+const eraScore   = scoreERA(p.ERA);
+const whipScore  = scoreWHIP(p.WHIP);
+const kpctScore  = scoreKpct(p.Kpct);
+const bbpctScore = scoreBBpct(p.BBpct);
+const kbbScore   = scoreKBB(p.KBB);
 
-        updateERA(safeFixed(p.ERA, 2), eraScore);
-        updateWHIP(safeFixed(p.WHIP, 2), whipScore);
-        updateKpct(safeFixed(p.Kpct, 1), kpctScore);
-        updateBBpct(safeFixed(p.BBpct, 1), bbpctScore);
-        updateKBB(safeFixed(p.KBB, 2), kbbScore);
+updateERA(safeFixed(p.ERA, 2), eraScore);
+updateWHIP(safeFixed(p.WHIP, 2), whipScore);
+updateKpct(safeFixed(p.Kpct, 1), kpctScore);
+updateBBpct(safeFixed(p.BBpct, 1), bbpctScore);
+updateKBB(safeFixed(p.KBB, 2), kbbScore);
 
-        const overall = computeWeightedOverall({
-            eraScore,
-            whipScore,
-            kpctScore,
-            bbpctScore,
-            kbbScore
-        });
+
+// -------------------------------
+// Season Production
+// -------------------------------
+document.getElementById("productionIP").textContent = p.IP ?? "--";
+document.getElementById("productionH").textContent = p.H ?? "--";
+document.getElementById("productionR").textContent = p.R ?? "--";
+document.getElementById("productionER").textContent = p.ER ?? "--";
+document.getElementById("productionBB").textContent = p.BB ?? "--";
+document.getElementById("productionK").textContent = p.SO ?? "--";
+document.getElementById("productionHR").textContent = p.HR ?? "--";
+
+
+const overall = computeWeightedOverall({
+    eraScore,
+    whipScore,
+    kpctScore,
+    bbpctScore,
+    kbbScore
+});
 
         updateOverall(overall);
 updateTier(overall);
@@ -1472,57 +1485,78 @@ document.getElementById("swapBtn").onclick = function () {
 // -------------------------------
 function handleReset() {
 
-    // Clear What to Watch
-const watchGrid = document.getElementById("watchGrid");
+    // Clear Season Production
+    [
+        "productionIP",
+        "productionH",
+        "productionR",
+        "productionER",
+        "productionBB",
+        "productionK",
+        "productionHR"
+    ].forEach(id => {
+        document.getElementById(id).textContent = "--";
+    });
 
-if (watchGrid) {
-    watchGrid.innerHTML = "";
-}
+
+    // Clear What to Watch
+    const watchGrid = document.getElementById("watchGrid");
+
+    if (watchGrid) {
+        watchGrid.innerHTML = "";
+    }
+
 
     // Clear leader-related UI FIRST
     clearLeaderState();
+
 
     // Clear raw metric values
     document.querySelectorAll(".metric-raw")
         .forEach(el => el.textContent = "--");
 
+
     // Clear score values
     document.querySelectorAll(".metric-score")
         .forEach(el => el.textContent = "--");
 
+
     // Clear all batteries (true empty state)
     document.querySelectorAll(".battery").forEach(el => {
-    el.style.setProperty("--fill", "1%");
-    void el.offsetWidth;
-    el.style.setProperty("--fill", "0%");
-    el.style.setProperty("--color", "#d50000");
-});
+        el.style.setProperty("--fill", "1%");
+        void el.offsetWidth;
+        el.style.setProperty("--fill", "0%");
+        el.style.setProperty("--color", "#d50000");
+    });
 
 
-    // Clear overall fields (these MUST be inside the function)
+    // Clear Player Analytics
     document.getElementById("overallScore").textContent = "--";
     document.getElementById("overallTier").innerHTML = "--";
     document.getElementById("scoutingNote").innerHTML = "--";
     document.getElementById("overallPercentile").textContent = "--";
     document.getElementById("xpScore").innerHTML = "--";
     document.getElementById("playerTab").textContent = "Player:--";
+
+
+    // Clear Fantasy Edge badges
     clearIdentityBadges();
     clearStateBadges();
     clearValueBadges();
-    
+
+
     // Clear Fantasy Summary
-document.getElementById("summaryIdentity").textContent = "Fantasy Identity: --";
-document.getElementById("summaryIdentityText").textContent =
-    "Load a player to view their Fantasy Identity analysis.";
+    document.getElementById("summaryIdentity").textContent = "--";
+    document.getElementById("summaryIdentityText").textContent =
+        "Load a player to view their Fantasy Identity analysis.";
 
-document.getElementById("summaryState").textContent = "Fantasy State: --";
-document.getElementById("summaryStateText").textContent =
-    "Load a player to view their Fantasy State analysis.";
+    document.getElementById("summaryState").textContent = "--";
+    document.getElementById("summaryStateText").textContent =
+        "Load a player to view their Fantasy State analysis.";
 
-document.getElementById("summaryValue").textContent = "Fantasy Value: --";
-document.getElementById("summaryValueText").textContent =
-    "Load a player to view their Fantasy Value analysis.";
-
+    document.getElementById("summaryValue").textContent = "--";
+    document.getElementById("summaryValueText").textContent =
+        "Load a player to view their Fantasy Value analysis.";
 }
 
 
