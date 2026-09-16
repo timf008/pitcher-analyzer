@@ -785,7 +785,7 @@ select:focus {
     align-items: center;
     justify-content: space-between;
 
-    padding: 18px 22px;
+    padding: 12px 22px;
 
     background: linear-gradient(135deg, #0b131d, #0f3e73);
 
@@ -1063,7 +1063,7 @@ select:focus {
     align-items: center;
     justify-content: space-between;
 
-    padding: 18px 22px;
+    padding: 12px 22px;
 
     background: linear-gradient(135deg, #0b131d, #0f3e73);
 
@@ -1367,7 +1367,7 @@ select:focus {
     align-items: center;
     justify-content: space-between;
 
-    padding: 18px 22px;
+    padding: 12px 22px;
 
     background: linear-gradient(135deg, #0b131d, #0f3e73);
 
