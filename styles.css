@@ -1790,26 +1790,6 @@ select:focus {
     );
 }
 
-
-
-.overall-battery {
-    height: 26px !important;
-    width: 100% !important;
-    max-width: 600px !important;
-}
-
-.overall-battery::after {
-    background: var(--color) !important;
-}
-
-
-/* FINAL FIX — force overall battery height */
-.overall .overall-battery {
-    height: 26px !important;
-    min-height: 26px !important;
-    min-width: 100%;
-}
-
 /* -----------------------------------------
    Pitcher of the Day - Compact
 ----------------------------------------- */
