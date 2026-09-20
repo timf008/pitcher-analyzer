@@ -34,6 +34,9 @@ function requireAllAccess(featureName) {
 
 function updateAccessUI() {
 
+    const allAccess = hasAllAccess();
+
+
     // -------------------------------
     // Premium Buttons
     // -------------------------------
@@ -47,7 +50,7 @@ function updateAccessUI() {
     premiumButtons.forEach(button => {
         if (!button) return;
 
-        if (hasAllAccess()) {
+        if (allAccess) {
 
             button.textContent =
                 button.dataset.originalText ||
@@ -71,6 +74,55 @@ function updateAccessUI() {
 
 
     // -------------------------------
+    // Overall Percentile
+    // -------------------------------
+
+    const percentileEl =
+        document.getElementById("overallPercentile");
+
+    if (percentileEl && !allAccess) {
+
+        percentileEl.innerHTML = `
+            <div class="percentile-premium-wrap">
+                <span class="percentile-premium-lock">🔒</span>
+                <span class="percentile-premium-label">
+                    ALL ACCESS
+                </span>
+            </div>
+        `;
+    }
+
+
+    // -------------------------------
+    // What to Watch
+    // -------------------------------
+
+    const watchGrid =
+        document.getElementById("watchGrid");
+
+    if (watchGrid && !allAccess) {
+
+        watchGrid.innerHTML = `
+            <div class="watch-premium-lock">
+
+                <div class="watch-premium-icon">
+                    🔒
+                </div>
+
+                <div class="watch-premium-badge">
+                    ALL ACCESS
+                </div>
+
+                <div class="watch-premium-text">
+                    Unlock What to Watch Analysis
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    // -------------------------------
     // Fantasy Edge
     // -------------------------------
 
@@ -82,7 +134,7 @@ function updateAccessUI() {
 
     if (fantasyPremiumLock && fantasyPremiumContent) {
 
-        if (hasAllAccess()) {
+        if (allAccess) {
 
             fantasyPremiumLock.hidden = true;
             fantasyPremiumContent.hidden = false;
@@ -1682,6 +1734,13 @@ function handleReset() {
     document.getElementById("summaryValue").textContent = "--";
     document.getElementById("summaryValueText").textContent =
         "Load a player to view their Fantasy Value analysis.";
+
+// -------------------------------
+// Restore Access UI
+// -------------------------------
+
+updateAccessUI();
+
 }
 
 
