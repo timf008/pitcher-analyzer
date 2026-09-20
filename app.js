@@ -14,7 +14,7 @@
 // true  = simulate Free Trial
 // false = simulate All Access
 
-const TEST_FREE_MODE = true;
+const TEST_FREE_MODE = false;
 
 function hasAllAccess() {
     return !TEST_FREE_MODE;
