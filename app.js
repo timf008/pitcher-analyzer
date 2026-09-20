@@ -1657,10 +1657,27 @@ document.addEventListener("DOMContentLoaded", () => {
     loadLastUpdated(currentSeason);
 
     // Trend button
-    document.getElementById("trendBtn").addEventListener("click", handleTrend);
+document.getElementById("trendBtn")
+    .addEventListener("click", () => {
 
-    // Leaders button
-    document.getElementById("leadersBtn").addEventListener("click", loadLeaders);
+        if (!requireAllAccess("Trend Analysis")) {
+            return;
+        }
+
+        handleTrend();
+    });
+
+
+// Leaders button
+document.getElementById("leadersBtn")
+    .addEventListener("click", () => {
+
+        if (!requireAllAccess("Leaders")) {
+            return;
+        }
+
+        loadLeaders();
+    });
 
     // Close modals
     document.getElementById("trendClose").onclick = () =>
