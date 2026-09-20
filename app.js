@@ -7,6 +7,31 @@
 // Display League Averages XP + Overall Score
 // -------------------------------
 
+// =====================================================
+// ALL ACCESS - TEST MODE
+// =====================================================
+
+// true  = simulate Free Trial
+// false = simulate All Access
+
+const TEST_FREE_MODE = true;
+
+function hasAllAccess() {
+    return !TEST_FREE_MODE;
+}
+
+function requireAllAccess(featureName) {
+    if (hasAllAccess()) {
+        return true;
+    }
+
+    alert(
+        `${featureName} is available with TimBaseball All Access.`
+    );
+
+    return false;
+}
+
 const season = 2026;
 loadPlayerOfDay(season);
 
@@ -1618,7 +1643,15 @@ async function loadLastUpdated(season) {
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("loadBtn").addEventListener("click", handleLoad);
     document.getElementById("resetBtn").addEventListener("click", handleReset);
-    document.getElementById("compareBtn").addEventListener("click", showCompareModal);
+    document.getElementById("compareBtn")
+    .addEventListener("click", () => {
+
+        if (!requireAllAccess("Player Comparison")) {
+            return;
+        }
+
+        showCompareModal();
+    });
 
 
     loadLastUpdated(currentSeason);
