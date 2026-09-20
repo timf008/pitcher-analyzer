@@ -2949,3 +2949,72 @@ select:focus {
         text-align: center;
     }
 }
+
+/* -----------------------------------------
+   Fantasy Edge - All Access
+----------------------------------------- */
+
+#fantasyPremiumLock[hidden],
+#fantasyPremiumContent[hidden] {
+    display: none !important;
+}
+
+.fantasy-premium-lock {
+    min-height: 180px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+    padding: 24px;
+
+    text-align: center;
+
+    background: #f8fbff;
+    border: 1px solid #d6dee7;
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+.fantasy-premium-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #eef3f8;
+
+    font-size: 21px;
+}
+
+.fantasy-premium-badge {
+    padding: 4px 9px;
+
+    background: #eef3f8;
+    border: 1px solid #cbd6e2;
+    border-radius: 999px;
+
+    color: #0f243e;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.fantasy-premium-title {
+    color: #0f243e;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.fantasy-premium-text {
+    color: #536a82;
+    font-size: 13px;
+    font-weight: 600;
+}
