@@ -2859,7 +2859,7 @@ select:focus {
 }
 
 .percentile-premium-lock {
-    font-size: 18px;
+    font-size: 40px;
     opacity: 0.75;
 }
 
@@ -2877,4 +2877,75 @@ select:focus {
     letter-spacing: 0.5px;
 
     white-space: nowrap;
+}
+
+/* -----------------------------------------
+   What to Watch - All Access
+----------------------------------------- */
+
+.watch-premium-lock {
+    grid-column: 1 / -1;
+
+    min-height: 120px;
+    padding: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    background: #f8fbff;
+    border: 1px solid #d6dee7;
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+.watch-premium-icon {
+    flex: 0 0 38px;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #eef3f8;
+
+    font-size: 20px;
+}
+
+.watch-premium-badge {
+    padding: 4px 9px;
+
+    background: #eef3f8;
+    border: 1px solid #cbd6e2;
+    border-radius: 999px;
+
+    color: #0f243e;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+
+    white-space: nowrap;
+}
+
+.watch-premium-text {
+    color: #536a82;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+@media (max-width: 850px) {
+
+    .watch-premium-lock {
+        flex-direction: column;
+        min-height: 130px;
+        gap: 8px;
+        text-align: center;
+    }
 }
