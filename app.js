@@ -32,6 +32,40 @@ function requireAllAccess(featureName) {
     return false;
 }
 
+function updateAccessUI() {
+
+    const premiumButtons = [
+        document.getElementById("trendBtn"),
+        document.getElementById("compareBtn"),
+        document.getElementById("leadersBtn")
+    ];
+
+    premiumButtons.forEach(button => {
+        if (!button) return;
+
+        if (hasAllAccess()) {
+
+            button.textContent =
+                button.dataset.originalText ||
+                button.textContent.replace(" 🔒", "");
+
+            button.classList.remove("premium-locked");
+
+        } else {
+
+            if (!button.dataset.originalText) {
+                button.dataset.originalText =
+                    button.textContent.trim();
+            }
+
+            button.textContent =
+                `${button.dataset.originalText} 🔒`;
+
+            button.classList.add("premium-locked");
+        }
+    });
+}
+
 const season = 2026;
 loadPlayerOfDay(season);
 
@@ -1678,6 +1712,8 @@ document.getElementById("leadersBtn")
 
         loadLeaders();
     });
+
+updateAccessUI();
 
     // Close modals
     document.getElementById("trendClose").onclick = () =>
