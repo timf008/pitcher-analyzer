@@ -699,11 +699,29 @@ updateFantasySummary(
     fantasyValue
 );
 
-        // ⭐ Overall percentile
-        document.getElementById("overallPercentile").textContent =
-            p.Overall_pct !== undefined
-                ? toOrdinal(Math.round(p.Overall_pct))
-                : "--";
+// -------------------------------
+// Overall Percentile
+// -------------------------------
+
+const percentileEl =
+    document.getElementById("overallPercentile");
+
+if (!hasAllAccess()) {
+
+    percentileEl.innerHTML = `
+        <div class="percentile-premium-wrap">
+            <span class="percentile-premium-lock">🔒</span>
+            <span class="percentile-premium-label">ALL ACCESS</span>
+        </div>
+    `;
+
+} else {
+
+    percentileEl.textContent =
+        p.Overall_pct !== undefined
+            ? toOrdinal(Math.round(p.Overall_pct))
+            : "--";
+}
 
     } catch (err) {
         console.error("Error loading player:", err);
