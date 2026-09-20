@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    width: 680px;
+    width: 720px;
     margin: 40px auto;
     background: #ffffff;
     padding: 35px 45px;
@@ -2831,4 +2831,50 @@ select:focus {
         min-height: auto;
     }
 
+}
+
+/* -----------------------------------------
+   All Access - Locked Controls
+----------------------------------------- */
+
+.premium-locked {
+    opacity: 0.72;
+    cursor: pointer;
+}
+
+.premium-locked:hover {
+    opacity: 0.9;
+}
+
+/* -----------------------------------------
+   Percentile - All Access
+----------------------------------------- */
+
+.percentile-premium-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.percentile-premium-lock {
+    font-size: 18px;
+    opacity: 0.75;
+}
+
+.percentile-premium-label {
+    padding: 4px 8px;
+
+    background: #eef3f8;
+    border: 1px solid #cbd6e2;
+    border-radius: 999px;
+
+    color: #536a82;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+
+    white-space: nowrap;
 }
