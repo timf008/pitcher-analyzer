@@ -34,6 +34,10 @@ function requireAllAccess(featureName) {
 
 function updateAccessUI() {
 
+    // -------------------------------
+    // Premium Buttons
+    // -------------------------------
+
     const premiumButtons = [
         document.getElementById("trendBtn"),
         document.getElementById("compareBtn"),
@@ -64,6 +68,31 @@ function updateAccessUI() {
             button.classList.add("premium-locked");
         }
     });
+
+
+    // -------------------------------
+    // Fantasy Edge
+    // -------------------------------
+
+    const fantasyPremiumLock =
+        document.getElementById("fantasyPremiumLock");
+
+    const fantasyPremiumContent =
+        document.getElementById("fantasyPremiumContent");
+
+    if (fantasyPremiumLock && fantasyPremiumContent) {
+
+        if (hasAllAccess()) {
+
+            fantasyPremiumLock.hidden = true;
+            fantasyPremiumContent.hidden = false;
+
+        } else {
+
+            fantasyPremiumLock.hidden = false;
+            fantasyPremiumContent.hidden = true;
+        }
+    }
 }
 
 const season = 2026;
