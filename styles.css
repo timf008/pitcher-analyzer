@@ -2833,9 +2833,9 @@ select:focus {
 
 }
 
-/* -----------------------------------------
-   All Access - Locked Controls
------------------------------------------ */
+/* ==========================================
+   ALL ACCESS - LOCKED CONTROLS
+========================================== */
 
 .premium-locked {
     opacity: 0.72;
@@ -2846,25 +2846,42 @@ select:focus {
     opacity: 0.9;
 }
 
-/* -----------------------------------------
-   Percentile - All Access
------------------------------------------ */
 
-.percentile-premium-wrap {
+/* ==========================================
+   SHARED ALL ACCESS ELEMENTS
+========================================== */
+
+/* Standard lock icon */
+
+.percentile-premium-lock,
+.watch-premium-icon,
+.fantasy-premium-icon {
+    width: 42px;
+    height: 42px;
+
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-}
 
-.percentile-premium-lock {
+    flex: 0 0 42px;
+
     font-size: 40px;
+    line-height: 1;
+
     opacity: 0.75;
 }
 
-.percentile-premium-label {
-    padding: 4px 8px;
+
+/* Standard ALL ACCESS badge */
+
+.percentile-premium-label,
+.watch-premium-badge,
+.fantasy-premium-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 3px 7px;
 
     background: #eef3f8;
     border: 1px solid #cbd6e2;
@@ -2875,13 +2892,31 @@ select:focus {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.5px;
+    line-height: 1.2;
 
     white-space: nowrap;
+
+    box-sizing: border-box;
 }
 
-/* -----------------------------------------
-   What to Watch - All Access
------------------------------------------ */
+
+/* ==========================================
+   PERCENTILE - ALL ACCESS
+========================================== */
+
+.percentile-premium-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+}
+
+
+/* ==========================================
+   WHAT TO WATCH - ALL ACCESS
+========================================== */
 
 .watch-premium-lock {
     grid-column: 1 / -1;
@@ -2892,45 +2927,14 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
+
+    gap: 12px;
 
     background: #f8fbff;
     border: 1px solid #d6dee7;
     border-radius: 10px;
 
     box-sizing: border-box;
-}
-
-.watch-premium-icon {
-    flex: 0 0 38px;
-
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    background: #eef3f8;
-
-    font-size: 20px;
-}
-
-.watch-premium-badge {
-    padding: 4px 9px;
-
-    background: #eef3f8;
-    border: 1px solid #cbd6e2;
-    border-radius: 999px;
-
-    color: #0f243e;
-
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-
-    white-space: nowrap;
 }
 
 .watch-premium-text {
@@ -2940,19 +2944,10 @@ select:focus {
     font-weight: 700;
 }
 
-@media (max-width: 850px) {
 
-    .watch-premium-lock {
-        flex-direction: column;
-        min-height: 130px;
-        gap: 8px;
-        text-align: center;
-    }
-}
-
-/* -----------------------------------------
-   Fantasy Edge - All Access
------------------------------------------ */
+/* ==========================================
+   FANTASY EDGE - ALL ACCESS
+========================================== */
 
 #fantasyPremiumLock[hidden],
 #fantasyPremiumContent[hidden] {
@@ -2961,6 +2956,7 @@ select:focus {
 
 .fantasy-premium-lock {
     min-height: 180px;
+    padding: 24px;
 
     display: flex;
     flex-direction: column;
@@ -2968,7 +2964,6 @@ select:focus {
     justify-content: center;
 
     gap: 8px;
-    padding: 24px;
 
     text-align: center;
 
@@ -2979,42 +2974,34 @@ select:focus {
     box-sizing: border-box;
 }
 
-.fantasy-premium-icon {
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    background: #eef3f8;
-
-    font-size: 21px;
-}
-
-.fantasy-premium-badge {
-    padding: 4px 9px;
-
-    background: #eef3f8;
-    border: 1px solid #cbd6e2;
-    border-radius: 999px;
-
-    color: #0f243e;
-
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-}
-
 .fantasy-premium-title {
     color: #0f243e;
+
     font-size: 17px;
     font-weight: 800;
 }
 
 .fantasy-premium-text {
     color: #536a82;
+
     font-size: 13px;
     font-weight: 600;
+}
+
+
+/* ==========================================
+   ALL ACCESS - RESPONSIVE
+========================================== */
+
+@media (max-width: 850px) {
+
+    .watch-premium-lock {
+        flex-direction: column;
+
+        min-height: 130px;
+
+        gap: 8px;
+
+        text-align: center;
+    }
 }
