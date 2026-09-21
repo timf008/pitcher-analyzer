@@ -2897,12 +2897,13 @@ select:focus {
 ========================================== */
 
 .premium-locked {
-    opacity: 0.72;
+    opacity: 0.55;
+    filter: grayscale(55%);
     cursor: pointer;
 }
 
 .premium-locked:hover {
-    opacity: 0.9;
+    opacity: 0.7;
 }
 
 
