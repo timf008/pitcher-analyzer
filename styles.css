@@ -2,17 +2,6 @@
    Pitcher Analyzer CSS Styles
 ----------------------------------------- */
 
-.version-label {
-    margin-top: 6px;
-
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-
-    color: #8a98a8;
-    text-align: center;
-}
-
 /* -----------------------------------------
    Global
 ----------------------------------------- */
@@ -130,7 +119,62 @@ body {
 
 
 /* -----------------------------------------
-   Control Rows
+   Search Layout
+----------------------------------------- */
+
+.search-input-row {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 18px;
+
+    margin: 0 0 14px;
+    padding: 0;
+
+    background: transparent;
+    box-shadow: none;
+}
+
+
+/* Player + Season pair */
+
+.player-search-group {
+    flex: 1;
+
+    display: flex;
+    align-items: flex-end;
+
+    gap: 8px;
+
+    min-width: 0;
+}
+
+
+/* Player name takes available space */
+
+.player-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.player-input input {
+    width: 100%;
+}
+
+
+/* Compact season selector */
+
+.season-input {
+    flex: 0 0 82px;
+}
+
+.season-input select {
+    width: 82px;
+}
+
+
+/* -----------------------------------------
+   Action Row
 ----------------------------------------- */
 
 .controls.row {
@@ -146,6 +190,10 @@ body {
     box-shadow: none;
 }
 
+.action-row {
+    justify-content: center;
+    gap: 10px;
+}
 
 /* -----------------------------------------
    Inputs
