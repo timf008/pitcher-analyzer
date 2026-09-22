@@ -183,6 +183,172 @@ body {
     width: 82px;
 }
 
+/* -----------------------------------------
+   Search / Player Browser Toggle
+----------------------------------------- */
+
+.search-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 3px;
+
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 8px;
+}
+
+.mode-btn {
+    border: none;
+    background: transparent;
+
+    padding: 5px 10px;
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.mode-btn:hover {
+    color: #ffffff;
+}
+
+.mode-btn.active {
+    background: #ffffff;
+    color: #0f243e;
+}
+
+
+/* -----------------------------------------
+   Player Browser
+----------------------------------------- */
+
+#playerBrowserView {
+    padding-bottom: 12px;
+}
+
+
+/* Browser Controls */
+
+.browser-controls {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 12px;
+
+    margin-bottom: 14px;
+}
+
+
+/* Compact Season */
+
+.browser-season {
+    flex: 0 0 82px;
+}
+
+.browser-season select {
+    width: 82px;
+}
+
+
+/* Player Filter */
+
+.browser-filter {
+    flex: 1;
+}
+
+.browser-filter input {
+    width: 100%;
+}
+
+
+/* Browser Column Header */
+
+.player-browser-header {
+    display: grid;
+    grid-template-columns: 1fr 80px;
+
+    padding: 7px 12px;
+
+    background: #f4f7fa;
+
+    border: 1px solid #dbe4ee;
+    border-bottom: none;
+
+    color: #65778a;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+
+/* Scrollable Player Directory */
+
+.player-browser-list {
+    height: 260px;
+
+    overflow-y: auto;
+
+    border: 1px solid #dbe4ee;
+
+    background: #ffffff;
+}
+
+
+/* Individual Player */
+
+.player-browser-row {
+    display: grid;
+    grid-template-columns: 1fr 80px;
+
+    align-items: center;
+
+    min-height: 34px;
+
+    padding: 0 12px;
+
+    border-bottom: 1px solid #edf1f5;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.player-browser-row:last-child {
+    border-bottom: none;
+}
+
+.player-browser-row:hover {
+    background: #f5f8fc;
+}
+
+.player-browser-name {
+    font-weight: 700;
+    color: #0f243e;
+}
+
+.player-browser-team {
+    color: #718096;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-align: left;
+}
+
 
 /* -----------------------------------------
    Action Row
