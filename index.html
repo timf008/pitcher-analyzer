@@ -57,29 +57,111 @@
 <section class="search-panel">
 
     <div class="search-header">
-        <h2>👤 Player Search</h2>
+
+        <h2 id="searchPanelTitle">👤 Player Search</h2>
+
+        <div class="search-mode-toggle">
+            <button id="searchModeBtn" class="mode-btn active">Search</button>
+            <button id="playersModeBtn" class="mode-btn">Players</button>
+        </div>
+
     </div>
+
 
     <div class="search-body">
 
-        <!-- Player Inputs -->
-        <section class="controls search-input-row">
+        <!-- ==================================================
+             PLAYER SEARCH VIEW
+        =================================================== -->
+        <div id="playerSearchView">
 
-            <!-- Player 1 -->
-            <div class="player-search-group">
+            <!-- Player Inputs -->
+            <section class="controls search-input-row">
 
-                <div class="input-group player-input">
-                    <label for="playerName">Player Name</label>
-                    <input
-                        type="text"
-                        id="playerName"
-                        placeholder="Jacob Misiorowski"
-                    >
+                <!-- Player 1 -->
+                <div class="player-search-group">
+
+                    <div class="input-group player-input">
+                        <label for="playerName">Player Name</label>
+                        <input
+                            type="text"
+                            id="playerName"
+                            placeholder="Jacob Misiorowski"
+                        >
+                    </div>
+
+                    <div class="input-group season-input">
+                        <label for="seasonSelect">Season</label>
+                        <select id="seasonSelect">
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                        </select>
+                    </div>
+
                 </div>
 
-                <div class="input-group season-input">
-                    <label for="seasonSelect">Season</label>
-                    <select id="seasonSelect">
+
+                <!-- Player 2 -->
+                <div class="player-search-group">
+
+                    <div class="input-group player-input">
+                        <label for="playerName2">Player Name (Compare)</label>
+                        <input
+                            type="text"
+                            id="playerName2"
+                            placeholder="Paul Skenes"
+                        >
+                    </div>
+
+                    <div class="input-group season-input">
+                        <label for="seasonSelect2">Season</label>
+                        <select id="seasonSelect2">
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Action Buttons -->
+            <section class="controls row action-row">
+
+                <button id="loadBtn">Load 🔍</button>
+                <button id="trendBtn">Trend 📈</button>
+                <button id="compareBtn">Compare 🆚</button>
+                <button id="leadersBtn">Leaders 🏅</button>
+                <button id="swapBtn">Swap 🔀</button>
+                <button id="resetBtn" class="reset">Reset</button>
+
+            </section>
+
+        </div>
+
+
+        <!-- ==================================================
+             PLAYER BROWSER VIEW
+        =================================================== -->
+        <div id="playerBrowserView" hidden>
+
+            <div class="browser-controls">
+
+                <div class="input-group browser-season">
+                    <label for="browserSeason">Season</label>
+
+                    <select id="browserSeason">
                         <option value="2026">2026</option>
                         <option value="2025">2025</option>
                         <option value="2024">2024</option>
@@ -90,50 +172,32 @@
                     </select>
                 </div>
 
-            </div>
 
+                <div class="input-group browser-filter">
+                    <label for="playerBrowserFilter">Find Player</label>
 
-            <!-- Player 2 -->
-            <div class="player-search-group">
-
-                <div class="input-group player-input">
-                    <label for="playerName2">Player Name (Compare)</label>
                     <input
                         type="text"
-                        id="playerName2"
-                        placeholder="Paul Skenes"
+                        id="playerBrowserFilter"
+                        placeholder="Search players..."
                     >
                 </div>
 
-                <div class="input-group season-input">
-                    <label for="seasonSelect2">Season</label>
-                    <select id="seasonSelect2">
-                        <option value="2026">2026</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                    </select>
-                </div>
-
             </div>
 
-        </section>
+
+            <div class="player-browser-header">
+                <span>Player</span>
+                <span>Team</span>
+            </div>
 
 
-        <!-- Action Buttons -->
-        <section class="controls row action-row">
+            <div
+                id="playerBrowserList"
+                class="player-browser-list"
+            ></div>
 
-            <button id="loadBtn">Load 🔍</button>
-            <button id="trendBtn">Trend 📈</button>
-            <button id="compareBtn">Compare 🆚</button>
-            <button id="leadersBtn">Leaders 🏅</button>
-            <button id="swapBtn">Swap 🔀</button>
-            <button id="resetBtn" class="reset">Reset</button>
-
-        </section>
+        </div>
 
     </div>
 
