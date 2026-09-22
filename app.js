@@ -14,7 +14,7 @@
 // true  = simulate Free Trial
 // false = simulate All Access
 
-const TEST_FREE_MODE = false;
+const TEST_FREE_MODE = true;
 
 function hasAllAccess() {
     return !TEST_FREE_MODE;
@@ -471,6 +471,206 @@ function scoreKBB(kbb) {
 // function scoreIP(ip) { ... }
 // function scoreHR9(hr9) { ... }
 // function scoreFIP(fip) { ... }
+
+// ============================================================
+// Player Browser
+// ============================================================
+
+const searchModeBtn = document.getElementById("searchModeBtn");
+const playersModeBtn = document.getElementById("playersModeBtn");
+
+const playerSearchView = document.getElementById("playerSearchView");
+const playerBrowserView = document.getElementById("playerBrowserView");
+
+const searchPanelTitle = document.getElementById("searchPanelTitle");
+
+const browserSeason = document.getElementById("browserSeason");
+const playerBrowserFilter = document.getElementById("playerBrowserFilter");
+const playerBrowserList = document.getElementById("playerBrowserList");
+
+let browserPlayers = [];
+let browserLoadedSeason = null;
+
+
+// ------------------------------------------------------------
+// Switch to normal Player Search
+// ------------------------------------------------------------
+function showSearchMode() {
+
+    playerSearchView.hidden = false;
+    playerBrowserView.hidden = true;
+
+    searchModeBtn.classList.add("active");
+    playersModeBtn.classList.remove("active");
+
+    searchPanelTitle.textContent = "👤 Player Search";
+}
+
+
+// ------------------------------------------------------------
+// Switch to Player Browser
+// ------------------------------------------------------------
+async function showPlayersMode() {
+
+    playerSearchView.hidden = true;
+    playerBrowserView.hidden = false;
+
+    searchModeBtn.classList.remove("active");
+    playersModeBtn.classList.add("active");
+
+    searchPanelTitle.textContent = "👥 Player Browser";
+
+    // Keep Browser season synchronized with Player Search
+    browserSeason.value = document.getElementById("seasonSelect").value;
+
+    await loadPlayerBrowser();
+}
+
+
+// ------------------------------------------------------------
+// Fetch Player + Team list
+// ------------------------------------------------------------
+async function loadPlayerBrowser() {
+
+    const season = browserSeason.value;
+
+    // Don't fetch the same season again unnecessarily
+    if (browserLoadedSeason === season && browserPlayers.length > 0) {
+        renderPlayerBrowser(browserPlayers);
+        return;
+    }
+
+    playerBrowserList.innerHTML = `
+        <div class="player-browser-row">
+            <span class="player-browser-name">Loading players...</span>
+            <span class="player-browser-team"></span>
+        </div>
+    `;
+
+    try {
+
+        const response = await fetch(
+            `https://pitcher-analyzer-backend.onrender.com/api/players?season=${season}`
+        );
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        browserPlayers = data;
+        browserLoadedSeason = season;
+
+        renderPlayerBrowser(browserPlayers);
+
+    } catch (error) {
+
+        console.error("Player Browser error:", error);
+
+        playerBrowserList.innerHTML = `
+            <div class="player-browser-row">
+                <span class="player-browser-name">Unable to load players.</span>
+                <span class="player-browser-team"></span>
+            </div>
+        `;
+    }
+}
+
+
+// ------------------------------------------------------------
+// Render Player Browser
+// ------------------------------------------------------------
+function renderPlayerBrowser(players) {
+
+    playerBrowserList.innerHTML = "";
+
+    if (!players.length) {
+
+        playerBrowserList.innerHTML = `
+            <div class="player-browser-row">
+                <span class="player-browser-name">No players found.</span>
+                <span class="player-browser-team"></span>
+            </div>
+        `;
+
+        return;
+    }
+
+    players.forEach(player => {
+
+        const row = document.createElement("div");
+
+        row.className = "player-browser-row";
+
+        const name = document.createElement("span");
+        name.className = "player-browser-name";
+        name.textContent = player.Player;
+
+        const team = document.createElement("span");
+        team.className = "player-browser-team";
+        team.textContent = player.Team || "--";
+
+        row.appendChild(name);
+        row.appendChild(team);
+
+        // Click player → send to existing Player Search
+        row.addEventListener("click", () => {
+
+            document.getElementById("playerName").value = player.Player;
+            document.getElementById("seasonSelect").value = browserSeason.value;
+
+            showSearchMode();
+
+            // Reuse existing Pitcher Load workflow
+            document.getElementById("loadBtn").click();
+        });
+
+        playerBrowserList.appendChild(row);
+    });
+}
+
+
+// ------------------------------------------------------------
+// Filter Browser as user types
+// ------------------------------------------------------------
+playerBrowserFilter.addEventListener("input", () => {
+
+    const query = playerBrowserFilter.value
+        .trim()
+        .toLowerCase();
+
+    const filtered = browserPlayers.filter(player => {
+
+        const name = (player.Player || "").toLowerCase();
+        const team = (player.Team || "").toLowerCase();
+
+        return (
+            name.includes(query) ||
+            team.includes(query)
+        );
+    });
+
+    renderPlayerBrowser(filtered);
+});
+
+
+// ------------------------------------------------------------
+// Change Browser season
+// ------------------------------------------------------------
+browserSeason.addEventListener("change", async () => {
+
+    playerBrowserFilter.value = "";
+
+    await loadPlayerBrowser();
+});
+
+
+// ------------------------------------------------------------
+// Mode Buttons
+// ------------------------------------------------------------
+searchModeBtn.addEventListener("click", showSearchMode);
+playersModeBtn.addEventListener("click", showPlayersMode);
 
 
 // -------------------------------
