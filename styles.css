@@ -465,6 +465,23 @@ body {
         0 3px 6px rgba(15, 36, 62, 0.18);
 }
 
+/* -----------------------------------------
+   Action Row
+----------------------------------------- */
+
+.action-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.action-row button {
+    flex: 1;
+    min-width: 0;
+    padding: 0 10px;
+}
+
 
 /* -----------------------------------------
    Inputs
@@ -507,67 +524,6 @@ select:focus {
     outline: none;
     border-color: #0077ff;
     box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.12);
-}
-
-
-/* -----------------------------------------
-   Buttons
------------------------------------------ */
-.controls.row button {
-    height: 38px;
-    padding: 0 16px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: linear-gradient(135deg, #0b131d, #005fcc);
-    color: #ffffff;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 4px 8px rgba(15, 36, 62, 0.22),
-        0 1px 2px rgba(0, 0, 0, 0.12);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.controls.row button:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 7px 14px rgba(15, 36, 62, 0.26),
-        0 2px 4px rgba(0, 0, 0, 0.12);
-}
-
-.controls.row button:active {
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 4px 8px rgba(15, 36, 62, 0.22),
-        0 1px 2px rgba(0, 0, 0, 0.10);
-}
-
-
-/* Reset */
-
-.controls.row button.reset {
-    background: linear-gradient(135deg, #d9534f, #b52b27);
-
-    box-shadow:
-        0 4px 8px rgba(181, 43, 39, 0.22),
-        0 1px 2px rgba(0, 0, 0, 0.10);
-}
-
-.controls.row button.reset:hover {
-    box-shadow:
-        0 7px 14px rgba(181, 43, 39, 0.26),
-        0 2px 4px rgba(0, 0, 0, 0.10);
 }
  
 /* -----------------------------------------
