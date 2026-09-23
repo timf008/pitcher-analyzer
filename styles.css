@@ -1493,6 +1493,58 @@ select:focus {
     font-weight: 600;
 }
 
+/* -----------------------------------------
+   Comparison Summary
+----------------------------------------- */
+
+.comparison-summary {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    margin-top: 18px;
+    padding: 16px 18px;
+
+    background: #f6f9fc;
+    border: 1px solid #dbe4ee;
+    border-radius: 12px;
+}
+
+.comparison-summary-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+
+    background: #e7eef6;
+    border-radius: 50%;
+
+    color: #31577e;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.comparison-summary-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.comparison-summary-title {
+    margin-bottom: 5px;
+
+    color: #102a49;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.comparison-summary-text {
+    color: #425b76;
+    font-size: 13px;
+    line-height: 1.55;
+}
 
 /* -----------------------------------------
    Mobile
