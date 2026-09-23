@@ -1197,40 +1197,91 @@ function generatePitcherComparisonSummary(
         Number(data2.WHIP) < Number(data1.WHIP);
 
     if (p1RunPrevention) {
+    sentences.push(
+        `${p1} holds the advantage in run prevention with a lower ERA and WHIP.`
+    );
+}
+else if (p2RunPrevention) {
+    sentences.push(
+        `${p2} holds the advantage in run prevention with a lower ERA and WHIP.`
+    );
+}
+else {
+
+    const p1BetterERA = Number(data1.ERA) < Number(data2.ERA);
+    const p2BetterERA = Number(data2.ERA) < Number(data1.ERA);
+
+    const p1BetterWHIP = Number(data1.WHIP) < Number(data2.WHIP);
+    const p2BetterWHIP = Number(data2.WHIP) < Number(data1.WHIP);
+
+    if (p1BetterERA && p2BetterWHIP) {
         sentences.push(
-            `${p1} holds the advantage in run prevention with a lower ERA and WHIP.`
+            `Run prevention is split, with ${p1} holding the lower ERA and ${p2} the lower WHIP.`
         );
     }
-    else if (p2RunPrevention) {
+    else if (p2BetterERA && p1BetterWHIP) {
         sentences.push(
-            `${p2} holds the advantage in run prevention with a lower ERA and WHIP.`
+            `Run prevention is split, with ${p2} holding the lower ERA and ${p1} the lower WHIP.`
         );
     }
+}
 
+// ---------------------------
+// Command
+// BB% + K/BB
+// ---------------------------
 
-    // ---------------------------
-    // Command
-    // BB% + K/BB
-    // ---------------------------
+const p1Command =
+    Number(data1.BBpct) < Number(data2.BBpct) &&
+    Number(data1.KBB) > Number(data2.KBB);
 
-    const p1Command =
-        Number(data1.BBpct) < Number(data2.BBpct) &&
+const p2Command =
+    Number(data2.BBpct) < Number(data1.BBpct) &&
+    Number(data2.KBB) > Number(data1.KBB);
+
+if (p1Command) {
+
+    sentences.push(
+        `${p1} owns the stronger command profile with a lower BB% and higher K/BB ratio.`
+    );
+
+}
+else if (p2Command) {
+
+    sentences.push(
+        `${p2} owns the stronger command profile with a lower BB% and higher K/BB ratio.`
+    );
+
+}
+else {
+
+    const p1BetterBB =
+        Number(data1.BBpct) < Number(data2.BBpct);
+
+    const p2BetterBB =
+        Number(data2.BBpct) < Number(data1.BBpct);
+
+    const p1BetterKBB =
         Number(data1.KBB) > Number(data2.KBB);
 
-    const p2Command =
-        Number(data2.BBpct) < Number(data1.BBpct) &&
+    const p2BetterKBB =
         Number(data2.KBB) > Number(data1.KBB);
 
-    if (p1Command) {
+
+    if (p1BetterBB && p2BetterKBB) {
+
         sentences.push(
-            `${p1} also owns the stronger command profile with a lower BB% and higher K/BB ratio.`
+            `The command profile is split, with ${p1} holding the lower BB% and ${p2} the higher K/BB ratio.`
+        );
+
+    }
+    else if (p2BetterBB && p1BetterKBB) {
+
+        sentences.push(
+            `The command profile is split, with ${p2} holding the lower BB% and ${p1} the higher K/BB ratio.`
         );
     }
-    else if (p2Command) {
-        sentences.push(
-            `${p2} also owns the stronger command profile with a lower BB% and higher K/BB ratio.`
-        );
-    }
+}
 
 
     // ---------------------------
