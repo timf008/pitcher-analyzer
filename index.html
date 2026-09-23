@@ -57,22 +57,12 @@
 <section class="search-panel">
 
     <div class="search-header">
-
-        <h2 id="searchPanelTitle">👤 Player Search</h2>
-
-        <div class="search-mode-toggle">
-            <button id="searchModeBtn" class="mode-btn active">Search</button>
-            <button id="playersModeBtn" class="mode-btn">Players</button>
-        </div>
-
+        <h2>👤 Player Search</h2>
     </div>
 
 
     <div class="search-body">
 
-        <!-- ==================================================
-             PLAYER SEARCH VIEW
-        =================================================== -->
         <div id="playerSearchView">
 
             <!-- Player Inputs -->
@@ -83,15 +73,27 @@
 
                     <div class="input-group player-input">
                         <label for="playerName">Player Name</label>
-                        <input
-                            type="text"
-                            id="playerName"
-                            placeholder="Jacob Misiorowski"
-                        >
+
+                        <div class="autocomplete-wrap">
+                            <input
+                                type="text"
+                                id="playerName"
+                                placeholder="Tarik Skubal"
+                                autocomplete="off"
+                            >
+
+                            <div
+                                id="playerAutocomplete"
+                                class="player-autocomplete"
+                                hidden>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="input-group season-input">
                         <label for="seasonSelect">Season</label>
+
                         <select id="seasonSelect">
                             <option value="2026">2026</option>
                             <option value="2025">2025</option>
@@ -110,16 +112,28 @@
                 <div class="player-search-group">
 
                     <div class="input-group player-input">
-                        <label for="playerName2">Player Name (Compare)</label>
-                        <input
-                            type="text"
-                            id="playerName2"
-                            placeholder="Paul Skenes"
-                        >
+                        <label for="playerName2">Compare Player</label>
+
+                        <div class="autocomplete-wrap">
+                            <input
+                                type="text"
+                                id="playerName2"
+                                placeholder="Paul Skenes"
+                                autocomplete="off"
+                            >
+
+                            <div
+                                id="playerAutocomplete2"
+                                class="player-autocomplete"
+                                hidden>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="input-group season-input">
                         <label for="seasonSelect2">Season</label>
+
                         <select id="seasonSelect2">
                             <option value="2026">2026</option>
                             <option value="2025">2025</option>
@@ -140,86 +154,91 @@
             <section class="controls row action-row">
 
                 <button id="loadBtn">
-    <span class="btn-icon">⌕</span>
-    <span>Load</span>
-</button>
+                    <span class="btn-icon">⌕</span>
+                    <span>Load</span>
+                </button>
 
-<button id="trendBtn">
-    <span class="btn-icon">▥</span>
-    <span>Trend</span>
-</button>
+                <button id="trendBtn">
+                    <span class="btn-icon">▥</span>
+                    <span>Trend</span>
+                </button>
 
-<button id="compareBtn">
-    <span class="btn-icon">♟</span>
-    <span>Compare</span>
-</button>
+                <button id="compareBtn">
+                    <span class="btn-icon">♟</span>
+                    <span>Compare</span>
+                </button>
 
-<button id="leadersBtn">
-    <span class="btn-icon">♛</span>
-    <span>Leaders</span>
-</button>
+                <button id="leadersBtn">
+                    <span class="btn-icon">♛</span>
+                    <span>Leaders</span>
+                </button>
 
-<button id="swapBtn">
-    <span class="btn-icon">⇄</span>
-    <span>Swap</span>
-</button>
+                <button id="swapBtn">
+                    <span class="btn-icon">⇄</span>
+                    <span>Swap</span>
+                </button>
 
-<button id="resetBtn" class="reset">
-    <span class="btn-icon">↻</span>
-    <span>Reset</span>
-</button>
+                <button id="resetBtn" class="reset">
+                    <span class="btn-icon">↻</span>
+                    <span>Reset</span>
+                </button>
 
             </section>
 
         </div>
 
+    </div>
 
-        <!-- ==================================================
-             PLAYER BROWSER VIEW
-        =================================================== -->
-        <div id="playerBrowserView" hidden>
-
-            <div class="browser-controls">
-
-                <div class="input-group browser-season">
-                    <label for="browserSeason">Season</label>
-
-                    <select id="browserSeason">
-                        <option value="2026">2026</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                    </select>
-                </div>
+</section>
 
 
-                <div class="input-group browser-filter">
-                    <label for="playerBrowserFilter">Find Player</label>
+<!-- ==========================================
+     SEASON PRODUCTION
+========================================== -->
 
-                    <input
-                        type="text"
-                        id="playerBrowserFilter"
-                        placeholder="Search players..."
-                    >
-                </div>
+<section class="season-production">
 
-            </div>
+    <div class="season-production-header">
+        <div>
+            <h2>⚾ Season Production</h2>
+        </div>
+    </div>
 
+    <div class="season-production-grid">
 
-            <div class="player-browser-header">
-                <span>Player</span>
-                <span>Team</span>
-            </div>
+        <div class="production-stat">
+            <span class="production-label">IP</span>
+            <strong id="productionIP">--</strong>
+        </div>
 
+        <div class="production-stat">
+            <span class="production-label">H</span>
+            <strong id="productionH">--</strong>
+        </div>
 
-            <div
-                id="playerBrowserList"
-                class="player-browser-list"
-            ></div>
+        <div class="production-stat">
+            <span class="production-label">R</span>
+            <strong id="productionR">--</strong>
+        </div>
 
+        <div class="production-stat">
+            <span class="production-label">ER</span>
+            <strong id="productionER">--</strong>
+        </div>
+
+        <div class="production-stat">
+            <span class="production-label">BB</span>
+            <strong id="productionBB">--</strong>
+        </div>
+
+        <div class="production-stat">
+            <span class="production-label">K</span>
+            <strong id="productionK">--</strong>
+        </div>
+
+        <div class="production-stat">
+            <span class="production-label">HR</span>
+            <strong id="productionHR">--</strong>
         </div>
 
     </div>
