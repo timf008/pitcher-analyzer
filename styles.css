@@ -101,7 +101,7 @@ body {
     background: #ffffff;
     border: 1px solid #dbe4ee;
     border-radius: 16px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
 }
 
@@ -111,6 +111,8 @@ body {
 .search-header {
     background: #0f243e;
     padding: 10px 20px;
+
+    border-radius: 16px 16px 0 0;
 }
 
 .search-header h2 {
@@ -144,10 +146,12 @@ body {
 
     background: transparent;
     box-shadow: none;
+
+    overflow: visible;
 }
 
 
-/* Player + Season pair */
+/* Player + Season Pair */
 
 .player-search-group {
     flex: 1;
@@ -158,14 +162,16 @@ body {
     gap: 8px;
 
     min-width: 0;
+    overflow: visible;
 }
 
 
-/* Player name takes available space */
+/* Player Name Takes Available Space */
 
 .player-input {
     flex: 1;
     min-width: 0;
+    overflow: visible;
 }
 
 .player-input input {
@@ -173,7 +179,7 @@ body {
 }
 
 
-/* Compact season selector */
+/* Compact Season Selector */
 
 .season-input {
     flex: 0 0 82px;
@@ -183,172 +189,110 @@ body {
     width: 82px;
 }
 
-/* -----------------------------------------
-   Search / Player Browser Toggle
------------------------------------------ */
-
-.search-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.search-mode-toggle {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-
-    padding: 3px;
-
-    background: rgba(255, 255, 255, 0.10);
-    border-radius: 8px;
-}
-
-.mode-btn {
-    border: none;
-    background: transparent;
-
-    padding: 5px 10px;
-
-    color: rgba(255, 255, 255, 0.65);
-
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.mode-btn:hover {
-    color: #ffffff;
-}
-
-.mode-btn.active {
-    background: #ffffff;
-    color: #0f243e;
-}
-
 
 /* -----------------------------------------
-   Player Browser
+   Player Autocomplete
 ----------------------------------------- */
 
-#playerBrowserView {
-    padding-bottom: 12px;
+#playerSearchView {
+    overflow: visible;
 }
 
-
-/* Browser Controls */
-
-.browser-controls {
-    display: flex;
-    align-items: flex-end;
-
-    gap: 12px;
-
-    margin-bottom: 14px;
-}
-
-
-/* Compact Season */
-
-.browser-season {
-    flex: 0 0 82px;
-}
-
-.browser-season select {
-    width: 82px;
-}
-
-
-/* Player Filter */
-
-.browser-filter {
-    flex: 1;
-}
-
-.browser-filter input {
+.autocomplete-wrap {
+    position: relative;
     width: 100%;
 }
 
 
-/* Browser Column Header */
+/* Dropdown */
 
-.player-browser-header {
-    display: grid;
-    grid-template-columns: 1fr 80px;
+.player-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
 
-    padding: 7px 12px;
-
-    background: #f4f7fa;
-
-    border: 1px solid #dbe4ee;
-    border-bottom: none;
-
-    color: #65778a;
-
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.7px;
-    text-transform: uppercase;
-}
-
-
-/* Scrollable Player Directory */
-
-.player-browser-list {
-    height: 260px;
-
+    max-height: 140px;
     overflow-y: auto;
 
-    border: 1px solid #dbe4ee;
-
     background: #ffffff;
+    border: 1px solid #dbe4ee;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+
+    box-shadow: 0 6px 14px rgba(15, 36, 62, 0.14);
+
+    z-index: 1000;
 }
 
 
 /* Individual Player */
 
-.player-browser-row {
+.player-autocomplete-row {
     display: grid;
-    grid-template-columns: 1fr 80px;
-
+    grid-template-columns: 1fr 48px;
     align-items: center;
 
     min-height: 34px;
-
-    padding: 0 12px;
+    padding: 0 10px;
 
     border-bottom: 1px solid #edf1f5;
 
-    font-size: 13px;
-
     cursor: pointer;
+    box-sizing: border-box;
 }
 
-.player-browser-row:last-child {
+.player-autocomplete-row:last-child {
     border-bottom: none;
 }
 
-.player-browser-row:hover {
+.player-autocomplete-row:hover {
     background: #f5f8fc;
 }
 
-.player-browser-name {
+
+/* Player Name */
+
+.autocomplete-player-name {
+    font-size: 12px;
     font-weight: 700;
     color: #0f243e;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.player-browser-team {
+
+/* Team */
+
+.autocomplete-player-team {
+    font-size: 10px;
+    font-weight: 700;
     color: #718096;
 
-    font-size: 11px;
-    font-weight: 700;
-
-    text-align: left;
+    text-align: right;
 }
 
+
+/* Scrollbar */
+
+.player-autocomplete::-webkit-scrollbar {
+    width: 7px;
+}
+
+.player-autocomplete::-webkit-scrollbar-track {
+    background: #f4f7fa;
+}
+
+.player-autocomplete::-webkit-scrollbar-thumb {
+    background: #b8c5d1;
+    border-radius: 10px;
+}
+
+.player-autocomplete::-webkit-scrollbar-thumb:hover {
+    background: #8fa1b2;
+}
 
 /* -----------------------------------------
    Action Buttons
