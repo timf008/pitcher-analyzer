@@ -37,38 +37,26 @@ function updateAccessUI() {
     const allAccess = hasAllAccess();
 
 
-    // -------------------------------
-    // Premium Buttons
-    // -------------------------------
+// ------------------------------
+// Premium Buttons
+// ------------------------------
 
-    const premiumButtons = [
-        document.getElementById("trendBtn"),
-        document.getElementById("compareBtn"),
-        document.getElementById("leadersBtn")
-    ];
+const premiumButtons = [
+    document.getElementById("trendBtn"),
+    document.getElementById("compareBtn"),
+    document.getElementById("leadersBtn")
+];
 
-    premiumButtons.forEach(button => {
-        if (!button) return;
+premiumButtons.forEach(button => {
 
-        if (allAccess) {
+    if (!button) return;
 
-            button.textContent =
-                button.dataset.originalText ||
-                button.textContent.replace(" 🔒", "");
-
-            button.classList.remove("premium-locked");
-
-        } else {
-
-            if (!button.dataset.originalText) {
-                button.dataset.originalText =
-                    button.textContent.trim();
-            }
-
-            button.textContent = button.dataset.originalText;
-            button.classList.add("premium-locked");
-        }
-    });
+    if (allAccess) {
+        button.classList.remove("premium-locked");
+    } else {
+        button.classList.add("premium-locked");
+    }
+});
 
 
     // -------------------------------
