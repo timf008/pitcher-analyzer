@@ -460,206 +460,177 @@ function scoreKBB(kbb) {
 // function scoreHR9(hr9) { ... }
 // function scoreFIP(fip) { ... }
 
-// ============================================================
-// Player Browser
-// ============================================================
+// ------------------------------
+// Player Autocomplete
+// ------------------------------
 
-const searchModeBtn = document.getElementById("searchModeBtn");
-const playersModeBtn = document.getElementById("playersModeBtn");
+const autocompleteCache = {};
 
-const playerSearchView = document.getElementById("playerSearchView");
-const playerBrowserView = document.getElementById("playerBrowserView");
+function setupPlayerAutocomplete({
+    inputId,
+    dropdownId,
+    seasonId
+}) {
 
-const searchPanelTitle = document.getElementById("searchPanelTitle");
+    const input = document.getElementById(inputId);
+    const dropdown = document.getElementById(dropdownId);
+    const seasonSelect = document.getElementById(seasonId);
 
-const browserSeason = document.getElementById("browserSeason");
-const playerBrowserFilter = document.getElementById("playerBrowserFilter");
-const playerBrowserList = document.getElementById("playerBrowserList");
-
-let browserPlayers = [];
-let browserLoadedSeason = null;
-
-
-// ------------------------------------------------------------
-// Switch to normal Player Search
-// ------------------------------------------------------------
-function showSearchMode() {
-
-    playerSearchView.hidden = false;
-    playerBrowserView.hidden = true;
-
-    searchModeBtn.classList.add("active");
-    playersModeBtn.classList.remove("active");
-
-    searchPanelTitle.textContent = "👤 Player Search";
-}
+    if (!input || !dropdown || !seasonSelect) return;
 
 
-// ------------------------------------------------------------
-// Switch to Player Browser
-// ------------------------------------------------------------
-async function showPlayersMode() {
+    // ------------------------------
+    // Load Player List
+    // ------------------------------
+    async function getPlayers() {
 
-    playerSearchView.hidden = true;
-    playerBrowserView.hidden = false;
+        const season = seasonSelect.value;
 
-    searchModeBtn.classList.remove("active");
-    playersModeBtn.classList.add("active");
-
-    searchPanelTitle.textContent = "👥 Player Browser";
-
-    // Keep Browser season synchronized with Player Search
-    browserSeason.value = document.getElementById("seasonSelect").value;
-
-    await loadPlayerBrowser();
-}
-
-
-// ------------------------------------------------------------
-// Fetch Player + Team list
-// ------------------------------------------------------------
-async function loadPlayerBrowser() {
-
-    const season = browserSeason.value;
-
-    // Don't fetch the same season again unnecessarily
-    if (browserLoadedSeason === season && browserPlayers.length > 0) {
-        renderPlayerBrowser(browserPlayers);
-        return;
-    }
-
-    playerBrowserList.innerHTML = `
-        <div class="player-browser-row">
-            <span class="player-browser-name">Loading players...</span>
-            <span class="player-browser-team"></span>
-        </div>
-    `;
-
-    try {
-
-        const response = await fetch(
-            `https://pitcher-analyzer-backend.onrender.com/api/players?season=${season}`
-        );
-
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
+        // Use cached season list
+        if (autocompleteCache[season]) {
+            return autocompleteCache[season];
         }
 
-        const data = await response.json();
+        try {
 
-        browserPlayers = data;
-        browserLoadedSeason = season;
+            const response = await fetch(
+                `https://pitcher-analyzer-backend.onrender.com/api/players?season=${season}`
+            );
 
-        renderPlayerBrowser(browserPlayers);
+            if (!response.ok) {
+                throw new Error("Unable to load player list.");
+            }
 
-    } catch (error) {
+            const players = await response.json();
 
-        console.error("Player Browser error:", error);
+            autocompleteCache[season] = players;
 
-        playerBrowserList.innerHTML = `
-            <div class="player-browser-row">
-                <span class="player-browser-name">Unable to load players.</span>
-                <span class="player-browser-team"></span>
-            </div>
-        `;
-    }
-}
+            return players;
 
+        } catch (error) {
 
-// ------------------------------------------------------------
-// Render Player Browser
-// ------------------------------------------------------------
-function renderPlayerBrowser(players) {
+            console.error("Autocomplete player load failed:", error);
 
-    playerBrowserList.innerHTML = "";
-
-    if (!players.length) {
-
-        playerBrowserList.innerHTML = `
-            <div class="player-browser-row">
-                <span class="player-browser-name">No players found.</span>
-                <span class="player-browser-team"></span>
-            </div>
-        `;
-
-        return;
+            return [];
+        }
     }
 
-    players.forEach(player => {
 
-        const row = document.createElement("div");
+    // ------------------------------
+    // Render Dropdown
+    // ------------------------------
+    async function renderAutocomplete() {
 
-        row.className = "player-browser-row";
+        const players = await getPlayers();
 
-        const name = document.createElement("span");
-        name.className = "player-browser-name";
-        name.textContent = player.Player;
+        const search = input.value
+            .trim()
+            .toLowerCase();
 
-        const team = document.createElement("span");
-        team.className = "player-browser-team";
-        team.textContent = player.Team || "--";
+        const matches = players.filter(player => {
 
-        row.appendChild(name);
-        row.appendChild(team);
+            const name = (player.Player || "").toLowerCase();
+            const team = (player.Team || "").toLowerCase();
 
-        // Click player → send to existing Player Search
-        row.addEventListener("click", () => {
-
-            document.getElementById("playerName").value = player.Player;
-            document.getElementById("seasonSelect").value = browserSeason.value;
-
-            showSearchMode();
-
-            // Reuse existing Pitcher Load workflow
-            document.getElementById("loadBtn").click();
+            return (
+                !search ||
+                name.includes(search) ||
+                team.includes(search)
+            );
         });
 
-        playerBrowserList.appendChild(row);
+        dropdown.innerHTML = "";
+
+        matches.forEach(player => {
+
+            const row = document.createElement("div");
+
+            row.className = "player-autocomplete-row";
+
+            row.innerHTML = `
+                <span class="autocomplete-player-name">
+                    ${player.Player}
+                </span>
+
+                <span class="autocomplete-player-team">
+                    ${player.Team || ""}
+                </span>
+            `;
+
+            row.addEventListener("click", () => {
+
+                input.value = player.Player;
+
+                dropdown.hidden = true;
+            });
+
+            dropdown.appendChild(row);
+        });
+
+        dropdown.hidden = matches.length === 0;
+    }
+
+
+    // ------------------------------
+    // Open on Focus
+    // ------------------------------
+    input.addEventListener("focus", () => {
+
+        renderAutocomplete();
+    });
+
+
+    // ------------------------------
+    // Filter While Typing
+    // ------------------------------
+    input.addEventListener("input", () => {
+
+        renderAutocomplete();
+    });
+
+
+    // ------------------------------
+    // Season Changed
+    // ------------------------------
+    seasonSelect.addEventListener("change", () => {
+
+        dropdown.hidden = true;
+
+        // No need to destroy cache.
+        // New season automatically uses its own list.
+    });
+
+
+    // ------------------------------
+    // Close When Clicking Elsewhere
+    // ------------------------------
+    document.addEventListener("click", event => {
+
+        if (!event.target.closest(".autocomplete-wrap")) {
+            dropdown.hidden = true;
+        }
     });
 }
 
 
-// ------------------------------------------------------------
-// Filter Browser as user types
-// ------------------------------------------------------------
-playerBrowserFilter.addEventListener("input", () => {
-
-    const query = playerBrowserFilter.value
-        .trim()
-        .toLowerCase();
-
-    const filtered = browserPlayers.filter(player => {
-
-        const name = (player.Player || "").toLowerCase();
-        const team = (player.Team || "").toLowerCase();
-
-        return (
-            name.includes(query) ||
-            team.includes(query)
-        );
-    });
-
-    renderPlayerBrowser(filtered);
+// ------------------------------
+// Player 1
+// ------------------------------
+setupPlayerAutocomplete({
+    inputId: "playerName",
+    dropdownId: "playerAutocomplete",
+    seasonId: "seasonSelect"
 });
 
 
-// ------------------------------------------------------------
-// Change Browser season
-// ------------------------------------------------------------
-browserSeason.addEventListener("change", async () => {
-
-    playerBrowserFilter.value = "";
-
-    await loadPlayerBrowser();
+// ------------------------------
+// Player 2
+// ------------------------------
+setupPlayerAutocomplete({
+    inputId: "playerName2",
+    dropdownId: "playerAutocomplete2",
+    seasonId: "seasonSelect2"
 });
-
-
-// ------------------------------------------------------------
-// Mode Buttons
-// ------------------------------------------------------------
-searchModeBtn.addEventListener("click", showSearchMode);
-playersModeBtn.addEventListener("click", showPlayersMode);
-
 
 // -------------------------------
 // Main: Load player + update UI (backend-only)
