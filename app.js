@@ -1168,6 +1168,138 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
 }
 
 // -------------------------------
+// Pitcher Comparison Summary
+// -------------------------------
+function generatePitcherComparisonSummary(
+    p1,
+    p2,
+    data1,
+    data2,
+    xp1,
+    xp2,
+    overall1,
+    overall2
+) {
+
+    const sentences = [];
+
+    // ---------------------------
+    // Run Prevention
+    // ERA + WHIP
+    // ---------------------------
+
+    const p1RunPrevention =
+        Number(data1.ERA) < Number(data2.ERA) &&
+        Number(data1.WHIP) < Number(data2.WHIP);
+
+    const p2RunPrevention =
+        Number(data2.ERA) < Number(data1.ERA) &&
+        Number(data2.WHIP) < Number(data1.WHIP);
+
+    if (p1RunPrevention) {
+        sentences.push(
+            `${p1} holds the advantage in run prevention with a lower ERA and WHIP.`
+        );
+    }
+    else if (p2RunPrevention) {
+        sentences.push(
+            `${p2} holds the advantage in run prevention with a lower ERA and WHIP.`
+        );
+    }
+
+
+    // ---------------------------
+    // Command
+    // BB% + K/BB
+    // ---------------------------
+
+    const p1Command =
+        Number(data1.BBpct) < Number(data2.BBpct) &&
+        Number(data1.KBB) > Number(data2.KBB);
+
+    const p2Command =
+        Number(data2.BBpct) < Number(data1.BBpct) &&
+        Number(data2.KBB) > Number(data1.KBB);
+
+    if (p1Command) {
+        sentences.push(
+            `${p1} also owns the stronger command profile with a lower BB% and higher K/BB ratio.`
+        );
+    }
+    else if (p2Command) {
+        sentences.push(
+            `${p2} also owns the stronger command profile with a lower BB% and higher K/BB ratio.`
+        );
+    }
+
+
+    // ---------------------------
+    // Strikeout Profile
+    // K%
+    // ---------------------------
+
+    if (Number(data1.Kpct) > Number(data2.Kpct)) {
+
+        sentences.push(
+            `${p1} provides the stronger strikeout profile with the higher K%.`
+        );
+
+    }
+    else if (Number(data2.Kpct) > Number(data1.Kpct)) {
+
+        sentences.push(
+            `${p2} provides the stronger strikeout profile with the higher K%.`
+        );
+    }
+
+
+    // ---------------------------
+    // XP + Overall Score
+    // ---------------------------
+
+    const p1XP = xp1 > xp2;
+    const p2XP = xp2 > xp1;
+
+    const p1Overall = overall1 > overall2;
+    const p2Overall = overall2 > overall1;
+
+
+    if (p1XP && p1Overall) {
+
+        sentences.push(
+            `${p1} finishes ahead in both XP and Overall Score.`
+        );
+
+    }
+    else if (p2XP && p2Overall) {
+
+        sentences.push(
+            `${p2} finishes ahead in both XP and Overall Score.`
+        );
+
+    }
+    else {
+
+        if (p1XP) {
+            sentences.push(`${p1} holds the advantage in XP.`);
+        }
+        else if (p2XP) {
+            sentences.push(`${p2} holds the advantage in XP.`);
+        }
+
+        if (p1Overall) {
+            sentences.push(`${p1} holds the advantage in Overall Score.`);
+        }
+        else if (p2Overall) {
+            sentences.push(`${p2} holds the advantage in Overall Score.`);
+        }
+    }
+
+
+    return sentences.join(" ");
+}
+
+// -------------------------------
 // Compare Button
 // -------------------------------
 async function showCompareModal() {
@@ -1375,6 +1507,25 @@ async function showCompareModal() {
 
     tbody.appendChild(row);
 });
+
+// ----------------------------------
+// Comparison Summary
+// ----------------------------------
+
+const comparisonSummary =
+    generatePitcherComparisonSummary(
+        p1_display,
+        p2_display,
+        data1,
+        data2,
+        xp1,
+        xp2,
+        overall1,
+        overall2
+    );
+
+document.getElementById("comparisonSummaryText").textContent =
+    comparisonSummary;
 
         document.getElementById("compareModal").style.display = "flex";
 
