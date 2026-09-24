@@ -1078,7 +1078,14 @@ async function handleTrend() {
             `Season Comparison (${season} vs ${lastSeason})`;
 
         document.getElementById("trendBody").innerHTML = html;
-        document.getElementById("trendModal").style.display = "flex";
+
+const trendAnalysis =
+    generatePitcherTrendAnalysis(curr, prev);
+
+document.getElementById("trendAnalysisText").textContent =
+    trendAnalysis;
+
+document.getElementById("trendModal").style.display = "flex";
 
     } catch (err) {
         console.error("Trend error:", err);
@@ -1165,6 +1172,190 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
             </tbody>
         </table>
     `;
+}
+
+// -------------------------------
+// Pitcher Trend Analysis
+// -------------------------------
+function generatePitcherTrendAnalysis(curr, prev) {
+
+    const trends = [
+        { key: "ERA",          higherIsBetter: false },
+        { key: "WHIP",         higherIsBetter: false },
+        { key: "Kpct",         higherIsBetter: true  },
+        { key: "BBpct",        higherIsBetter: false },
+        { key: "KBB",          higherIsBetter: true  },
+        { key: "XP",           higherIsBetter: true  },
+        { key: "OverallScore", higherIsBetter: true  }
+    ];
+
+    // ---------------------------------
+    // Count improved / declined / flat
+    // ---------------------------------
+    let improved = 0;
+    let declined = 0;
+    let flat = 0;
+
+    trends.forEach(stat => {
+
+        const currValue = Number(curr[stat.key]);
+        const prevValue = Number(prev[stat.key]);
+
+        if (currValue === prevValue) {
+            flat++;
+            return;
+        }
+
+        const isImprovement = stat.higherIsBetter
+            ? currValue > prevValue
+            : currValue < prevValue;
+
+        if (isImprovement) {
+            improved++;
+        } else {
+            declined++;
+        }
+    });
+
+    const trendScore = improved - declined;
+
+    // ---------------------------------
+    // Overall trend classification
+    // ---------------------------------
+    let classification;
+
+    if (trendScore >= 5) {
+        classification = "Strong year-over-year improvement.";
+    }
+    else if (trendScore >= 2) {
+        classification = "Year-over-year improvement.";
+    }
+    else if (trendScore >= -1) {
+        classification = "Mixed year-over-year performance.";
+    }
+    else if (trendScore >= -4) {
+        classification = "Year-over-year decline.";
+    }
+    else {
+        classification = "Strong year-over-year decline.";
+    }
+
+    const sentences = [classification];
+
+    // ---------------------------------
+    // Run Prevention
+    // Lower ERA + lower WHIP = better
+    // ---------------------------------
+    const eraImproved = Number(curr.ERA) < Number(prev.ERA);
+    const whipImproved = Number(curr.WHIP) < Number(prev.WHIP);
+
+    const eraDeclined = Number(curr.ERA) > Number(prev.ERA);
+    const whipDeclined = Number(curr.WHIP) > Number(prev.WHIP);
+
+    if (eraImproved && whipImproved) {
+        sentences.push(
+            "Run prevention improved, with decreases in both ERA and WHIP."
+        );
+    }
+    else if (eraDeclined && whipDeclined) {
+        sentences.push(
+            "Run prevention declined, with increases in both ERA and WHIP."
+        );
+    }
+    else if (eraImproved && whipDeclined) {
+        sentences.push(
+            "Run prevention was mixed, with ERA improving while WHIP increased."
+        );
+    }
+    else if (eraDeclined && whipImproved) {
+        sentences.push(
+            "Run prevention was mixed, with WHIP improving while ERA increased."
+        );
+    }
+
+    // ---------------------------------
+    // Strikeout Profile
+    // Higher K% = better
+    // ---------------------------------
+    if (Number(curr.Kpct) > Number(prev.Kpct)) {
+        sentences.push(
+            "The strikeout profile improved, reflected by the higher K%."
+        );
+    }
+    else if (Number(curr.Kpct) < Number(prev.Kpct)) {
+        sentences.push(
+            "The strikeout profile declined, reflected by the lower K%."
+        );
+    }
+
+    // ---------------------------------
+    // Command
+    // Lower BB% + higher K/BB = better
+    // ---------------------------------
+    const bbImproved = Number(curr.BBpct) < Number(prev.BBpct);
+    const kbbImproved = Number(curr.KBB) > Number(prev.KBB);
+
+    const bbDeclined = Number(curr.BBpct) > Number(prev.BBpct);
+    const kbbDeclined = Number(curr.KBB) < Number(prev.KBB);
+
+    if (bbImproved && kbbImproved) {
+        sentences.push(
+            "Command improved, with a lower BB% and higher K/BB ratio."
+        );
+    }
+    else if (bbDeclined && kbbDeclined) {
+        sentences.push(
+            "Command declined, with a higher BB% and lower K/BB ratio."
+        );
+    }
+    else if (bbImproved && kbbDeclined) {
+        sentences.push(
+            "The command profile was mixed, with fewer walks but a lower K/BB ratio."
+        );
+    }
+    else if (bbDeclined && kbbImproved) {
+        sentences.push(
+            "The command profile was mixed, with a higher K/BB ratio offset by an increased walk rate."
+        );
+    }
+
+    // ---------------------------------
+    // XP + Overall
+    // ---------------------------------
+    const xpDiff =
+        Math.round(curr.XP) - Math.round(prev.XP);
+
+    const overallDiff =
+        Number(curr.OverallScore) - Number(prev.OverallScore);
+
+    const xpImproved = xpDiff > 0;
+    const overallImproved = overallDiff > 0;
+
+    const xpDeclined = xpDiff < 0;
+    const overallDeclined = overallDiff < 0;
+
+    if (xpImproved && overallImproved) {
+        sentences.push(
+            `XP increased by ${Math.abs(xpDiff)}, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
+        );
+    }
+    else if (xpDeclined && overallDeclined) {
+        sentences.push(
+            `XP declined by ${Math.abs(xpDiff)}, while Overall Score decreased by ${Math.abs(overallDiff).toFixed(1)} points.`
+        );
+    }
+    else if (xpImproved && overallDeclined) {
+        sentences.push(
+            `XP increased by ${Math.abs(xpDiff)}, while Overall Score declined by ${Math.abs(overallDiff).toFixed(1)} points.`
+        );
+    }
+    else if (xpDeclined && overallImproved) {
+        sentences.push(
+            `XP declined by ${Math.abs(xpDiff)}, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
+        );
+    }
+
+    return sentences.join(" ");
 }
 
 // -------------------------------
