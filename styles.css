@@ -1287,7 +1287,7 @@ select:focus {
     color: #0f243e;
 
     border-radius: 16px;
-    overflow: auto;
+    overflow: visible;
 
     box-shadow:
         0 18px 50px rgba(0, 0, 0, 0.28),
