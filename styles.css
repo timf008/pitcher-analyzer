@@ -1009,7 +1009,7 @@ select:focus {
 
     border-radius: 16px;
 
-    overflow: hidden;
+    overflow: auto;
 
     box-shadow:
         0 18px 50px rgba(0, 0, 0, 0.28),
@@ -1185,6 +1185,71 @@ select:focus {
 .trend-table td.trend-flat {
     color: #9b9b9b !important;
     font-weight: 800;
+}
+
+/* -----------------------------------------
+   Trend Analysis
+----------------------------------------- */
+
+.trend-analysis {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    margin-top: 18px;
+    padding: 16px 18px;
+
+    background: #f6f9fc;
+
+    border: 1px solid #dbe4ee;
+    border-radius: 12px;
+}
+
+.trend-analysis-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+
+    background: #e7eef6;
+    border-radius: 50%;
+
+    color: #31577e;
+}
+
+.trend-analysis-icon svg {
+    width: 18px;
+    height: 18px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.trend-analysis-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.trend-analysis-title {
+    margin-bottom: 5px;
+
+    color: #102a49;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.trend-analysis-text {
+    color: #425b76;
+
+    font-size: 13px;
+    line-height: 1.55;
 }
 
 /* -----------------------------------------
