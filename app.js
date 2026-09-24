@@ -1176,9 +1176,13 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
 
 // -------------------------------
 // Pitcher Trend Analysis
+// Direction + Magnitude
 // -------------------------------
 function generatePitcherTrendAnalysis(curr, prev) {
 
+    // ---------------------------------
+    // 1. Direction / Breadth
+    // ---------------------------------
     const trends = [
         { key: "ERA",          higherIsBetter: false },
         { key: "WHIP",         higherIsBetter: false },
@@ -1189,9 +1193,6 @@ function generatePitcherTrendAnalysis(curr, prev) {
         { key: "OverallScore", higherIsBetter: true  }
     ];
 
-    // ---------------------------------
-    // Count improved / declined / flat
-    // ---------------------------------
     let improved = 0;
     let declined = 0;
     let flat = 0;
@@ -1217,40 +1218,166 @@ function generatePitcherTrendAnalysis(curr, prev) {
         }
     });
 
-    const trendScore = improved - declined;
 
     // ---------------------------------
-    // Overall trend classification
+    // 2. Metric-score movement
+    // All five metrics are now on 0–10 scale
+    // ---------------------------------
+    const scoreChanges = {
+
+        ERA:
+            scoreERA(curr.ERA) -
+            scoreERA(prev.ERA),
+
+        WHIP:
+            scoreWHIP(curr.WHIP) -
+            scoreWHIP(prev.WHIP),
+
+        Kpct:
+            scoreKpct(curr.Kpct) -
+            scoreKpct(prev.Kpct),
+
+        BBpct:
+            scoreBBpct(curr.BBpct) -
+            scoreBBpct(prev.BBpct),
+
+        KBB:
+            scoreKBB(curr.KBB) -
+            scoreKBB(prev.KBB)
+    };
+
+
+    // ---------------------------------
+    // 3. Magnitude
+    // Mean absolute movement across
+    // the five normalized metric scores
+    // ---------------------------------
+    const magnitude =
+        Object.values(scoreChanges)
+            .reduce((sum, value) => sum + Math.abs(value), 0) / 5;
+
+
+    // ---------------------------------
+    // 4. Overall direction
+    // Use Overall Score as the net
+    // direction of the pitching profile
+    // ---------------------------------
+    const overallDiff =
+        Number(curr.OverallScore) -
+        Number(prev.OverallScore);
+
+    let direction;
+
+    if (overallDiff > 0.05) {
+        direction = "improvement";
+    }
+    else if (overallDiff < -0.05) {
+        direction = "decline";
+    }
+    else {
+        direction = "stable";
+    }
+
+
+    // ---------------------------------
+    // 5. Magnitude classification
+    //
+    // Initial thresholds:
+    // < 0.75  = limited
+    // < 1.50  = moderate
+    // >= 1.50 = significant
+    //
+    // These can be calibrated later.
+    // ---------------------------------
+    let magnitudeLabel;
+
+    if (magnitude < 0.75) {
+        magnitudeLabel = "limited";
+    }
+    else if (magnitude < 1.50) {
+        magnitudeLabel = "moderate";
+    }
+    else {
+        magnitudeLabel = "significant";
+    }
+
+
+    // ---------------------------------
+    // 6. Breadth classification
+    // ---------------------------------
+    let breadthLabel;
+
+    if (improved >= 6) {
+        breadthLabel = "broad";
+    }
+    else if (declined >= 6) {
+        breadthLabel = "broad";
+    }
+    else if (improved >= 4 || declined >= 4) {
+        breadthLabel = "general";
+    }
+    else {
+        breadthLabel = "mixed";
+    }
+
+
+    // ---------------------------------
+    // 7. Headline
     // ---------------------------------
     let classification;
 
-    if (trendScore >= 5) {
-        classification = "Strong year-over-year improvement.";
+    if (direction === "stable") {
+        classification =
+            "Year-over-year performance was relatively stable.";
     }
-    else if (trendScore >= 2) {
-        classification = "Year-over-year improvement.";
-    }
-    else if (trendScore >= -1) {
-        classification = "Mixed year-over-year performance.";
-    }
-    else if (trendScore >= -4) {
-        classification = "Year-over-year decline.";
+    else if (direction === "improvement") {
+
+        if (magnitudeLabel === "significant") {
+            classification =
+                `${capitalize(breadthLabel)} and significant year-over-year improvement.`;
+        }
+        else if (magnitudeLabel === "moderate") {
+            classification =
+                `${capitalize(breadthLabel)} but moderate year-over-year improvement.`;
+        }
+        else {
+            classification =
+                `${capitalize(breadthLabel)} but limited year-over-year improvement.`;
+        }
     }
     else {
-        classification = "Strong year-over-year decline.";
+
+        if (magnitudeLabel === "significant") {
+            classification =
+                `${capitalize(breadthLabel)} and significant year-over-year decline.`;
+        }
+        else if (magnitudeLabel === "moderate") {
+            classification =
+                `${capitalize(breadthLabel)} but moderate year-over-year decline.`;
+        }
+        else {
+            classification =
+                `${capitalize(breadthLabel)} but limited year-over-year decline.`;
+        }
     }
 
     const sentences = [classification];
 
-    // ---------------------------------
-    // Run Prevention
-    // Lower ERA + lower WHIP = better
-    // ---------------------------------
-    const eraImproved = Number(curr.ERA) < Number(prev.ERA);
-    const whipImproved = Number(curr.WHIP) < Number(prev.WHIP);
 
-    const eraDeclined = Number(curr.ERA) > Number(prev.ERA);
-    const whipDeclined = Number(curr.WHIP) > Number(prev.WHIP);
+    // ---------------------------------
+    // 8. Run Prevention
+    // ---------------------------------
+    const eraImproved =
+        Number(curr.ERA) < Number(prev.ERA);
+
+    const whipImproved =
+        Number(curr.WHIP) < Number(prev.WHIP);
+
+    const eraDeclined =
+        Number(curr.ERA) > Number(prev.ERA);
+
+    const whipDeclined =
+        Number(curr.WHIP) > Number(prev.WHIP);
 
     if (eraImproved && whipImproved) {
         sentences.push(
@@ -1273,9 +1400,9 @@ function generatePitcherTrendAnalysis(curr, prev) {
         );
     }
 
+
     // ---------------------------------
-    // Strikeout Profile
-    // Higher K% = better
+    // 9. Strikeout Profile
     // ---------------------------------
     if (Number(curr.Kpct) > Number(prev.Kpct)) {
         sentences.push(
@@ -1288,15 +1415,21 @@ function generatePitcherTrendAnalysis(curr, prev) {
         );
     }
 
-    // ---------------------------------
-    // Command
-    // Lower BB% + higher K/BB = better
-    // ---------------------------------
-    const bbImproved = Number(curr.BBpct) < Number(prev.BBpct);
-    const kbbImproved = Number(curr.KBB) > Number(prev.KBB);
 
-    const bbDeclined = Number(curr.BBpct) > Number(prev.BBpct);
-    const kbbDeclined = Number(curr.KBB) < Number(prev.KBB);
+    // ---------------------------------
+    // 10. Command
+    // ---------------------------------
+    const bbImproved =
+        Number(curr.BBpct) < Number(prev.BBpct);
+
+    const kbbImproved =
+        Number(curr.KBB) > Number(prev.KBB);
+
+    const bbDeclined =
+        Number(curr.BBpct) > Number(prev.BBpct);
+
+    const kbbDeclined =
+        Number(curr.KBB) < Number(prev.KBB);
 
     if (bbImproved && kbbImproved) {
         sentences.push(
@@ -1319,37 +1452,30 @@ function generatePitcherTrendAnalysis(curr, prev) {
         );
     }
 
+
     // ---------------------------------
-    // XP + Overall
+    // 11. XP + Overall
     // ---------------------------------
     const xpDiff =
-        Math.round(curr.XP) - Math.round(prev.XP);
+        Math.round(curr.XP) -
+        Math.round(prev.XP);
 
-    const overallDiff =
-        Number(curr.OverallScore) - Number(prev.OverallScore);
-
-    const xpImproved = xpDiff > 0;
-    const overallImproved = overallDiff > 0;
-
-    const xpDeclined = xpDiff < 0;
-    const overallDeclined = overallDiff < 0;
-
-    if (xpImproved && overallImproved) {
+    if (xpDiff > 0 && overallDiff > 0) {
         sentences.push(
             `XP increased by ${Math.abs(xpDiff)}, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
-    else if (xpDeclined && overallDeclined) {
+    else if (xpDiff < 0 && overallDiff < 0) {
         sentences.push(
             `XP declined by ${Math.abs(xpDiff)}, while Overall Score decreased by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
-    else if (xpImproved && overallDeclined) {
+    else if (xpDiff > 0 && overallDiff < 0) {
         sentences.push(
             `XP increased by ${Math.abs(xpDiff)}, while Overall Score declined by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
-    else if (xpDeclined && overallImproved) {
+    else if (xpDiff < 0 && overallDiff > 0) {
         sentences.push(
             `XP declined by ${Math.abs(xpDiff)}, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
@@ -1357,6 +1483,15 @@ function generatePitcherTrendAnalysis(curr, prev) {
 
     return sentences.join(" ");
 }
+
+
+// -------------------------------
+// Capitalize helper
+// -------------------------------
+function capitalize(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 
 // -------------------------------
 // Pitcher Comparison Summary
