@@ -1364,97 +1364,215 @@ function generatePitcherTrendAnalysis(curr, prev) {
     const sentences = [classification];
 
 
+        // ---------------------------------
+    // 8. Helper: describe metric movement
+    // Uses normalized 0–10 score change
     // ---------------------------------
-    // 8. Run Prevention
+    function movementLevel(change) {
+
+        const amount = Math.abs(change);
+
+        if (amount < 0.75) {
+            return "limited";
+        }
+        else if (amount < 1.50) {
+            return "moderate";
+        }
+        else {
+            return "significant";
+        }
+    }
+
+
     // ---------------------------------
-    const eraImproved =
-        Number(curr.ERA) < Number(prev.ERA);
+    // 9. Run Prevention
+    // ERA + WHIP
+    // ---------------------------------
+    const eraChange = scoreChanges.ERA;
+    const whipChange = scoreChanges.WHIP;
 
-    const whipImproved =
-        Number(curr.WHIP) < Number(prev.WHIP);
+    const eraImproved = eraChange > 0;
+    const whipImproved = whipChange > 0;
 
-    const eraDeclined =
-        Number(curr.ERA) > Number(prev.ERA);
+    const eraDeclined = eraChange < 0;
+    const whipDeclined = whipChange < 0;
 
-    const whipDeclined =
-        Number(curr.WHIP) > Number(prev.WHIP);
+    const runPreventionMagnitude =
+        (Math.abs(eraChange) + Math.abs(whipChange)) / 2;
+
+    const runPreventionLevel =
+        movementLevel(runPreventionMagnitude);
+
 
     if (eraImproved && whipImproved) {
-        sentences.push(
-            "Run prevention improved, with decreases in both ERA and WHIP."
-        );
+
+        if (runPreventionLevel === "significant") {
+            sentences.push(
+                "Run prevention improved substantially, with major gains in both ERA and WHIP."
+            );
+        }
+        else if (runPreventionLevel === "moderate") {
+            sentences.push(
+                "Run prevention improved moderately, with gains in both ERA and WHIP."
+            );
+        }
+        else {
+            sentences.push(
+                "Run prevention improved slightly, with modest gains in ERA and WHIP."
+            );
+        }
     }
+
     else if (eraDeclined && whipDeclined) {
-        sentences.push(
-            "Run prevention declined, with increases in both ERA and WHIP."
-        );
+
+        if (runPreventionLevel === "significant") {
+            sentences.push(
+                "Run prevention declined substantially, with major deterioration in both ERA and WHIP."
+            );
+        }
+        else if (runPreventionLevel === "moderate") {
+            sentences.push(
+                "Run prevention declined moderately, with ERA and WHIP both moving lower."
+            );
+        }
+        else {
+            sentences.push(
+                "Run prevention declined slightly, with modest deterioration in ERA and WHIP."
+            );
+        }
     }
+
     else if (eraImproved && whipDeclined) {
         sentences.push(
-            "Run prevention was mixed, with ERA improving while WHIP increased."
+            "Run prevention was mixed, with ERA improving while WHIP declined."
         );
     }
+
     else if (eraDeclined && whipImproved) {
         sentences.push(
-            "Run prevention was mixed, with WHIP improving while ERA increased."
+            "Run prevention was mixed, with WHIP improving while ERA declined."
         );
     }
 
 
     // ---------------------------------
-    // 9. Strikeout Profile
+    // 10. Strikeout Profile
+    // K%
     // ---------------------------------
-    if (Number(curr.Kpct) > Number(prev.Kpct)) {
-        sentences.push(
-            "The strikeout profile improved, reflected by the higher K%."
-        );
+    const kChange = scoreChanges.Kpct;
+    const kLevel = movementLevel(kChange);
+
+    if (kChange > 0) {
+
+        if (kLevel === "significant") {
+            sentences.push(
+                "The strikeout profile improved substantially."
+            );
+        }
+        else if (kLevel === "moderate") {
+            sentences.push(
+                "The strikeout profile improved moderately."
+            );
+        }
+        else {
+            sentences.push(
+                "The strikeout profile improved slightly."
+            );
+        }
     }
-    else if (Number(curr.Kpct) < Number(prev.Kpct)) {
-        sentences.push(
-            "The strikeout profile declined, reflected by the lower K%."
-        );
+
+    else if (kChange < 0) {
+
+        if (kLevel === "significant") {
+            sentences.push(
+                "The strikeout profile declined substantially."
+            );
+        }
+        else if (kLevel === "moderate") {
+            sentences.push(
+                "The strikeout profile declined moderately."
+            );
+        }
+        else {
+            sentences.push(
+                "The strikeout profile declined slightly."
+            );
+        }
     }
 
 
     // ---------------------------------
-    // 10. Command
+    // 11. Command
+    // BB% + K/BB
     // ---------------------------------
-    const bbImproved =
-        Number(curr.BBpct) < Number(prev.BBpct);
+    const bbChange = scoreChanges.BBpct;
+    const kbbChange = scoreChanges.KBB;
 
-    const kbbImproved =
-        Number(curr.KBB) > Number(prev.KBB);
+    const bbImproved = bbChange > 0;
+    const kbbImproved = kbbChange > 0;
 
-    const bbDeclined =
-        Number(curr.BBpct) > Number(prev.BBpct);
+    const bbDeclined = bbChange < 0;
+    const kbbDeclined = kbbChange < 0;
 
-    const kbbDeclined =
-        Number(curr.KBB) < Number(prev.KBB);
+    const commandMagnitude =
+        (Math.abs(bbChange) + Math.abs(kbbChange)) / 2;
+
+    const commandLevel =
+        movementLevel(commandMagnitude);
+
 
     if (bbImproved && kbbImproved) {
-        sentences.push(
-            "Command improved, with a lower BB% and higher K/BB ratio."
-        );
+
+        if (commandLevel === "significant") {
+            sentences.push(
+                "Command improved substantially, with major gains in BB% and K/BB."
+            );
+        }
+        else if (commandLevel === "moderate") {
+            sentences.push(
+                "Command improved moderately, with gains in BB% and K/BB."
+            );
+        }
+        else {
+            sentences.push(
+                "Command improved slightly, with modest gains in BB% and K/BB."
+            );
+        }
     }
+
     else if (bbDeclined && kbbDeclined) {
-        sentences.push(
-            "Command declined, with a higher BB% and lower K/BB ratio."
-        );
+
+        if (commandLevel === "significant") {
+            sentences.push(
+                "Command declined substantially, with meaningful deterioration in BB% and K/BB."
+            );
+        }
+        else if (commandLevel === "moderate") {
+            sentences.push(
+                "Command declined moderately, with BB% and K/BB both moving lower."
+            );
+        }
+        else {
+            sentences.push(
+                "Command declined slightly, with modest deterioration in BB% and K/BB."
+            );
+        }
     }
+
     else if (bbImproved && kbbDeclined) {
         sentences.push(
-            "The command profile was mixed, with fewer walks but a lower K/BB ratio."
+            "The command profile was mixed, with improved walk prevention offset by a decline in K/BB."
         );
     }
+
     else if (bbDeclined && kbbImproved) {
         sentences.push(
-            "The command profile was mixed, with a higher K/BB ratio offset by an increased walk rate."
+            "The command profile was mixed, with improved K/BB offset by weaker walk prevention."
         );
     }
 
-
     // ---------------------------------
-    // 11. XP + Overall
+    // 12. XP + Overall
     // ---------------------------------
     const xpDiff =
         Math.round(curr.XP) -
