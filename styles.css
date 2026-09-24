@@ -1309,6 +1309,8 @@ select:focus {
     background: linear-gradient(135deg, #0b131d, #0f3e73);
 
     color: #ffffff;
+
+    border-radius: 16px 16px 0 0;
 }
 
 #compareTitle {
