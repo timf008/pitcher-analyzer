@@ -2246,7 +2246,7 @@ function classifyPlayer(xp, skill) {
 // Calculate Divergence (Pitchers)
 // -------------------------------
 function calculatePitcherDivergence(xp, overall) {
-    const expectedXP = 798.38 + (23.66 * overall);
+    const expectedXP = 961.96 + (13.33 * overall);
     const divergence = (xp - expectedXP) / expectedXP;
 
     return {
@@ -2260,9 +2260,9 @@ function calculatePitcherDivergence(xp, overall) {
 // Divergence → Fantasy State (Pitchers)
 // -------------------------------
 function pitcherDivergenceState(divergencePct) {
-    if (divergencePct > 2.44) return "strong";
-    if (divergencePct >= -2.44) return "stable";
-    if (divergencePct >= -4.88) return "vulnerable";
+    if (divergencePct >= 2.28) return "strong";
+    if (divergencePct >= -2.28) return "stable";
+    if (divergencePct >= -4.56) return "vulnerable";
     return "high-risk";
 }
 
