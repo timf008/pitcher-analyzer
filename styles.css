@@ -904,6 +904,43 @@ select:focus {
     color: #102743;
 }
 
+/* -----------------------------------------
+   Overall / XP Mini Meters
+----------------------------------------- */
+
+.overall-top .analytics-meter {
+    display: block;
+
+    width: 78%;
+    height: 6px;
+
+    margin-top: 7px;
+
+    background: #e3e8ee;
+    border-radius: 999px;
+
+    overflow: hidden;
+
+    font-size: 0;
+    line-height: 0;
+}
+
+.overall-top .analytics-meter-fill {
+    display: block;
+
+    width: 3%;
+    height: 100%;
+
+    margin: 0;
+
+    background: #2f80ed;
+    border-radius: 999px;
+
+    font-size: 0;
+    line-height: 0;
+
+    transition: width 0.45s ease;
+}
 
 /* -----------------------------------------
    Mobile
