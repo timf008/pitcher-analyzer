@@ -296,12 +296,74 @@ function updateKBB(raw, score)     { updateMetric("raw-kbb",  "battery-kbb",  "s
 // Overall score + XP + tier
 // -------------------------------
 function updateOverall(score) {
-    document.getElementById("overallScore").textContent = safeFixed(score, 1);
-    updateBattery("battery-overall", safeScore(score));
+
+    const numericScore = safeScore(score);
+
+    document.getElementById("overallScore").textContent =
+        safeFixed(score, 1);
+
+    updateBattery(
+        "battery-overall",
+        numericScore
+    );
+
+    // Overall gauge: 0–10 → 0–100%
+    const overallPercent = Math.max(
+        0,
+        Math.min(
+            100,
+            (numericScore / 10) * 100
+        )
+    );
+
+    // Keep a tiny visible fill at the bottom of the scale
+    const overallVisualFill =
+        Math.max(3, overallPercent);
+
+    const overallMeter =
+        document.getElementById("overallMeter");
+
+    if (overallMeter) {
+        overallMeter.style.width =
+            `${overallVisualFill}%`;
+    }
 }
 
+
 function updateXP(xp) {
-    document.getElementById("xpScore").textContent = safeFixed(xp, 0);
+
+    document.getElementById("xpScore").textContent =
+        safeFixed(xp, 0);
+
+    const numericXP = Number(xp);
+
+    // Pitcher XP display gauge:
+    // 900  = 0%
+    // 950  = 50%
+    // 1000 = 100%
+
+    const xpMin = 900;
+    const xpMax = 1000;
+
+    const xpPercent = Math.max(
+        0,
+        Math.min(
+            100,
+            ((numericXP - xpMin) / (xpMax - xpMin)) * 100
+        )
+    );
+
+    // Keep a tiny visible fill at the bottom of the scale
+    const xpVisualFill =
+        Math.max(3, xpPercent);
+
+    const xpMeter =
+        document.getElementById("xpMeter");
+
+    if (xpMeter) {
+        xpMeter.style.width =
+            `${xpVisualFill}%`;
+    }
 }
 
 
@@ -2464,6 +2526,21 @@ document.getElementById("swapBtn").onclick = function () {
 // Reset UI
 // -------------------------------
 function handleReset() {
+
+     // Reset Overall / XP gauges
+const overallMeter =
+    document.getElementById("overallMeter");
+
+const xpMeter =
+    document.getElementById("xpMeter");
+
+if (overallMeter) {
+    overallMeter.style.width = "3%";
+}
+
+if (xpMeter) {
+    xpMeter.style.width = "3%";
+}
 
     // Clear Season Production
     [
