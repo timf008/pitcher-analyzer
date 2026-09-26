@@ -339,11 +339,13 @@ function updateXP(xp) {
 
     // Pitcher XP display gauge:
     // 900  = 0%
-    // 950  = 50%
-    // 1000 = 100%
+    // 950  = 25%
+    // 1000 = 50%
+    // 1050 = 75%
+    // 1100 = 100%
 
     const xpMin = 900;
-    const xpMax = 1000;
+    const xpMax = 1100;
 
     const xpPercent = Math.max(
         0,
@@ -447,21 +449,19 @@ function updateScoutingNote(p) {
     document.getElementById("scoutingNote").innerHTML = note;
 }
 
-
 // -------------------------------
-// Pitcher XP Score Function (updated)
+// Pitcher XP Score Function
+// Strikeout / Command Performance
 // -------------------------------
 function computePitcherXP(p) {
     if (!p) return null;
 
     const xp =
-        (p.Kpct * 2) +
-        (p.KBB * 10) -
-        (p.ERA * 15) -
-        (p.WHIP * 40) -
+        (p.Kpct * 4) +
+        (p.KBB * 2) -
         (p.BBpct * 10);
 
-    return xp + 1000; // ⭐ Pitchers get +1000 baseline
+    return xp + 1000;
 }
 
 
@@ -2215,12 +2215,12 @@ function buildLeadersTable(arr) {
 // Light Up Fantasy Badge (Pitchers)
 // -------------------------------
 
-// XP tier backbone tuned to your pitcher dataset
+// XP tier backbone tuned to new pitcher XP model
 function xpTierPitcher(xp) {
-    if (xp >= 1000) return "breakout";
-    if (xp >= 950)  return "overperformer";
-    if (xp >= 900)  return "sleeper";
-    if (xp >= 880)  return "consistent";
+    if (xp >= 1060) return "breakout";
+    if (xp >= 1025) return "overperformer";
+    if (xp >= 1000) return "sleeper";
+    if (xp >= 975)  return "consistent";
     return "neutral";
 }
 
@@ -2236,7 +2236,7 @@ function applyPitcherSkillModifier(tier, skill) {
     return order[index];
 }
 
-// Final pitcher classifier (patched)
+// Final pitcher classifier
 function classifyPlayer(xp, skill) {
     const base = xpTierPitcher(xp);
     return applyPitcherSkillModifier(base, skill);
