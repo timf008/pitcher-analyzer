@@ -3270,8 +3270,8 @@ select:focus {
 }
 
 .watch-placeholder-line.title {
-    width: 55%;
-    height: 14px;
+    width: 170px;
+    height: 12px;
 }
 
 .watch-placeholder-line.medium {
