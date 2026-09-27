@@ -2523,6 +2523,45 @@ document.getElementById("swapBtn").onclick = function () {
 };
 
 // -------------------------------
+// What to Watch - Placeholder State
+// -------------------------------
+function renderWatchPlaceholders() {
+
+    const container = document.getElementById("watchGrid");
+
+    if (!container) return;
+
+    const placeholderCard = `
+        <div class="watch-card watch-placeholder">
+
+            <div class="watch-card-header">
+
+                <div class="watch-placeholder-icon"></div>
+
+                <div style="flex: 1;">
+                    <span class="watch-placeholder-line title"></span>
+                    <span class="watch-placeholder-line short"></span>
+                </div>
+
+            </div>
+
+            <div class="watch-placeholder-body">
+                <span class="watch-placeholder-line long"></span>
+                <span class="watch-placeholder-line long"></span>
+                <span class="watch-placeholder-line medium"></span>
+            </div>
+
+        </div>
+    `;
+
+    container.innerHTML =
+        placeholderCard +
+        placeholderCard +
+        placeholderCard;
+}
+
+
+// -------------------------------
 // Reset UI
 // -------------------------------
 function handleReset() {
@@ -2600,6 +2639,7 @@ if (xpMeter) {
     clearIdentityBadges();
     clearStateBadges();
     clearValueBadges();
+    renderWatchPlaceholders();
 
 
     // Clear Fantasy Summary
@@ -2680,6 +2720,9 @@ async function loadLastUpdated(season) {
 // -------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    renderWatchPlaceholders(); 
+
     document.getElementById("loadBtn").addEventListener("click", handleLoad);
     document.getElementById("resetBtn").addEventListener("click", handleReset);
     document.getElementById("compareBtn")
