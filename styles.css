@@ -3242,6 +3242,55 @@ select:focus {
 
 }
 
+/* --------------------------------
+   What to Watch - Placeholder State
+-------------------------------- */
+
+.watch-card.watch-placeholder {
+    background: #f7f9fc;
+    border-color: #d9e1ea;
+}
+
+/* Placeholder circle */
+.watch-placeholder-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #d7dee7;
+    flex-shrink: 0;
+}
+
+/* Placeholder text bars */
+.watch-placeholder-line {
+    display: block;
+    height: 10px;
+    background: #dfe5ec;
+    border-radius: 999px;
+    margin-bottom: 10px;
+}
+
+.watch-placeholder-line.title {
+    width: 55%;
+    height: 14px;
+}
+
+.watch-placeholder-line.medium {
+    width: 85%;
+}
+
+.watch-placeholder-line.long {
+    width: 100%;
+}
+
+.watch-placeholder-line.short {
+    width: 65%;
+}
+
+/* Optional subtle loading appearance */
+.watch-card.watch-placeholder {
+    opacity: 0.8;
+}
+
 /* ==========================================
    ALL ACCESS - LOCKED CONTROLS
 ========================================== */
