@@ -2600,6 +2600,14 @@ function renderWatchPlaceholders() {
 // -------------------------------
 function handleReset() {
 
+     // Reset Fantasy Value Marker
+const valueMarker = document.getElementById("valueMarker");
+
+if (valueMarker) {
+    valueMarker.style.top = "50%";
+    valueMarker.style.opacity = "1";
+}
+
      // Reset Overall / XP gauges
 const overallMeter =
     document.getElementById("overallMeter");
