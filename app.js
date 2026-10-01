@@ -1007,7 +1007,14 @@ const fantasyValue = getFantasyValue(
     p.OverallDivergenceSD
 );
 
+const fantasyValueZ =
+    p.OverallDivergenceSD && p.OverallDivergenceSD !== 0
+        ? p.OverallDivergence / p.OverallDivergenceSD
+        : 0;
+
 updateValueBadge(fantasyValue);
+
+updateFantasyValueMarker(fantasyValueZ);
 
 // -------------------------------
 // Fantasy Summary
@@ -1017,6 +1024,33 @@ updateFantasySummary(
     state,
     fantasyValue
 );
+
+function updateFantasyValueMarker(z) {
+
+    const marker = document.getElementById("valueMarker");
+    if (!marker) return;
+
+    const maxZ = 1.5;
+    const minZ = -1.5;
+
+    const numericZ = Number(z);
+
+    if (!Number.isFinite(numericZ)) {
+        marker.style.top = "50%";
+        marker.style.opacity = "1";
+        return;
+    }
+
+    const clampedZ =
+        Math.max(minZ, Math.min(maxZ, numericZ));
+
+    const position =
+        ((maxZ - clampedZ) /
+        (maxZ - minZ)) * 100;
+
+    marker.style.top = `${position}%`;
+    marker.style.opacity = "1";
+}
 
 // -------------------------------
 // Overall Percentile
