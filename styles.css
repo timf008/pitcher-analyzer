@@ -3572,6 +3572,119 @@ select:focus {
     transition: top 0.4s ease;
 }
 
+/* ------------------------------
+   Fantasy State Visual Legend
+------------------------------ */
+/* -------------------------------
+   Fantasy State Context
+-------------------------------- */
+
+.state-context {
+    margin: 14px 0 16px;
+}
+
+.state-scale {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 42px;
+
+    position: relative;
+    border: 1px solid #e1e6ec;
+    border-radius: 8px;
+    overflow: hidden;
+
+    background: #f8fafc;
+}
+
+
+/* State Legend */
+
+.state-bands {
+    min-width: 0;
+}
+
+.state-band {
+    height: 31px;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #536b89;
+}
+
+.state-band small {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+.state-band.strong {
+    background: #e4f4e8;
+}
+
+.state-band.stable {
+    background: #f4f6f8;
+}
+
+.state-band.vulnerable {
+    background: #fff0df;
+}
+
+.state-band.high-risk {
+    background: #fde4e1;
+}
+
+
+/* State Rail */
+
+.state-rail {
+    position: relative;
+    width: 42px;
+    height: 100%;
+}
+
+.state-rail::before {
+    content: "";
+
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 50%;
+
+    width: 2px;
+    background: #cbd5df;
+
+    transform: translateX(-50%);
+}
+
+
+/* State Marker */
+
+.state-marker {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+    background: #ff7a00;
+
+    border: 2px solid white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+
+    transform: translate(-50%, -50%);
+
+    opacity: 1;
+    transition: top 0.4s ease;
+}
 
 /* ==========================================
    ALL ACCESS - RESPONSIVE
