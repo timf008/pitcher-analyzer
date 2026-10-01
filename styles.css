@@ -3448,6 +3448,130 @@ select:focus {
     font-weight: 600;
 }
 
+/* ------------------------------
+   Fantasy Value Visual Legend
+------------------------------ */
+
+.value-context {
+    margin: 14px 0 16px;
+}
+
+.value-scale {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 42px;
+
+    position: relative;
+    border: 1px solid #e1e6ec;
+    border-radius: 8px;
+    overflow: hidden;
+
+    background: #f8fafc;
+}
+
+
+/* -------------------------------
+   Value Legend
+-------------------------------- */
+
+.value-bands {
+    min-width: 0;
+}
+
+.value-band {
+    height: 25px;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #536b89;
+}
+
+.value-band small {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+
+/* Value Bands */
+
+.value-band.extreme {
+    background: #fde4e1;
+}
+
+.value-band.elevated {
+    background: #fff0df;
+}
+
+.value-band.expected {
+    background: #f4f6f8;
+}
+
+.value-band.below {
+    background: #e9f1fb;
+}
+
+.value-band.suppressed {
+    background: #dce8f8;
+}
+
+
+/* -------------------------------
+   Value Rail
+-------------------------------- */
+
+.value-rail {
+    position: relative;
+    width: 42px;
+    height: 100%;
+}
+
+.value-rail::before {
+    content: "";
+
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 50%;
+
+    width: 2px;
+    background: #cbd5df;
+
+    transform: translateX(-50%);
+}
+
+
+/* -------------------------------
+   Value Marker
+-------------------------------- */
+
+.value-marker {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+    background: #ff7a00;
+
+    border: 2px solid white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+
+    transform: translate(-50%, -50%);
+
+    opacity: 1;
+    transition: top 0.4s ease;
+}
+
 
 /* ==========================================
    ALL ACCESS - RESPONSIVE
@@ -3465,3 +3589,4 @@ select:focus {
         text-align: center;
     }
 }
+
