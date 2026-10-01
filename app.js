@@ -1045,8 +1045,8 @@ function updateFantasyValueMarker(z) {
         Math.max(minZ, Math.min(maxZ, numericZ));
 
     const position =
-        ((maxZ - clampedZ) /
-        (maxZ - minZ)) * 100;
+    ((clampedZ - minZ) /
+    (maxZ - minZ)) * 100;
 
     marker.style.top = `${position}%`;
     marker.style.opacity = "1";
