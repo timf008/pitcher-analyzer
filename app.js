@@ -997,6 +997,8 @@ const identity = classifyPlayer(p.XP, overall);
 const div = calculatePitcherDivergence(p.XP, overall);
 const state = pitcherDivergenceState(div.divergencePct);
 
+updateFantasyStateMarker(div.divergencePct);
+
 updateStateBadge(state);
 
 // -------------------------------
@@ -1024,33 +1026,6 @@ updateFantasySummary(
     state,
     fantasyValue
 );
-
-function updateFantasyValueMarker(z) {
-
-    const marker = document.getElementById("valueMarker");
-    if (!marker) return;
-
-    const maxZ = 1.5;
-    const minZ = -1.5;
-
-    const numericZ = Number(z);
-
-    if (!Number.isFinite(numericZ)) {
-        marker.style.top = "50%";
-        marker.style.opacity = "1";
-        return;
-    }
-
-    const clampedZ =
-        Math.max(minZ, Math.min(maxZ, numericZ));
-
-    const position =
-    ((clampedZ - minZ) /
-    (maxZ - minZ)) * 100;
-
-    marker.style.top = `${position}%`;
-    marker.style.opacity = "1";
-}
 
 // -------------------------------
 // Overall Percentile
@@ -2300,6 +2275,34 @@ function pitcherDivergenceState(divergencePct) {
     return "high-risk";
 }
 
+function updateFantasyStateMarker(divergencePct) {
+
+    const marker = document.getElementById("stateMarker");
+    if (!marker) return;
+
+    const numericDiv = Number(divergencePct);
+
+    if (!Number.isFinite(numericDiv)) {
+        marker.style.top = "50%";
+        marker.style.opacity = "1";
+        return;
+    }
+
+    // Visual range only — does not change State classification
+    const maxDiv = 6.84;
+    const minDiv = -6.84;
+
+    const clampedDiv =
+        Math.max(minDiv, Math.min(maxDiv, numericDiv));
+
+    const position =
+        ((maxDiv - clampedDiv) /
+        (maxDiv - minDiv)) * 100;
+
+    marker.style.top = `${position}%`;
+    marker.style.opacity = "1";
+}
+
 // -------------------------------
 // Divergence → Fantasy Value
 // -------------------------------
@@ -2320,6 +2323,33 @@ function getFantasyValue(overallDivergence, divergenceSD) {
     if (z >= 0.5) return "below";
 
     return "expected";
+}
+
+function updateFantasyValueMarker(z) {
+
+    const marker = document.getElementById("valueMarker");
+    if (!marker) return;
+
+    const maxZ = 1.5;
+    const minZ = -1.5;
+
+    const numericZ = Number(z);
+
+    if (!Number.isFinite(numericZ)) {
+        marker.style.top = "50%";
+        marker.style.opacity = "1";
+        return;
+    }
+
+    const clampedZ =
+        Math.max(minZ, Math.min(maxZ, numericZ));
+
+    const position =
+    ((clampedZ - minZ) /
+    (maxZ - minZ)) * 100;
+
+    marker.style.top = `${position}%`;
+    marker.style.opacity = "1";
 }
 
 // -------------------------------
@@ -2606,6 +2636,14 @@ const valueMarker = document.getElementById("valueMarker");
 if (valueMarker) {
     valueMarker.style.top = "50%";
     valueMarker.style.opacity = "1";
+}
+
+// Reset Fantasy State marker
+const stateMarker = document.getElementById("stateMarker");
+
+if (stateMarker) {
+    stateMarker.style.top = "50%";
+    stateMarker.style.opacity = "1";
 }
 
      // Reset Overall / XP gauges
