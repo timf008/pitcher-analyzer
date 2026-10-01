@@ -997,7 +997,7 @@ const identity = classifyPlayer(p.XP, overall);
 const div = calculatePitcherDivergence(p.XP, overall);
 const state = pitcherDivergenceState(div.divergencePct);
 
-updateFantasyStateMarker(div.divergencePct);
+updateFantasyStateMarker(state);
 
 updateStateBadge(state);
 
@@ -1016,7 +1016,7 @@ const fantasyValueZ =
 
 updateValueBadge(fantasyValue);
 
-updateFantasyValueMarker(fantasyValueZ);
+updateFantasyValueMarker(fantasyValue);
 
 // -------------------------------
 // Fantasy Summary
@@ -2275,29 +2275,24 @@ function pitcherDivergenceState(divergencePct) {
     return "high-risk";
 }
 
-function updateFantasyStateMarker(divergencePct) {
+function updateFantasyStateMarker(state) {
 
     const marker = document.getElementById("stateMarker");
     if (!marker) return;
 
-    const numericDiv = Number(divergencePct);
+    const positions = {
+        "strong": 12.5,
+        "stable": 37.5,
+        "vulnerable": 62.5,
+        "high-risk": 87.5
+    };
 
-    if (!Number.isFinite(numericDiv)) {
-        marker.style.top = "50%";
-        marker.style.opacity = "1";
+    const position = positions[state];
+
+    if (position == null) {
+        marker.style.top = "37.5%";
         return;
     }
-
-    // Visual range only — does not change State classification
-    const maxDiv = 6.84;
-    const minDiv = -6.84;
-
-    const clampedDiv =
-        Math.max(minDiv, Math.min(maxDiv, numericDiv));
-
-    const position =
-        ((maxDiv - clampedDiv) /
-        (maxDiv - minDiv)) * 100;
 
     marker.style.top = `${position}%`;
     marker.style.opacity = "1";
@@ -2325,28 +2320,25 @@ function getFantasyValue(overallDivergence, divergenceSD) {
     return "expected";
 }
 
-function updateFantasyValueMarker(z) {
+function updateFantasyValueMarker(value) {
 
     const marker = document.getElementById("valueMarker");
     if (!marker) return;
 
-    const maxZ = 1.5;
-    const minZ = -1.5;
+    const positions = {
+        "extreme": 10,
+        "elevated": 30,
+        "expected": 50,
+        "below": 70,
+        "suppressed": 90
+    };
 
-    const numericZ = Number(z);
+    const position = positions[value];
 
-    if (!Number.isFinite(numericZ)) {
+    if (position == null) {
         marker.style.top = "50%";
-        marker.style.opacity = "1";
         return;
     }
-
-    const clampedZ =
-        Math.max(minZ, Math.min(maxZ, numericZ));
-
-    const position =
-    ((clampedZ - minZ) /
-    (maxZ - minZ)) * 100;
 
     marker.style.top = `${position}%`;
     marker.style.opacity = "1";
@@ -2642,7 +2634,7 @@ if (valueMarker) {
 const stateMarker = document.getElementById("stateMarker");
 
 if (stateMarker) {
-    stateMarker.style.top = "50%";
+    stateMarker.style.top = "37.5%";
     stateMarker.style.opacity = "1";
 }
 
