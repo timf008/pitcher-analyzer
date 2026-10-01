@@ -569,27 +569,68 @@
 
 
             <!-- Value -->
-            <div class="fantasy-summary-item value-summary-card">
+<div class="fantasy-summary-item value-summary-card">
 
-                <div class="summary-card-label">
-                    FANTASY VALUE
+    <div class="summary-card-label">
+        FANTASY VALUE
+    </div>
+
+    <div class="summary-card-result">
+        <strong id="summaryValue">
+            --
+        </strong>
+    </div>
+
+    <div class="summary-accent"></div>
+
+    <!-- Fantasy Value Context -->
+    <div class="value-context" id="valueContext">
+
+        <div class="value-scale">
+
+            <div class="value-bands">
+
+                <div class="value-band extreme">
+                    <span>EXTREME</span>
+                    <small>+1.0σ</small>
                 </div>
 
-                <div class="summary-card-result">
-                    <strong id="summaryValue">
-                        --
-                    </strong>
+                <div class="value-band elevated">
+                    <span>ELEVATED</span>
+                    <small>+0.5σ</small>
                 </div>
 
-                <div class="summary-accent"></div>
+                <div class="value-band expected">
+                    <span>EXPECTED</span>
+                    <small>0σ</small>
+                </div>
 
-                <p id="summaryValueText">
-                    Load a player to view their Fantasy Value analysis.
-                </p>
+                <div class="value-band below">
+                    <span>BELOW</span>
+                    <small>-0.5σ</small>
+                </div>
+
+                <div class="value-band suppressed">
+                    <span>SUPPRESSED</span>
+                    <small>-1.0σ</small>
+                </div>
 
             </div>
 
+            <!-- Position Rail -->
+            <div class="value-rail">
+                <div class="value-marker" id="valueMarker"></div>
+            </div>
+
         </div>
+
+    </div>
+
+    <p id="summaryValueText">
+        Load a player to view their Fantasy Value analysis.
+    </p>
+
+</div>
 
 <div class="fantasy-summary-info">
     <span class="summary-info-icon">i</span>
