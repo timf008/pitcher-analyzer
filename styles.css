@@ -612,6 +612,45 @@ select:focus {
     text-align: center;
 }
 
+/* --------------------------------------
+   Player Name + Team Colors
+-------------------------------------- */
+
+.player-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.team-color-panel {
+    display: inline-flex;
+    width: 22px;
+    height: 16px;
+
+    border: 1px solid rgba(15, 36, 62, 0.16);
+    border-radius: 4px;
+    overflow: hidden;
+
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+
+    flex-shrink: 0;
+}
+
+.team-color-panel span {
+    display: block;
+    width: 50%;
+    height: 100%;
+}
+
+.team-color-primary {
+    background: #d9dee5;
+}
+
+.team-color-secondary {
+    background: #eef1f4;
+}
+
 /* -----------------------------------------
    Player Analytics Panel
 ----------------------------------------- */
