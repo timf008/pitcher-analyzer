@@ -3466,6 +3466,9 @@ select:focus {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 42px;
 
+    width: 100%;
+    box-sizing: border-box;
+
     position: relative;
     border: 1px solid #e1e6ec;
     border-radius: 8px;
@@ -3481,11 +3484,13 @@ select:focus {
 
 .value-bands {
     min-width: 0;
+    width: 100%;
 }
 
 .value-band {
     height: 25px;
     padding: 0 10px;
+    box-sizing: border-box;
 
     display: flex;
     align-items: center;
@@ -3590,6 +3595,9 @@ select:focus {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 42px;
 
+    width: 100%;
+    box-sizing: border-box;
+
     position: relative;
     border: 1px solid #e1e6ec;
     border-radius: 8px;
@@ -3603,11 +3611,13 @@ select:focus {
 
 .state-bands {
     min-width: 0;
+    width: 100%;
 }
 
 .state-band {
     height: 31px;
     padding: 0 10px;
+    box-sizing: border-box;
 
     display: flex;
     align-items: center;
