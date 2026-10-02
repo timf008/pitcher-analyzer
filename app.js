@@ -207,6 +207,111 @@ function normalizeNameFrontend(x) {
     return x.toUpperCase();
 }
 
+// --------------------------------------
+// MLB Team Color Map
+// --------------------------------------
+
+const teamColors = {
+    ARI: ["#A71930", "#000000"],
+    ATH: ["#003831", "#EFB21E"],
+    ATL: ["#CE1141", "#13274F"],
+    BAL: ["#DF4601", "#000000"],
+    BOS: ["#BD3039", "#0C2340"],
+
+    CHC: ["#0E3386", "#CC3433"],
+    CWS: ["#000000", "#C4CED4"],
+    CIN: ["#C6011F", "#000000"],
+    CLE: ["#E31937", "#0C2340"],
+    COL: ["#33006F", "#C4CED4"],
+
+    DET: ["#0C2340", "#FFFFFF"],
+    HOU: ["#002D62", "#EB6E1F"],
+    KC:  ["#004687", "#BD9B60"],
+    LAA: ["#BA0021", "#003263"],
+    LAD: ["#FFFFFF", "#005A9C"],
+
+    MIA: ["#00A3E0", "#000000"],
+    MIL: ["#12284B", "#FFC52F"],
+    MIN: ["#002B5C", "#D31145"],
+    NYM: ["#002D72", "#FF5910"],
+    NYY: ["#0C2340", "#FFFFFF"],
+
+    PHI: ["#E81828", "#002D72"],
+    PIT: ["#000000", "#FDB827"],
+    SD:  ["#4A2C1B", "#FFC425"],
+    SF:  ["#FD5A1E", "#000000"],
+    SEA: ["#0C2C56", "#005C5C"],
+
+    STL: ["#FFFFFF", "#C41E3A"],
+    TBR:  ["#092C5C", "#8FBCE6"],
+    TEX: ["#003278", "#C0111F"],
+    TOR: ["#134A8E", "#6BAED6"],
+    WSH: ["#AB0003", "#14225A"]
+};
+
+
+// --------------------------------------
+// Update Team Color Panel
+// --------------------------------------
+
+function updateTeamColorPanel(team) {
+
+    const panel = document.getElementById("teamColorPanel");
+
+    if (!panel) return;
+
+    const primary =
+        panel.querySelector(".team-color-primary");
+
+    const secondary =
+        panel.querySelector(".team-color-secondary");
+
+    if (!primary || !secondary) return;
+
+    const teamCode =
+        String(team || "")
+            .trim()
+            .toUpperCase();
+
+    const colors = teamColors[teamCode];
+
+    // Neutral fallback
+    if (!colors) {
+        primary.style.backgroundColor = "#d9dee5";
+        secondary.style.backgroundColor = "#eef1f4";
+        return;
+    }
+
+    primary.style.backgroundColor = colors[0];
+    secondary.style.backgroundColor = colors[1];
+}
+
+
+// --------------------------------------
+// Reset Team Color Panel
+// --------------------------------------
+
+function resetTeamColorPanel() {
+
+    const panel = document.getElementById("teamColorPanel");
+
+    if (!panel) return;
+
+    const primary =
+        panel.querySelector(".team-color-primary");
+
+    const secondary =
+        panel.querySelector(".team-color-secondary");
+
+    if (primary) {
+        primary.style.backgroundColor = "#d9dee5";
+    }
+
+    if (secondary) {
+        secondary.style.backgroundColor = "#eef1f4";
+    }
+}
+
 
 
 // -------------------------------
@@ -232,8 +337,10 @@ if (!silent && arr && arr.length > 0) {
     const playerName = toTitleCase(rawName);
     const team = arr[0].Team || "";
 
-    document.getElementById("playerTab").textContent =
-        `${playerName}${team ? " | " + team : ""} (${season})`;
+document.getElementById("playerTab").textContent =
+    `${playerName}${team ? " | " + team : ""} (${season})`;
+
+updateTeamColorPanel(team);
 }
 
 return arr;
@@ -2712,6 +2819,7 @@ if (xpMeter) {
     clearStateBadges();
     clearValueBadges();
     renderWatchPlaceholders();
+    resetTeamColorPanel();
 
 
     // Clear Fantasy Summary
