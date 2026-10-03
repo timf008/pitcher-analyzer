@@ -480,11 +480,13 @@ async function loadPitcher(name, season, silent = false) {
         const rawName = arr[0].Name || clean;
         const playerName = toTitleCase(rawName);
         const team = arr[0].Team || "";
+const displayTeam = formatTeamDisplay(team);
+const colorTeam = getTeamColorCode(team);
 
-        document.getElementById("playerTab").textContent =
-            `${playerName}${team ? " | " + team : ""} (${season})`;
+document.getElementById("playerTab").textContent =
+    `${playerName}${displayTeam ? " | " + displayTeam : ""} (${season})`;
 
-        updateTeamColorPanel(team);
+updateTeamColorPanel(colorTeam);
     }
 
     return arr;
