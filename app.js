@@ -312,7 +312,94 @@ function resetTeamColorPanel() {
     }
 }
 
+// -------------------------------
+// Similar Profiles
+// -------------------------------
+function updateSimilarProfiles(profiles) {
 
+    const container =
+        document.getElementById("similarProfiles");
+
+    if (!container) return;
+
+    if (!Array.isArray(profiles) || profiles.length === 0) {
+        resetSimilarProfiles();
+        return;
+    }
+
+    const topThree = profiles.slice(0, 3);
+
+    container.innerHTML = topThree.map(profile => {
+
+        const team =
+            String(profile.Team || "")
+                .trim()
+                .toUpperCase();
+
+        const colors =
+            teamColors[team] || ["#d9dee5", "#eef1f4"];
+
+        const overall =
+            Number(profile.Overall);
+
+        const xp =
+            Number(profile.XP);
+
+        return `
+            <div class="similar-profile-card">
+
+                <div class="similar-profile-name-row">
+
+                    <span class="similar-profile-colors">
+                        <span style="background:${colors[0]}"></span>
+                        <span style="background:${colors[1]}"></span>
+                    </span>
+
+                    <div>
+                        <div class="similar-profile-name">
+                            ${profile.Player}
+                        </div>
+
+                        <div class="similar-profile-team">
+                            ${team}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="similar-profile-stats">
+
+                    <div class="similar-profile-stat">
+                        OVERALL
+                        <strong>${overall.toFixed(1)}</strong>
+                    </div>
+
+                    <div class="similar-profile-stat">
+                        XP
+                        <strong>${Math.round(xp)}</strong>
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+    }).join("");
+}
+
+function resetSimilarProfiles() {
+
+    const container =
+        document.getElementById("similarProfiles");
+
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="similar-profile-card placeholder"></div>
+        <div class="similar-profile-card placeholder"></div>
+        <div class="similar-profile-card placeholder"></div>
+    `;
+}
 
 // -------------------------------
 // Utility: Fetch pitcher data
@@ -329,26 +416,26 @@ async function loadPitcher(name, season, silent = false) {
     }
 
     const data = await res.json();
-console.log(
-    "PITCHER FULL RESPONSE:",
-    JSON.stringify(data, null, 2)
-);
     const arr = Array.isArray(data) ? data : [data];
 
+    // Similar Profiles
+    if (!silent && arr.length > 0) {
+        updateSimilarProfiles(arr[0].SimilarProfiles);
+    }
+
     // ⭐ Only update tab if NOT silent
-if (!silent && arr && arr.length > 0) {
-    const rawName = arr[0].Name || clean;
-    const playerName = toTitleCase(rawName);
-    const team = arr[0].Team || "";
+    if (!silent && arr.length > 0) {
+        const rawName = arr[0].Name || clean;
+        const playerName = toTitleCase(rawName);
+        const team = arr[0].Team || "";
 
-document.getElementById("playerTab").textContent =
-    `${playerName}${team ? " | " + team : ""} (${season})`;
+        document.getElementById("playerTab").textContent =
+            `${playerName}${team ? " | " + team : ""} (${season})`;
 
-updateTeamColorPanel(team);
-}
+        updateTeamColorPanel(team);
+    }
 
-return arr;
-
+    return arr;
 }
 
 
