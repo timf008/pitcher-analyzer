@@ -322,10 +322,6 @@ async function loadPitcher(name, season, silent = false) {
 
     const url = `https://pitcher-analyzer-backend.onrender.com/api/pitchers?name=${encodeURIComponent(clean)}&season=${season}`;
     const res = await fetch(url);
-console.log(
-    "PITCHER FULL RESPONSE:",
-    JSON.stringify(data, null, 2)
-);
 
     if (!res.ok) {
         console.error("Pitcher fetch failed", await res.text());
@@ -333,6 +329,10 @@ console.log(
     }
 
     const data = await res.json();
+console.log(
+    "PITCHER FULL RESPONSE:",
+    JSON.stringify(data, null, 2)
+);
     const arr = Array.isArray(data) ? data : [data];
 
     // ⭐ Only update tab if NOT silent
