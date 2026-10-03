@@ -479,7 +479,7 @@ async function loadPitcher(name, season, silent = false) {
     if (!silent && arr.length > 0) {
         const rawName = arr[0].Name || clean;
         const playerName = toTitleCase(rawName);
-        const team = arr[0].Team || "";
+const team = arr[0].Team || "";
 const displayTeam = formatTeamDisplay(team);
 const colorTeam = getTeamColorCode(team);
 
@@ -2965,6 +2965,7 @@ if (xpMeter) {
     clearValueBadges();
     renderWatchPlaceholders();
     resetTeamColorPanel();
+    resetSimilarProfiles();
 
 
     // Clear Fantasy Summary
