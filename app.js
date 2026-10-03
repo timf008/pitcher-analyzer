@@ -226,7 +226,7 @@ const teamColors = {
 
     DET: ["#0C2340", "#FFFFFF"],
     HOU: ["#002D62", "#EB6E1F"],
-    KC:  ["#004687", "#BD9B60"],
+    KCR:  ["#004687", "#BD9B60"],
     LAA: ["#BA0021", "#003263"],
     LAD: ["#FFFFFF", "#005A9C"],
 
@@ -238,15 +238,15 @@ const teamColors = {
 
     PHI: ["#E81828", "#002D72"],
     PIT: ["#000000", "#FDB827"],
-    SD:  ["#4A2C1B", "#FFC425"],
-    SF:  ["#FD5A1E", "#000000"],
+    SDP:  ["#4A2C1B", "#FFC425"],
+    SFG:  ["#FD5A1E", "#000000"],
     SEA: ["#0C2C56", "#005C5C"],
 
     STL: ["#FFFFFF", "#C41E3A"],
     TBR:  ["#092C5C", "#8FBCE6"],
     TEX: ["#003278", "#C0111F"],
     TOR: ["#134A8E", "#6BAED6"],
-    WSH: ["#AB0003", "#14225A"]
+    WSN: ["#AB0003", "#14225A"]
 };
 
 
@@ -322,6 +322,10 @@ async function loadPitcher(name, season, silent = false) {
 
     const url = `https://pitcher-analyzer-backend.onrender.com/api/pitchers?name=${encodeURIComponent(clean)}&season=${season}`;
     const res = await fetch(url);
+console.log(
+    "PITCHER FULL RESPONSE:",
+    JSON.stringify(data, null, 2)
+);
 
     if (!res.ok) {
         console.error("Pitcher fetch failed", await res.text());
