@@ -3336,6 +3336,148 @@ select:focus {
     opacity: 0.8;
 }
 
+/* --------------------------------------
+   Similar Profiles
+-------------------------------------- */
+
+.similar-profiles-section {
+    margin-top: 18px;
+    padding: 18px 22px 22px;
+
+    background: #f7faff;
+    border: 1px solid #c9d8e8;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.similar-profiles-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 16px;
+}
+
+.similar-profiles-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #0f243e;
+    white-space: nowrap;
+}
+
+.similar-profiles-subtitle {
+    margin-left: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+
+    color: #718096;
+    white-space: nowrap;
+}
+
+.similar-profiles-header-line {
+    height: 1px;
+    margin-left: 6px;
+
+    background: #c9d4df;
+    flex: 1;
+}
+
+.similar-profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.similar-profile-card {
+    min-height: 108px;
+    padding: 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #d2dce7;
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+.similar-profile-name-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 13px;
+}
+
+.similar-profile-colors {
+    display: inline-flex;
+
+    width: 22px;
+    height: 16px;
+
+    border: 1px solid rgba(15, 36, 62, 0.16);
+    border-radius: 4px;
+
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.similar-profile-colors span {
+    display: block;
+    width: 50%;
+    height: 100%;
+}
+
+.similar-profile-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f243e;
+}
+
+.similar-profile-team {
+    margin-top: 2px;
+
+    font-size: 12px;
+    font-weight: 600;
+    color: #718096;
+}
+
+.similar-profile-stats {
+    display: flex;
+    justify-content: space-between;
+
+    padding-top: 10px;
+
+    border-top: 1px solid #dce4ec;
+}
+
+.similar-profile-stat {
+    font-size: 12px;
+    font-weight: 500;
+    color: #718096;
+}
+
+.similar-profile-stat:last-child {
+    text-align: right;
+}
+
+.similar-profile-stat strong {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f243e;
+}
+
+.similar-profile-card.placeholder {
+    background: #ffffff;
+    border-color: #dce4ec;
+}
+
 /* ==========================================
    ALL ACCESS - LOCKED CONTROLS
 ========================================== */
