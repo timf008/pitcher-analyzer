@@ -313,6 +313,52 @@ function resetTeamColorPanel() {
 }
 
 // -------------------------------
+// Team Display Helpers
+// -------------------------------
+function formatTeamDisplay(team) {
+    const code = String(team || "").trim().toUpperCase();
+
+    // Standard single-team code
+    if (teamColors[code]) {
+        return code;
+    }
+
+    // Multi-team Stathead code
+    const teams = Object.keys(teamColors);
+    const matches = [];
+
+    let remaining = code;
+
+    while (remaining.length > 0) {
+        const match = teams.find(team =>
+            remaining.startsWith(team)
+        );
+
+        if (!match) {
+            return code;
+        }
+
+        matches.push(match);
+        remaining = remaining.slice(match.length);
+    }
+
+    return matches.join("/");
+}
+
+function getTeamColorCode(team) {
+    const display = formatTeamDisplay(team);
+
+    if (!display.includes("/")) {
+        return display;
+    }
+
+    const teams = display.split("/");
+
+    // Last team = most recent/current team
+    return teams[teams.length - 1];
+}
+
+// -------------------------------
 // Similar Profiles
 // -------------------------------
 function updateSimilarProfiles(profiles) {
@@ -331,13 +377,19 @@ function updateSimilarProfiles(profiles) {
 
     container.innerHTML = topThree.map(profile => {
 
-        const team =
-            String(profile.Team || "")
-                .trim()
-                .toUpperCase();
+        const rawTeam =
+    String(profile.Team || "")
+        .trim()
+        .toUpperCase();
 
-        const colors =
-            teamColors[team] || ["#d9dee5", "#eef1f4"];
+const displayTeam =
+    formatTeamDisplay(rawTeam);
+
+const colorTeam =
+    getTeamColorCode(rawTeam);
+
+const colors =
+    teamColors[colorTeam] || ["#d9dee5", "#eef1f4"];
 
         const overall =
             Number(profile.Overall);
@@ -361,7 +413,7 @@ function updateSimilarProfiles(profiles) {
                         </div>
 
                         <div class="similar-profile-team">
-                            ${team}
+                            ${displayTeam}
                         </div>
                     </div>
 
