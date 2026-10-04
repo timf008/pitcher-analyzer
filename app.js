@@ -1,11 +1,14 @@
 // -----------------------------------------------------
-// Pitcher Analyzer - app.js
+// Batter Analyzer - app.js
 // Backend-only, no CSV preload
 // -----------------------------------------------------
 
 // -------------------------------
 // Display League Averages XP + Overall Score
 // -------------------------------
+
+const season = 2026;
+loadBatterOfDay(season);
 
 // =====================================================
 // ALL ACCESS - TEST MODE
@@ -16,11 +19,22 @@
 
 const TEST_FREE_MODE = false;
 
+
+// ------------------------------
+// Access Helper
+// ------------------------------
+
 function hasAllAccess() {
     return !TEST_FREE_MODE;
 }
 
+
+// ------------------------------
+// Premium Feature Gate
+// ------------------------------
+
 function requireAllAccess(featureName) {
+
     if (hasAllAccess()) {
         return true;
     }
@@ -32,10 +46,18 @@ function requireAllAccess(featureName) {
     return false;
 }
 
+// ------------------------------
+// Update Access UI
+// ------------------------------
+
 function updateAccessUI() {
 
     const allAccess = hasAllAccess();
-
+    console.log(
+    "ACCESS UI FIRED",
+    "hasAllAccess:",
+    hasAllAccess()
+);
 
 // ------------------------------
 // Premium Buttons
@@ -59,34 +81,94 @@ premiumButtons.forEach(button => {
 });
 
 
-    // -------------------------------
-    // Overall Percentile
-    // -------------------------------
+    // ------------------------------
+    // All Access
+    // ------------------------------
+
+    if (allAccess) {
+        return;
+    }
+
+
+    // ------------------------------
+    // Park Adjusted
+    // ------------------------------
+
+    const adjustedEl =
+        document.getElementById("parkAdjustedOverall");
+
+    const adjustmentEl =
+        document.getElementById("parkAdjustment");
+
+    const venueEl =
+        document.getElementById("parkVenue");
+
+    const factorEl =
+        document.getElementById("parkFactor");
+
+    if (adjustedEl) {
+        adjustedEl.innerHTML = `
+            <span class="premium-value-lock">
+                🔒
+            </span>
+        `;
+    }
+
+    if (adjustmentEl) {
+
+        adjustmentEl.textContent = "ALL ACCESS";
+
+        adjustmentEl.classList.remove(
+            "positive",
+            "negative",
+            "neutral"
+        );
+
+        adjustmentEl.classList.add("premium-label");
+    }
+
+    if (venueEl) {
+        venueEl.textContent = "Unlock Park Analysis";
+    }
+
+    if (factorEl) {
+        factorEl.textContent = "";
+    }
+
+
+    // ------------------------------
+    // Percentile
+    // ------------------------------
 
     const percentileEl =
         document.getElementById("overallPercentile");
 
-    if (percentileEl && !allAccess) {
+    if (percentileEl) {
 
         percentileEl.innerHTML = `
             <div class="percentile-premium-wrap">
-                <span class="percentile-premium-lock">🔒</span>
+
+                <span class="percentile-premium-lock">
+                    🔒
+                </span>
+
                 <span class="percentile-premium-label">
                     ALL ACCESS
                 </span>
+
             </div>
         `;
     }
 
 
-    // -------------------------------
+    // ------------------------------
     // What to Watch
-    // -------------------------------
+    // ------------------------------
 
     const watchGrid =
         document.getElementById("watchGrid");
 
-    if (watchGrid && !allAccess) {
+    if (watchGrid) {
 
         watchGrid.innerHTML = `
             <div class="watch-premium-lock">
@@ -107,39 +189,43 @@ premiumButtons.forEach(button => {
         `;
     }
 
+// ------------------------------
+// Fantasy Edge
+// ------------------------------
 
-    // -------------------------------
-    // Fantasy Edge
-    // -------------------------------
+const fantasyPremiumLock =
+    document.getElementById("fantasyPremiumLock");
 
-    const fantasyPremiumLock =
-        document.getElementById("fantasyPremiumLock");
+const fantasyPremiumContent =
+    document.getElementById("fantasyPremiumContent");
 
-    const fantasyPremiumContent =
-        document.getElementById("fantasyPremiumContent");
+console.log(
+    "FANTASY ACCESS:",
+    "allAccess =", allAccess,
+    "lockFound =", !!fantasyPremiumLock,
+    "contentFound =", !!fantasyPremiumContent
+);
 
-    if (fantasyPremiumLock && fantasyPremiumContent) {
+if (fantasyPremiumLock && fantasyPremiumContent) {
 
-        if (allAccess) {
+    if (allAccess) {
 
-            fantasyPremiumLock.hidden = true;
-            fantasyPremiumContent.hidden = false;
+        fantasyPremiumLock.hidden = true;
+        fantasyPremiumContent.hidden = false;
 
-        } else {
+    } else {
 
-            fantasyPremiumLock.hidden = false;
-            fantasyPremiumContent.hidden = true;
-        }
+        fantasyPremiumLock.hidden = false;
+        fantasyPremiumContent.hidden = true;
     }
 }
 
-const season = 2026;
-loadPlayerOfDay(season);
+}
 
 // -------------------------------
 // Safe helpers
 // -------------------------------
-function safeFixed(value, digits = 1) {
+function safeFixed(value, digits = 3) {
     return (value != null && !isNaN(value))
         ? Number(value).toFixed(digits)
         : "--";
@@ -150,14 +236,6 @@ function safeScore(value) {
         ? Number(value)
         : 0;
 }
-
-function clearLeaderState() {
-    document.getElementById("overallScore").textContent = "--";
-    document.getElementById("overallTier").innerHTML = "";
-    document.getElementById("scoutingNote").innerHTML = "";
-}
-
-window.addEventListener("DOMContentLoaded", clearLeaderState);
 
 // -------------------------------
 // Convert Numbers to Ordinal Strings
@@ -172,17 +250,35 @@ function toOrdinal(n) {
 // Convert Name to Title Case (Player Tab)
 // -------------------------------
 function toTitleCase(str) {
+
+    const initials = new Set([
+        "AJ",
+        "BJ",
+        "CJ",
+        "DJ",
+        "JJ",
+        "JT",
+        "TJ",
+        "JR"
+    ]);
+
     return str
         .split(" ")
         .map(word =>
             word.split("-")
                 .map(part => {
-                    // Detect initials even if input is "cj", "Cj", or "cJ"
-                    if (/^[A-Za-z]{2}$/.test(part)) {
-                        return part.toUpperCase(); // Force CJ, JT, JR, etc.
+
+                    const upper = part.toUpperCase();
+
+                    // Only uppercase known initials
+                    if (initials.has(upper)) {
+                        return upper;
                     }
 
-                    return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+                    return (
+                        part.charAt(0).toUpperCase() +
+                        part.slice(1).toLowerCase()
+                    );
                 })
                 .join("-")
         )
@@ -190,21 +286,19 @@ function toTitleCase(str) {
 }
 
 
+
+
 // =====================================================
 // Utility: Normalize name to match R script (First Last)
 // =====================================================
 function normalizeNameFrontend(x) {
-    x = x.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
-    x = x.replace(/[,*#†+]/g, "");
-    x = x.replace(/\./g, "");
-    x = x.replace(/\s+/g, " ").trim();
-
-    if (x.includes(",")) {
-        const [last, first] = x.split(",").map(s => s.trim());
-        x = `${first} ${last}`;
-    }
-
-    return x.toUpperCase();
+    return x
+        .normalize("NFKD")               // decompose accents
+        .replace(/[\u0300-\u036f]/g, "") // remove accent marks ONLY
+        .replace(/[,*#†+]/g, "")         // remove junk symbols
+        .replace(/\./g, "")              // remove periods
+        .replace(/\s+/g, " ")
+        .trim();
 }
 
 // --------------------------------------
@@ -373,70 +467,49 @@ function updateSimilarProfiles(profiles) {
         return;
     }
 
-    const topThree = profiles.slice(0, 3);
+const topThree = profiles.slice(0, 3);
 
-    container.innerHTML = topThree.map(profile => {
+container.innerHTML = topThree.map(profile => {
 
-        const rawTeam =
-    String(profile.Team || "")
-        .trim()
-        .toUpperCase();
+    const rawTeam = String(profile.Team || "").trim().toUpperCase();
 
-const displayTeam =
-    formatTeamDisplay(rawTeam);
+    const displayTeam = formatTeamDisplay(rawTeam);
+    const colorTeam = getTeamColorCode(rawTeam);
 
-const colorTeam =
-    getTeamColorCode(rawTeam);
+    const colors =
+        teamColors[colorTeam] || ["#d9dee5", "#eef1f4"];
 
-const colors =
-    teamColors[colorTeam] || ["#d9dee5", "#eef1f4"];
+    const overall = Number(profile.Overall);
+    const xp = Number(profile.XP);
 
-        const overall =
-            Number(profile.Overall);
+    return `
+        <div class="similar-profile-card">
+            <div class="similar-profile-name-row">
+                <span class="similar-profile-colors">
+                    <span style="background:${colors[0]}"></span>
+                    <span style="background:${colors[1]}"></span>
+                </span>
 
-        const xp =
-            Number(profile.XP);
-
-        return `
-            <div class="similar-profile-card">
-
-                <div class="similar-profile-name-row">
-
-                    <span class="similar-profile-colors">
-                        <span style="background:${colors[0]}"></span>
-                        <span style="background:${colors[1]}"></span>
-                    </span>
-
-                    <div>
-                        <div class="similar-profile-name">
-                            ${profile.Player}
-                        </div>
-
-                        <div class="similar-profile-team">
-                            ${displayTeam}
-                        </div>
-                    </div>
-
+                <div>
+                    <div class="similar-profile-name">${profile.Player}</div>
+                    <div class="similar-profile-team">${displayTeam}</div>
                 </div>
-
-                <div class="similar-profile-stats">
-
-                    <div class="similar-profile-stat">
-                        OVERALL
-                        <strong>${overall.toFixed(1)}</strong>
-                    </div>
-
-                    <div class="similar-profile-stat">
-                        XP
-                        <strong>${Math.round(xp)}</strong>
-                    </div>
-
-                </div>
-
             </div>
-        `;
 
-    }).join("");
+            <div class="similar-profile-stats">
+                <div class="similar-profile-stat">
+                    OVERALL
+                    <strong>${overall.toFixed(1)}</strong>
+                </div>
+
+                <div class="similar-profile-stat">
+                    XP
+                    <strong>${Math.round(xp)}</strong>
+                </div>
+            </div>
+        </div>
+    `;
+}).join("");
 }
 
 function resetSimilarProfiles() {
@@ -454,44 +527,47 @@ function resetSimilarProfiles() {
 }
 
 // -------------------------------
-// Utility: Fetch pitcher data
+// Utility: Fetch batter data
 // -------------------------------
-async function loadPitcher(name, season, silent = false) {
+async function loadBatter(name, season, silent = false) {
     const clean = normalizeNameFrontend(name);
 
-    const url = `https://pitcher-analyzer-backend.onrender.com/api/pitchers?name=${encodeURIComponent(clean)}&season=${season}`;
+    const url = `https://batter-analyzer-backend.onrender.com/api/batters?name=${encodeURIComponent(clean)}&season=${season}`;
     const res = await fetch(url);
 
     if (!res.ok) {
-        console.error("Pitcher fetch failed", await res.text());
+        console.error("Batter fetch failed", await res.text());
         return null;
     }
 
     const data = await res.json();
-    const arr = Array.isArray(data) ? data : [data];
 
-    // Similar Profiles
-    if (!silent && arr.length > 0) {
-        updateSimilarProfiles(arr[0].SimilarProfiles);
-    }
+// ⭐ Normalize backend output: ALWAYS return an array
+const arr = Array.isArray(data) ? data : [data];
+
+// Similar Profiles
+if (!silent && arr.length > 0) {
+    updateSimilarProfiles(arr[0].SimilarProfiles);
+}
 
     // ⭐ Only update tab if NOT silent
-    if (!silent && arr.length > 0) {
-        const rawName = arr[0].Name || clean;
-        const playerName = toTitleCase(rawName);
-const team = arr[0].Team || "";
+if (!silent && arr && arr.length > 0) {
+    const rawName = arr[0].Name || clean;
+    const playerName = toTitleCase(rawName);
+    const team = arr[0].Team || "";
 const displayTeam = formatTeamDisplay(team);
 const colorTeam = getTeamColorCode(team);
 
-document.getElementById("playerTab").textContent =
-    `${playerName}${displayTeam ? " | " + displayTeam : ""} (${season})`;
+    document.getElementById("playerTab").textContent =
+        `${playerName}${displayTeam ? " | " + displayTeam : ""} (${season})`;
 
-updateTeamColorPanel(colorTeam);
-    }
-
-    return arr;
+    updateTeamColorPanel(colorTeam);
 }
 
+return arr;
+
+
+}
 
 
 // -------------------------------
@@ -504,15 +580,10 @@ function updateBattery(id, score) {
     const fill = (score / 10) * 100;
 
     let color;
-    if (score < 3) {
-        color = "#d50000";
-    } else if (score < 5.5) {
-        color = "#ff9800";
-    } else if (score < 7.5) {
-        color = "#ffb400";
-    } else {
-        color = "#00c853";
-    }
+    if (score < 3) color = "#d50000";
+    else if (score < 5.5) color = "#ff9800";
+    else if (score < 7.5) color = "#ffb400";
+    else color = "#00c853";
 
     el.style.setProperty("--fill", `${fill}%`);
     el.style.setProperty("--color", color);
@@ -534,18 +605,17 @@ function updateMetric(rawId, batteryId, scoreId, rawValue, scoreValue) {
 }
 
 // -------------------------------
-// Individual metric wrappers (5‑metric model)
+// Individual metric wrappers (Batting 5‑metric model)
 // -------------------------------
-function updateERA(raw, score)     { updateMetric("raw-era",  "battery-era",  "score-era",  raw, score); }
-function updateWHIP(raw, score)    { updateMetric("raw-whip", "battery-whip", "score-whip", raw, score); }
-function updateKpct(raw, score)    { updateMetric("raw-kpct", "battery-kpct", "score-kpct", raw, score); }
-function updateBBpct(raw, score)   { updateMetric("raw-bbpct","battery-bbpct","score-bbpct",raw, score); }
-function updateKBB(raw, score)     { updateMetric("raw-kbb",  "battery-kbb",  "score-kbb",  raw, score); }
-
+function updateBA(raw, score)      { updateMetric("raw-ba",    "battery-ba",    "score-ba",    stripZero(raw), score); }
+function updateOBP(raw, score)     { updateMetric("raw-obp",   "battery-obp",   "score-obp",   stripZero(raw), score); }
+function updateSLG(raw, score)     { updateMetric("raw-slg",   "battery-slg",   "score-slg",   stripZero(raw), score); }
+function updateKpct(raw, score)    { updateMetric("raw-kpct",  "battery-kpct",  "score-kpct",  raw, score); }
+function updateBBpct(raw, score)   { updateMetric("raw-bbpct", "battery-bbpct", "score-bbpct", raw, score); }
 
 
 // -------------------------------
-// Overall score + XP + tier
+// Overall score + tier
 // -------------------------------
 function updateOverall(score) {
 
@@ -589,15 +659,13 @@ function updateXP(xp) {
 
     const numericXP = Number(xp);
 
-    // Pitcher XP display gauge:
-    // 900  = 0%
-    // 950  = 25%
-    // 1000 = 50%
-    // 1050 = 75%
-    // 1100 = 100%
+    // XP display gauge:
+    // 950 = 0%
+    // 1100 = 50%
+    // 1250 = 100%
 
-    const xpMin = 900;
-    const xpMax = 1100;
+    const xpMin = 950;
+    const xpMax = 1250;
 
     const xpPercent = Math.max(
         0,
@@ -607,7 +675,7 @@ function updateXP(xp) {
         )
     );
 
-    // Keep a tiny visible fill at the bottom of the scale
+    // Below the floor still gets a tiny visible fill
     const xpVisualFill =
         Math.max(3, xpPercent);
 
@@ -620,62 +688,213 @@ function updateXP(xp) {
     }
 }
 
+// -------------------------------
+// Park Adjusted Overall
+// -------------------------------
+function updateParkAdjusted(p) {
 
+    const adjustedEl =
+        document.getElementById("parkAdjustedOverall");
+
+    const adjustmentEl =
+        document.getElementById("parkAdjustment");
+
+    const venueEl =
+        document.getElementById("parkVenue");
+
+    const factorEl =
+        document.getElementById("parkFactor");
+
+
+    // -------------------------------
+    // Free Trial Lock
+    // -------------------------------
+
+    if (!hasAllAccess()) {
+
+        adjustedEl.innerHTML = `
+            <span class="premium-value-lock">
+                🔒
+            </span>
+        `;
+
+        adjustmentEl.textContent =
+            "ALL ACCESS";
+
+        adjustmentEl.classList.remove(
+            "positive",
+            "negative",
+            "neutral"
+        );
+
+        adjustmentEl.classList.add(
+            "premium-label"
+        );
+
+        venueEl.textContent =
+            "Unlock Park Analysis";
+
+        factorEl.textContent = "";
+
+        return;
+    }
+
+
+    // -------------------------------
+    // Missing / unmatched park data
+    // -------------------------------
+
+    if (
+        p.ParkAdjustedOverall == null ||
+        isNaN(Number(p.ParkAdjustedOverall))
+    ) {
+
+        adjustedEl.textContent = "--";
+        adjustmentEl.textContent = "";
+
+        adjustmentEl.classList.remove(
+            "positive",
+            "negative",
+            "neutral",
+            "premium-label"
+        );
+
+        venueEl.textContent = "--";
+        factorEl.textContent = "--";
+
+        return;
+    }
+
+
+    const adjusted =
+        Number(p.ParkAdjustedOverall);
+
+    const change =
+        Number(p.ParkAdjustment);
+
+
+    // Adjusted Overall
+    adjustedEl.textContent =
+        adjusted.toFixed(1);
+
+
+    // Adjustment badge
+    adjustmentEl.classList.remove(
+        "positive",
+        "negative",
+        "neutral",
+        "premium-label"
+    );
+
+
+    if (!isNaN(change)) {
+
+        adjustmentEl.textContent =
+            `${change > 0 ? "+" : ""}${change.toFixed(1)}`;
+
+        if (change > 0.05) {
+
+            adjustmentEl.classList.add(
+                "positive"
+            );
+
+        } else if (change < -0.05) {
+
+            adjustmentEl.classList.add(
+                "negative"
+            );
+
+        } else {
+
+            adjustmentEl.classList.add(
+                "neutral"
+            );
+        }
+
+    } else {
+
+        adjustmentEl.textContent = "";
+    }
+
+
+    // Park context
+    venueEl.textContent =
+        p.ParkVenue || "--";
+
+    factorEl.textContent =
+        p.ParkFactor != null &&
+        !isNaN(Number(p.ParkFactor))
+            ? `Park Factor: ${Number(p.ParkFactor).toFixed(0)}`
+            : "--";
+}
+
+
+// -------------------------------
+// Tier → CSS class mapping
+// -------------------------------
 function getTierClass(tier) {
     switch (tier) {
-        case "Ace": return "tier-great";
-        case "Top Starter": return "tier-good";
-        case "Mid Rotation": return "tier-fair";
-        case "Back End": return "tier-average";
-        case "Depth": return "tier-belowavg";
+        case "Elite": return "tier-great";
+        case "Impact": return "tier-good";
+        case "Solid": return "tier-fair";
+        case "Developing": return "tier-average";
+        case "Limited": return "tier-belowavg";
         default: return "";
     }
 }
 
+// -------------------------------
+// Tier assignment (batting version)
+// -------------------------------
 function updateTier(score) {
     let tier = "—";
 
-    if (score >= 8.5) tier = "Ace";
-    else if (score >= 7.0) tier = "Top Starter";
-    else if (score >= 5.5) tier = "Mid Rotation";
-    else if (score >= 4.0) tier = "Back End";
-    else tier = "Depth";
+    if (score >= 8.5) tier = "Elite";
+    else if (score >= 7.0) tier = "Impact";
+    else if (score >= 5.5) tier = "Solid";
+    else if (score >= 4.0) tier = "Developing";
+    else tier = "Limited";
 
     document.getElementById("overallTier").innerHTML =
         `<span class="tier-badge ${getTierClass(tier)}">${tier}</span>`;
 }
 
+
 // -------------------------------
-// Scouting note generator (5‑metric model)
+// Scouting note generator (Batting 5‑metric model)
 // -------------------------------
 function updateScoutingNote(p) {
     const strengths = [];
     const concerns = [];
 
+    // BA
+    if (p.BA >= 0.300) strengths.push("premium contact ability");
+    else if (p.BA >= 0.270) strengths.push("above‑average hit tool");
+    else if (p.BA < 0.240) concerns.push("inconsistent contact quality");
+
+    // OBP
+    if (p.OBP >= 0.380) strengths.push("elite on‑base skill");
+    else if (p.OBP >= 0.340) strengths.push("strong plate discipline");
+    else if (p.OBP < 0.300) concerns.push("limited on‑base production");
+
+    // SLG
+    if (p.SLG >= 0.550) strengths.push("impact power production");
+    else if (p.SLG >= 0.450) strengths.push("workable gap power");
+    else if (p.SLG < 0.380) concerns.push("below‑average impact on contact");
+
     // K%
-    if (p.Kpct > 28) strengths.push("impact swing‑and‑miss");
-    else if (p.Kpct > 24) strengths.push("above‑average bat‑missing ability");
-    else if (p.Kpct < 20) concerns.push("below‑average bat‑missing ability");
-
-    // WHIP
-    if (p.WHIP < 1.10) strengths.push("premium traffic control");
-    else if (p.WHIP < 1.20) strengths.push("manageable baserunner profile");
-    else if (p.WHIP > 1.30) concerns.push("inconsistent command leading to traffic");
-
-    // K/BB
-    if (p.KBB > 4) strengths.push("efficient strike‑throwing");
-    else if (p.KBB > 3) strengths.push("workable command");
-    else if (p.KBB < 2) concerns.push("erratic strike‑throwing");
+    if (p.Kpct <= 18) strengths.push("advanced bat‑to‑ball skill");
+    else if (p.Kpct <= 24) strengths.push("manageable swing‑and‑miss profile");
+    else if (p.Kpct > 30) concerns.push("high swing‑and‑miss rate that may limit consistency");
 
     // BB%
-    if (p.BBpct < 5) strengths.push("plus walk suppression");
-    else if (p.BBpct < 7) strengths.push("solid underlying command");
-    else if (p.BBpct > 9) concerns.push("elevated walk rate that may limit consistency");
-    else if (p.BBpct > 11) concerns.push("high‑risk command profile with frequent free passes");
+    if (p.BBpct >= 12) strengths.push("plus walk generation");
+    else if (p.BBpct >= 8) strengths.push("solid underlying discipline");
+    else if (p.BBpct < 5) concerns.push("limited walk production");
 
     let note = "";
 
-    // NEW: neutral fallback
+    // NEW: dead‑zone fallback
     if (!strengths.length && !concerns.length) {
         note = "Neutral underlying profile with no standout strengths or red flags.";
     } else if (strengths.length && !concerns.length) {
@@ -692,48 +911,42 @@ function updateScoutingNote(p) {
             ".";
     }
 
-    // W–L context stays
-    if (p.W !== undefined && p.L !== undefined) {
-        const wl = `${p.W}-${p.L}`;
-        note += `\nW–L this season: ${wl}.`;
-    }
-
     document.getElementById("scoutingNote").innerHTML = note;
 }
 
+
 // -------------------------------
-// Pitcher XP Score Function
-// Strikeout / Command Performance
+// XP Score Function
 // -------------------------------
-function computePitcherXP(p) {
+function computeBatterXP(p) {
     if (!p) return null;
 
-    const xp =
-        (p.Kpct * 4) +
-        (p.KBB * 2) -
-        (p.BBpct * 10);
-
-    return xp + 1000;
+    return (
+        (p.BA * 1000) +
+        (p.OBP * 1000) +
+        (p.SLG * 1000) +
+        (p.BBpct * 2) -
+        (p.Kpct * 1.5)
+    );
 }
 
 
-
 // -------------------------------
-// Weighted Overall Score (5‑metric model)
+// Weighted Overall Score (Batting 5‑metric model)
 // -------------------------------
 function computeWeightedOverall({
-    eraScore,
-    whipScore,
+    baScore,
+    obpScore,
+    slgScore,
     kpctScore,
-    bbpctScore,
-    kbbScore
+    bbpctScore
 }) {
     return (
-        eraScore  * 0.25 +
-        whipScore * 0.25 +
-        kpctScore * 0.1875 +
-        bbpctScore* 0.125 +
-        kbbScore  * 0.1875
+        baScore   * 0.25 +   // contact
+        obpScore  * 0.25 +   // discipline / on-base
+        slgScore  * 0.25 +   // power
+        kpctScore * 0.15 +   // bat-to-ball
+        bbpctScore* 0.10     // walk skill
     );
 }
 
@@ -741,38 +954,51 @@ function clamp(x, min, max) {
     return Math.max(min, Math.min(max, x));
 }
 
+
 // ------------------------------
-// Scoring functions (5‑metric model)
+// Scoring functions (Batting 5‑metric model)
 // ------------------------------
-function scoreERA(era) {
-    const score = 10 * (5.00 - era) / (5.00 - 2.00);
+
+// BA: .300 = elite, .240 = fringe
+function scoreBA(ba) {
+    const score = 10 * (ba - 0.240) / (0.300 - 0.240);
     return clamp(score, 0, 10);
 }
 
-function scoreWHIP(whip) {
-    const score = 10 * (1.40 - whip) / (1.40 - 0.90);
+// OBP: .380 = elite, .300 = fringe
+function scoreOBP(obp) {
+    const score = 10 * (obp - 0.300) / (0.380 - 0.300);
     return clamp(score, 0, 10);
 }
 
+// SLG: .550 = elite, .380 = fringe
+function scoreSLG(slg) {
+    const score = 10 * (slg - 0.380) / (0.550 - 0.380);
+    return clamp(score, 0, 10);
+}
+
+// K%: lower is better (reverse scale)
 function scoreKpct(kpct) {
-    const score = 10 * (kpct - 15) / (35 - 15);
+    const score = 10 * (30 - kpct) / (30 - 15);
     return clamp(score, 0, 10);
 }
 
+// BB%: higher is better
 function scoreBBpct(bbpct) {
-    const score = 10 * (10 - bbpct) / (10 - 3);
+    const score = 10 * (bbpct - 5) / (12 - 5);
     return clamp(score, 0, 10);
 }
 
-function scoreKBB(kbb) {
-    const score = 10 * (kbb - 1.5) / (6.0 - 1.5);
-    return clamp(score, 0, 10);
+// -------------------------------
+// Utility helpers
+// -------------------------------
+function clamp(x, min, max) {
+    return Math.max(min, Math.min(max, x));
 }
 
-// ⭐ Removed (no longer part of the model):
-// function scoreIP(ip) { ... }
-// function scoreHR9(hr9) { ... }
-// function scoreFIP(fip) { ... }
+function stripZero(x) {
+    return String(x).replace(/^0+/, "");
+}
 
 // ------------------------------
 // Player Autocomplete
@@ -808,7 +1034,7 @@ function setupPlayerAutocomplete({
         try {
 
             const response = await fetch(
-                `https://pitcher-analyzer-backend.onrender.com/api/players?season=${season}`
+                `https://batter-analyzer-backend.onrender.com/api/players?season=${season}`
             );
 
             if (!response.ok) {
@@ -946,6 +1172,7 @@ setupPlayerAutocomplete({
     seasonId: "seasonSelect2"
 });
 
+
 // -------------------------------
 // Main: Load player + update UI (backend-only)
 // -------------------------------
@@ -960,66 +1187,68 @@ async function handleLoad() {
             return;
         }
 
-        const data = await loadPitcher(name, season);
+        const data = await loadBatter(name, season);
 
-        // ⭐ Correct error handling
         if (!data || data.error || (Array.isArray(data) && data.length === 0)) {
-            alert("Pitcher not found.");
+            alert("Batter not found.");
             return;
         }
 
-        // ⭐ Always normalize to object
         const p = Array.isArray(data) ? data[0] : data;
 
-        console.log("FULL pitcher object from backend:", p);
-        console.log("XP field:", p?.XP);
+        console.log("Loaded batter data:", p);
+        console.log("HR value:", p.HR);
 
-        // ⭐ Only 5 metrics now
-const eraScore   = scoreERA(p.ERA);
-const whipScore  = scoreWHIP(p.WHIP);
-const kpctScore  = scoreKpct(p.Kpct);
-const bbpctScore = scoreBBpct(p.BBpct);
-const kbbScore   = scoreKBB(p.KBB);
+        const baScore    = scoreBA(p.BA);
+        const obpScore   = scoreOBP(p.OBP);
+        const slgScore   = scoreSLG(p.SLG);
+        const kpctScore  = scoreKpct(p.Kpct);
+        const bbpctScore = scoreBBpct(p.BBpct);
 
-updateERA(safeFixed(p.ERA, 2), eraScore);
-updateWHIP(safeFixed(p.WHIP, 2), whipScore);
+        updateBA(safeFixed(p.BA, 3), baScore);
+updateOBP(safeFixed(p.OBP, 3), obpScore);
+updateSLG(safeFixed(p.SLG, 3), slgScore);
 updateKpct(safeFixed(p.Kpct, 1), kpctScore);
 updateBBpct(safeFixed(p.BBpct, 1), bbpctScore);
-updateKBB(safeFixed(p.KBB, 2), kbbScore);
 
 
 // -------------------------------
 // Season Production
 // -------------------------------
-document.getElementById("productionIP").textContent = p.IP ?? "--";
+document.getElementById("productionAB").textContent = p.AB ?? "--";
 document.getElementById("productionH").textContent = p.H ?? "--";
 document.getElementById("productionR").textContent = p.R ?? "--";
-document.getElementById("productionER").textContent = p.ER ?? "--";
+document.getElementById("productionRBI").textContent = p.RBI ?? "--";
+document.getElementById("productionHR").textContent = p.HR ?? "--";
 document.getElementById("productionBB").textContent = p.BB ?? "--";
 document.getElementById("productionK").textContent = p.SO ?? "--";
-document.getElementById("productionHR").textContent = p.HR ?? "--";
 
-
+// -------------------------------
+// Calculate Overall
+// -------------------------------
 const overall = computeWeightedOverall({
-    eraScore,
-    whipScore,
+    baScore,
+    obpScore,
+    slgScore,
     kpctScore,
-    bbpctScore,
-    kbbScore
+    bbpctScore
 });
 
-        updateOverall(overall);
+updateOverall(overall);
+updateParkAdjusted(p);
 updateTier(overall);
 updateScoutingNote(p);
 updateXP(p.XP);
 updateIdentityBadge();
 
 updateWhatToWatch({
-    ERA: { raw: p.ERA, score: eraScore },
-    WHIP: { raw: p.WHIP, score: whipScore },
+
+    BA: { raw: p.BA, score: baScore },
+    OBP: { raw: p.OBP, score: obpScore },
+    SLG: { raw: p.SLG, score: slgScore },
     Kpct: { raw: p.Kpct, score: kpctScore },
-    BBpct: { raw: p.BBpct, score: bbpctScore },
-    KBB: { raw: p.KBB, score: kbbScore }
+    BBpct: { raw: p.BBpct, score: bbpctScore }
+
 });
 
 // -------------------------------
@@ -1031,105 +1260,116 @@ function updateWhatToWatch(metrics) {
 
     if (!watchGrid) return;
 
-// -------------------------------
-// All Access Gate
-// -------------------------------
+    // -------------------------------
+    // Free Trial Lock
+    // -------------------------------
 
-if (!hasAllAccess()) {
+    if (!hasAllAccess()) {
 
-    watchGrid.innerHTML = `
-        <div class="watch-premium-lock">
-            <div class="watch-premium-icon">🔒</div>
-            <div class="watch-premium-badge">ALL ACCESS</div>
-            <div class="watch-premium-text">
-                Unlock What to Watch Analysis
+        watchGrid.innerHTML = `
+            <div class="watch-premium-lock">
+
+                <div class="watch-premium-icon">
+                    🔒
+                </div>
+
+                <div class="watch-premium-badge">
+                    ALL ACCESS
+                </div>
+
+                <div class="watch-premium-text">
+                    Unlock What to Watch Analysis
+                </div>
+
             </div>
-        </div>
-    `;
+        `;
 
-    return;
-}
+        return;
+    }
 
+    // --------------------------------
+    // Metric definitions
+    // --------------------------------
     const items = [
 
         {
-            key: "ERA",
-            title: "Run Prevention",
-            raw: metrics.ERA.raw,
-            score: metrics.ERA.score,
+            key: "BA",
+            title: "Hit Tool",
+            raw: metrics.BA.raw,
+            score: metrics.BA.score,
 
             goodText:
-                "Strong run prevention is a major strength.",
+                "Strong batting average reflects a reliable hit tool.",
 
             neutralText:
-                "Run prevention is solid but not a defining strength.",
+                "Batting average production is solid but not a defining strength.",
 
             badText:
-                "Elevated run production allowed may limit overall effectiveness."
+                "Limited batting average production may reduce offensive consistency."
         },
 
         {
-            key: "WHIP",
-            title: "Traffic Control",
-            raw: metrics.WHIP.raw,
-            score: metrics.WHIP.score,
+            key: "OBP",
+            title: "On-Base Ability",
+            raw: metrics.OBP.raw,
+            score: metrics.OBP.score,
 
             goodText:
-                "Strong WHIP reflects excellent control of baserunners.",
+                "Strong on-base production creates consistent offensive opportunities.",
 
             neutralText:
-                "Baserunner traffic is manageable but worth monitoring.",
+                "On-base production is solid but not a defining strength.",
 
             badText:
-                "Elevated baserunner traffic creates additional pressure and scoring risk."
+                "Limited on-base production may reduce scoring opportunities."
+        },
+
+        {
+            key: "SLG",
+            title: "Power",
+            raw: metrics.SLG.raw,
+            score: metrics.SLG.score,
+
+            goodText:
+                "Impact power is a major offensive strength.",
+
+            neutralText:
+                "Power production is solid but not a defining strength.",
+
+            badText:
+                "Limited power may cap extra-base and home run production."
         },
 
         {
             key: "Kpct",
-            title: "Strikeout Ability",
+            title: "Contact Skills",
             raw: metrics.Kpct.raw,
             score: metrics.Kpct.score,
 
             goodText:
-                "Strong strikeout production creates consistent swing-and-miss value.",
+                "Low strikeout rate supports consistent contact and batting average.",
 
             neutralText:
-                "Strikeout production is solid but not a defining strength.",
+                "Strikeout rate is manageable but remains worth monitoring.",
 
             badText:
-                "Limited strikeout production reduces the ability to generate outs independently."
+                "Elevated strikeout rate creates volatility in the offensive profile."
         },
 
         {
             key: "BBpct",
-            title: "Command",
+            title: "Plate Discipline",
             raw: metrics.BBpct.raw,
             score: metrics.BBpct.score,
 
             goodText:
-                "Low walk rate reflects strong command and limits free baserunners.",
+                "Strong walk rate supports OBP and plate control.",
 
             neutralText:
-                "Walk rate is manageable but remains worth monitoring.",
+                "Walk rate is adequate but not a major source of offensive value.",
 
             badText:
-                "Elevated walk rate may create unnecessary baserunners and innings stress."
-        },
-
-        {
-            key: "KBB",
-            title: "Strikeout-to-Walk Control",
-            raw: metrics.KBB.raw,
-            score: metrics.KBB.score,
-
-            goodText:
-                "Strong strikeout-to-walk balance reflects efficient pitcher control.",
-
-            neutralText:
-                "Strikeout-to-walk balance is solid but not a defining strength.",
-
-            badText:
-                "Weak strikeout-to-walk balance may reduce overall pitching efficiency."
+                "Low walk rate may limit on-base production and plate control."
         }
 
     ];
@@ -1146,6 +1386,7 @@ items.forEach(item => {
         item.icon = "↑";
         item.text = item.goodText;
 
+        // 0 → 1 strength scale
         item.importance = (item.score - 7) / 3;
 
     }
@@ -1155,6 +1396,7 @@ items.forEach(item => {
         item.icon = "−";
         item.text = item.neutralText;
 
+        // Neutral metrics are less important
         item.importance = 0;
 
     }
@@ -1164,6 +1406,7 @@ items.forEach(item => {
         item.icon = "↓";
         item.text = item.badText;
 
+        // 0 → 1 weakness scale
         item.importance = (4 - item.score) / 4;
 
     }
@@ -1179,64 +1422,115 @@ items.forEach(item => {
     const selected = items.slice(0, 3);
 
 
-    // --------------------------------
-    // Build cards
-    // --------------------------------
-    watchGrid.innerHTML = selected.map(item => {
+// --------------------------------
+// Build cards
+// --------------------------------
+watchGrid.innerHTML = selected.map(item => {
 
-        let rawDisplay;
+    let rawDisplay;
 
-        if (item.key === "ERA") {
-            rawDisplay = Number(item.raw).toFixed(2);
-        }
-        else if (item.key === "WHIP") {
-            rawDisplay = Number(item.raw).toFixed(2);
-        }
-        else if (item.key === "KBB") {
-            rawDisplay = Number(item.raw).toFixed(2);
-        }
-        else {
-            rawDisplay = Number(item.raw).toFixed(1) + "%";
-        }
-
-        const statLabel = {
-            ERA: "ERA",
-            WHIP: "WHIP",
-            Kpct: "K%",
-            BBpct: "BB%",
-            KBB: "K/BB"
-        }[item.key];
+    if (
+        item.key === "BA" ||
+        item.key === "OBP" ||
+        item.key === "SLG"
+    ) {
+        rawDisplay = Number(item.raw)
+            .toFixed(3)
+            .replace(/^0/, "");
+    }
+    else {
+        rawDisplay =
+            Number(item.raw).toFixed(1) + "%";
+    }
 
 
-        return `
-            <div class="watch-card watch-${item.type}">
+    const statLabel = {
+        BA: "BA",
+        OBP: "OBP",
+        SLG: "SLG",
+        Kpct: "K%",
+        BBpct: "BB%"
+    }[item.key];
+
+
+    // Translate existing classification
+    // into user-facing card language
+    const statusLabel = {
+        good: "STRENGTH",
+        neutral: "MONITOR",
+        bad: "CONCERN"
+    }[item.type] || "MONITOR";
+
+
+    return `
+        <div class="watch-card watch-${item.type}">
+
+            <div class="watch-card-top">
 
                 <div class="watch-icon">
                     ${item.icon}
                 </div>
 
-                <div class="watch-content">
+                <div class="watch-status">
+                    ${statusLabel}
+                </div>
 
-                    <div class="watch-title">
-                        ${item.title}
-                    </div>
+            </div>
 
-                    <div class="watch-text">
-                        ${item.text}
-                    </div>
 
-                    <div class="watch-stat">
-                        ${statLabel}: ${rawDisplay}
-                        (${item.score.toFixed(1)}/10)
-                    </div>
+            <div class="watch-content">
+
+                <div class="watch-title">
+                    ${item.title}
+                </div>
+
+                <div class="watch-text">
+                    ${item.text}
+                </div>
+
+            </div>
+
+
+            <div class="watch-evidence">
+
+                <div class="watch-stat">
+
+                    <span class="watch-stat-label">
+                        ${statLabel}
+                    </span>
+
+                    <strong class="watch-stat-value">
+                        ${rawDisplay}
+                    </strong>
+
+                </div>
+
+
+                <div class="watch-divider"></div>
+
+
+                <div class="watch-stat">
+
+                    <span class="watch-stat-label">
+                        SCORE
+                    </span>
+
+                    <strong class="watch-score">
+                        ${item.score.toFixed(1)}
+                        <small>/ 10</small>
+                    </strong>
 
                 </div>
 
             </div>
-        `;
 
-    }).join("");
+        </div>
+    `;
+
+}).join("");
+
 }
+
 
 // -------------------------------
 // Fantasy Identity
@@ -1246,12 +1540,12 @@ const identity = classifyPlayer(p.XP, overall);
 // -------------------------------
 // Fantasy State
 // -------------------------------
-const div = calculatePitcherDivergence(p.XP, overall);
-const state = pitcherDivergenceState(div.divergencePct);
-
-updateFantasyStateMarker(state);
+const div = calculateDivergence(p.XP, overall);
+const state = divergenceState(div.divergencePct);
 
 updateStateBadge(state);
+
+updateFantasyStateMarker(state);
 
 // -------------------------------
 // Fantasy Value
@@ -1261,12 +1555,10 @@ const fantasyValue = getFantasyValue(
     p.OverallDivergenceSD
 );
 
-const fantasyValueZ =
-    p.OverallDivergenceSD && p.OverallDivergenceSD !== 0
-        ? p.OverallDivergence / p.OverallDivergenceSD
-        : 0;
-
-updateValueBadge(fantasyValue);
+updateValueBadge(
+    p.OverallDivergence,
+    p.OverallDivergenceSD
+);
 
 updateFantasyValueMarker(fantasyValue);
 
@@ -1280,7 +1572,7 @@ updateFantasySummary(
 );
 
 // -------------------------------
-// Overall Percentile
+// Percentile - Free Trial Lock
 // -------------------------------
 
 const percentileEl =
@@ -1290,8 +1582,15 @@ if (!hasAllAccess()) {
 
     percentileEl.innerHTML = `
         <div class="percentile-premium-wrap">
-            <span class="percentile-premium-lock">🔒</span>
-            <span class="percentile-premium-label">ALL ACCESS</span>
+
+            <span class="percentile-premium-lock">
+                🔒
+            </span>
+
+            <span class="percentile-premium-label">
+                ALL ACCESS
+            </span>
+
         </div>
     `;
 
@@ -1303,37 +1602,49 @@ if (!hasAllAccess()) {
             : "--";
 }
 
-    } catch (err) {
-        console.error("Error loading player:", err);
-    }
+} catch (err) {
+    console.error("Error loading player:", err);
+}
 }
 
 
 // -------------------------------
-// Load Player of the Day - Ticker
+// Load Batter of the Day
 // -------------------------------
-function loadPlayerOfDay(season) {
-    fetch(`https://pitcher-analyzer-backend.onrender.com/api/player-of-day?season=${season}`)
+function loadBatterOfDay(season) {
+    fetch(`https://batter-analyzer-backend.onrender.com/api/batter-of-day?season=${season}`)
         .then(res => res.json())
         .then(player => {
 
-            console.log("Player of the Day JSON:", player);
+            console.log("Batter of the Day JSON:", player);
+            console.log({
+    name: document.getElementById("bod-name"),
+    team: document.getElementById("bod-team"),
+    overall: document.getElementById("bod-overall"),
+    xp: document.getElementById("bod-xp"),
+    summary: document.getElementById("bod-summary")
+});
 
-            document.getElementById("pod-name").textContent = player.Player;
-            document.getElementById("pod-team").textContent = player.Team;
+            // Basic fields
+            document.getElementById("bod-name").textContent = player.Player;
+            document.getElementById("bod-team").textContent = player.Team;
 
-            document.getElementById("pod-overall").textContent =
+            document.getElementById("bod-overall").textContent =
                 Number(player.overall).toFixed(1);
 
-            document.getElementById("pod-xp").textContent =
+            document.getElementById("bod-xp").textContent =
                 Math.round(player.XP);
 
-            // NEW: W/L + Games
-            const recordText = `is ${player.W}-${player.L} across ${player.G} games.`;
-            document.getElementById("pod-record").textContent = recordText;
+            // Batter summary line (AVG, HR, RBI, Games)
+            const formattedBA = Number(player.BA).toFixed(3).replace(/^0/, "");
+const summaryText = `is batting ${formattedBA} with ${player.HR} HR and ${player.RBI} RBI across ${player.G} games.`;
+
+
+
+            document.getElementById("bod-summary").textContent = summaryText;
         })
         .catch(err => {
-            console.error("Error loading Player of the Day:", err);
+            console.error("Error loading Batter of the Day:", err);
         });
 }
 
@@ -1352,13 +1663,13 @@ async function handleTrend() {
         const season = Number(document.getElementById("seasonSelect").value);
         const lastSeason = season - 1;
 
-        // Fetch both seasons using stathead.r API
+        // Fetch both seasons using batting API
         const currArr = await fetch(
-            `https://pitcher-analyzer-backend.onrender.com/api/pitchers?name=${encodeURIComponent(rawName)}&season=${season}`
+            `https://batter-analyzer-backend.onrender.com/api/batters?name=${encodeURIComponent(rawName)}&season=${season}`
         ).then(r => r.json());
 
         const prevArr = await fetch(
-            `https://pitcher-analyzer-backend.onrender.com/api/pitchers?name=${encodeURIComponent(rawName)}&season=${lastSeason}`
+            `https://batter-analyzer-backend.onrender.com/api/batters?name=${encodeURIComponent(rawName)}&season=${lastSeason}`
         ).then(r => r.json());
 
         const curr = Array.isArray(currArr) ? currArr[0] : currArr;
@@ -1369,30 +1680,31 @@ async function handleTrend() {
             return;
         }
 
-        if (curr.ERA == null || prev.ERA == null) {
+        // Must have batting metrics
+        if (curr.BA == null || prev.BA == null) {
             alert("Not enough data for season comparison.");
             return;
         }
 
         // ⭐ Compute XP for both seasons
-        curr.XP = computePitcherXP(curr);
-        prev.XP = computePitcherXP(prev);
+        curr.XP = computeBatterXP(curr);
+        prev.XP = computeBatterXP(prev);
 
         // ⭐ Compute Overall Score for both seasons
         curr.OverallScore = computeWeightedOverall({
-            eraScore: scoreERA(curr.ERA),
-            whipScore: scoreWHIP(curr.WHIP),
+            baScore: scoreBA(curr.BA),
+            obpScore: scoreOBP(curr.OBP),
+            slgScore: scoreSLG(curr.SLG),
             kpctScore: scoreKpct(curr.Kpct),
-            bbpctScore: scoreBBpct(curr.BBpct),
-            kbbScore: scoreKBB(curr.KBB)
+            bbpctScore: scoreBBpct(curr.BBpct)
         });
 
         prev.OverallScore = computeWeightedOverall({
-            eraScore: scoreERA(prev.ERA),
-            whipScore: scoreWHIP(prev.WHIP),
+            baScore: scoreBA(prev.BA),
+            obpScore: scoreOBP(prev.OBP),
+            slgScore: scoreSLG(prev.SLG),
             kpctScore: scoreKpct(prev.Kpct),
-            bbpctScore: scoreBBpct(prev.BBpct),
-            kbbScore: scoreKBB(prev.KBB)
+            bbpctScore: scoreBBpct(prev.BBpct)
         });
 
         const html = buildSeasonComparison(curr, prev, season, lastSeason);
@@ -1402,13 +1714,12 @@ async function handleTrend() {
 
         document.getElementById("trendBody").innerHTML = html;
 
-const trendAnalysis =
-    generatePitcherTrendAnalysis(curr, prev);
+        const trendAnalysis =
+    generateBatterTrendAnalysis(curr, prev);
 
 document.getElementById("trendAnalysisText").textContent =
     trendAnalysis;
-
-document.getElementById("trendModal").style.display = "flex";
+        document.getElementById("trendModal").style.display = "flex";
 
     } catch (err) {
         console.error("Trend error:", err);
@@ -1422,13 +1733,13 @@ document.getElementById("trendModal").style.display = "flex";
 function buildSeasonComparison(curr, prev, season, lastSeason) {
 
     const stats = [
-        { key: "ERA",   label: "ERA",   higherIsBetter: false },
-        { key: "WHIP",  label: "WHIP",  higherIsBetter: false },
-        { key: "Kpct",  label: "K%",    higherIsBetter: true  },
-        { key: "BBpct", label: "BB%",   higherIsBetter: false },
-        { key: "KBB",   label: "K/BB",  higherIsBetter: true  },
+        { key: "BA",    label: "BA",    higherIsBetter: true  },
+        { key: "OBP",   label: "OBP",   higherIsBetter: true  },
+        { key: "SLG",   label: "SLG",   higherIsBetter: true  },
+        { key: "Kpct",  label: "K%",    higherIsBetter: false },
+        { key: "BBpct", label: "BB%",   higherIsBetter: true  },
 
-        // ⭐ NEW
+        // ⭐ NEW STATS
         { key: "XP",            label: "XP",            higherIsBetter: true },
         { key: "OverallScore",  label: "Overall Score", higherIsBetter: true }
     ];
@@ -1437,27 +1748,21 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
         const a = Number(curr[s.key]);
         const b = Number(prev[s.key]);
 
-        // Determine arrow
         const arrow =
             a === b ? "➖" :
             s.higherIsBetter
                 ? (a > b ? "▲" : "▼")
                 : (a < b ? "▲" : "▼");
 
-        // Determine CSS class
         const arrowClass =
             arrow === "▲" ? "trend-up" :
             arrow === "▼" ? "trend-down" :
             "trend-flat";
 
-        // ⭐ Formatting rules
+        // ⭐ Correct formatting rules
         let dispA, dispB;
 
-        if (s.key === "ERA" || s.key === "WHIP") {
-            dispA = isNaN(a) ? "--" : a.toFixed(2);
-            dispB = isNaN(b) ? "--" : b.toFixed(2);
-        }
-        else if (s.key === "Kpct" || s.key === "BBpct" || s.key === "KBB") {
+        if (s.key === "Kpct" || s.key === "BBpct") {
             dispA = isNaN(a) ? "--" : a.toFixed(1);
             dispB = isNaN(b) ? "--" : b.toFixed(1);
         }
@@ -1468,6 +1773,10 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
         else if (s.key === "OverallScore") {
             dispA = isNaN(a) ? "--" : a.toFixed(1);
             dispB = isNaN(b) ? "--" : b.toFixed(1);
+        }
+        else {
+            dispA = isNaN(a) ? "--" : stripZero(a.toFixed(3));
+            dispB = isNaN(b) ? "--" : stripZero(b.toFixed(3));
         }
 
         return `
@@ -1498,63 +1807,63 @@ function buildSeasonComparison(curr, prev, season, lastSeason) {
 }
 
 // -------------------------------
-// Pitcher Trend Analysis
-// Direction + Magnitude
+// Batter Trend Analysis
+// Raw Direction + Normalized Magnitude
 // -------------------------------
-function generatePitcherTrendAnalysis(curr, prev) {
+function generateBatterTrendAnalysis(curr, prev) {
 
     // ---------------------------------
-    // 1. Direction / Breadth
+    // 1. Raw metric direction
+    //
+    // IMPORTANT:
+    // Raw stats determine whether a
+    // skill actually improved/declined.
     // ---------------------------------
-    const trends = [
-        { key: "ERA",          higherIsBetter: false },
-        { key: "WHIP",         higherIsBetter: false },
-        { key: "Kpct",         higherIsBetter: true  },
-        { key: "BBpct",        higherIsBetter: false },
-        { key: "KBB",          higherIsBetter: true  },
-        { key: "XP",           higherIsBetter: true  },
-        { key: "OverallScore", higherIsBetter: true  }
-    ];
+    const rawDirections = {
 
-    let improved = 0;
-    let declined = 0;
-    let flat = 0;
+        BA:
+            Number(curr.BA) > Number(prev.BA) ? 1 :
+            Number(curr.BA) < Number(prev.BA) ? -1 : 0,
 
-    trends.forEach(stat => {
+        OBP:
+            Number(curr.OBP) > Number(prev.OBP) ? 1 :
+            Number(curr.OBP) < Number(prev.OBP) ? -1 : 0,
 
-        const currValue = Number(curr[stat.key]);
-        const prevValue = Number(prev[stat.key]);
+        SLG:
+            Number(curr.SLG) > Number(prev.SLG) ? 1 :
+            Number(curr.SLG) < Number(prev.SLG) ? -1 : 0,
 
-        if (currValue === prevValue) {
-            flat++;
-            return;
-        }
+        // Lower K% is better
+        Kpct:
+            Number(curr.Kpct) < Number(prev.Kpct) ? 1 :
+            Number(curr.Kpct) > Number(prev.Kpct) ? -1 : 0,
 
-        const isImprovement = stat.higherIsBetter
-            ? currValue > prevValue
-            : currValue < prevValue;
-
-        if (isImprovement) {
-            improved++;
-        } else {
-            declined++;
-        }
-    });
+        // Higher BB% is better
+        BBpct:
+            Number(curr.BBpct) > Number(prev.BBpct) ? 1 :
+            Number(curr.BBpct) < Number(prev.BBpct) ? -1 : 0
+    };
 
 
     // ---------------------------------
-    // 2. Metric-score movement
-    // All five metrics are now on 0–10 scale
+    // 2. Normalized metric-score movement
+    //
+    // Score changes determine magnitude,
+    // NOT direction.
     // ---------------------------------
     const scoreChanges = {
 
-        ERA:
-            scoreERA(curr.ERA) -
-            scoreERA(prev.ERA),
+        BA:
+            scoreBA(curr.BA) -
+            scoreBA(prev.BA),
 
-        WHIP:
-            scoreWHIP(curr.WHIP) -
-            scoreWHIP(prev.WHIP),
+        OBP:
+            scoreOBP(curr.OBP) -
+            scoreOBP(prev.OBP),
+
+        SLG:
+            scoreSLG(curr.SLG) -
+            scoreSLG(prev.SLG),
 
         Kpct:
             scoreKpct(curr.Kpct) -
@@ -1562,28 +1871,27 @@ function generatePitcherTrendAnalysis(curr, prev) {
 
         BBpct:
             scoreBBpct(curr.BBpct) -
-            scoreBBpct(prev.BBpct),
-
-        KBB:
-            scoreKBB(curr.KBB) -
-            scoreKBB(prev.KBB)
+            scoreBBpct(prev.BBpct)
     };
 
 
     // ---------------------------------
-    // 3. Magnitude
+    // 3. Overall magnitude
+    //
     // Mean absolute movement across
-    // the five normalized metric scores
+    // five normalized metric scores.
     // ---------------------------------
     const magnitude =
         Object.values(scoreChanges)
-            .reduce((sum, value) => sum + Math.abs(value), 0) / 5;
+            .reduce(
+                (sum, value) =>
+                    sum + Math.abs(value),
+                0
+            ) / 5;
 
 
     // ---------------------------------
-    // 4. Overall direction
-    // Use Overall Score as the net
-    // direction of the pitching profile
+    // 4. Net Overall direction
     // ---------------------------------
     const overallDiff =
         Number(curr.OverallScore) -
@@ -1603,40 +1911,79 @@ function generatePitcherTrendAnalysis(curr, prev) {
 
 
     // ---------------------------------
-    // 5. Magnitude classification
+    // 5. Magnitude helper
     //
-    // Initial thresholds:
-    // < 0.75  = limited
-    // < 1.50  = moderate
-    // >= 1.50 = significant
+    // Initial calibration thresholds
+    // ---------------------------------
+    function movementLevel(change) {
+
+        const amount =
+            Math.abs(change);
+
+        if (amount < 0.75) {
+            return "limited";
+        }
+        else if (amount < 1.50) {
+            return "moderate";
+        }
+        else {
+            return "significant";
+        }
+    }
+
+
+    const magnitudeLabel =
+        movementLevel(magnitude);
+
+
+    // ---------------------------------
+    // 6. Skill Direction / Breadth
     //
-    // These can be calibrated later.
+    // Uses RAW metric direction.
+    // This prevents score clamps from
+    // hiding real statistical movement.
     // ---------------------------------
-    let magnitudeLabel;
+    const skillDirections =
+        Object.values(rawDirections);
 
-    if (magnitude < 0.75) {
-        magnitudeLabel = "limited";
-    }
-    else if (magnitude < 1.50) {
-        magnitudeLabel = "moderate";
-    }
-    else {
-        magnitudeLabel = "significant";
-    }
+    const skillImproved =
+        skillDirections
+            .filter(value => value > 0)
+            .length;
+
+    const skillDeclined =
+        skillDirections
+            .filter(value => value < 0)
+            .length;
+
+    const skillFlat =
+        skillDirections
+            .filter(value => value === 0)
+            .length;
+
+
+    // At least two underlying skills
+    // moved in each direction.
+    const mixedProfile =
+        skillImproved >= 2 &&
+        skillDeclined >= 2;
 
 
     // ---------------------------------
-    // 6. Breadth classification
+    // 7. Breadth
     // ---------------------------------
     let breadthLabel;
 
-    if (improved >= 6) {
+    if (
+        skillImproved >= 4 ||
+        skillDeclined >= 4
+    ) {
         breadthLabel = "broad";
     }
-    else if (declined >= 6) {
-        breadthLabel = "broad";
-    }
-    else if (improved >= 4 || declined >= 4) {
+    else if (
+        skillImproved >= 3 ||
+        skillDeclined >= 3
+    ) {
         breadthLabel = "general";
     }
     else {
@@ -1645,14 +1992,53 @@ function generatePitcherTrendAnalysis(curr, prev) {
 
 
     // ---------------------------------
-    // 7. Headline
+    // 8. Headline
+    //
+    // Breadth = raw metric direction
+    // Magnitude = normalized movement
+    // Net result = Overall Score
     // ---------------------------------
     let classification;
 
-    if (direction === "stable") {
-        classification =
-            "Year-over-year performance was relatively stable.";
+
+    // Mixed underlying skill profile
+    // takes priority.
+    if (mixedProfile) {
+
+        if (magnitudeLabel === "significant") {
+            classification =
+                "Mixed year-over-year performance with significant underlying movement.";
+        }
+        else if (magnitudeLabel === "moderate") {
+            classification =
+                "Mixed year-over-year performance with moderate underlying movement.";
+        }
+        else {
+            classification =
+                "Mixed year-over-year performance with limited overall movement.";
+        }
     }
+
+
+    // Stable net profile
+    else if (direction === "stable") {
+
+        if (magnitudeLabel === "significant") {
+            classification =
+                "Year-over-year performance was relatively stable despite significant underlying movement.";
+        }
+        else if (magnitudeLabel === "moderate") {
+            classification =
+                "Year-over-year performance was relatively stable with moderate underlying movement.";
+        }
+        else {
+            classification =
+                "Year-over-year performance was relatively stable.";
+        }
+    }
+
+
+    // Improvement
     else if (direction === "improvement") {
 
         if (magnitudeLabel === "significant") {
@@ -1668,6 +2054,9 @@ function generatePitcherTrendAnalysis(curr, prev) {
                 `${capitalize(breadthLabel)} but limited year-over-year improvement.`;
         }
     }
+
+
+    // Decline
     else {
 
         if (magnitudeLabel === "significant") {
@@ -1684,215 +2073,323 @@ function generatePitcherTrendAnalysis(curr, prev) {
         }
     }
 
-    const sentences = [classification];
 
-
-        // ---------------------------------
-    // 8. Helper: describe metric movement
-    // Uses normalized 0–10 score change
-    // ---------------------------------
-    function movementLevel(change) {
-
-        const amount = Math.abs(change);
-
-        if (amount < 0.75) {
-            return "limited";
-        }
-        else if (amount < 1.50) {
-            return "moderate";
-        }
-        else {
-            return "significant";
-        }
-    }
+    const sentences =
+        [classification];
 
 
     // ---------------------------------
-    // 9. Run Prevention
-    // ERA + WHIP
+    // 9. Hitting + On-Base Profile
+    // BA + OBP
+    //
+    // Raw direction
+    // Normalized magnitude
     // ---------------------------------
-    const eraChange = scoreChanges.ERA;
-    const whipChange = scoreChanges.WHIP;
+    const baDirection =
+        rawDirections.BA;
 
-    const eraImproved = eraChange > 0;
-    const whipImproved = whipChange > 0;
+    const obpDirection =
+        rawDirections.OBP;
 
-    const eraDeclined = eraChange < 0;
-    const whipDeclined = whipChange < 0;
+    const hittingMagnitude =
+        (
+            Math.abs(scoreChanges.BA) +
+            Math.abs(scoreChanges.OBP)
+        ) / 2;
 
-    const runPreventionMagnitude =
-        (Math.abs(eraChange) + Math.abs(whipChange)) / 2;
-
-    const runPreventionLevel =
-        movementLevel(runPreventionMagnitude);
+    const hittingLevel =
+        movementLevel(hittingMagnitude);
 
 
-    if (eraImproved && whipImproved) {
+    if (
+        baDirection > 0 &&
+        obpDirection > 0
+    ) {
 
-        if (runPreventionLevel === "significant") {
+        if (hittingLevel === "significant") {
             sentences.push(
-                "Run prevention improved substantially, with major gains in both ERA and WHIP."
+                "The hitting and on-base profile improved substantially, with major gains in BA and OBP."
             );
         }
-        else if (runPreventionLevel === "moderate") {
+        else if (hittingLevel === "moderate") {
             sentences.push(
-                "Run prevention improved moderately, with gains in both ERA and WHIP."
+                "The hitting and on-base profile improved moderately, with gains in BA and OBP."
             );
         }
         else {
             sentences.push(
-                "Run prevention improved slightly, with modest gains in ERA and WHIP."
+                "The hitting and on-base profile improved slightly, with modest gains in BA and OBP."
             );
         }
     }
 
-    else if (eraDeclined && whipDeclined) {
+    else if (
+        baDirection < 0 &&
+        obpDirection < 0
+    ) {
 
-        if (runPreventionLevel === "significant") {
+        if (hittingLevel === "significant") {
             sentences.push(
-                "Run prevention declined substantially, with major deterioration in both ERA and WHIP."
+                "The hitting and on-base profile declined substantially, with major deterioration in BA and OBP."
             );
         }
-        else if (runPreventionLevel === "moderate") {
+        else if (hittingLevel === "moderate") {
             sentences.push(
-                "Run prevention declined moderately, with ERA and WHIP both moving lower."
+                "The hitting and on-base profile declined moderately, with decreases in BA and OBP."
             );
         }
         else {
             sentences.push(
-                "Run prevention declined slightly, with modest deterioration in ERA and WHIP."
+                "The hitting and on-base profile declined slightly, with modest decreases in BA and OBP."
             );
         }
     }
 
-    else if (eraImproved && whipDeclined) {
+    else if (
+        baDirection > 0 &&
+        obpDirection < 0
+    ) {
+
         sentences.push(
-            "Run prevention was mixed, with ERA improving while WHIP declined."
+            "The hitting and on-base profile was mixed, with BA improving while OBP declined."
         );
     }
 
-    else if (eraDeclined && whipImproved) {
+    else if (
+        baDirection < 0 &&
+        obpDirection > 0
+    ) {
+
         sentences.push(
-            "Run prevention was mixed, with WHIP improving while ERA declined."
+            "The hitting and on-base profile was mixed, with OBP improving while BA declined."
+        );
+    }
+
+    // One raw metric moved while the
+    // other remained unchanged.
+    else if (baDirection > 0) {
+        sentences.push(
+            "The hitting and on-base profile improved, driven by a higher BA while OBP remained stable."
+        );
+    }
+
+    else if (baDirection < 0) {
+        sentences.push(
+            "The hitting and on-base profile declined, driven by a lower BA while OBP remained stable."
+        );
+    }
+
+    else if (obpDirection > 0) {
+        sentences.push(
+            "The hitting and on-base profile improved, driven by a higher OBP while BA remained stable."
+        );
+    }
+
+    else if (obpDirection < 0) {
+        sentences.push(
+            "The hitting and on-base profile declined, driven by a lower OBP while BA remained stable."
         );
     }
 
 
     // ---------------------------------
-    // 10. Strikeout Profile
-    // K%
+    // 10. Power
+    // SLG
+    //
+    // Raw direction
+    // Normalized magnitude
     // ---------------------------------
-    const kChange = scoreChanges.Kpct;
-    const kLevel = movementLevel(kChange);
+    const slgDirection =
+        rawDirections.SLG;
 
-    if (kChange > 0) {
+    const powerLevel =
+        movementLevel(
+            scoreChanges.SLG
+        );
 
-        if (kLevel === "significant") {
+
+    if (slgDirection > 0) {
+
+        if (powerLevel === "significant") {
             sentences.push(
-                "The strikeout profile improved substantially."
+                "Power production improved substantially."
             );
         }
-        else if (kLevel === "moderate") {
+        else if (powerLevel === "moderate") {
             sentences.push(
-                "The strikeout profile improved moderately."
+                "Power production improved moderately."
             );
         }
         else {
             sentences.push(
-                "The strikeout profile improved slightly."
+                "Power production improved slightly."
             );
         }
     }
 
-    else if (kChange < 0) {
+    else if (slgDirection < 0) {
 
-        if (kLevel === "significant") {
+        if (powerLevel === "significant") {
             sentences.push(
-                "The strikeout profile declined substantially."
+                "Power production declined substantially."
             );
         }
-        else if (kLevel === "moderate") {
+        else if (powerLevel === "moderate") {
             sentences.push(
-                "The strikeout profile declined moderately."
+                "Power production declined moderately."
             );
         }
         else {
             sentences.push(
-                "The strikeout profile declined slightly."
+                "Power production declined slightly."
             );
         }
     }
 
 
     // ---------------------------------
-    // 11. Command
-    // BB% + K/BB
+    // 11. Plate Discipline
+    // K% + BB%
+    //
+    // Raw direction determines what
+    // happened.
+    //
+    // Normalized score movement
+    // determines how large it was.
     // ---------------------------------
-    const bbChange = scoreChanges.BBpct;
-    const kbbChange = scoreChanges.KBB;
+    const kDirection =
+        rawDirections.Kpct;
 
-    const bbImproved = bbChange > 0;
-    const kbbImproved = kbbChange > 0;
+    const bbDirection =
+        rawDirections.BBpct;
 
-    const bbDeclined = bbChange < 0;
-    const kbbDeclined = kbbChange < 0;
+    const disciplineMagnitude =
+        (
+            Math.abs(scoreChanges.Kpct) +
+            Math.abs(scoreChanges.BBpct)
+        ) / 2;
 
-    const commandMagnitude =
-        (Math.abs(bbChange) + Math.abs(kbbChange)) / 2;
+    const disciplineLevel =
+        movementLevel(
+            disciplineMagnitude
+        );
 
-    const commandLevel =
-        movementLevel(commandMagnitude);
 
+    // Both improved
+    if (
+        kDirection > 0 &&
+        bbDirection > 0
+    ) {
 
-    if (bbImproved && kbbImproved) {
-
-        if (commandLevel === "significant") {
+        if (disciplineLevel === "significant") {
             sentences.push(
-                "Command improved substantially, with major gains in BB% and K/BB."
+                "Plate discipline improved substantially, with major gains in strikeout and walk performance."
             );
         }
-        else if (commandLevel === "moderate") {
+        else if (disciplineLevel === "moderate") {
             sentences.push(
-                "Command improved moderately, with gains in BB% and K/BB."
-            );
-        }
-        else {
-            sentences.push(
-                "Command improved slightly, with modest gains in BB% and K/BB."
-            );
-        }
-    }
-
-    else if (bbDeclined && kbbDeclined) {
-
-        if (commandLevel === "significant") {
-            sentences.push(
-                "Command declined substantially, with meaningful deterioration in BB% and K/BB."
-            );
-        }
-        else if (commandLevel === "moderate") {
-            sentences.push(
-                "Command declined moderately, with BB% and K/BB both moving lower."
+                "Plate discipline improved moderately, with a lower K% and higher BB%."
             );
         }
         else {
             sentences.push(
-                "Command declined slightly, with modest deterioration in BB% and K/BB."
+                "Plate discipline improved slightly, with modest gains in K% and BB%."
             );
         }
     }
 
-    else if (bbImproved && kbbDeclined) {
+
+    // Both declined
+    else if (
+        kDirection < 0 &&
+        bbDirection < 0
+    ) {
+
+        if (disciplineLevel === "significant") {
+            sentences.push(
+                "Plate discipline declined substantially, with meaningful deterioration in both strikeout and walk performance."
+            );
+        }
+        else if (disciplineLevel === "moderate") {
+            sentences.push(
+                "Plate discipline declined moderately, with a higher K% and lower BB%."
+            );
+        }
+        else {
+            sentences.push(
+                "Plate discipline declined slightly, with a higher K% and lower BB%."
+            );
+        }
+    }
+
+
+    // K% declined, BB% improved
+    else if (
+        kDirection < 0 &&
+        bbDirection > 0
+    ) {
+
         sentences.push(
-            "The command profile was mixed, with improved walk prevention offset by a decline in K/BB."
+            "Plate discipline was mixed, with stronger walk production offset by a higher strikeout rate."
         );
     }
 
-    else if (bbDeclined && kbbImproved) {
+
+    // K% improved, BB% declined
+    else if (
+        kDirection > 0 &&
+        bbDirection < 0
+    ) {
+
         sentences.push(
-            "The command profile was mixed, with improved K/BB offset by weaker walk prevention."
+            "Plate discipline was mixed, with fewer strikeouts but a lower walk rate."
         );
     }
+
+
+    // K% changed, BB% raw value flat
+    else if (
+        kDirection > 0 &&
+        bbDirection === 0
+    ) {
+
+        sentences.push(
+            "Plate discipline improved, driven by a lower K% while BB% remained stable."
+        );
+    }
+
+    else if (
+        kDirection < 0 &&
+        bbDirection === 0
+    ) {
+
+        sentences.push(
+            "Plate discipline declined, driven by a higher K% while BB% remained stable."
+        );
+    }
+
+
+    // BB% changed, K% raw value flat
+    else if (
+        bbDirection > 0 &&
+        kDirection === 0
+    ) {
+
+        sentences.push(
+            "Plate discipline improved, driven by a higher BB% while K% remained stable."
+        );
+    }
+
+    else if (
+        bbDirection < 0 &&
+        kDirection === 0
+    ) {
+
+        sentences.push(
+            "Plate discipline declined, driven by a lower BB% while K% remained stable."
+        );
+    }
+
 
     // ---------------------------------
     // 12. XP + Overall
@@ -1901,26 +2398,87 @@ function generatePitcherTrendAnalysis(curr, prev) {
         Math.round(curr.XP) -
         Math.round(prev.XP);
 
-    if (xpDiff > 0 && overallDiff > 0) {
+
+    if (
+        xpDiff > 0 &&
+        overallDiff > 0
+    ) {
+
         sentences.push(
             `XP increased by ${Math.abs(xpDiff)}, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
-    else if (xpDiff < 0 && overallDiff < 0) {
+
+    else if (
+        xpDiff < 0 &&
+        overallDiff < 0
+    ) {
+
         sentences.push(
             `XP declined by ${Math.abs(xpDiff)}, while Overall Score decreased by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
-    else if (xpDiff > 0 && overallDiff < 0) {
+
+    else if (
+        xpDiff > 0 &&
+        overallDiff < 0
+    ) {
+
         sentences.push(
             `XP increased by ${Math.abs(xpDiff)}, while Overall Score declined by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
-    else if (xpDiff < 0 && overallDiff > 0) {
+
+    else if (
+        xpDiff < 0 &&
+        overallDiff > 0
+    ) {
+
         sentences.push(
             `XP declined by ${Math.abs(xpDiff)}, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
+
+    else if (
+        xpDiff === 0 &&
+        overallDiff > 0
+    ) {
+
+        sentences.push(
+            `XP remained unchanged, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
+        );
+    }
+
+    else if (
+        xpDiff === 0 &&
+        overallDiff < 0
+    ) {
+
+        sentences.push(
+            `XP remained unchanged, while Overall Score declined by ${Math.abs(overallDiff).toFixed(1)} points.`
+        );
+    }
+
+    else if (
+        xpDiff > 0 &&
+        Math.abs(overallDiff) <= 0.05
+    ) {
+
+        sentences.push(
+            `XP increased by ${Math.abs(xpDiff)}, while Overall Score remained essentially unchanged.`
+        );
+    }
+
+    else if (
+        xpDiff < 0 &&
+        Math.abs(overallDiff) <= 0.05
+    ) {
+
+        sentences.push(
+            `XP declined by ${Math.abs(xpDiff)}, while Overall Score remained essentially unchanged.`
+        );
+    }
+
 
     return sentences.join(" ");
 }
@@ -1933,11 +2491,10 @@ function capitalize(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-
 // -------------------------------
-// Pitcher Comparison Summary
+// Batter Comparison Summary
 // -------------------------------
-function generatePitcherComparisonSummary(
+function generateBatterComparisonSummary(
     p1,
     p2,
     data1,
@@ -1950,124 +2507,138 @@ function generatePitcherComparisonSummary(
 
     const sentences = [];
 
+
     // ---------------------------
-    // Run Prevention
-    // ERA + WHIP
+    // Hitting / On-Base Profile
+    // BA + OBP
     // ---------------------------
 
-    const p1RunPrevention =
-        Number(data1.ERA) < Number(data2.ERA) &&
-        Number(data1.WHIP) < Number(data2.WHIP);
+    const p1Hitting =
+        Number(data1.BA) > Number(data2.BA) &&
+        Number(data1.OBP) > Number(data2.OBP);
 
-    const p2RunPrevention =
-        Number(data2.ERA) < Number(data1.ERA) &&
-        Number(data2.WHIP) < Number(data1.WHIP);
+    const p2Hitting =
+        Number(data2.BA) > Number(data1.BA) &&
+        Number(data2.OBP) > Number(data1.OBP);
 
-    if (p1RunPrevention) {
-    sentences.push(
-        `${p1} holds the advantage in run prevention with a lower ERA and WHIP.`
-    );
-}
-else if (p2RunPrevention) {
-    sentences.push(
-        `${p2} holds the advantage in run prevention with a lower ERA and WHIP.`
-    );
-}
-else {
-
-    const p1BetterERA = Number(data1.ERA) < Number(data2.ERA);
-    const p2BetterERA = Number(data2.ERA) < Number(data1.ERA);
-
-    const p1BetterWHIP = Number(data1.WHIP) < Number(data2.WHIP);
-    const p2BetterWHIP = Number(data2.WHIP) < Number(data1.WHIP);
-
-    if (p1BetterERA && p2BetterWHIP) {
-        sentences.push(
-            `Run prevention is split, with ${p1} holding the lower ERA and ${p2} the lower WHIP.`
-        );
-    }
-    else if (p2BetterERA && p1BetterWHIP) {
-        sentences.push(
-            `Run prevention is split, with ${p2} holding the lower ERA and ${p1} the lower WHIP.`
-        );
-    }
-}
-
-// ---------------------------
-// Command
-// BB% + K/BB
-// ---------------------------
-
-const p1Command =
-    Number(data1.BBpct) < Number(data2.BBpct) &&
-    Number(data1.KBB) > Number(data2.KBB);
-
-const p2Command =
-    Number(data2.BBpct) < Number(data1.BBpct) &&
-    Number(data2.KBB) > Number(data1.KBB);
-
-if (p1Command) {
-
-    sentences.push(
-        `${p1} owns the stronger command profile with a lower BB% and higher K/BB ratio.`
-    );
-
-}
-else if (p2Command) {
-
-    sentences.push(
-        `${p2} owns the stronger command profile with a lower BB% and higher K/BB ratio.`
-    );
-
-}
-else {
-
-    const p1BetterBB =
-        Number(data1.BBpct) < Number(data2.BBpct);
-
-    const p2BetterBB =
-        Number(data2.BBpct) < Number(data1.BBpct);
-
-    const p1BetterKBB =
-        Number(data1.KBB) > Number(data2.KBB);
-
-    const p2BetterKBB =
-        Number(data2.KBB) > Number(data1.KBB);
-
-
-    if (p1BetterBB && p2BetterKBB) {
+    if (p1Hitting) {
 
         sentences.push(
-            `The command profile is split, with ${p1} holding the lower BB% and ${p2} the higher K/BB ratio.`
+            `${p1} holds the stronger hitting and on-base profile with a higher BA and OBP.`
         );
 
     }
-    else if (p2BetterBB && p1BetterKBB) {
+    else if (p2Hitting) {
 
         sentences.push(
-            `The command profile is split, with ${p2} holding the lower BB% and ${p1} the higher K/BB ratio.`
+            `${p2} holds the stronger hitting and on-base profile with a higher BA and OBP.`
         );
+
     }
-}
+    else {
+
+        const p1BetterBA =
+            Number(data1.BA) > Number(data2.BA);
+
+        const p2BetterBA =
+            Number(data2.BA) > Number(data1.BA);
+
+        const p1BetterOBP =
+            Number(data1.OBP) > Number(data2.OBP);
+
+        const p2BetterOBP =
+            Number(data2.OBP) > Number(data1.OBP);
+
+        if (p1BetterBA && p2BetterOBP) {
+
+            sentences.push(
+                `The hitting profile is split, with ${p1} holding the higher BA and ${p2} the higher OBP.`
+            );
+
+        }
+        else if (p2BetterBA && p1BetterOBP) {
+
+            sentences.push(
+                `The hitting profile is split, with ${p2} holding the higher BA and ${p1} the higher OBP.`
+            );
+        }
+    }
 
 
     // ---------------------------
-    // Strikeout Profile
-    // K%
+    // Power
+    // SLG
     // ---------------------------
 
-    if (Number(data1.Kpct) > Number(data2.Kpct)) {
+    if (Number(data1.SLG) > Number(data2.SLG)) {
 
         sentences.push(
-            `${p1} provides the stronger strikeout profile with the higher K%.`
+            `${p1} provides the stronger power profile with the higher SLG.`
         );
 
     }
-    else if (Number(data2.Kpct) > Number(data1.Kpct)) {
+    else if (Number(data2.SLG) > Number(data1.SLG)) {
 
         sentences.push(
-            `${p2} provides the stronger strikeout profile with the higher K%.`
+            `${p2} provides the stronger power profile with the higher SLG.`
         );
+    }
+
+
+    // ---------------------------
+    // Plate Discipline
+    // Lower K% + Higher BB%
+    // ---------------------------
+
+    const p1Discipline =
+        Number(data1.Kpct) < Number(data2.Kpct) &&
+        Number(data1.BBpct) > Number(data2.BBpct);
+
+    const p2Discipline =
+        Number(data2.Kpct) < Number(data1.Kpct) &&
+        Number(data2.BBpct) > Number(data1.BBpct);
+
+    if (p1Discipline) {
+
+        sentences.push(
+            `${p1} owns the stronger plate-discipline profile with a lower K% and higher BB%.`
+        );
+
+    }
+    else if (p2Discipline) {
+
+        sentences.push(
+            `${p2} owns the stronger plate-discipline profile with a lower K% and higher BB%.`
+        );
+
+    }
+    else {
+
+        const p1BetterK =
+            Number(data1.Kpct) < Number(data2.Kpct);
+
+        const p2BetterK =
+            Number(data2.Kpct) < Number(data1.Kpct);
+
+        const p1BetterBB =
+            Number(data1.BBpct) > Number(data2.BBpct);
+
+        const p2BetterBB =
+            Number(data2.BBpct) > Number(data1.BBpct);
+
+        if (p1BetterK && p2BetterBB) {
+
+            sentences.push(
+                `The plate-discipline profile is split, with ${p1} holding the lower K% and ${p2} the higher BB%.`
+            );
+
+        }
+        else if (p2BetterK && p1BetterBB) {
+
+            sentences.push(
+                `The plate-discipline profile is split, with ${p2} holding the lower K% and ${p1} the higher BB%.`
+            );
+        }
     }
 
 
@@ -2080,7 +2651,6 @@ else {
 
     const p1Overall = overall1 > overall2;
     const p2Overall = overall2 > overall1;
-
 
     if (p1XP && p1Overall) {
 
@@ -2118,18 +2688,25 @@ else {
 }
 
 // -------------------------------
-// Compare Button
+// Compare Button (Batting Version)
 // -------------------------------
 async function showCompareModal() {
-
     console.log("COMPARE BUTTON CLICKED");
 
-    function formatName(name) {
-        return name
-            .split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
-    }
+function formatName(name) {
+    return name
+        .split(' ')
+        .map(word =>
+            word
+                .split('-')
+                .map(part =>
+                    part.charAt(0).toUpperCase() +
+                    part.slice(1).toLowerCase()
+                )
+                .join('-')
+        )
+        .join(' ');
+}
 
     try {
         const p1_raw = document.getElementById("playerName").value.trim();
@@ -2139,22 +2716,22 @@ async function showCompareModal() {
         const s2 = document.getElementById("seasonSelect2").value;
 
         if (!p1_raw || !p2_raw) {
-            alert("Enter both pitcher names.");
+            alert("Enter both batter names.");
             return;
         }
 
-        const data1Arr = await loadPitcher(p1_raw, s1, true);
-        const data2Arr = await loadPitcher(p2_raw, s2, true);
+        const data1Arr = await loadBatter(p1_raw, s1, true);
+        const data2Arr = await loadBatter(p2_raw, s2, true);
 
         const data1 = Array.isArray(data1Arr) ? data1Arr[0] : data1Arr;
         const data2 = Array.isArray(data2Arr) ? data2Arr[0] : data2Arr;
 
         if (!data1 || data1.error || !data2 || data2.error) {
-            alert("One or both pitchers not found.");
+            alert("One or both batters not found.");
             return;
         }
 
-        if (data1.ERA == null || data2.ERA == null) {
+        if (data1.BA == null || data2.BA == null) {
             alert("Not enough data for comparison.");
             return;
         }
@@ -2165,45 +2742,50 @@ async function showCompareModal() {
         document.getElementById("compareName1").textContent = `${p1_display} (${s1})`;
         document.getElementById("compareName2").textContent = `${p2_display} (${s2})`;
 
-        const s1_ERA   = scoreERA(data1.ERA);
-        const s1_WHIP  = scoreWHIP(data1.WHIP);
+        // ⭐ Batting scores
+        const s1_BA    = scoreBA(data1.BA);
+        const s1_OBP   = scoreOBP(data1.OBP);
+        const s1_SLG   = scoreSLG(data1.SLG);
         const s1_Kpct  = scoreKpct(data1.Kpct);
         const s1_BBpct = scoreBBpct(data1.BBpct);
-        const s1_KBB   = scoreKBB(data1.KBB);
 
-        const s2_ERA   = scoreERA(data2.ERA);
-        const s2_WHIP  = scoreWHIP(data2.WHIP);
+        const s2_BA    = scoreBA(data2.BA);
+        const s2_OBP   = scoreOBP(data2.OBP);
+        const s2_SLG   = scoreSLG(data2.SLG);
         const s2_Kpct  = scoreKpct(data2.Kpct);
         const s2_BBpct = scoreBBpct(data2.BBpct);
-        const s2_KBB   = scoreKBB(data2.KBB);
 
         const overall1 = computeWeightedOverall({
-            eraScore: s1_ERA,
-            whipScore: s1_WHIP,
+            baScore: s1_BA,
+            obpScore: s1_OBP,
+            slgScore: s1_SLG,
             kpctScore: s1_Kpct,
-            bbpctScore: s1_BBpct,
-            kbbScore: s1_KBB
+            bbpctScore: s1_BBpct
         });
 
         const overall2 = computeWeightedOverall({
-            eraScore: s2_ERA,
-            whipScore: s2_WHIP,
+            baScore: s2_BA,
+            obpScore: s2_OBP,
+            slgScore: s2_SLG,
             kpctScore: s2_Kpct,
-            bbpctScore: s2_BBpct,
-            kbbScore: s2_KBB
+            bbpctScore: s2_BBpct
         });
 
-        const xp1 = computePitcherXP(data1);
-        const xp2 = computePitcherXP(data2);
+        // Compute XP
+        const xp1 = computeBatterXP(data1);
+        const xp2 = computeBatterXP(data2);
 
         const stats = [
-            ["ERA",  Number(data1.ERA),  Number(data2.ERA),  Number(data1.ERA).toFixed(2),  Number(data2.ERA).toFixed(2)],
-            ["WHIP", Number(data1.WHIP), Number(data2.WHIP), Number(data1.WHIP).toFixed(2), Number(data2.WHIP).toFixed(2)],
-            ["K%",   Number(data1.Kpct), Number(data2.Kpct), Number(data1.Kpct).toFixed(2), Number(data2.Kpct).toFixed(2)],
-            ["BB%",  Number(data1.BBpct),Number(data2.BBpct),Number(data1.BBpct).toFixed(2),Number(data2.BBpct).toFixed(2)],
-            ["K/BB", Number(data1.KBB),  Number(data2.KBB),  Number(data1.KBB).toFixed(2),  Number(data2.KBB).toFixed(2)],
+            ["BA",   data1.BA,    data2.BA,    stripZero(data1.BA.toFixed(3)),    stripZero(data2.BA.toFixed(3))],
+            ["OBP",  data1.OBP,   data2.OBP,   stripZero(data1.OBP.toFixed(3)),   stripZero(data2.OBP.toFixed(3))],
+            ["SLG",  data1.SLG,   data2.SLG,   stripZero(data1.SLG.toFixed(3)),   stripZero(data2.SLG.toFixed(3))],
+            ["K%",   data1.Kpct,  data2.Kpct,  data1.Kpct.toFixed(1),             data2.Kpct.toFixed(1)],
+            ["BB%",  data1.BBpct, data2.BBpct, data1.BBpct.toFixed(1),            data2.BBpct.toFixed(1)],
+
+            // ⭐ XP added here
             ["XP", xp1, xp2, Math.round(xp1), Math.round(xp2)],
-            ["Overall Score", Number(overall1), Number(overall2), Number(overall1).toFixed(2), Number(overall2).toFixed(2)]
+
+            ["Overall Score", overall1, overall2, overall1.toFixed(1), overall2.toFixed(1)]
         ];
 
         const tbody = document.getElementById("compareBody");
@@ -2221,8 +2803,8 @@ async function showCompareModal() {
 
     if (raw1 != null && raw2 != null) {
 
-        // Lower is better
-        if (label === "ERA" || label === "WHIP" || label === "BB%") {
+        // Lower is better for K%
+        if (label === "K%") {
 
             if (raw1 < raw2) {
                 class1 = "win";
@@ -2237,7 +2819,7 @@ async function showCompareModal() {
 
         }
 
-        // Higher is better
+        // Higher is better for everything else
         else {
 
             if (raw1 > raw2) {
@@ -2264,16 +2846,17 @@ async function showCompareModal() {
 
     let differenceDisplay = "--";
 
-    if (
-        label === "ERA" ||
-        label === "WHIP" ||
-        label === "K%" ||
-        label === "BB%" ||
-        label === "K/BB"
-    ) {
+    if (label === "BA" || label === "OBP" || label === "SLG") {
 
         differenceDisplay =
-            `${difference >= 0 ? "+" : ""}${difference.toFixed(2)}`;
+            `${difference >= 0 ? "+" : ""}${difference.toFixed(3)}`;
+
+    }
+
+    else if (label === "K%" || label === "BB%") {
+
+        differenceDisplay =
+            `${difference >= 0 ? "+" : ""}${difference.toFixed(1)}`;
 
     }
 
@@ -2287,13 +2870,13 @@ async function showCompareModal() {
     else if (label === "Overall Score") {
 
         differenceDisplay =
-            `${difference >= 0 ? "+" : ""}${difference.toFixed(2)}`;
+            `${difference >= 0 ? "+" : ""}${difference.toFixed(1)}`;
 
     }
 
 
-    // Color reflects whether Player 1's difference
-    // is favorable, not whether the number is positive.
+    // Difference color represents whether Player 1's
+    // difference is favorable — NOT merely positive.
 
     let differenceClass = "tie";
 
@@ -2326,12 +2909,13 @@ async function showCompareModal() {
     tbody.appendChild(row);
 });
 
+
 // ----------------------------------
 // Comparison Summary
 // ----------------------------------
 
 const comparisonSummary =
-    generatePitcherComparisonSummary(
+    generateBatterComparisonSummary(
         p1_display,
         p2_display,
         data1,
@@ -2345,6 +2929,9 @@ const comparisonSummary =
 document.getElementById("comparisonSummaryText").textContent =
     comparisonSummary;
 
+
+document.getElementById("compareModal").style.display = "flex";
+
         document.getElementById("compareModal").style.display = "flex";
 
     } catch (err) {
@@ -2353,17 +2940,8 @@ document.getElementById("comparisonSummaryText").textContent =
 }
 
 
-
 // -------------------------------
-// Pitching Leaders Function
-// -------------------------------
-function handleLeaders() {
-    leadersRequested = true;   // user explicitly requested leaders
-    loadLeaders();
-}
-
-// -------------------------------
-// Leaders Loader
+// Leaders Button
 // -------------------------------
 async function loadLeaders() {
 
@@ -2371,7 +2949,7 @@ async function loadLeaders() {
         const season = document.getElementById("seasonSelect").value;
 
         const data = await fetch(
-            `https://pitcher-analyzer-backend.onrender.com/api/pitching/leaders?season=${season}`
+            `https://batter-analyzer-backend.onrender.com/api/leaders?season=${season}`
         ).then(r => r.json());
 
         if (!Array.isArray(data)) {
@@ -2382,7 +2960,7 @@ async function loadLeaders() {
         buildLeadersTable(data);
 
     } catch (err) {
-        console.error("Pitching Leaders error:", err);
+        console.error("Leaders error:", err);
         alert("Error loading leaderboard.");
     }
 }
@@ -2394,6 +2972,7 @@ async function loadLeaders() {
 function normalizeName(raw) {
     if (!raw) return raw;
 
+    // Convert raw UTF-8 byte sequences like <c3><ad> into real characters
     let cleaned = raw.replace(/<c3><ad>/g, "í")
                      .replace(/<c3><a1>/g, "á")
                      .replace(/<c3><b1>/g, "ñ")
@@ -2401,27 +2980,29 @@ function normalizeName(raw) {
                      .replace(/<c3><b3>/g, "ó")
                      .replace(/<c3><ba>/g, "ú");
 
+    // Strip accents
     cleaned = cleaned.normalize("NFD").replace(/\p{Diacritic}/gu, "");
 
     return cleaned;
 }
 
 // -------------------------------
-// Leaders Table Builder
+// Leaders Table (BATTERS, MATCHED TO PITCHERS)
 // -------------------------------
+
 function buildLeadersTable(arr) {
     const tbody = document.getElementById("leadersBody");
     tbody.innerHTML = "";
 
     const filtered = arr;
 
-    // Sort by OVERALL score
+    // Sort by OVERALL score (backend computed)
     const sorted = [...filtered].sort((a, b) => b.overall - a.overall);
 
-    // Top 50 pitchers
+    // Top 50
     const top50 = sorted.slice(0, 50);
 
-    // Build table rows (#1–50)
+    // Build table
     top50.forEach((p, index) => {
         const originalPlayer = p.Player;
 
@@ -2455,7 +3036,7 @@ function buildLeadersTable(arr) {
             </td>
         `;
 
-        // Click player name → load into Pitcher Analyzer
+        // Click player name → load into Batter Analyzer
         const playerButton = row.querySelector(".leader-player-link");
 
         playerButton.addEventListener("click", async () => {
@@ -2473,41 +3054,43 @@ function buildLeadersTable(arr) {
 }
 
 // -------------------------------
-// Light Up Fantasy Badge (Pitchers)
+// Light Up Fantasy Badge
 // -------------------------------
 
-// XP tier backbone tuned to new pitcher XP model
-function xpTierPitcher(xp) {
-    if (xp >= 1060) return "breakout";
-    if (xp >= 1025) return "overperformer";
+// XP-only backbone
+function xpTier(xp) {
+    if (xp >= 1200) return "breakout";
+    if (xp >= 1100) return "overperformer";
     if (xp >= 1000) return "sleeper";
-    if (xp >= 975)  return "consistent";
+    if (xp >= 900)  return "consistent";
     return "neutral";
 }
 
-// Skill modifier tuned for pitcher volatility
-function applyPitcherSkillModifier(tier, skill) {
+// Skill modifier (bumps tier up/down)
+function applySkillModifier(tier, skill) {
     const order = ["neutral", "consistent", "sleeper", "overperformer", "breakout"];
     let index = order.indexOf(tier);
 
-    if (skill >= 7.0) index++;     // bump up
-    if (skill <= 5.5) index--;     // bump down
+    if (skill >= 8.0) index++;     // bump up
+    if (skill <= 6.0) index--;     // bump down
 
+    // clamp to valid range
     index = Math.max(0, Math.min(order.length - 1, index));
+
     return order[index];
 }
 
-// Final pitcher classifier
+// Final badge classifier
 function classifyPlayer(xp, skill) {
-    const base = xpTierPitcher(xp);
-    return applyPitcherSkillModifier(base, skill);
+    const base = xpTier(xp);
+    return applySkillModifier(base, skill);
 }
 
 // -------------------------------
-// Calculate Divergence (Pitchers)
+// Calculate Divergence (Fantasy State)
 // -------------------------------
-function calculatePitcherDivergence(xp, overall) {
-    const expectedXP = 961.96 + (13.33 * overall);
+function calculateDivergence(xp, overall) {
+    const expectedXP = 813.86 + (47.78 * overall);
     const divergence = (xp - expectedXP) / expectedXP;
 
     return {
@@ -2518,12 +3101,12 @@ function calculatePitcherDivergence(xp, overall) {
 }
 
 // -------------------------------
-// Divergence → Fantasy State (Pitchers)
+// Divergence → Fantasy State
 // -------------------------------
-function pitcherDivergenceState(divergencePct) {
-    if (divergencePct >= 2.28) return "strong";
-    if (divergencePct >= -2.28) return "stable";
-    if (divergencePct >= -4.56) return "vulnerable";
+function divergenceState(divergencePct) {
+    if (divergencePct > 5) return "strong";
+    if (divergencePct >= -2.5) return "stable";
+    if (divergencePct >= -5) return "vulnerable";
     return "high-risk";
 }
 
@@ -2543,6 +3126,7 @@ function updateFantasyStateMarker(state) {
 
     if (position == null) {
         marker.style.top = "37.5%";
+        marker.style.opacity = "1";
         return;
     }
 
@@ -2564,10 +3148,10 @@ function getFantasyValue(overallDivergence, divergenceSD) {
 
     const z = overallDivergence / divergenceSD;
 
-    if (z <= -1.5) return "extreme";
-    if (z <= -0.5) return "elevated";
-    if (z >= 1.5) return "suppressed";
-    if (z >= 0.5) return "below";
+    if (z >= 1.0) return "extreme";
+    if (z >= 0.5) return "elevated";
+    if (z <= -1.0) return "suppressed";
+    if (z <= -0.5) return "below";
 
     return "expected";
 }
@@ -2589,6 +3173,7 @@ function updateFantasyValueMarker(value) {
 
     if (position == null) {
         marker.style.top = "50%";
+        marker.style.opacity = "1";
         return;
     }
 
@@ -2597,42 +3182,59 @@ function updateFantasyValueMarker(value) {
 }
 
 // -------------------------------
-// Update Fantasy Value Badge
+// Update Fantasy State Badge
 // -------------------------------
-function updateValueBadge(value) {
-    const container = document.getElementById("player-value-key");
+function updateStateBadge(state) {
+    const container = document.getElementById("player-state-key");
 
     if (!container) return;
 
-    container.querySelectorAll(".value-badge").forEach(badge => {
+    container.querySelectorAll(".state-badge").forEach(badge => {
         badge.classList.remove("active");
     });
 
-    const badge = container.querySelector(`.value-badge.${value}`);
+    const badge = container.querySelector(`.state-badge.${state}`);
 
     if (badge) {
         badge.classList.add("active");
     }
 }
 
-// -------------------------------
-// Update State Badge
-// -------------------------------
-function updateStateBadge(state) {
-    clearStateBadges();
 
-    const badge = document.querySelector(`.state-badge.${state}`);
-    if (badge) badge.classList.add("active");
+// -------------------------------
+// Update Fantasy Value Badge
+// -------------------------------
+function updateValueBadge(overallDivergence, divergenceSD) {
+    const container = document.getElementById("player-value-key");
+    if (!container) return;
+
+    container.querySelectorAll(".value-badge").forEach(badge => {
+        badge.classList.remove("active");
+    });
+
+    const valueClass = getFantasyValue(overallDivergence, divergenceSD);
+
+    const badge = container.querySelector(`.value-badge.${valueClass}`);
+
+    if (badge) {
+        badge.classList.add("active");
+    }
 }
 
+
 // -------------------------------
-// Clear State Badges
+// Clear Fantasy State Badges
 // -------------------------------
 function clearStateBadges() {
-    document.querySelectorAll(".state-badge").forEach(badge => {
+    const container = document.getElementById("player-state-key");
+
+    if (!container) return;
+
+    container.querySelectorAll(".state-badge").forEach(badge => {
         badge.classList.remove("active");
     });
 }
+
 
 // -------------------------------
 // Clear Fantasy Value Badges
@@ -2646,6 +3248,7 @@ function clearValueBadges() {
         badge.classList.remove("active");
     });
 }
+
 
 // -------------------------------
 // DOM Badge Update
@@ -2682,23 +3285,9 @@ function updateFantasySummary(identity, state, value) {
     const valueTitle = document.getElementById("summaryValue");
     const valueText  = document.getElementById("summaryValueText");
 
-    if (
-        !identityTitle || !identityText ||
-        !stateTitle || !stateText ||
-        !valueTitle || !valueText
-    ) return;
-
     // -------------------------------
     // Fantasy Identity
     // -------------------------------
-    const identityLabels = {
-        breakout: "Breakout Star",
-        overperformer: "Overperformer",
-        sleeper: "Sleeper Candidate",
-        consistent: "Consistent Performer",
-        neutral: "Neutral"
-    };
-
     const identityDescriptions = {
         breakout:
             "This player's production and underlying profile both indicate high-level performance.",
@@ -2716,16 +3305,17 @@ function updateFantasySummary(identity, state, value) {
             "This player currently does not show a strong Fantasy Identity signal."
     };
 
+    const identityLabels = {
+        breakout: "Breakout Star",
+        overperformer: "Overperformer",
+        sleeper: "Sleeper Candidate",
+        consistent: "Consistent Performer",
+        neutral: "Neutral"
+    };
+
     // -------------------------------
     // Fantasy State
     // -------------------------------
-    const stateLabels = {
-        strong: "Strong",
-        stable: "Stable",
-        vulnerable: "Vulnerable",
-        "high-risk": "High Risk"
-    };
-
     const stateDescriptions = {
         strong:
             "Current production is outperforming the expected level implied by the player's underlying profile.",
@@ -2740,9 +3330,33 @@ function updateFantasySummary(identity, state, value) {
             "Current production is showing significant instability relative to the player's underlying profile."
     };
 
+    const stateLabels = {
+        strong: "Strong",
+        stable: "Stable",
+        vulnerable: "Vulnerable",
+        "high-risk": "High Risk"
+    };
+
     // -------------------------------
     // Fantasy Value
     // -------------------------------
+    const valueDescriptions = {
+        extreme:
+            "This player's overall performance is running far above the expected range.",
+
+        elevated:
+            "This player's overall performance is running above the expected range.",
+
+        expected:
+            "This player's overall performance is within the expected range.",
+
+        below:
+            "This player's overall performance is running below the expected range.",
+
+        suppressed:
+            "This player's overall performance is running well below the expected range."
+    };
+
     const valueLabels = {
         extreme: "Extreme",
         elevated: "Elevated",
@@ -2751,39 +3365,27 @@ function updateFantasySummary(identity, state, value) {
         suppressed: "Suppressed"
     };
 
-    const valueDescriptions = {
-        extreme:
-            "This player's Fantasy Value signal is far above the expected range.",
-
-        elevated:
-            "This player's Fantasy Value signal is above the expected range.",
-
-        expected:
-            "This player's Fantasy Value signal is within the expected range.",
-
-        below:
-            "This player's Fantasy Value signal is below the expected range.",
-
-        suppressed:
-            "This player's Fantasy Value signal is well below the expected range."
-    };
-
 // -------------------------------
 // Update DOM
 // -------------------------------
 
+// Identity
 identityTitle.textContent =
     identityLabels[identity] || "--";
 
 identityText.textContent =
     identityDescriptions[identity] || "";
 
+
+// State
 stateTitle.textContent =
     stateLabels[state] || "--";
 
 stateText.textContent =
     stateDescriptions[state] || "";
 
+
+// Value
 valueTitle.textContent =
     valueLabels[value] || "--";
 
@@ -2794,17 +3396,15 @@ valueText.textContent =
 
 
 // -------------------------------
-// Pitcher Tier Assignment
+// Batter Tier Assignment
 // -------------------------------
-function getPitcherTier(score) {
-    if (score >= 8.5) return "Ace";
-    if (score >= 7.0) return "Top Starter";
-    if (score >= 5.5) return "Mid Rotation";
-    if (score >= 4.0) return "Back End";
-    return "Depth";
+function getBatterTier(score) {
+    if (score >= 8.5) return "Elite";
+    if (score >= 7.0) return "Impact";
+    if (score >= 5.5) return "Solid";
+    if (score >= 4.0) return "Developing";
+    return "Limited";
 }
-
-
 
 
 // -------------------------------
@@ -2826,7 +3426,7 @@ document.getElementById("swapBtn").onclick = function () {
     name2.value = tempName;
     season2.value = tempSeason;
 
-    // FIXED: Trigger the correct load button
+    // Trigger the correct load button
     document.getElementById("loadBtn").click();
 };
 
@@ -2868,21 +3468,12 @@ function renderWatchPlaceholders() {
         placeholderCard;
 }
 
-
 // -------------------------------
 // Reset UI
 // -------------------------------
 function handleReset() {
 
-     // Reset Fantasy Value Marker
-const valueMarker = document.getElementById("valueMarker");
-
-if (valueMarker) {
-    valueMarker.style.top = "50%";
-    valueMarker.style.opacity = "1";
-}
-
-// Reset Fantasy State marker
+        // Reset State Marker
 const stateMarker = document.getElementById("stateMarker");
 
 if (stateMarker) {
@@ -2890,7 +3481,15 @@ if (stateMarker) {
     stateMarker.style.opacity = "1";
 }
 
-     // Reset Overall / XP gauges
+        // Reset Value Marker
+const valueMarker = document.getElementById("valueMarker");
+
+if (valueMarker) {
+    valueMarker.style.top = "50%";
+    valueMarker.style.opacity = "1";
+}
+
+        // Reset Overall / XP gauges
 const overallMeter =
     document.getElementById("overallMeter");
 
@@ -2907,16 +3506,19 @@ if (xpMeter) {
 
     // Clear Season Production
     [
-        "productionIP",
+        "productionAB",
         "productionH",
         "productionR",
-        "productionER",
+        "productionRBI",
+        "productionHR",
         "productionBB",
-        "productionK",
-        "productionHR"
+        "productionK"
     ].forEach(id => {
         document.getElementById(id).textContent = "--";
     });
+
+
+    console.log("RESET FIRED");
 
 
     // Clear What to Watch
@@ -2927,39 +3529,48 @@ if (xpMeter) {
     }
 
 
-    // Clear leader-related UI FIRST
-    clearLeaderState();
-
-
     // Clear raw metric values
     document.querySelectorAll(".metric-raw")
         .forEach(el => el.textContent = "--");
 
 
-    // Clear score values
+    // Clear metric scores
     document.querySelectorAll(".metric-score")
         .forEach(el => el.textContent = "--");
 
 
-    // Clear all batteries (true empty state)
+    // Clear batteries
     document.querySelectorAll(".battery").forEach(el => {
-        el.style.setProperty("--fill", "1%");
-        void el.offsetWidth;
         el.style.setProperty("--fill", "0%");
         el.style.setProperty("--color", "#d50000");
     });
 
 
     // Clear Player Analytics
-    document.getElementById("overallScore").textContent = "--";
-    document.getElementById("overallTier").innerHTML = "--";
-    document.getElementById("scoutingNote").innerHTML = "--";
-    document.getElementById("overallPercentile").textContent = "--";
-    document.getElementById("xpScore").innerHTML = "--";
-    document.getElementById("playerTab").textContent = "Player:--";
+document.getElementById("overallScore").textContent = "--";
+
+document.getElementById("parkAdjustedOverall").textContent = "--";
+
+const parkAdjustment = document.getElementById("parkAdjustment");
+parkAdjustment.textContent = "";
+parkAdjustment.classList.remove(
+    "positive",
+    "negative",
+    "neutral",
+    "premium-label"
+);
+
+document.getElementById("parkVenue").textContent = "--";
+document.getElementById("parkFactor").textContent = "--";
+
+document.getElementById("overallTier").innerHTML = "--";
+document.getElementById("scoutingNote").innerHTML = "--";
+document.getElementById("overallPercentile").textContent = "--";
+document.getElementById("xpScore").innerHTML = "--";
+document.getElementById("playerTab").textContent = "Player:--";
 
 
-    // Clear Fantasy Edge badges
+    // Clear Fantasy Edge badges/What to Watch
     clearIdentityBadges();
     clearStateBadges();
     clearValueBadges();
@@ -2981,29 +3592,19 @@ if (xpMeter) {
     document.getElementById("summaryValueText").textContent =
         "Load a player to view their Fantasy Value analysis.";
 
-// -------------------------------
-// Restore Access UI
-// -------------------------------
-
+    console.log("RESET: about to restore access UI");
 updateAccessUI();
-
 }
-
-
-
-
 // -------------------------------
 // Latest Update Timestamp Defined
 // -------------------------------
-
 const currentSeason = document.getElementById("seasonSelect").value;
-
 
 // -------------------------------
 // Latest Update Timestamp (Improved)
 // -------------------------------
 async function loadLastUpdated(season) {
-    const url = `https://pitcher-analyzer-backend.onrender.com/api/last-updated/pitchers/${season}`;
+    const url = `https://batter-analyzer-backend.onrender.com/api/last-updated/batters/${season}`;
 
     try {
         const res = await fetch(url);
@@ -3040,63 +3641,87 @@ async function loadLastUpdated(season) {
     }
 }
 
-
 // -------------------------------
 // Wire up UI buttons
 // -------------------------------
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    renderWatchPlaceholders(); 
+    renderWatchPlaceholders();
 
-    document.getElementById("loadBtn").addEventListener("click", handleLoad);
-    document.getElementById("resetBtn").addEventListener("click", handleReset);
+    // Main buttons
+    document.getElementById("loadBtn")
+        .addEventListener("click", handleLoad);
+
+    document.getElementById("resetBtn")
+        .addEventListener("click", handleReset);
+
+
+    // ------------------------------
+    // All Access Buttons
+    // ------------------------------
+
     document.getElementById("compareBtn")
-    .addEventListener("click", () => {
+        .addEventListener("click", () => {
 
-        if (!requireAllAccess("Player Comparison")) {
-            return;
-        }
+            if (!requireAllAccess("Player Comparison")) {
+                return;
+            }
 
-        showCompareModal();
-    });
+            showCompareModal();
+        });
 
 
+    document.getElementById("leadersBtn")
+        .addEventListener("click", () => {
+
+            if (!requireAllAccess("Leaders")) {
+                return;
+            }
+
+            loadLeaders();
+        });
+
+
+    document.getElementById("trendBtn")
+        .addEventListener("click", () => {
+
+            if (!requireAllAccess("Trend Analysis")) {
+                return;
+            }
+
+            handleTrend();
+        });
+
+
+    // Apply Free Trial / All Access appearance
+    updateAccessUI();
+
+
+    // Timestamp
     loadLastUpdated(currentSeason);
 
-    // Trend button
-document.getElementById("trendBtn")
-    .addEventListener("click", () => {
-
-        if (!requireAllAccess("Trend Analysis")) {
-            return;
-        }
-
-        handleTrend();
-    });
-
-
-// Leaders button
-document.getElementById("leadersBtn")
-    .addEventListener("click", () => {
-
-        if (!requireAllAccess("Leaders")) {
-            return;
-        }
-
-        loadLeaders();
-    });
-
-updateAccessUI();
 
     // Close modals
     document.getElementById("trendClose").onclick = () =>
         document.getElementById("trendModal").style.display = "none";
 
+    document.getElementById("leadersClose").onclick = () =>
+        document.getElementById("leadersModal").style.display = "none";
+
     document.getElementById("compareClose").onclick = () =>
         document.getElementById("compareModal").style.display = "none";
 
-    // Close Leaders modal
-    document.getElementById("leadersClose").onclick = () =>
-        document.getElementById("leadersModal").style.display = "none";
+
+    // Click outside to close Leaders
+    window.addEventListener("click", (e) => {
+
+        const modal =
+            document.getElementById("leadersModal");
+
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+
+    });
+
 });
