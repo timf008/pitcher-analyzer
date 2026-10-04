@@ -348,35 +348,35 @@ body {
 /* Load */
 
 #loadBtn {
-    background: linear-gradient(135deg, #0b365f, #0767b2);
+    background: linear-gradient(135deg, #003D99);
 }
 
 
 /* Trend */
 
 #trendBtn {
-    background: linear-gradient(135deg, #172b40, #304d68);
+    background: linear-gradient(135deg, #003D99);
 }
 
 
 /* Compare */
 
 #compareBtn {
-    background: linear-gradient(135deg, #493576, #7053aa);
+    background: linear-gradient(135deg, #003D99);
 }
 
 
 /* Leaders */
 
 #leadersBtn {
-    background: linear-gradient(135deg, #9a6a08, #d3a127);
+    background: linear-gradient(135deg, #003D99);
 }
 
 
 /* Swap */
 
 #swapBtn {
-    background: linear-gradient(135deg, #176477, #2b91a1);
+    background: linear-gradient(135deg, #003D99);
 }
 
 
