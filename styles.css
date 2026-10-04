@@ -3031,49 +3031,65 @@ select:focus {
     }
 }
 
-/* ------------------------------
-   What to Watch
------------------------------- */
+/* ==========================================
+   WHAT TO WATCH PARENT PANEL
+========================================== */
 
 .watch-section {
     margin-top: 24px;
-    padding: 18px 20px 20px;
+
+    padding: 18px 22px 22px;
 
     background: #f8fbff;
-    border: 1px solid #cbd6e2;
-    border-radius: 12px;
 
-    box-shadow: 0 2px 8px rgba(15, 36, 62, 0.06);
+    border: 1px solid #cbd6e2;
+    border-radius: 16px;
+
+    box-shadow: none;
 }
 
 
-/* ------------------------------
-   Header
------------------------------- */
+/* ==========================================
+   HEADER
+========================================== */
 
 .watch-header {
     display: flex;
     align-items: center;
-    gap: 14px;
 
-    margin-bottom: 16px;
+    gap: 28px;
+
+    margin-bottom: 26px;
 }
+
 
 .watch-header h3 {
     margin: 0;
 
+    color: #0f243e;
+
     font-size: 18px;
     font-weight: 800;
-    letter-spacing: 2px;
 
-    color: #0f243e;
+    letter-spacing: 1.5px;
 
     white-space: nowrap;
 }
 
-.watch-header::after {
-    content: "";
 
+.watch-subtitle {
+    color: #748399;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+}
+
+
+.watch-header-line {
     flex: 1;
 
     height: 1px;
@@ -3081,81 +3097,126 @@ select:focus {
     background: #cbd6e2;
 }
 
-.watch-header span {
-    font-size: 12px;
+
+/* ==========================================
+   CARD GRID
+========================================== */
+
+.watch-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 14px;
+
+    padding: 0;
+}
+
+
+/* ==========================================
+   WATCH CARD
+========================================== */
+
+.watch-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 195px;
+
+    padding: 13px;
+
+    background: #ffffff;
+
+    border: 1px solid #dce4ec;
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    box-shadow: none;
+}
+
+
+/* Colored top rail */
+
+.watch-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 4px;
+}
+
+
+/* ==========================================
+   CARD TOP
+========================================== */
+
+.watch-card-top {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 2px;
+    margin-bottom: 11px;
+}
+
+
+/* ==========================================
+   CARD ICON
+========================================== */
+
+.watch-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    flex: 0 0 28px;
+
+    border-radius: 50%;
+
+    color: #ffffff;
+
+    font-size: 17px;
     font-weight: 700;
-    letter-spacing: 1px;
 
-    text-transform: uppercase;
+    line-height: 1;
+}
 
-    color: #6f7b89;
+
+/* ==========================================
+   STATUS BADGE
+========================================== */
+
+.watch-status {
+    padding: 4px 7px;
+
+    border: 1px solid;
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 0.7px;
 
     white-space: nowrap;
 }
 
 
-/* ------------------------------
-   Card Grid
------------------------------- */
-
-.watch-grid {
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 14px;
-}
-
-
-/* ------------------------------
-   Individual Card
------------------------------- */
-
-.watch-card {
-    display: flex;
-    align-items: flex-start;
-
-    gap: 14px;
-
-    min-height: 120px;
-
-    padding: 16px;
-
-    background: white;
-
-    border: 1px solid #d6dee7;
-    border-radius: 10px;
-
-    box-sizing: border-box;
-}
-
-
-/* ------------------------------
-   Icon
------------------------------- */
-
-.watch-icon {
-    flex: 0 0 38px;
-
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    font-size: 22px;
-    font-weight: 900;
-
-    color: white;
-}
-
-
-/* ------------------------------
-   Card Text Area
------------------------------- */
+/* ==========================================
+   CONTENT
+========================================== */
 
 .watch-content {
     flex: 1;
@@ -3163,129 +3224,249 @@ select:focus {
     min-width: 0;
 }
 
+
 .watch-title {
-    margin-bottom: 6px;
+    margin-bottom: 7px;
+
+    color: #0f243e;
 
     font-size: 16px;
-    font-weight: 800;
+    font-weight: 700;
+
+    line-height: 1.15;
 
     text-transform: uppercase;
 }
 
+
 .watch-text {
+    color: #33485f;
+
     font-size: 14px;
 
     line-height: 1.4;
-
-    color: #28323d;
 }
+
+
+/* ==========================================
+   EVIDENCE STRIP
+========================================== */
+
+.watch-evidence {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1px 1fr;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 12px;
+
+    padding: 8px 6px;
+
+    background: #f4f8fc;
+
+    border-top: 1px solid #dce6ef;
+    border-radius: 7px;
+}
+
 
 .watch-stat {
-    margin-top: 10px;
+    min-width: 0;
 
-    font-size: 13px;
+    margin: 0;
+
+    text-align: center;
+}
+
+
+.watch-stat-label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #74869a;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 0.7px;
+}
+
+
+.watch-stat-value {
+    display: block;
+
+    color: #0f243e;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+
+.watch-divider {
+    width: 1px;
+    height: 30px;
+
+    background: #d4dfea;
+}
+
+
+.watch-score {
+    display: inline-block;
+
+    padding: 3px 6px;
+
+    border-radius: 6px;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+
+.watch-score small {
+    font-size: 14px;
     font-weight: 700;
-
-    color: #77818d;
 }
 
 
-/* ------------------------------
-   GOOD / STRENGTH
------------------------------- */
+/* ==========================================
+   STRENGTH / GOOD
+========================================== */
 
-.watch-good {
-    background: #f1fbf5;
-
-    border-color: #b9dfc6;
+.watch-good::before {
+    background: #18b66a;
 }
+
 
 .watch-good .watch-icon {
-    background: #16a05d;
-}
-
-.watch-good .watch-title {
-    color: #13894f;
+    background: #12a960;
 }
 
 
-/* ------------------------------
-   NEUTRAL / MONITOR
------------------------------- */
+.watch-good .watch-status {
+    background: #e9f8f0;
 
-.watch-neutral {
-    background: #fff9ef;
+    border-color: #c3ead5;
 
-    border-color: #f0cf94;
+    color: #07904e;
 }
+
+
+.watch-good .watch-score {
+    background: #e7f8ef;
+
+    color: #0a9d55;
+}
+
+
+/* ==========================================
+   MONITOR / NEUTRAL
+========================================== */
+
+.watch-neutral::before {
+    background: #f5a623;
+}
+
 
 .watch-neutral .watch-icon {
     background: #f5a623;
 }
 
-.watch-neutral .watch-title {
-    color: #e47e00;
+
+.watch-neutral .watch-status {
+    background: #fff6e7;
+
+    border-color: #f2d6a6;
+
+    color: #cf7d00;
 }
 
 
-/* ------------------------------
-   BAD / CONCERN
------------------------------- */
+.watch-neutral .watch-score {
+    background: #fff5e5;
 
-.watch-bad {
-    background: #fff4f4;
-
-    border-color: #e7b5b5;
+    color: #d47d00;
 }
+
+
+/* ==========================================
+   CONCERN / BAD
+========================================== */
+
+.watch-bad::before {
+    background: #df554d;
+}
+
 
 .watch-bad .watch-icon {
-    background: #d50000;
-}
-
-.watch-bad .watch-title {
-    color: #c30000;
+    background: #d94d46;
 }
 
 
-/* ------------------------------
-   Mobile
------------------------------- */
+.watch-bad .watch-status {
+    background: #fff0ef;
 
-@media (max-width: 850px) {
+    border-color: #f2cfcc;
+
+    color: #c9433c;
+}
+
+
+.watch-bad .watch-score {
+    background: #fff0ef;
+
+    color: #c9433c;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
 
     .watch-section {
-        padding: 16px;
+        padding: 20px 16px;
     }
 
-    .watch-grid {
-        grid-template-columns: 1fr;
-    }
 
     .watch-header {
         flex-wrap: wrap;
 
         gap: 6px;
+
+        margin-bottom: 18px;
     }
 
-    .watch-header::after {
+
+    .watch-header-line {
         display: none;
     }
 
-    .watch-header span {
+
+    .watch-subtitle {
         width: 100%;
 
         white-space: normal;
     }
 
-    .watch-title {
-        font-size: 15px;
+
+    .watch-grid {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
     }
+
 
     .watch-card {
         min-height: auto;
     }
 
 }
+
 
 /* --------------------------------
    What to Watch - Placeholder State
