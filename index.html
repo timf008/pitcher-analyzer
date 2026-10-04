@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pitcher Analyzer (Stathead Edition)</title>
+    <title>Batter Analyzer (Stathead Edition)</title>
     <link rel="stylesheet" href="styles.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
 
-    <div class="container">
+<div class="container">
 
 <!-- Header -->
     <header class="header">
-    <img src="images/pitcher_analyzer.png" class="pitcher-analyzer" alt="Pitcher Analyzer">
+    <img src="images/batter_analyzer.png" class="batter-analyzer" alt="Batter Analyzer">
 
 <div class="analyzer-tagline">
     ANALYTICS <span>•</span> EVALUATION <span>•</span> INSIGHTS
@@ -21,41 +21,40 @@
 
 </header>
 
-<div id="player-ticker">
+<div id="batter-ticker">
 
     <div class="ticker-label">
         <span class="ticker-star">★</span>
     </div>
 
     <div class="ticker-player">
-
         <strong>
-            <span id="pod-name">...</span>
-            (<span id="pod-team">...</span>)
+            <span id="bod-name">...</span>
+            (<span id="bod-team">...</span>)
         </strong>
 
         <span class="ticker-divider"></span>
 
         <span>
-            OVR <strong id="pod-overall">...</strong>
+            OVR <strong id="bod-overall">...</strong>
         </span>
 
         <span class="ticker-divider"></span>
 
         <span>
-            XP <strong id="pod-xp">...</strong>
+            XP <strong id="bod-xp">...</strong>
         </span>
 
         <span class="ticker-divider"></span>
 
-        <span id="pod-record" class="ticker-summary">...</span>
-
+        <span id="bod-summary" class="ticker-summary">...</span>
     </div>
 
 </div>
 
 <section class="search-panel">
 
+    <!-- Player Search Header -->
     <div class="search-header">
         <h2>👤 Player Search</h2>
     </div>
@@ -68,6 +67,7 @@
             <!-- Player Inputs -->
             <section class="controls search-input-row">
 
+
                 <!-- Player 1 -->
                 <div class="player-search-group">
 
@@ -78,7 +78,7 @@
                             <input
                                 type="text"
                                 id="playerName"
-                                placeholder="Tarik Skubal"
+                                placeholder="Kyle Schwarber"
                                 autocomplete="off"
                             >
 
@@ -118,7 +118,7 @@
                             <input
                                 type="text"
                                 id="playerName2"
-                                placeholder="Paul Skenes"
+                                placeholder="Aaron Judge"
                                 autocomplete="off"
                             >
 
@@ -228,7 +228,6 @@
 
 </section>
 
-
 <!-- ==========================================
      SEASON PRODUCTION
 ========================================== -->
@@ -244,8 +243,8 @@
     <div class="season-production-grid">
 
         <div class="production-stat">
-            <span class="production-label">IP</span>
-            <strong id="productionIP">--</strong>
+            <span class="production-label">AB</span>
+            <strong id="productionAB">--</strong>
         </div>
 
         <div class="production-stat">
@@ -259,8 +258,13 @@
         </div>
 
         <div class="production-stat">
-            <span class="production-label">ER</span>
-            <strong id="productionER">--</strong>
+            <span class="production-label">RBI</span>
+            <strong id="productionRBI">--</strong>
+        </div>
+
+        <div class="production-stat">
+            <span class="production-label">HR</span>
+            <strong id="productionHR">--</strong>
         </div>
 
         <div class="production-stat">
@@ -273,16 +277,11 @@
             <strong id="productionK">--</strong>
         </div>
 
-        <div class="production-stat">
-            <span class="production-label">HR</span>
-            <strong id="productionHR">--</strong>
-        </div>
-
     </div>
 
 </section>
 
-        <!-- Metric Grid -->
+    <!-- Metric Grid -->
 <section class="metrics">
 
     <div class="metrics-columns">
@@ -294,34 +293,47 @@
 
     <div class="metric-row">
         <div class="metric-name">
-            <span class="metric-label">ERA</span>
-            <span class="metric-direction">LOWER IS BETTER</span>
+            <span class="metric-label">BA</span>
+            <span class="metric-direction">HIGHER IS BETTER</span>
         </div>
 
-        <span class="metric-raw" id="raw-era">--</span>
+        <span class="metric-raw" id="raw-ba">--</span>
 
-        <div class="battery" id="battery-era"></div>
+        <div class="battery" id="battery-ba"></div>
 
-        <span class="metric-score" id="score-era">--</span>
+        <span class="metric-score" id="score-ba">--</span>
     </div>
 
     <div class="metric-row">
         <div class="metric-name">
-            <span class="metric-label">WHIP</span>
-            <span class="metric-direction">LOWER IS BETTER</span>
+            <span class="metric-label">OBP</span>
+            <span class="metric-direction">HIGHER IS BETTER</span>
         </div>
 
-        <span class="metric-raw" id="raw-whip">--</span>
+        <span class="metric-raw" id="raw-obp">--</span>
 
-        <div class="battery" id="battery-whip"></div>
+        <div class="battery" id="battery-obp"></div>
 
-        <span class="metric-score" id="score-whip">--</span>
+        <span class="metric-score" id="score-obp">--</span>
+    </div>
+
+    <div class="metric-row">
+        <div class="metric-name">
+            <span class="metric-label">SLG</span>
+            <span class="metric-direction">HIGHER IS BETTER</span>
+        </div>
+
+        <span class="metric-raw" id="raw-slg">--</span>
+
+        <div class="battery" id="battery-slg"></div>
+
+        <span class="metric-score" id="score-slg">--</span>
     </div>
 
     <div class="metric-row">
         <div class="metric-name">
             <span class="metric-label">K%</span>
-            <span class="metric-direction">HIGHER IS BETTER</span>
+            <span class="metric-direction">LOWER IS BETTER</span>
         </div>
 
         <span class="metric-raw" id="raw-kpct">--</span>
@@ -334,7 +346,7 @@
     <div class="metric-row">
         <div class="metric-name">
             <span class="metric-label">BB%</span>
-            <span class="metric-direction">LOWER IS BETTER</span>
+            <span class="metric-direction">HIGHER IS BETTER</span>
         </div>
 
         <span class="metric-raw" id="raw-bbpct">--</span>
@@ -344,20 +356,7 @@
         <span class="metric-score" id="score-bbpct">--</span>
     </div>
 
-    <div class="metric-row">
-        <div class="metric-name">
-            <span class="metric-label">K/BB</span>
-            <span class="metric-direction">HIGHER IS BETTER</span>
-        </div>
-
-        <span class="metric-raw" id="raw-kbb">--</span>
-
-        <div class="battery" id="battery-kbb"></div>
-
-        <span class="metric-score" id="score-kbb">--</span>
-    </div>
 </section>
-
 
 <hr>
 
@@ -390,34 +389,41 @@
 
             <div class="overall-top">
 
-    <p>
-        Overall Score:
-        <span id="overallScore">--</span>
+                <p>
+    Overall Score:
+    <span id="overallScore">--</span>
 
-        <span class="analytics-meter">
-            <span class="analytics-meter-fill" id="overallMeter"></span>
-        </span>
-    </p>
+    <span class="analytics-meter">
+        <span class="analytics-meter-fill" id="overallMeter"></span>
+    </span>
+</p>
 
-    <p>
-        XP:
-        <span id="xpScore">--</span>
+<p>
+    XP:
+    <span id="xpScore">--</span>
 
-        <span class="analytics-meter">
-            <span class="analytics-meter-fill" id="xpMeter"></span>
-        </span>
-    </p>
+    <span class="analytics-meter">
+        <span class="analytics-meter-fill" id="xpMeter"></span>
+    </span>
+</p>
 
-    <p>
-        Tier:
-        <span id="overallTier">--</span>
-    </p>
+                <p>
+                    Tier:
+                    <span id="overallTier">--</span>
+                </p>
 
-</div>
+                <p>
+                    Park Adjusted:
+                    <span id="parkAdjustedOverall">--</span>
+                    <span id="parkAdjustment"></span>
+                </p>
+
+            </div>
 
             <div class="scouting-note">
 
                 <div class="scouting-content">
+
                     <div class="scouting-title">
                         <svg class="scouting-note-icon"
      viewBox="0 0 24 24"
@@ -440,11 +446,20 @@
                     </div>
 
                     <p id="scoutingNote">--</p>
+
                 </div>
 
                 <div class="percentile-box">
+
                     <span class="percentile-label">PERCENTILE</span>
                     <span id="overallPercentile">--</span>
+
+                    <div class="park-context">
+                        <span class="park-context-label">PARK CONTEXT</span>
+                        <span id="parkVenue">--</span>
+                        <span id="parkFactor">--</span>
+                    </div>
+
                 </div>
 
             </div>
@@ -459,8 +474,15 @@
 <div class="watch-section">
 
     <div class="watch-header">
+
         <h3>WHAT TO WATCH</h3>
-        <span>Key strengths and areas to monitor</span>
+
+        <span class="watch-subtitle">
+            KEY STRENGTHS AND AREAS TO MONITOR
+        </span>
+
+        <span class="watch-header-line"></span>
+
     </div>
 
     <div class="watch-grid" id="watchGrid">
@@ -524,23 +546,25 @@
 
     <div class="fantasy-premium-lock" id="fantasyPremiumLock" hidden>
 
-    <div class="fantasy-premium-icon">🔒</div>
+        <div class="fantasy-premium-icon">
+            🔒
+        </div>
 
-    <div class="fantasy-premium-badge">
-        ALL ACCESS
+        <div class="fantasy-premium-badge">
+            ALL ACCESS
+        </div>
+
+        <div class="fantasy-premium-title">
+            Unlock Fantasy Edge
+        </div>
+
+        <div class="fantasy-premium-text">
+            Fantasy Identity • Fantasy State • Fantasy Value
+        </div>
+
     </div>
 
-    <div class="fantasy-premium-title">
-        Unlock Fantasy Edge
-    </div>
-
-    <div class="fantasy-premium-text">
-        Fantasy Identity • Fantasy State • Fantasy Value
-    </div>
-
-</div>
-
-<div id="fantasyPremiumContent">
+    <div id="fantasyPremiumContent">
 
         <div class="fantasy-summary-header">
 
@@ -614,7 +638,7 @@
             </div>
 
 
-            <!-- State -->
+<!-- State -->
 <div class="fantasy-summary-item state-summary-card">
 
     <div class="summary-card-label">
@@ -630,42 +654,41 @@
     <div class="summary-accent"></div>
 
     <!-- Fantasy State Context -->
-    <div class="state-context" id="stateContext">
+<div class="state-context" id="stateContext">
 
-        <div class="state-scale">
+    <div class="state-scale">
 
-            <div class="state-bands">
+        <div class="state-bands">
 
-                <div class="state-band strong">
-                    <span>STRONG</span>
-                    <small>+2.28%</small>
-                </div>
-
-                <div class="state-band stable">
-                    <span>STABLE</span>
-                    <small>-2.28%</small>
-                </div>
-
-                <div class="state-band vulnerable">
-                    <span>VULNERABLE</span>
-                    <small>-4.56%</small>
-                </div>
-
-                <div class="state-band high-risk">
-                    <span>HIGH RISK</span>
-                    <small>&lt; -4.56%</small>
-                </div>
-
+            <div class="state-band strong">
+                <span>STRONG</span>
+                <small>+5.0%</small>
             </div>
 
-            <!-- Position Rail -->
-            <div class="state-rail">
-                <div class="state-marker" id="stateMarker"></div>
+            <div class="state-band stable">
+                <span>STABLE</span>
+                <small>-2.5%</small>
+            </div>
+
+            <div class="state-band vulnerable">
+                <span>VULNERABLE</span>
+                <small>-5.0%</small>
+            </div>
+
+            <div class="state-band high-risk">
+                <span>HIGH RISK</span>
+                <small>&lt; -5.0%</small>
             </div>
 
         </div>
 
+        <div class="state-rail">
+            <div class="state-marker" id="stateMarker"></div>
+        </div>
+
     </div>
+
+</div>
 
     <p id="summaryStateText">
         Load a player to view their Fantasy State analysis.
@@ -674,7 +697,7 @@
 </div>
 
 
-            <!-- Value -->
+<!-- Value -->
 <div class="fantasy-summary-item value-summary-card">
 
     <div class="summary-card-label">
@@ -690,47 +713,46 @@
     <div class="summary-accent"></div>
 
     <!-- Fantasy Value Context -->
-    <div class="value-context" id="valueContext">
+<div class="value-context" id="valueContext">
 
-        <div class="value-scale">
+    <div class="value-scale">
 
-            <div class="value-bands">
+        <div class="value-bands">
 
-                <div class="value-band extreme">
-    <span>EXTREME</span>
-    <small>-1.5σ</small>
-</div>
-
-<div class="value-band elevated">
-    <span>ELEVATED</span>
-    <small>-0.5σ</small>
-</div>
-
-<div class="value-band expected">
-    <span>EXPECTED</span>
-    <small>0σ</small>
-</div>
-
-<div class="value-band below">
-    <span>BELOW</span>
-    <small>+0.5σ</small>
-</div>
-
-<div class="value-band suppressed">
-    <span>SUPPRESSED</span>
-    <small>+1.5σ</small>
-</div>
-
+            <div class="value-band extreme">
+                <span>EXTREME</span>
+                <small>+1.0σ</small>
             </div>
 
-            <!-- Position Rail -->
-            <div class="value-rail">
-                <div class="value-marker" id="valueMarker"></div>
+            <div class="value-band elevated">
+                <span>ELEVATED</span>
+                <small>+0.5σ</small>
+            </div>
+
+            <div class="value-band expected">
+                <span>EXPECTED</span>
+                <small>0σ</small>
+            </div>
+
+            <div class="value-band below">
+                <span>BELOW</span>
+                <small>-0.5σ</small>
+            </div>
+
+            <div class="value-band suppressed">
+                <span>SUPPRESSED</span>
+                <small>-1.0σ</small>
             </div>
 
         </div>
 
+        <div class="value-rail">
+            <div class="value-marker" id="valueMarker"></div>
+        </div>
+
     </div>
+
+</div>
 
     <p id="summaryValueText">
         Load a player to view their Fantasy Value analysis.
@@ -738,20 +760,19 @@
 
 </div>
 
-<div class="fantasy-summary-info">
-    <span class="summary-info-icon">i</span>
+        </div>
 
-    Fantasy Edge combines production, skill quality, and divergence
-    to provide a complete view of a player's fantasy profile.
+
+        <div class="fantasy-summary-info">
+            <span class="summary-info-icon">i</span>
+
+            Fantasy Edge combines production, skill quality, and divergence
+            to provide a complete view of a player's fantasy profile.
+        </div>
+
+    </div>
+
 </div>
-
-</div> <!-- fantasyPremiumContent -->
-
-</div> <!-- fantasySummary -->
-
-</div> <!-- fantasy-edge-panel -->
-
-<hr>
 
 <!-- Trend Modal (Season Comparison) -->
 <div id="trendModal" class="modal hidden">
@@ -761,9 +782,9 @@
         <div class="trend-header">
 
             <div>
-                <h2 id="trendTitle">Season Comparison</h2>
+                <h2 id="trendTitle">Season Comparison (Batting)</h2>
                 <div class="trend-subtitle">
-                    Year-over-year performance by key metrics
+                    Year-over-year performance by key batting metrics
                 </div>
             </div>
 
@@ -778,29 +799,29 @@
             </div>
 
 <!-- Trend Analysis -->
-            <div id="trendAnalysis" class="trend-analysis">
+    <div id="trendAnalysis" class="trend-analysis">
 
-                <div class="trend-analysis-icon">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <line x1="5" y1="20" x2="5" y2="14"></line>
-                        <line x1="12" y1="20" x2="12" y2="9"></line>
-                        <line x1="19" y1="20" x2="19" y2="4"></line>
-                    </svg>
-                </div>
+        <div class="trend-analysis-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="5" y1="20" x2="5" y2="14"></line>
+                <line x1="12" y1="20" x2="12" y2="9"></line>
+                <line x1="19" y1="20" x2="19" y2="4"></line>
+            </svg>
+        </div>
 
-                <div class="trend-analysis-content">
+        <div class="trend-analysis-content">
 
-                    <div class="trend-analysis-title">
-                        Trend Analysis
-                    </div>
-
-                    <div id="trendAnalysisText" class="trend-analysis-text">
-                        --
-                    </div>
-
-                </div>
-
+            <div class="trend-analysis-title">
+                Trend Analysis
             </div>
+
+            <div id="trendAnalysisText" class="trend-analysis-text">
+                --
+            </div>
+
+        </div>
+
+    </div>
 
             <div class="trend-footer">
                 Trend shows the direction of change between seasons.
@@ -821,9 +842,9 @@
         <div class="compare-header">
 
             <div>
-                <h2 id="compareTitle">Pitcher Comparison</h2>
+                <h2 id="compareTitle">Batter Comparison</h2>
                 <div class="compare-subtitle">
-                    Side-by-side comparison of key pitching metrics
+                    Side-by-side comparison of key batting metrics
                 </div>
             </div>
 
@@ -844,9 +865,7 @@
                     </tr>
                 </thead>
 
-                <tbody id="compareBody">
-                    <!-- Filled dynamically -->
-                </tbody>
+                <tbody id="compareBody"></tbody>
 
             </table>
 
@@ -878,27 +897,23 @@
 
 </div>
 
+
 <div id="leadersModal" class="modal">
 
     <div class="modal-content leaders-modal">
 
         <div class="leaders-header">
-
             <div>
                 <h2 id="leadersTitle">League Leaders</h2>
-                <div class="leaders-subtitle">
-                    Top 50 • Sorted by Overall Score
-                </div>
+                <div class="leaders-subtitle">Top 50 • Sorted by Overall Score</div>
             </div>
 
             <span id="leadersClose" class="close">&times;</span>
-
         </div>
 
         <div class="leaders-table-wrap">
 
             <table class="leaders-table">
-
                 <thead>
                     <tr>
                         <th>#</th>
@@ -913,7 +928,6 @@
                 <tbody id="leadersBody">
                     <!-- JS will inject rows here -->
                 </tbody>
-
             </table>
 
         </div>
@@ -922,18 +936,22 @@
 
 </div>
 
+</div>
 
-
-        <footer class="footer">
-            <small>Data source: Stathead (Sports Reference). Pitcher Analyzer – personal analytics tool.</small>
-<div id="lastUpdated"></div>
+    <footer class="footer">
+    <small>Data source: Stathead (Sports Reference). Batter Analyzer – personal analytics tool.</small>
+    <div id="lastUpdated"></div>
 <span class="version-label">V 1.0.1</span>
-        </footer>
+</footer>
 
-    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<!-- Load login system first -->
+<script src="https://raw.githubusercontent.com/timf008/timf008.github.io/main/login.js"></script>
 
+<!-- Load Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<!-- Load batter analyzer logic -->
 <script src="app.js"></script>
 
 </body>
