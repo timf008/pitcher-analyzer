@@ -2180,234 +2180,375 @@ async function showCompareModal() {
 
     console.log("COMPARE BUTTON CLICKED");
 
-    function formatName(name) {
-        return name
-            .split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
-    }
-
     try {
-        const p1_raw = document.getElementById("playerName").value.trim();
-        const s1 = document.getElementById("seasonSelect").value;
 
-        const p2_raw = document.getElementById("playerName2").value.trim();
-        const s2 = document.getElementById("seasonSelect2").value;
+        const p1_raw =
+            document.getElementById("playerName").value.trim();
+
+        const s1 =
+            document.getElementById("seasonSelect").value;
+
+        const p2_raw =
+            document.getElementById("playerName2").value.trim();
+
+        const s2 =
+            document.getElementById("seasonSelect2").value;
+
+
+        // -------------------------------
+        // Validate
+        // -------------------------------
 
         if (!p1_raw || !p2_raw) {
             alert("Enter both pitcher names.");
             return;
         }
 
-        const data1Arr = await loadPitcher(p1_raw, s1, true);
-        const data2Arr = await loadPitcher(p2_raw, s2, true);
 
-        const data1 = Array.isArray(data1Arr) ? data1Arr[0] : data1Arr;
-        const data2 = Array.isArray(data2Arr) ? data2Arr[0] : data2Arr;
+        // -------------------------------
+        // Load Pitchers
+        // -------------------------------
 
-        if (!data1 || data1.error || !data2 || data2.error) {
+        const data1Arr =
+            await loadPitcher(p1_raw, s1, true);
+
+        const data2Arr =
+            await loadPitcher(p2_raw, s2, true);
+
+        const data1 =
+            Array.isArray(data1Arr)
+                ? data1Arr[0]
+                : data1Arr;
+
+        const data2 =
+            Array.isArray(data2Arr)
+                ? data2Arr[0]
+                : data2Arr;
+
+
+        if (
+            !data1 ||
+            data1.error ||
+            !data2 ||
+            data2.error
+        ) {
             alert("One or both pitchers not found.");
             return;
         }
 
-        if (data1.ERA == null || data2.ERA == null) {
+
+        if (
+            data1.ERA == null ||
+            data2.ERA == null
+        ) {
             alert("Not enough data for comparison.");
             return;
         }
 
-        const p1_display = formatName(data1.Name || p1_raw);
-        const p2_display = formatName(data2.Name || p2_raw);
 
-        document.getElementById("compareName1").textContent = `${p1_display} (${s1})`;
-        document.getElementById("compareName2").textContent = `${p2_display} (${s2})`;
+        // -------------------------------
+        // Player Names
+        // -------------------------------
 
-        const s1_ERA   = scoreERA(data1.ERA);
-        const s1_WHIP  = scoreWHIP(data1.WHIP);
-        const s1_Kpct  = scoreKpct(data1.Kpct);
-        const s1_BBpct = scoreBBpct(data1.BBpct);
-        const s1_KBB   = scoreKBB(data1.KBB);
+        const p1_display =
+            toTitleCase(data1.Name || p1_raw);
 
-        const s2_ERA   = scoreERA(data2.ERA);
-        const s2_WHIP  = scoreWHIP(data2.WHIP);
-        const s2_Kpct  = scoreKpct(data2.Kpct);
-        const s2_BBpct = scoreBBpct(data2.BBpct);
-        const s2_KBB   = scoreKBB(data2.KBB);
+        const p2_display =
+            toTitleCase(data2.Name || p2_raw);
 
-        const overall1 = computeWeightedOverall({
-            eraScore: s1_ERA,
-            whipScore: s1_WHIP,
-            kpctScore: s1_Kpct,
-            bbpctScore: s1_BBpct,
-            kbbScore: s1_KBB
-        });
+        document.getElementById("compareName1").textContent =
+            `${p1_display} (${s1})`;
 
-        const overall2 = computeWeightedOverall({
-            eraScore: s2_ERA,
-            whipScore: s2_WHIP,
-            kpctScore: s2_Kpct,
-            bbpctScore: s2_BBpct,
-            kbbScore: s2_KBB
-        });
+        document.getElementById("compareName2").textContent =
+            `${p2_display} (${s2})`;
 
-        const xp1 = computePitcherXP(data1);
-        const xp2 = computePitcherXP(data2);
 
-        const stats = [
-            ["ERA",  Number(data1.ERA),  Number(data2.ERA),  Number(data1.ERA).toFixed(2),  Number(data2.ERA).toFixed(2)],
-            ["WHIP", Number(data1.WHIP), Number(data2.WHIP), Number(data1.WHIP).toFixed(2), Number(data2.WHIP).toFixed(2)],
-            ["K%",   Number(data1.Kpct), Number(data2.Kpct), Number(data1.Kpct).toFixed(2), Number(data2.Kpct).toFixed(2)],
-            ["BB%",  Number(data1.BBpct),Number(data2.BBpct),Number(data1.BBpct).toFixed(2),Number(data2.BBpct).toFixed(2)],
-            ["K/BB", Number(data1.KBB),  Number(data2.KBB),  Number(data1.KBB).toFixed(2),  Number(data2.KBB).toFixed(2)],
-            ["XP", xp1, xp2, Math.round(xp1), Math.round(xp2)],
-            ["Overall Score", Number(overall1), Number(overall2), Number(overall1).toFixed(2), Number(overall2).toFixed(2)]
-        ];
+        // -------------------------------
+        // Backend TiM Scores
+        // -------------------------------
 
-        const tbody = document.getElementById("compareBody");
-        tbody.innerHTML = "";
+        const profile1 = {
+            ERA: Number(data1.ERA_score),
+            WHIP: Number(data1.WHIP_score),
+            K: Number(data1.Kpct_score),
+            BB: Number(data1.BBpct_score),
+            KBB: Number(data1.KBB_score)
+        };
 
-        stats.forEach(([label, raw1, raw2, disp1, disp2]) => {
+        const profile2 = {
+            ERA: Number(data2.ERA_score),
+            WHIP: Number(data2.WHIP_score),
+            K: Number(data2.Kpct_score),
+            BB: Number(data2.BBpct_score),
+            KBB: Number(data2.KBB_score)
+        };
 
-    const row = document.createElement("tr");
 
-    let class1 = "tie";
-    let class2 = "tie";
+        // -------------------------------
+        // Overall / XP
+        // -------------------------------
 
-    let player1Wins = false;
-    let player2Wins = false;
+        const overall1 =
+            Number(data1.Overall);
 
-    if (raw1 != null && raw2 != null) {
+        const overall2 =
+            Number(data2.Overall);
 
-        // Lower is better
-        if (label === "ERA" || label === "WHIP" || label === "BB%") {
+        const xp1 =
+            Number(data1.XP);
 
-            if (raw1 < raw2) {
-                class1 = "win";
-                class2 = "lose";
-                player1Wins = true;
-            }
-            else if (raw2 < raw1) {
-                class1 = "lose";
-                class2 = "win";
-                player2Wins = true;
-            }
+        const xp2 =
+            Number(data2.XP);
 
+
+        // -------------------------------
+        // Tier Helper
+        // -------------------------------
+
+        function getTier(score) {
+
+            if (score >= 8.5) return "Ace";
+            if (score >= 7.0) return "Top Starter";
+            if (score >= 5.5) return "Mid Rotation";
+            if (score >= 4.0) return "Back End";
+
+            return "Depth";
         }
 
-        // Higher is better
-        else {
 
-            if (raw1 > raw2) {
-                class1 = "win";
-                class2 = "lose";
-                player1Wins = true;
-            }
-            else if (raw2 > raw1) {
-                class1 = "lose";
-                class2 = "win";
-                player2Wins = true;
+        // -------------------------------
+        // Player Summary
+        // -------------------------------
+
+        document.getElementById("compareOverall1").textContent =
+            safeFixed(overall1, 1);
+
+        document.getElementById("compareOverall2").textContent =
+            safeFixed(overall2, 1);
+
+        document.getElementById("compareXP1").textContent =
+            safeFixed(xp1, 0);
+
+        document.getElementById("compareXP2").textContent =
+            safeFixed(xp2, 0);
+
+        document.getElementById("compareTier1").textContent =
+            getTier(overall1);
+
+        document.getElementById("compareTier2").textContent =
+            getTier(overall2);
+
+
+        // -------------------------------
+        // Pitcher Archetype
+        // -------------------------------
+
+        document.getElementById("compareArchetype1").textContent =
+            data1.Archetype || "--";
+
+        document.getElementById("compareArchetype2").textContent =
+            data2.Archetype || "--";
+
+        document.getElementById("compareMatch1").textContent =
+            data1.ArchetypeMatch || "--";
+
+        document.getElementById("compareMatch2").textContent =
+            data2.ArchetypeMatch || "--";
+
+
+        // -------------------------------
+        // Profile Helper
+        // -------------------------------
+
+        function updateCompareProfile(
+            scoreId,
+            rawId,
+            meterId,
+            score,
+            rawDisplay
+        ) {
+
+            const scoreEl =
+                document.getElementById(scoreId);
+
+            const rawEl =
+                document.getElementById(rawId);
+
+            const meterEl =
+                document.getElementById(meterId);
+
+
+            if (scoreEl) {
+                scoreEl.textContent =
+                    safeFixed(score, 1);
             }
 
+            if (rawEl) {
+                rawEl.textContent =
+                    rawDisplay;
+            }
+
+            if (meterEl) {
+
+                const percent =
+                    Math.max(
+                        0,
+                        Math.min(
+                            100,
+                            (Number(score) / 10) * 100
+                        )
+                    );
+
+                meterEl.style.width =
+                    `${percent}%`;
+            }
         }
-    }
 
 
-    // ----------------------------------
-    // Difference
-    // Player 1 minus Player 2
-    // ----------------------------------
+        // -------------------------------
+        // ERA
+        // -------------------------------
 
-    const difference = raw1 - raw2;
+        updateCompareProfile(
+            "compareERAScore1",
+            "compareERARaw1",
+            "compareERAMeter1",
+            profile1.ERA,
+            safeFixed(data1.ERA, 2)
+        );
 
-    let differenceDisplay = "--";
-
-    if (
-        label === "ERA" ||
-        label === "WHIP" ||
-        label === "K%" ||
-        label === "BB%" ||
-        label === "K/BB"
-    ) {
-
-        differenceDisplay =
-            `${difference >= 0 ? "+" : ""}${difference.toFixed(2)}`;
-
-    }
-
-    else if (label === "XP") {
-
-        differenceDisplay =
-            `${difference >= 0 ? "+" : ""}${Math.round(difference)}`;
-
-    }
-
-    else if (label === "Overall Score") {
-
-        differenceDisplay =
-            `${difference >= 0 ? "+" : ""}${difference.toFixed(2)}`;
-
-    }
+        updateCompareProfile(
+            "compareERAScore2",
+            "compareERARaw2",
+            "compareERAMeter2",
+            profile2.ERA,
+            safeFixed(data2.ERA, 2)
+        );
 
 
-    // Color reflects whether Player 1's difference
-    // is favorable, not whether the number is positive.
+        // -------------------------------
+        // WHIP
+        // -------------------------------
 
-    let differenceClass = "tie";
+        updateCompareProfile(
+            "compareWHIPScore1",
+            "compareWHIPRaw1",
+            "compareWHIPMeter1",
+            profile1.WHIP,
+            safeFixed(data1.WHIP, 2)
+        );
 
-    if (player1Wins) {
-        differenceClass = "positive";
-    }
-    else if (player2Wins) {
-        differenceClass = "negative";
-    }
+        updateCompareProfile(
+            "compareWHIPScore2",
+            "compareWHIPRaw2",
+            "compareWHIPMeter2",
+            profile2.WHIP,
+            safeFixed(data2.WHIP, 2)
+        );
 
 
-    row.innerHTML = `
-        <td>${label}</td>
+        // -------------------------------
+        // K%
+        // -------------------------------
 
-        <td class="${class1}">
-            ${disp1}
-        </td>
+        updateCompareProfile(
+            "compareKScore1",
+            "compareKRaw1",
+            "compareKMeter1",
+            profile1.K,
+            `${safeFixed(data1.Kpct, 1)}%`
+        );
 
-        <td class="${class2}">
-            ${disp2}
-        </td>
+        updateCompareProfile(
+            "compareKScore2",
+            "compareKRaw2",
+            "compareKMeter2",
+            profile2.K,
+            `${safeFixed(data2.Kpct, 1)}%`
+        );
 
-        <td>
-            <span class="compare-difference ${differenceClass}">
-                ${differenceDisplay}
-            </span>
-        </td>
-    `;
 
-    tbody.appendChild(row);
-});
+        // -------------------------------
+        // BB%
+        // -------------------------------
 
-// ----------------------------------
-// Comparison Summary
-// ----------------------------------
+        updateCompareProfile(
+            "compareBBScore1",
+            "compareBBRaw1",
+            "compareBBMeter1",
+            profile1.BB,
+            `${safeFixed(data1.BBpct, 1)}%`
+        );
 
-const comparisonSummary =
-    generatePitcherComparisonSummary(
-        p1_display,
-        p2_display,
-        data1,
-        data2,
-        xp1,
-        xp2,
-        overall1,
-        overall2
-    );
+        updateCompareProfile(
+            "compareBBScore2",
+            "compareBBRaw2",
+            "compareBBMeter2",
+            profile2.BB,
+            `${safeFixed(data2.BBpct, 1)}%`
+        );
 
-document.getElementById("comparisonSummaryText").textContent =
-    comparisonSummary;
 
-        document.getElementById("compareModal").style.display = "flex";
+        // -------------------------------
+        // K/BB
+        // -------------------------------
+
+        updateCompareProfile(
+            "compareKBBScore1",
+            "compareKBBRaw1",
+            "compareKBBMeter1",
+            profile1.KBB,
+            safeFixed(data1.KBB, 2)
+        );
+
+        updateCompareProfile(
+            "compareKBBScore2",
+            "compareKBBRaw2",
+            "compareKBBMeter2",
+            profile2.KBB,
+            safeFixed(data2.KBB, 2)
+        );
+
+
+        // -------------------------------
+        // Comparison Summary
+        // -------------------------------
+
+        const comparisonSummary =
+            generatePitcherComparisonSummary(
+                p1_display,
+                p2_display,
+                data1,
+                data2,
+                xp1,
+                xp2,
+                overall1,
+                overall2
+            );
+
+        document.getElementById(
+            "comparisonSummaryText"
+        ).textContent =
+            comparisonSummary;
+
+
+        // -------------------------------
+        // Open Modal
+        // -------------------------------
+
+        document.getElementById(
+            "compareModal"
+        ).style.display = "flex";
+
 
     } catch (err) {
-        console.error("Compare error:", err);
+
+        console.error(
+            "Compare error:",
+            err
+        );
     }
 }
-
 
 
 // -------------------------------
