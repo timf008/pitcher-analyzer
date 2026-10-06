@@ -1442,37 +1442,13 @@ select:focus {
 }
 
 /* -----------------------------------------
-   Compare Modal
------------------------------------------ */
-
-#compareModal {
-    position: fixed;
-    inset: 0;
-
-    width: 100%;
-    height: 100dvh;
-
-    background: rgba(15, 36, 62, 0.55);
-
-    display: none;
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
-    box-sizing: border-box;
-
-    z-index: 9999;
-}
-
-
-/* -----------------------------------------
    Modal Shell
 ----------------------------------------- */
 
 #compareModal .compare-box {
-    width: 780px;
+    width: 980px;
     max-width: 95%;
-    max-height: 90dvh;
+    max-height: 92dvh;
 
     padding: 0;
 
@@ -1498,7 +1474,7 @@ select:focus {
     align-items: center;
     justify-content: space-between;
 
-    padding: 12px 22px;
+    padding: 14px 22px;
 
     background: linear-gradient(135deg, #0b131d, #0f3e73);
 
@@ -1527,9 +1503,7 @@ select:focus {
 }
 
 
-/* -----------------------------------------
-   Close Button
------------------------------------------ */
+/* Close Button */
 
 #compareClose {
     display: flex;
@@ -1537,7 +1511,6 @@ select:focus {
     justify-content: center;
 
     flex: 0 0 34px;
-
     width: 34px;
     height: 34px;
 
@@ -1569,95 +1542,104 @@ select:focus {
 
 
 /* -----------------------------------------
-   Player Headers
+   Two Player Layout
 ----------------------------------------- */
 
 .compare-player-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 18px;
 
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
-.compare-player {
-    padding: 12px 14px;
 
-    background: #f4f7fb;
+/* -----------------------------------------
+   Player Headers
+----------------------------------------- */
+
+.compare-player-card {
+    padding: 15px 18px;
+
+    background: #ffffff;
+
     border: 1px solid #dbe4ee;
-    border-radius: 10px;
+    border-radius: 12px;
 
     text-align: center;
 }
 
 .compare-player-name {
-    color: #102a49;
+    color: #0f243e;
 
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 800;
+    line-height: 1.2;
+}
+
+.compare-player-team {
+    margin-top: 4px;
+
+    color: #607286;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 
 /* -----------------------------------------
-   Sections
------------------------------------------ */
-
-.compare-section {
-    margin-top: 18px;
-}
-
-.compare-section-title {
-    margin-bottom: 9px;
-
-    color: #5d7189;
-
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-}
-
-
-/* -----------------------------------------
-   Player Summary
+   Overall / XP / Tier / Park
 ----------------------------------------- */
 
 .compare-summary-grid {
-    border: 1px solid #dbe4ee;
-    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
     overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe4ee;
+    border-radius: 10px;
 }
 
-.compare-summary-item {
-    display: grid;
-    grid-template-columns: 120px 1fr 1fr;
+.compare-summary-stat {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 
-    min-height: 42px;
-    padding: 0 12px;
+    min-width: 0;
 
-    border-bottom: 1px solid #edf1f5;
-}
+    padding: 11px 7px;
 
-.compare-summary-item:last-child {
-    border-bottom: none;
-}
-
-.compare-summary-item > span {
-    color: #5d7189;
-
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-}
-
-.compare-summary-item > strong {
-    color: #0f243e;
-
-    font-size: 14px;
-    font-weight: 800;
+    border-right: 1px solid #e2e8f0;
 
     text-align: center;
+}
+
+.compare-summary-stat:last-child {
+    border-right: none;
+}
+
+.compare-summary-label {
+    margin-bottom: 4px;
+
+    color: #607286;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.compare-summary-value {
+    color: #0f243e;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    white-space: nowrap;
 }
 
 
@@ -1665,52 +1647,110 @@ select:focus {
    Archetype
 ----------------------------------------- */
 
-.compare-archetype-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+.compare-archetype {
+    display: flex;
+    align-items: stretch;
+
+    overflow: hidden;
+
+    background: #f4f8fd;
+
+    border: 1px solid #d7e3f1;
+    border-radius: 10px;
 }
 
-.compare-archetype-card {
+.compare-archetype-main {
+    flex: 1;
+
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    justify-content: center;
 
-    padding: 12px 14px;
+    min-width: 0;
 
-    background: #f6f9fc;
-    border: 1px solid #dbe4ee;
-    border-radius: 10px;
-
-    text-align: center;
+    padding: 12px 16px;
 }
 
-.compare-archetype-card strong {
-    color: #102a49;
+.compare-archetype-label,
+.compare-match-label {
+    color: #607286;
 
-    font-size: 15px;
+    font-size: 9px;
     font-weight: 800;
+    letter-spacing: 1.3px;
 }
 
-.compare-archetype-card span {
-    color: #6b7280;
+.compare-archetype-name {
+    margin-top: 3px;
+
+    color: #0f243e;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    line-height: 1.2;
+}
+
+.compare-archetype-match {
+    min-width: 105px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 12px;
+
+    background: #ffffff;
+
+    border-left: 1px solid #d7e3f1;
+}
+
+.compare-match-value {
+    display: inline-block;
+
+    margin-top: 5px;
+    padding: 4px 9px;
+
+    background: #eef3f8;
+
+    border: 1px solid #cbd6e2;
+    border-radius: 999px;
+
+    color: #536a82;
 
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 800;
+
+    white-space: nowrap;
 }
 
 
 /* -----------------------------------------
-   Five-Metric Profile
+   Profile Shape
 ----------------------------------------- */
+
+.compare-profile {
+    margin-top: 4px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe4ee;
+    border-radius: 12px;
+}
 
 .compare-profile-row {
     display: grid;
-    grid-template-columns: 70px 1fr 1fr;
-    gap: 14px;
+    grid-template-columns:
+        minmax(0, 1fr)
+        80px
+        minmax(0, 1fr);
+
     align-items: center;
 
-    padding: 11px 0;
+    min-height: 62px;
 
     border-bottom: 1px solid #edf1f5;
 }
@@ -1719,67 +1759,112 @@ select:focus {
     border-bottom: none;
 }
 
-.compare-profile-label {
-    color: #405a78;
-
-    font-size: 12px;
-    font-weight: 800;
+.compare-profile-row:nth-child(even) {
+    background: #fbfcfe;
 }
 
+
+/* Player Meter Area */
+
 .compare-profile-player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
     min-width: 0;
+
+    padding: 10px 16px;
+}
+
+.compare-profile-score {
+    flex: 0 0 34px;
+
+    color: #2f80ed;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    text-align: center;
 }
 
 .compare-profile-values {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 6px;
-
-    margin-bottom: 5px;
-}
-
-.compare-profile-values strong {
-    color: #0f243e;
-
-    font-size: 13px;
-    font-weight: 800;
+    flex: 0 0 42px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .compare-profile-raw {
-    color: #7b8794;
+    margin-top: 2px;
+
+    color: #8a9aab;
 
     font-size: 10px;
-    font-weight: 500;
     font-style: italic;
+    font-weight: 600;
+    line-height: 1;
 }
 
 
-/* -----------------------------------------
-   Profile Meters
------------------------------------------ */
+/* Meter */
 
 .compare-profile-meter {
-    position: relative;
+    flex: 1;
 
-    width: 100%;
-    height: 7px;
-
-    background: #e7edf3;
-    border-radius: 999px;
+    height: 12px;
 
     overflow: hidden;
+
+    background: #e6ebf1;
+
+    border-radius: 999px;
 }
 
 .compare-profile-fill {
     width: 0%;
     height: 100%;
 
-    background: #2563eb;
+    background: #2f80ed;
 
     border-radius: inherit;
 
-    transition: width 0.35s ease;
+    transition: width 0.45s ease;
+}
+
+
+/* Center Metric Label */
+
+.compare-profile-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    align-self: stretch;
+
+    background: #f4f7fb;
+
+    border-left: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+
+    color: #0f243e;
+
+    text-align: center;
+}
+
+.compare-profile-label strong {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.compare-profile-label span {
+    margin-top: 2px;
+
+    color: #71849a;
+
+    font-size: 9px;
+    font-weight: 700;
 }
 
 
@@ -1792,10 +1877,11 @@ select:focus {
     align-items: flex-start;
     gap: 14px;
 
-    margin-top: 20px;
+    margin-top: 18px;
     padding: 16px 18px;
 
     background: #f6f9fc;
+
     border: 1px solid #dbe4ee;
     border-radius: 12px;
 }
@@ -1806,11 +1892,11 @@ select:focus {
     justify-content: center;
 
     flex: 0 0 34px;
-
     width: 34px;
     height: 34px;
 
     background: #e7eef6;
+
     border-radius: 50%;
 
     color: #31577e;
@@ -1854,7 +1940,7 @@ select:focus {
     #compareModal .compare-box {
         width: 100%;
         max-width: 100%;
-        max-height: 94dvh;
+        max-height: 96dvh;
 
         border-radius: 12px;
     }
@@ -1875,54 +1961,126 @@ select:focus {
         padding: 12px;
     }
 
+
+    /* Keep players side-by-side */
+
     .compare-player-grid {
         gap: 8px;
+        margin-bottom: 10px;
     }
 
-    .compare-player {
-        padding: 10px 8px;
+    .compare-player-card {
+        padding: 11px 8px;
     }
 
     .compare-player-name {
-        font-size: 13px;
+        font-size: 15px;
     }
 
-    .compare-summary-item {
-        grid-template-columns: 75px 1fr 1fr;
-        padding: 0 8px;
-    }
-
-    .compare-archetype-grid {
-        gap: 8px;
-    }
-
-    .compare-archetype-card {
-        padding: 10px 8px;
-    }
-
-    .compare-archetype-card strong {
-        font-size: 12px;
-    }
-
-    .compare-profile-row {
-        grid-template-columns: 42px 1fr 1fr;
-        gap: 8px;
-    }
-
-    .compare-profile-label {
+    .compare-player-team {
         font-size: 10px;
     }
 
-    .compare-profile-values strong {
-        font-size: 11px;
+
+    /* Summary Stats */
+
+.compare-summary-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.compare-summary-stat {
+    padding: 8px 4px;
+    border-bottom: none;
+}
+
+.compare-summary-stat:nth-child(2) {
+    border-right: 1px solid #e2e8f0;
+}
+
+    .compare-summary-stat:nth-child(3),
+    .compare-summary-stat:nth-child(4) {
+        border-bottom: none;
     }
 
-    .compare-profile-raw {
-        font-size: 9px;
+    .compare-summary-value {
+        font-size: 14px;
     }
+
+
+    /* Archetype */
+
+    .compare-archetype {
+        flex-direction: column;
+    }
+
+    .compare-archetype-main {
+        padding: 10px;
+    }
+
+    .compare-archetype-name {
+        font-size: 14px;
+    }
+
+    .compare-archetype-match {
+        min-width: 0;
+
+        flex-direction: row;
+        justify-content: space-between;
+
+        padding: 7px 10px;
+
+        border-left: none;
+        border-top: 1px solid #d7e3f1;
+    }
+
+    .compare-match-value {
+        margin-top: 0;
+    }
+
+
+    /* Profile Shape */
+
+    .compare-profile-row {
+        grid-template-columns:
+            minmax(0, 1fr)
+            54px
+            minmax(0, 1fr);
+
+        min-height: 54px;
+    }
+
+    .compare-profile-player {
+        gap: 6px;
+        padding: 8px 6px;
+    }
+
+    .compare-profile-score {
+        flex-basis: 27px;
+
+        font-size: 12px;
+    }
+
+    .compare-profile-meter {
+        height: 9px;
+    }
+
+    .compare-profile-label strong {
+        font-size: 12px;
+    }
+
+    .compare-profile-label span {
+        font-size: 8px;
+    }
+
+
+    /* Summary */
 
     .comparison-summary {
-        padding: 14px;
+        padding: 13px;
+    }
+
+    .comparison-summary-text {
+        font-size: 12px;
     }
 }
 
