@@ -13,7 +13,7 @@
 
 <!-- Header -->
     <header class="header">
-    <img src="images/pitcher_analyzer.png" class="pitcher-analyzer" alt="Pitcher Analyzer">
+    <img src="images/timbaseball-pitcheranalyzer.png" class="pitcher-analyzer" alt="Pitcher Analyzer">
 
 <div class="analyzer-tagline">
     ANALYTICS <span>•</span> EVALUATION <span>•</span> INSIGHTS
@@ -840,63 +840,300 @@
 </div>
 
 
-<!-- Compare Modal -->
-<div id="compareModal" class="modal">
+<!-- Compare Player Modal -->
 
-    <div class="modal-content compare-box">
+<div class="compare-content">
 
-        <div class="compare-header">
+    <!-- Player Headers -->
+    <div class="compare-player-grid">
 
-            <div>
-                <h2 id="compareTitle">Pitcher Comparison</h2>
-                <div class="compare-subtitle">
-                    Side-by-side comparison of key pitching metrics
-                </div>
+        <div class="compare-player">
+            <div class="compare-player-name" id="compareName1">
+                Player 1
+            </div>
+        </div>
+
+        <div class="compare-player">
+            <div class="compare-player-name" id="compareName2">
+                Player 2
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Summary -->
+    <div class="compare-section">
+
+        <div class="compare-section-title">
+            PLAYER SUMMARY
+        </div>
+
+        <div class="compare-summary-grid">
+
+            <div class="compare-summary-item">
+                <span>OVERALL</span>
+                <strong id="compareOverall1">--</strong>
+                <strong id="compareOverall2">--</strong>
             </div>
 
-            <span id="compareClose" class="close">&times;</span>
+            <div class="compare-summary-item">
+                <span>XP</span>
+                <strong id="compareXP1">--</strong>
+                <strong id="compareXP2">--</strong>
+            </div>
+
+            <div class="compare-summary-item">
+                <span>TIER</span>
+                <strong id="compareTier1">--</strong>
+                <strong id="compareTier2">--</strong>
+            </div>
 
         </div>
 
-        <div class="compare-content">
-
-            <table id="compareTable">
-
-                <thead>
-                    <tr>
-                        <th>Stat</th>
-                        <th id="compareName1">Player 1</th>
-                        <th id="compareName2">Player 2</th>
-                        <th>Difference</th>
-                    </tr>
-                </thead>
-
-                <tbody id="compareBody">
-                    <!-- Filled dynamically -->
-                </tbody>
-
-            </table>
-
-<div id="comparisonSummary" class="comparison-summary">
-
-    <div class="comparison-summary-icon">
-        ≡
     </div>
 
-    <div class="comparison-summary-content">
-        <div class="comparison-summary-title">
-            Comparison Summary
+
+    <!-- Archetype -->
+    <div class="compare-section">
+
+        <div class="compare-section-title">
+            PITCHER ARCHETYPE
         </div>
 
-        <div id="comparisonSummaryText" class="comparison-summary-text">
-            --
+        <div class="compare-archetype-grid">
+
+            <div class="compare-archetype-card">
+                <strong id="compareArchetype1">--</strong>
+                <span id="compareMatch1">--</span>
+            </div>
+
+            <div class="compare-archetype-card">
+                <strong id="compareArchetype2">--</strong>
+                <span id="compareMatch2">--</span>
+            </div>
+
         </div>
+
     </div>
 
-</div>
 
-            <div class="compare-footer">
-                Green indicates the stronger value for the metric.
+    <!-- Five-Metric Profile -->
+    <div class="compare-section">
+
+        <div class="compare-section-title">
+            FIVE-METRIC PROFILE
+        </div>
+
+
+        <!-- ERA -->
+        <div class="compare-profile-row">
+
+            <div class="compare-profile-label">
+                ERA
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareERAScore1">--</strong>
+                    <span id="compareERARaw1" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareERAMeter1"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareERAScore2">--</strong>
+                    <span id="compareERARaw2" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareERAMeter2"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- WHIP -->
+        <div class="compare-profile-row">
+
+            <div class="compare-profile-label">
+                WHIP
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareWHIPScore1">--</strong>
+                    <span id="compareWHIPRaw1" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareWHIPMeter1"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareWHIPScore2">--</strong>
+                    <span id="compareWHIPRaw2" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareWHIPMeter2"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- K% -->
+        <div class="compare-profile-row">
+
+            <div class="compare-profile-label">
+                K%
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareKScore1">--</strong>
+                    <span id="compareKRaw1" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareKMeter1"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareKScore2">--</strong>
+                    <span id="compareKRaw2" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareKMeter2"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BB% -->
+        <div class="compare-profile-row">
+
+            <div class="compare-profile-label">
+                BB%
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareBBScore1">--</strong>
+                    <span id="compareBBRaw1" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareBBMeter1"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareBBScore2">--</strong>
+                    <span id="compareBBRaw2" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareBBMeter2"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- K/BB -->
+        <div class="compare-profile-row">
+
+            <div class="compare-profile-label">
+                K/BB
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareKBBScore1">--</strong>
+                    <span id="compareKBBRaw1" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareKBBMeter1"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+            <div class="compare-profile-player">
+
+                <div class="compare-profile-values">
+                    <strong id="compareKBBScore2">--</strong>
+                    <span id="compareKBBRaw2" class="compare-profile-raw">--</span>
+                </div>
+
+                <div class="compare-profile-meter">
+                    <div id="compareKBBMeter2"
+                         class="compare-profile-fill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Comparison Summary -->
+    <div id="comparisonSummary" class="comparison-summary">
+
+        <div class="comparison-summary-icon">
+            ≡
+        </div>
+
+        <div class="comparison-summary-content">
+
+            <div class="comparison-summary-title">
+                Comparison Summary
+            </div>
+
+            <div id="comparisonSummaryText"
+                 class="comparison-summary-text">
+                --
             </div>
 
         </div>
