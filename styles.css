@@ -1465,11 +1465,14 @@ select:focus {
 }
 
 
-/* Modal shell */
+/* -----------------------------------------
+   Modal Shell
+----------------------------------------- */
 
 #compareModal .compare-box {
     width: 780px;
     max-width: 95%;
+    max-height: 90dvh;
 
     padding: 0;
 
@@ -1477,7 +1480,8 @@ select:focus {
     color: #0f243e;
 
     border-radius: 16px;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     box-shadow:
         0 18px 50px rgba(0, 0, 0, 0.28),
@@ -1523,12 +1527,16 @@ select:focus {
 }
 
 
-/* Close button */
+/* -----------------------------------------
+   Close Button
+----------------------------------------- */
 
 #compareClose {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex: 0 0 34px;
 
     width: 34px;
     height: 34px;
@@ -1556,145 +1564,224 @@ select:focus {
 ----------------------------------------- */
 
 .compare-content {
-    padding: 18px 20px 16px;
+    padding: 18px 20px 20px;
 }
 
 
 /* -----------------------------------------
-   Comparison Table
+   Player Headers
 ----------------------------------------- */
 
-#compareTable {
-    width: 100%;
+.compare-player-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 
-    border-collapse: separate;
-    border-spacing: 0;
+    margin-bottom: 18px;
+}
 
+.compare-player {
+    padding: 12px 14px;
+
+    background: #f4f7fb;
     border: 1px solid #dbe4ee;
-    border-radius: 12px;
-
-    overflow: hidden;
-
-    font-size: 15px;
-}
-
-#compareTable th {
-    padding: 13px 10px;
-
-    background: #f4f7fb;
-
-    border-bottom: 1px solid #dbe4ee;
-
-    color: #405a78;
-
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.4px;
+    border-radius: 10px;
 
     text-align: center;
 }
 
-#compareTable td {
-    padding: 12px 10px;
+.compare-player-name {
+    color: #102a49;
 
-    border-bottom: 1px solid #edf1f5;
-
-    text-align: center;
-
-    color: #0f243e;
-}
-
-#compareTable tbody tr:last-child td {
-    border-bottom: none;
-}
-
-#compareTable tbody tr:nth-child(even) {
-    background: #fbfcfe;
-}
-
-
-/* Stat names */
-
-#compareTable td:first-child {
+    font-size: 16px;
     font-weight: 800;
 }
 
 
 /* -----------------------------------------
-   Winner / Loser
+   Sections
 ----------------------------------------- */
 
-#compareTable .win {
-    color: #35a84a !important;
-    font-weight: 800;
+.compare-section {
+    margin-top: 18px;
 }
 
-#compareTable .lose {
-    color: #e53935 !important;
-    font-weight: 500;
-    opacity: 0.85;
-}
-
-#compareTable .tie {
-    color: #9b9b9b !important;
-    font-weight: 700;
-}
-
-
-/* -----------------------------------------
-   Difference Pills
------------------------------------------ */
-
-.compare-difference {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-width: 72px;
-
-    padding: 5px 10px;
-
-    border-radius: 999px;
-
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.compare-difference.positive {
-    color: #218838;
-    background: rgba(76, 175, 80, 0.14);
-}
-
-.compare-difference.negative {
-    color: #c62828;
-    background: rgba(229, 57, 53, 0.13);
-}
-
-.compare-difference.tie {
-    color: #777;
-    background: #f1f3f5;
-}
-
-
-/* -----------------------------------------
-   Footer
------------------------------------------ */
-
-.compare-footer {
-    margin-top: 14px;
-
-    padding: 10px 12px;
-
-    background: #f4f7fb;
-
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
+.compare-section-title {
+    margin-bottom: 9px;
 
     color: #5d7189;
 
     font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+
+/* -----------------------------------------
+   Player Summary
+----------------------------------------- */
+
+.compare-summary-grid {
+    border: 1px solid #dbe4ee;
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.compare-summary-item {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr;
+    align-items: center;
+
+    min-height: 42px;
+    padding: 0 12px;
+
+    border-bottom: 1px solid #edf1f5;
+}
+
+.compare-summary-item:last-child {
+    border-bottom: none;
+}
+
+.compare-summary-item > span {
+    color: #5d7189;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.compare-summary-item > strong {
+    color: #0f243e;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    text-align: center;
+}
+
+
+/* -----------------------------------------
+   Archetype
+----------------------------------------- */
+
+.compare-archetype-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.compare-archetype-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 12px 14px;
+
+    background: #f6f9fc;
+    border: 1px solid #dbe4ee;
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.compare-archetype-card strong {
+    color: #102a49;
+
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.compare-archetype-card span {
+    color: #6b7280;
+
+    font-size: 11px;
     font-weight: 600;
 }
+
+
+/* -----------------------------------------
+   Five-Metric Profile
+----------------------------------------- */
+
+.compare-profile-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr;
+    gap: 14px;
+    align-items: center;
+
+    padding: 11px 0;
+
+    border-bottom: 1px solid #edf1f5;
+}
+
+.compare-profile-row:last-child {
+    border-bottom: none;
+}
+
+.compare-profile-label {
+    color: #405a78;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.compare-profile-player {
+    min-width: 0;
+}
+
+.compare-profile-values {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px;
+
+    margin-bottom: 5px;
+}
+
+.compare-profile-values strong {
+    color: #0f243e;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.compare-profile-raw {
+    color: #7b8794;
+
+    font-size: 10px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+
+/* -----------------------------------------
+   Profile Meters
+----------------------------------------- */
+
+.compare-profile-meter {
+    position: relative;
+
+    width: 100%;
+    height: 7px;
+
+    background: #e7edf3;
+    border-radius: 999px;
+
+    overflow: hidden;
+}
+
+.compare-profile-fill {
+    width: 0%;
+    height: 100%;
+
+    background: #2563eb;
+
+    border-radius: inherit;
+
+    transition: width 0.35s ease;
+}
+
 
 /* -----------------------------------------
    Comparison Summary
@@ -1705,7 +1792,7 @@ select:focus {
     align-items: flex-start;
     gap: 14px;
 
-    margin-top: 18px;
+    margin-top: 20px;
     padding: 16px 18px;
 
     background: #f6f9fc;
@@ -1719,6 +1806,7 @@ select:focus {
     justify-content: center;
 
     flex: 0 0 34px;
+
     width: 34px;
     height: 34px;
 
@@ -1726,6 +1814,7 @@ select:focus {
     border-radius: 50%;
 
     color: #31577e;
+
     font-size: 18px;
     font-weight: 800;
 }
@@ -1739,15 +1828,18 @@ select:focus {
     margin-bottom: 5px;
 
     color: #102a49;
+
     font-size: 14px;
     font-weight: 800;
 }
 
 .comparison-summary-text {
     color: #425b76;
+
     font-size: 13px;
     line-height: 1.55;
 }
+
 
 /* -----------------------------------------
    Mobile
@@ -1762,6 +1854,7 @@ select:focus {
     #compareModal .compare-box {
         width: 100%;
         max-width: 100%;
+        max-height: 94dvh;
 
         border-radius: 12px;
     }
@@ -1780,17 +1873,56 @@ select:focus {
 
     .compare-content {
         padding: 12px;
-        overflow-x: auto;
     }
 
-    #compareTable {
-        min-width: 620px;
+    .compare-player-grid {
+        gap: 8px;
+    }
+
+    .compare-player {
+        padding: 10px 8px;
+    }
+
+    .compare-player-name {
         font-size: 13px;
     }
 
-    #compareTable th,
-    #compareTable td {
-        padding: 9px 7px;
+    .compare-summary-item {
+        grid-template-columns: 75px 1fr 1fr;
+        padding: 0 8px;
+    }
+
+    .compare-archetype-grid {
+        gap: 8px;
+    }
+
+    .compare-archetype-card {
+        padding: 10px 8px;
+    }
+
+    .compare-archetype-card strong {
+        font-size: 12px;
+    }
+
+    .compare-profile-row {
+        grid-template-columns: 42px 1fr 1fr;
+        gap: 8px;
+    }
+
+    .compare-profile-label {
+        font-size: 10px;
+    }
+
+    .compare-profile-values strong {
+        font-size: 11px;
+    }
+
+    .compare-profile-raw {
+        font-size: 9px;
+    }
+
+    .comparison-summary {
+        padding: 14px;
     }
 }
 
