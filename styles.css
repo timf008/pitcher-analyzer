@@ -1647,72 +1647,44 @@ select:focus {
    Archetype
 ----------------------------------------- */
 
-.compare-archetype {
-    display: flex;
-    align-items: stretch;
-
-    overflow: hidden;
-
-    background: #f4f8fd;
-
-    border: 1px solid #d7e3f1;
-    border-radius: 10px;
+.compare-archetype-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 18px;
 }
 
-.compare-archetype-main {
-    flex: 1;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    min-width: 0;
-
-    padding: 12px 16px;
-}
-
-.compare-archetype-label,
-.compare-match-label {
-    color: #607286;
-
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1.3px;
-}
-
-.compare-archetype-name {
-    margin-top: 3px;
-
-    color: #0f243e;
-
-    font-size: 17px;
-    font-weight: 800;
-
-    line-height: 1.2;
-}
-
-.compare-archetype-match {
-    min-width: 105px;
-
+.compare-archetype-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    padding: 10px 12px;
+    min-width: 0;
+    padding: 14px 16px;
 
-    background: #ffffff;
+    background: #f4f8fd;
 
-    border-left: 1px solid #d7e3f1;
+    border: 1px solid #d7e3f1;
+    border-radius: 10px;
+
+    text-align: center;
 }
 
-.compare-match-value {
+.compare-archetype-card strong {
+    color: #0f243e;
+
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.compare-archetype-card span {
     display: inline-block;
 
-    margin-top: 5px;
+    margin-top: 7px;
     padding: 4px 9px;
 
-    background: #eef3f8;
+    background: #ffffff;
 
     border: 1px solid #cbd6e2;
     border-radius: 999px;
@@ -2007,35 +1979,26 @@ select:focus {
     }
 
 
-    /* Archetype */
+/* Archetype */
 
-    .compare-archetype {
-        flex-direction: column;
-    }
+.compare-archetype-grid {
+    gap: 8px;
+}
 
-    .compare-archetype-main {
-        padding: 10px;
-    }
+.compare-archetype-card {
+    padding: 10px 8px;
+}
 
-    .compare-archetype-name {
-        font-size: 14px;
-    }
+.compare-archetype-card strong {
+    font-size: 14px;
+}
 
-    .compare-archetype-match {
-        min-width: 0;
+.compare-archetype-card span {
+    margin-top: 5px;
+    padding: 3px 7px;
 
-        flex-direction: row;
-        justify-content: space-between;
-
-        padding: 7px 10px;
-
-        border-left: none;
-        border-top: 1px solid #d7e3f1;
-    }
-
-    .compare-match-value {
-        margin-top: 0;
-    }
+    font-size: 10px;
+}
 
 
     /* Profile Shape */
