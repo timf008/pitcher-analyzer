@@ -646,6 +646,26 @@ function updateTier(score) {
 }
 
 // -------------------------------
+// Pitcher Archetype
+// -------------------------------
+function updatePitcherArchetype(p) {
+
+    const archetypeEl =
+        document.getElementById("pitcherArchetype");
+
+    const matchEl =
+        document.getElementById("pitcherArchetypeMatch");
+
+    if (!archetypeEl || !matchEl) return;
+
+    archetypeEl.textContent =
+        p?.Archetype || "--";
+
+    matchEl.textContent =
+        p?.ArchetypeMatch || "--";
+}
+
+// -------------------------------
 // Scouting note generator (5‑metric model)
 // -------------------------------
 function updateScoutingNote(p) {
@@ -1011,6 +1031,7 @@ const overall = computeWeightedOverall({
         updateOverall(overall);
 updateTier(overall);
 updateScoutingNote(p);
+updatePitcherArchetype(p);
 updateXP(p.XP);
 updateIdentityBadge();
 
