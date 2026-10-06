@@ -2001,10 +2001,35 @@ function generatePitcherComparisonSummary(
     xp1,
     xp2,
     overall1,
-    overall2
+    overall2,
+    archetype1,
+    archetype2
 ) {
 
     const sentences = [];
+
+// ---------------------------
+// Pitcher Archetype
+// ---------------------------
+
+if (
+    archetype1 &&
+    archetype2 &&
+    archetype1 !== "--" &&
+    archetype2 !== "--"
+) {
+
+    if (archetype1 === archetype2) {
+        sentences.push(
+            `${p1} and ${p2} both profile as ${archetype1} pitchers.`
+        );
+    }
+    else {
+        sentences.push(
+            `${p1} profiles as ${archetype1}, while ${p2} profiles as ${archetype2}.`
+        );
+    }
+}
 
     // ---------------------------
     // Run Prevention
