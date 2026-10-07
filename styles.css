@@ -1122,7 +1122,7 @@ select:focus {
 ----------------------------------------- */
 
 #trendModal .modal-content {
-    width: 720px;
+    width: 980px;
     max-width: 95%;
 
     max-height: 90vh;
