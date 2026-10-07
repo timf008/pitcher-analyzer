@@ -847,37 +847,129 @@ select:focus {
    Pitcher Archetype
 ----------------------------------------- */
 
-.archetype-block {
-    margin-top: 16px;
-    padding-top: 14px;
-    border-top: 1px solid #d9dee5;
+.archetype-row {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+
+    background: #f4f8fd;
+
+    border: 1px solid #d7e3f1;
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 6px rgba(15, 36, 62, 0.04);
 }
 
-.archetype-label {
-    margin-bottom: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: #6b7280;
+
+/* -----------------------------------------
+   Archetype Identity
+----------------------------------------- */
+
+.archetype-main {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 14px 18px;
 }
+
+
+.archetype-icon {
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    fill: none;
+    stroke: #2f80ed;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 
 .archetype-content {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 3px;
 }
+
+
+.archetype-label {
+    color: #607286;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
 
 .archetype-name {
-    font-size: 16px;
-    font-weight: 700;
     color: #0f243e;
+
+    font-size: 20px;
+    font-weight: 800;
+
+    line-height: 1.15;
 }
 
+
+/* -----------------------------------------
+   Archetype Match
+----------------------------------------- */
+
 .archetype-match {
+    min-width: 155px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 18px;
+
+    border-left: 1px solid #d7e3f1;
+
+    background: #ffffff;
+}
+
+
+.archetype-match-label {
+    margin-bottom: 6px;
+
+    color: #607286;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+
+.archetype-match-badge {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    background: #eef3f8;
+    border: 1px solid #cbd6e2;
+    border-radius: 999px;
+
+    color: #536a82;
+
     font-size: 12px;
-    font-weight: 600;
-    color: #6b7280;
+    font-weight: 800;
+
+    white-space: nowrap;
 }
 
 /* -----------------------------------------
