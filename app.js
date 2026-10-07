@@ -3459,6 +3459,8 @@ if (xpMeter) {
     document.getElementById("overallPercentile").textContent = "--";
     document.getElementById("xpScore").innerHTML = "--";
     document.getElementById("playerTab").textContent = "Player:--";
+    document.getElementById("pitcherArchetype").textContent = "--";
+    document.getElementById("pitcherArchetypeMatch").textContent = "--";
 
 
     // Clear Fantasy Edge badges
