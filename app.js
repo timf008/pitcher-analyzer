@@ -2567,6 +2567,20 @@ async function showCompareModal() {
         document.getElementById("compareName2").textContent =
             `${p2_display} (${s2})`;
 
+        // ----------------------------------
+        // Team
+        // ----------------------------------
+
+        setText(
+            "compareTeam1",
+            data1.Team || "--"
+        );
+
+        setText(
+            "compareTeam2",
+            data2.Team || "--"
+        );
+
 
         // -------------------------------
         // Backend TiM Scores
