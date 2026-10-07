@@ -1835,95 +1835,97 @@ async function handleTrend() {
 
 // -------------------------------
 // Pitcher Trend Analysis
-// Direction + Magnitude
+// Raw Direction + Normalized Magnitude
 // -------------------------------
 function generatePitcherTrendAnalysis(curr, prev) {
 
     // ---------------------------------
-    // 1. Direction / Breadth
+    // 1. Raw metric direction
+    //
+    // IMPORTANT:
+    // Raw stats determine whether a
+    // skill actually improved/declined.
     // ---------------------------------
-    const trends = [
-        { key: "ERA",          higherIsBetter: false },
-        { key: "WHIP",         higherIsBetter: false },
-        { key: "Kpct",         higherIsBetter: true  },
-        { key: "BBpct",        higherIsBetter: false },
-        { key: "KBB",          higherIsBetter: true  },
-        { key: "XP",           higherIsBetter: true  },
-        { key: "OverallScore", higherIsBetter: true  }
-    ];
+    const rawDirections = {
 
-    let improved = 0;
-    let declined = 0;
-    let flat = 0;
-
-    trends.forEach(stat => {
-
-        const currValue = Number(curr[stat.key]);
-        const prevValue = Number(prev[stat.key]);
-
-        if (currValue === prevValue) {
-            flat++;
-            return;
-        }
-
-        const isImprovement = stat.higherIsBetter
-            ? currValue > prevValue
-            : currValue < prevValue;
-
-        if (isImprovement) {
-            improved++;
-        } else {
-            declined++;
-        }
-    });
-
-
-    // ---------------------------------
-    // 2. Metric-score movement
-    // All five metrics are now on 0–10 scale
-    // ---------------------------------
-    const scoreChanges = {
-
+        // Lower ERA is better
         ERA:
-            scoreERA(curr.ERA) -
-            scoreERA(prev.ERA),
+            Number(curr.ERA) < Number(prev.ERA) ? 1 :
+            Number(curr.ERA) > Number(prev.ERA) ? -1 : 0,
 
+        // Lower WHIP is better
         WHIP:
-            scoreWHIP(curr.WHIP) -
-            scoreWHIP(prev.WHIP),
+            Number(curr.WHIP) < Number(prev.WHIP) ? 1 :
+            Number(curr.WHIP) > Number(prev.WHIP) ? -1 : 0,
 
+        // Higher K% is better
         Kpct:
-            scoreKpct(curr.Kpct) -
-            scoreKpct(prev.Kpct),
+            Number(curr.Kpct) > Number(prev.Kpct) ? 1 :
+            Number(curr.Kpct) < Number(prev.Kpct) ? -1 : 0,
 
+        // Lower BB% is better
         BBpct:
-            scoreBBpct(curr.BBpct) -
-            scoreBBpct(prev.BBpct),
+            Number(curr.BBpct) < Number(prev.BBpct) ? 1 :
+            Number(curr.BBpct) > Number(prev.BBpct) ? -1 : 0,
 
+        // Higher K/BB is better
         KBB:
-            scoreKBB(curr.KBB) -
-            scoreKBB(prev.KBB)
+            Number(curr.KBB) > Number(prev.KBB) ? 1 :
+            Number(curr.KBB) < Number(prev.KBB) ? -1 : 0
     };
 
 
     // ---------------------------------
-    // 3. Magnitude
+    // 2. TiM profile-score movement
+    //
+    // Use the normalized coordinates
+    // already calculated by the backend.
+    // ---------------------------------
+    const scoreChanges = {
+
+        ERA:
+            Number(curr.ERA_score) -
+            Number(prev.ERA_score),
+
+        WHIP:
+            Number(curr.WHIP_score) -
+            Number(prev.WHIP_score),
+
+        Kpct:
+            Number(curr.Kpct_score) -
+            Number(prev.Kpct_score),
+
+        BBpct:
+            Number(curr.BBpct_score) -
+            Number(prev.BBpct_score),
+
+        KBB:
+            Number(curr.KBB_score) -
+            Number(prev.KBB_score)
+    };
+
+
+    // ---------------------------------
+    // 3. Overall magnitude
+    //
     // Mean absolute movement across
-    // the five normalized metric scores
+    // five normalized metric scores.
     // ---------------------------------
     const magnitude =
         Object.values(scoreChanges)
-            .reduce((sum, value) => sum + Math.abs(value), 0) / 5;
+            .reduce(
+                (sum, value) =>
+                    sum + Math.abs(value),
+                0
+            ) / 5;
 
 
     // ---------------------------------
-    // 4. Overall direction
-    // Use Overall Score as the net
-    // direction of the pitching profile
+    // 4. Net Overall direction
     // ---------------------------------
     const overallDiff =
-        Number(curr.OverallScore) -
-        Number(prev.OverallScore);
+        Number(curr.Overall) -
+        Number(prev.Overall);
 
     let direction;
 
@@ -1939,40 +1941,79 @@ function generatePitcherTrendAnalysis(curr, prev) {
 
 
     // ---------------------------------
-    // 5. Magnitude classification
+    // 5. Magnitude helper
     //
-    // Initial thresholds:
-    // < 0.75  = limited
-    // < 1.50  = moderate
-    // >= 1.50 = significant
+    // Initial calibration thresholds
+    // ---------------------------------
+    function movementLevel(change) {
+
+        const amount =
+            Math.abs(change);
+
+        if (amount < 0.75) {
+            return "limited";
+        }
+        else if (amount < 1.50) {
+            return "moderate";
+        }
+        else {
+            return "significant";
+        }
+    }
+
+
+    const magnitudeLabel =
+        movementLevel(magnitude);
+
+
+    // ---------------------------------
+    // 6. Skill Direction / Breadth
     //
-    // These can be calibrated later.
+    // Uses RAW metric direction.
+    // This prevents score clamps from
+    // hiding real statistical movement.
     // ---------------------------------
-    let magnitudeLabel;
+    const skillDirections =
+        Object.values(rawDirections);
 
-    if (magnitude < 0.75) {
-        magnitudeLabel = "limited";
-    }
-    else if (magnitude < 1.50) {
-        magnitudeLabel = "moderate";
-    }
-    else {
-        magnitudeLabel = "significant";
-    }
+    const skillImproved =
+        skillDirections
+            .filter(value => value > 0)
+            .length;
+
+    const skillDeclined =
+        skillDirections
+            .filter(value => value < 0)
+            .length;
+
+    const skillFlat =
+        skillDirections
+            .filter(value => value === 0)
+            .length;
+
+
+    // At least two underlying skills
+    // moved in each direction.
+    const mixedProfile =
+        skillImproved >= 2 &&
+        skillDeclined >= 2;
 
 
     // ---------------------------------
-    // 6. Breadth classification
+    // 7. Breadth
     // ---------------------------------
     let breadthLabel;
 
-    if (improved >= 6) {
+    if (
+        skillImproved >= 4 ||
+        skillDeclined >= 4
+    ) {
         breadthLabel = "broad";
     }
-    else if (declined >= 6) {
-        breadthLabel = "broad";
-    }
-    else if (improved >= 4 || declined >= 4) {
+    else if (
+        skillImproved >= 3 ||
+        skillDeclined >= 3
+    ) {
         breadthLabel = "general";
     }
     else {
@@ -1981,14 +2022,53 @@ function generatePitcherTrendAnalysis(curr, prev) {
 
 
     // ---------------------------------
-    // 7. Headline
+    // 8. Headline
+    //
+    // Breadth = raw metric direction
+    // Magnitude = normalized movement
+    // Net result = Overall Score
     // ---------------------------------
     let classification;
 
-    if (direction === "stable") {
-        classification =
-            "Year-over-year performance was relatively stable.";
+
+    // Mixed underlying skill profile
+    // takes priority.
+    if (mixedProfile) {
+
+        if (magnitudeLabel === "significant") {
+            classification =
+                "Mixed year-over-year performance with significant underlying movement.";
+        }
+        else if (magnitudeLabel === "moderate") {
+            classification =
+                "Mixed year-over-year performance with moderate underlying movement.";
+        }
+        else {
+            classification =
+                "Mixed year-over-year performance with limited overall movement.";
+        }
     }
+
+
+    // Stable net profile
+    else if (direction === "stable") {
+
+        if (magnitudeLabel === "significant") {
+            classification =
+                "Year-over-year performance was relatively stable despite significant underlying movement.";
+        }
+        else if (magnitudeLabel === "moderate") {
+            classification =
+                "Year-over-year performance was relatively stable with moderate underlying movement.";
+        }
+        else {
+            classification =
+                "Year-over-year performance was relatively stable.";
+        }
+    }
+
+
+    // Improvement
     else if (direction === "improvement") {
 
         if (magnitudeLabel === "significant") {
@@ -2004,6 +2084,9 @@ function generatePitcherTrendAnalysis(curr, prev) {
                 `${capitalize(breadthLabel)} but limited year-over-year improvement.`;
         }
     }
+
+
+    // Decline
     else {
 
         if (magnitudeLabel === "significant") {
@@ -2020,59 +2103,103 @@ function generatePitcherTrendAnalysis(curr, prev) {
         }
     }
 
-    const sentences = [classification];
+
+    const sentences =
+        [classification];
 
 
-        // ---------------------------------
-    // 8. Helper: describe metric movement
-    // Uses normalized 0–10 score change
     // ---------------------------------
-    function movementLevel(change) {
+    // Archetype Movement
+    // ---------------------------------
 
-        const amount = Math.abs(change);
+    const currArchetype =
+        curr.Archetype || null;
 
-        if (amount < 0.75) {
-            return "limited";
-        }
-        else if (amount < 1.50) {
-            return "moderate";
-        }
-        else {
-            return "significant";
-        }
+    const prevArchetype =
+        prev.Archetype || null;
+
+    const currMatch =
+        curr.ArchetypeMatch || null;
+
+    const prevMatch =
+        prev.ArchetypeMatch || null;
+
+
+    if (
+        currArchetype &&
+        prevArchetype &&
+        currArchetype !== prevArchetype
+    ) {
+
+        sentences.push(
+            `The underlying profile shifted from ${prevArchetype} to ${currArchetype}.`
+        );
+    }
+
+    else if (
+        currArchetype &&
+        prevArchetype &&
+        currArchetype === prevArchetype &&
+        currMatch &&
+        prevMatch &&
+        currMatch !== prevMatch
+    ) {
+
+        sentences.push(
+            `The profile remained closest to ${currArchetype}, with its archetype match moving from ${prevMatch.toLowerCase()} to ${currMatch.toLowerCase()}.`
+        );
+    }
+
+    else if (
+        currArchetype &&
+        prevArchetype &&
+        currArchetype === prevArchetype
+    ) {
+
+        sentences.push(
+            `The profile remained closest to the ${currArchetype} archetype across both seasons.`
+        );
     }
 
 
     // ---------------------------------
     // 9. Run Prevention
     // ERA + WHIP
+    //
+    // Raw direction
+    // Normalized magnitude
     // ---------------------------------
-    const eraChange = scoreChanges.ERA;
-    const whipChange = scoreChanges.WHIP;
+    const eraDirection =
+        rawDirections.ERA;
 
-    const eraImproved = eraChange > 0;
-    const whipImproved = whipChange > 0;
-
-    const eraDeclined = eraChange < 0;
-    const whipDeclined = whipChange < 0;
+    const whipDirection =
+        rawDirections.WHIP;
 
     const runPreventionMagnitude =
-        (Math.abs(eraChange) + Math.abs(whipChange)) / 2;
+        (
+            Math.abs(scoreChanges.ERA) +
+            Math.abs(scoreChanges.WHIP)
+        ) / 2;
 
     const runPreventionLevel =
-        movementLevel(runPreventionMagnitude);
+        movementLevel(
+            runPreventionMagnitude
+        );
 
 
-    if (eraImproved && whipImproved) {
+    if (
+        eraDirection > 0 &&
+        whipDirection > 0
+    ) {
 
         if (runPreventionLevel === "significant") {
             sentences.push(
-                "Run prevention improved substantially, with major gains in both ERA and WHIP."
+                "Run prevention improved substantially, with major gains in ERA and WHIP."
             );
         }
         else if (runPreventionLevel === "moderate") {
             sentences.push(
-                "Run prevention improved moderately, with gains in both ERA and WHIP."
+                "Run prevention improved moderately, with gains in ERA and WHIP."
             );
         }
         else {
@@ -2082,34 +2209,75 @@ function generatePitcherTrendAnalysis(curr, prev) {
         }
     }
 
-    else if (eraDeclined && whipDeclined) {
+    else if (
+        eraDirection < 0 &&
+        whipDirection < 0
+    ) {
 
         if (runPreventionLevel === "significant") {
             sentences.push(
-                "Run prevention declined substantially, with major deterioration in both ERA and WHIP."
+                "Run prevention declined substantially, with major deterioration in ERA and WHIP."
             );
         }
         else if (runPreventionLevel === "moderate") {
             sentences.push(
-                "Run prevention declined moderately, with ERA and WHIP both moving lower."
+                "Run prevention declined moderately, with increases in ERA and WHIP."
             );
         }
         else {
             sentences.push(
-                "Run prevention declined slightly, with modest deterioration in ERA and WHIP."
+                "Run prevention declined slightly, with modest increases in ERA and WHIP."
             );
         }
     }
 
-    else if (eraImproved && whipDeclined) {
+    else if (
+        eraDirection > 0 &&
+        whipDirection < 0
+    ) {
+
         sentences.push(
             "Run prevention was mixed, with ERA improving while WHIP declined."
         );
     }
 
-    else if (eraDeclined && whipImproved) {
+    else if (
+        eraDirection < 0 &&
+        whipDirection > 0
+    ) {
+
         sentences.push(
             "Run prevention was mixed, with WHIP improving while ERA declined."
+        );
+    }
+
+    // One raw metric moved while the
+    // other remained unchanged.
+    else if (eraDirection > 0) {
+
+        sentences.push(
+            "Run prevention improved, driven by a lower ERA while WHIP remained stable."
+        );
+    }
+
+    else if (eraDirection < 0) {
+
+        sentences.push(
+            "Run prevention declined, driven by a higher ERA while WHIP remained stable."
+        );
+    }
+
+    else if (whipDirection > 0) {
+
+        sentences.push(
+            "Run prevention improved, driven by a lower WHIP while ERA remained stable."
+        );
+    }
+
+    else if (whipDirection < 0) {
+
+        sentences.push(
+            "Run prevention declined, driven by a higher WHIP while ERA remained stable."
         );
     }
 
@@ -2117,18 +2285,27 @@ function generatePitcherTrendAnalysis(curr, prev) {
     // ---------------------------------
     // 10. Strikeout Profile
     // K%
+    //
+    // Raw direction
+    // Normalized magnitude
     // ---------------------------------
-    const kChange = scoreChanges.Kpct;
-    const kLevel = movementLevel(kChange);
+    const kDirection =
+        rawDirections.Kpct;
 
-    if (kChange > 0) {
+    const strikeoutLevel =
+        movementLevel(
+            scoreChanges.Kpct
+        );
 
-        if (kLevel === "significant") {
+
+    if (kDirection > 0) {
+
+        if (strikeoutLevel === "significant") {
             sentences.push(
                 "The strikeout profile improved substantially."
             );
         }
-        else if (kLevel === "moderate") {
+        else if (strikeoutLevel === "moderate") {
             sentences.push(
                 "The strikeout profile improved moderately."
             );
@@ -2140,14 +2317,14 @@ function generatePitcherTrendAnalysis(curr, prev) {
         }
     }
 
-    else if (kChange < 0) {
+    else if (kDirection < 0) {
 
-        if (kLevel === "significant") {
+        if (strikeoutLevel === "significant") {
             sentences.push(
                 "The strikeout profile declined substantially."
             );
         }
-        else if (kLevel === "moderate") {
+        else if (strikeoutLevel === "moderate") {
             sentences.push(
                 "The strikeout profile declined moderately."
             );
@@ -2163,33 +2340,45 @@ function generatePitcherTrendAnalysis(curr, prev) {
     // ---------------------------------
     // 11. Command
     // BB% + K/BB
+    //
+    // Raw direction determines what
+    // happened.
+    //
+    // Normalized score movement
+    // determines how large it was.
     // ---------------------------------
-    const bbChange = scoreChanges.BBpct;
-    const kbbChange = scoreChanges.KBB;
+    const bbDirection =
+        rawDirections.BBpct;
 
-    const bbImproved = bbChange > 0;
-    const kbbImproved = kbbChange > 0;
-
-    const bbDeclined = bbChange < 0;
-    const kbbDeclined = kbbChange < 0;
+    const kbbDirection =
+        rawDirections.KBB;
 
     const commandMagnitude =
-        (Math.abs(bbChange) + Math.abs(kbbChange)) / 2;
+        (
+            Math.abs(scoreChanges.BBpct) +
+            Math.abs(scoreChanges.KBB)
+        ) / 2;
 
     const commandLevel =
-        movementLevel(commandMagnitude);
+        movementLevel(
+            commandMagnitude
+        );
 
 
-    if (bbImproved && kbbImproved) {
+    // Both improved
+    if (
+        bbDirection > 0 &&
+        kbbDirection > 0
+    ) {
 
         if (commandLevel === "significant") {
             sentences.push(
-                "Command improved substantially, with major gains in BB% and K/BB."
+                "Command improved substantially, with major gains in walk prevention and K/BB."
             );
         }
         else if (commandLevel === "moderate") {
             sentences.push(
-                "Command improved moderately, with gains in BB% and K/BB."
+                "Command improved moderately, with a lower BB% and higher K/BB."
             );
         }
         else {
@@ -2199,36 +2388,98 @@ function generatePitcherTrendAnalysis(curr, prev) {
         }
     }
 
-    else if (bbDeclined && kbbDeclined) {
+
+    // Both declined
+    else if (
+        bbDirection < 0 &&
+        kbbDirection < 0
+    ) {
 
         if (commandLevel === "significant") {
             sentences.push(
-                "Command declined substantially, with meaningful deterioration in BB% and K/BB."
+                "Command declined substantially, with meaningful deterioration in both walk prevention and K/BB."
             );
         }
         else if (commandLevel === "moderate") {
             sentences.push(
-                "Command declined moderately, with BB% and K/BB both moving lower."
+                "Command declined moderately, with a higher BB% and lower K/BB."
             );
         }
         else {
             sentences.push(
-                "Command declined slightly, with modest deterioration in BB% and K/BB."
+                "Command declined slightly, with a higher BB% and lower K/BB."
             );
         }
     }
 
-    else if (bbImproved && kbbDeclined) {
+
+    // BB% improved, K/BB declined
+    else if (
+        bbDirection > 0 &&
+        kbbDirection < 0
+    ) {
+
         sentences.push(
-            "The command profile was mixed, with improved walk prevention offset by a decline in K/BB."
+            "The command profile was mixed, with improved walk prevention offset by a lower K/BB."
         );
     }
 
-    else if (bbDeclined && kbbImproved) {
+
+    // BB% declined, K/BB improved
+    else if (
+        bbDirection < 0 &&
+        kbbDirection > 0
+    ) {
+
         sentences.push(
-            "The command profile was mixed, with improved K/BB offset by weaker walk prevention."
+            "The command profile was mixed, with a stronger K/BB offset by weaker walk prevention."
         );
     }
+
+
+    // BB% changed, K/BB raw value flat
+    else if (
+        bbDirection > 0 &&
+        kbbDirection === 0
+    ) {
+
+        sentences.push(
+            "Command improved, driven by a lower BB% while K/BB remained stable."
+        );
+    }
+
+    else if (
+        bbDirection < 0 &&
+        kbbDirection === 0
+    ) {
+
+        sentences.push(
+            "Command declined, driven by a higher BB% while K/BB remained stable."
+        );
+    }
+
+
+    // K/BB changed, BB% raw value flat
+    else if (
+        kbbDirection > 0 &&
+        bbDirection === 0
+    ) {
+
+        sentences.push(
+            "Command improved, driven by a higher K/BB while BB% remained stable."
+        );
+    }
+
+    else if (
+        kbbDirection < 0 &&
+        bbDirection === 0
+    ) {
+
+        sentences.push(
+            "Command declined, driven by a lower K/BB while BB% remained stable."
+        );
+    }
+
 
     // ---------------------------------
     // 12. XP + Overall
@@ -2237,241 +2488,85 @@ function generatePitcherTrendAnalysis(curr, prev) {
         Math.round(curr.XP) -
         Math.round(prev.XP);
 
-    if (xpDiff > 0 && overallDiff > 0) {
+
+    if (
+        xpDiff > 0 &&
+        overallDiff > 0
+    ) {
+
         sentences.push(
             `XP increased by ${Math.abs(xpDiff)}, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
-    else if (xpDiff < 0 && overallDiff < 0) {
+
+    else if (
+        xpDiff < 0 &&
+        overallDiff < 0
+    ) {
+
         sentences.push(
             `XP declined by ${Math.abs(xpDiff)}, while Overall Score decreased by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
-    else if (xpDiff > 0 && overallDiff < 0) {
+
+    else if (
+        xpDiff > 0 &&
+        overallDiff < 0
+    ) {
+
         sentences.push(
             `XP increased by ${Math.abs(xpDiff)}, while Overall Score declined by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
-    else if (xpDiff < 0 && overallDiff > 0) {
+
+    else if (
+        xpDiff < 0 &&
+        overallDiff > 0
+    ) {
+
         sentences.push(
             `XP declined by ${Math.abs(xpDiff)}, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
 
-    return sentences.join(" ");
-}
-
-
-// -------------------------------
-// Capitalize helper
-// -------------------------------
-function capitalize(text) {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
-
-// -------------------------------
-// Pitcher Comparison Summary
-// -------------------------------
-function generatePitcherComparisonSummary(
-    p1,
-    p2,
-    data1,
-    data2,
-    xp1,
-    xp2,
-    overall1,
-    overall2,
-    archetype1,
-    archetype2
-) {
-
-    const sentences = [];
-
-// ---------------------------
-// Pitcher Archetype
-// ---------------------------
-
-if (
-    archetype1 &&
-    archetype2 &&
-    archetype1 !== "--" &&
-    archetype2 !== "--"
-) {
-
-    if (archetype1 === archetype2) {
-        sentences.push(
-            `${p1} and ${p2} both profile as ${archetype1} pitchers.`
-        );
-    }
-    else {
-        sentences.push(
-            `${p1} profiles as ${archetype1}, while ${p2} profiles as ${archetype2}.`
-        );
-    }
-}
-
-    // ---------------------------
-    // Run Prevention
-    // ERA + WHIP
-    // ---------------------------
-
-    const p1RunPrevention =
-        Number(data1.ERA) < Number(data2.ERA) &&
-        Number(data1.WHIP) < Number(data2.WHIP);
-
-    const p2RunPrevention =
-        Number(data2.ERA) < Number(data1.ERA) &&
-        Number(data2.WHIP) < Number(data1.WHIP);
-
-    if (p1RunPrevention) {
-    sentences.push(
-        `${p1} holds the advantage in run prevention with a lower ERA and WHIP.`
-    );
-}
-else if (p2RunPrevention) {
-    sentences.push(
-        `${p2} holds the advantage in run prevention with a lower ERA and WHIP.`
-    );
-}
-else {
-
-    const p1BetterERA = Number(data1.ERA) < Number(data2.ERA);
-    const p2BetterERA = Number(data2.ERA) < Number(data1.ERA);
-
-    const p1BetterWHIP = Number(data1.WHIP) < Number(data2.WHIP);
-    const p2BetterWHIP = Number(data2.WHIP) < Number(data1.WHIP);
-
-    if (p1BetterERA && p2BetterWHIP) {
-        sentences.push(
-            `Run prevention is split, with ${p1} holding the lower ERA and ${p2} the lower WHIP.`
-        );
-    }
-    else if (p2BetterERA && p1BetterWHIP) {
-        sentences.push(
-            `Run prevention is split, with ${p2} holding the lower ERA and ${p1} the lower WHIP.`
-        );
-    }
-}
-
-// ---------------------------
-// Command
-// BB% + K/BB
-// ---------------------------
-
-const p1Command =
-    Number(data1.BBpct) < Number(data2.BBpct) &&
-    Number(data1.KBB) > Number(data2.KBB);
-
-const p2Command =
-    Number(data2.BBpct) < Number(data1.BBpct) &&
-    Number(data2.KBB) > Number(data1.KBB);
-
-if (p1Command) {
-
-    sentences.push(
-        `${p1} owns the stronger command profile with a lower BB% and higher K/BB ratio.`
-    );
-
-}
-else if (p2Command) {
-
-    sentences.push(
-        `${p2} owns the stronger command profile with a lower BB% and higher K/BB ratio.`
-    );
-
-}
-else {
-
-    const p1BetterBB =
-        Number(data1.BBpct) < Number(data2.BBpct);
-
-    const p2BetterBB =
-        Number(data2.BBpct) < Number(data1.BBpct);
-
-    const p1BetterKBB =
-        Number(data1.KBB) > Number(data2.KBB);
-
-    const p2BetterKBB =
-        Number(data2.KBB) > Number(data1.KBB);
-
-
-    if (p1BetterBB && p2BetterKBB) {
+    else if (
+        xpDiff === 0 &&
+        overallDiff > 0
+    ) {
 
         sentences.push(
-            `The command profile is split, with ${p1} holding the lower BB% and ${p2} the higher K/BB ratio.`
-        );
-
-    }
-    else if (p2BetterBB && p1BetterKBB) {
-
-        sentences.push(
-            `The command profile is split, with ${p2} holding the lower BB% and ${p1} the higher K/BB ratio.`
-        );
-    }
-}
-
-
-    // ---------------------------
-    // Strikeout Profile
-    // K%
-    // ---------------------------
-
-    if (Number(data1.Kpct) > Number(data2.Kpct)) {
-
-        sentences.push(
-            `${p1} provides the stronger strikeout profile with the higher K%.`
-        );
-
-    }
-    else if (Number(data2.Kpct) > Number(data1.Kpct)) {
-
-        sentences.push(
-            `${p2} provides the stronger strikeout profile with the higher K%.`
+            `XP remained unchanged, while Overall Score improved by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
     }
 
-
-    // ---------------------------
-    // XP + Overall Score
-    // ---------------------------
-
-    const p1XP = xp1 > xp2;
-    const p2XP = xp2 > xp1;
-
-    const p1Overall = overall1 > overall2;
-    const p2Overall = overall2 > overall1;
-
-
-    if (p1XP && p1Overall) {
+    else if (
+        xpDiff === 0 &&
+        overallDiff < 0
+    ) {
 
         sentences.push(
-            `${p1} finishes ahead in both XP and Overall Score.`
+            `XP remained unchanged, while Overall Score declined by ${Math.abs(overallDiff).toFixed(1)} points.`
         );
-
     }
-    else if (p2XP && p2Overall) {
+
+    else if (
+        xpDiff > 0 &&
+        Math.abs(overallDiff) <= 0.05
+    ) {
 
         sentences.push(
-            `${p2} finishes ahead in both XP and Overall Score.`
+            `XP increased by ${Math.abs(xpDiff)}, while Overall Score remained essentially unchanged.`
         );
-
     }
-    else {
 
-        if (p1XP) {
-            sentences.push(`${p1} holds the advantage in XP.`);
-        }
-        else if (p2XP) {
-            sentences.push(`${p2} holds the advantage in XP.`);
-        }
+    else if (
+        xpDiff < 0 &&
+        Math.abs(overallDiff) <= 0.05
+    ) {
 
-        if (p1Overall) {
-            sentences.push(`${p1} holds the advantage in Overall Score.`);
-        }
-        else if (p2Overall) {
-            sentences.push(`${p2} holds the advantage in Overall Score.`);
-        }
+        sentences.push(
+            `XP declined by ${Math.abs(xpDiff)}, while Overall Score remained essentially unchanged.`
+        );
     }
 
 
