@@ -1399,158 +1399,438 @@ function loadPlayerOfDay(season) {
 async function handleTrend() {
 
     try {
-        const rawName = document.getElementById("playerName").value.trim();
+
+        const rawName =
+            document.getElementById("playerName")
+                .value
+                .trim();
+
         if (!rawName) {
             alert("Enter a player name first.");
             return;
         }
 
-        const season = Number(document.getElementById("seasonSelect").value);
-        const lastSeason = season - 1;
 
-        // Fetch both seasons using stathead.r API
+        const season =
+            Number(
+                document.getElementById("seasonSelect").value
+            );
+
+        const lastSeason =
+            season - 1;
+
+
+        // ---------------------------------
+        // Fetch both seasons
+        // ---------------------------------
+
         const currArr = await fetch(
             `https://pitcher-analyzer-backend.onrender.com/api/pitchers?name=${encodeURIComponent(rawName)}&season=${season}`
         ).then(r => r.json());
+
 
         const prevArr = await fetch(
             `https://pitcher-analyzer-backend.onrender.com/api/pitchers?name=${encodeURIComponent(rawName)}&season=${lastSeason}`
         ).then(r => r.json());
 
-        const curr = Array.isArray(currArr) ? currArr[0] : currArr;
-        const prev = Array.isArray(prevArr) ? prevArr[0] : prevArr;
 
-        if (!curr || curr.error || !prev || prev.error) {
+        const curr =
+            Array.isArray(currArr)
+                ? currArr[0]
+                : currArr;
+
+        const prev =
+            Array.isArray(prevArr)
+                ? prevArr[0]
+                : prevArr;
+
+
+        // ---------------------------------
+        // Validate Data
+        // ---------------------------------
+
+        if (
+            !curr ||
+            curr.error ||
+            !prev ||
+            prev.error
+        ) {
             alert("Not enough data for season comparison.");
             return;
         }
 
-        if (curr.ERA == null || prev.ERA == null) {
+
+        if (
+            curr.ERA == null ||
+            prev.ERA == null
+        ) {
             alert("Not enough data for season comparison.");
             return;
         }
 
-        // ⭐ Compute XP for both seasons
-        curr.XP = computePitcherXP(curr);
-        prev.XP = computePitcherXP(prev);
 
-        // ⭐ Compute Overall Score for both seasons
-        curr.OverallScore = computeWeightedOverall({
-            eraScore: scoreERA(curr.ERA),
-            whipScore: scoreWHIP(curr.WHIP),
-            kpctScore: scoreKpct(curr.Kpct),
-            bbpctScore: scoreBBpct(curr.BBpct),
-            kbbScore: scoreKBB(curr.KBB)
-        });
+        // ---------------------------------
+        // Helpers
+        // ---------------------------------
 
-        prev.OverallScore = computeWeightedOverall({
-            eraScore: scoreERA(prev.ERA),
-            whipScore: scoreWHIP(prev.WHIP),
-            kpctScore: scoreKpct(prev.Kpct),
-            bbpctScore: scoreBBpct(prev.BBpct),
-            kbbScore: scoreKBB(prev.KBB)
-        });
+        function setText(id, value) {
 
-        const html = buildSeasonComparison(curr, prev, season, lastSeason);
+            const el =
+                document.getElementById(id);
 
-        document.getElementById("trendTitle").textContent =
-            `Season Comparison (${season} vs ${lastSeason})`;
+            if (!el) return;
 
-        document.getElementById("trendBody").innerHTML = html;
+            el.textContent =
+                value ?? "--";
+        }
 
-const trendAnalysis =
-    generatePitcherTrendAnalysis(curr, prev);
 
-document.getElementById("trendAnalysisText").textContent =
-    trendAnalysis;
+        function setTrendMeter(
+            scoreId,
+            meterId,
+            value
+        ) {
 
-document.getElementById("trendModal").style.display = "flex";
+            const scoreEl =
+                document.getElementById(scoreId);
 
-    } catch (err) {
-        console.error("Trend error:", err);
+            const meterEl =
+                document.getElementById(meterId);
+
+            const score =
+                Number(value);
+
+
+            if (!Number.isFinite(score)) {
+
+                if (scoreEl) {
+                    scoreEl.textContent = "--";
+                }
+
+                if (meterEl) {
+                    meterEl.style.width = "0%";
+                }
+
+                return;
+            }
+
+
+            if (scoreEl) {
+                scoreEl.textContent =
+                    score.toFixed(1);
+            }
+
+
+            if (meterEl) {
+
+                const clamped =
+                    Math.max(
+                        0,
+                        Math.min(10, score)
+                    );
+
+                meterEl.style.width =
+                    `${clamped * 10}%`;
+            }
+        }
+
+
+        function formatOverall(value) {
+
+            const n = Number(value);
+
+            return Number.isFinite(n)
+                ? n.toFixed(1)
+                : "--";
+        }
+
+
+        function formatXP(value) {
+
+            const n = Number(value);
+
+            return Number.isFinite(n)
+                ? Math.round(n)
+                : "--";
+        }
+
+
+        // ---------------------------------
+        // Player Identity
+        // ---------------------------------
+
+        setText(
+            "trendPlayerName",
+            curr.Player || curr.Name || rawName
+        );
+
+        setText(
+            "trendPlayerTeam",
+            curr.Team || curr.Tm || "--"
+        );
+
+
+        // ---------------------------------
+        // Season Headers
+        // ---------------------------------
+
+        setText(
+            "trendSeason1",
+            lastSeason
+        );
+
+        setText(
+            "trendSeason2",
+            season
+        );
+
+
+        // ---------------------------------
+        // Summary Metrics
+        //
+        // Prior season = 1
+        // Current season = 2
+        // ---------------------------------
+
+        setText(
+            "trendOverall1",
+            formatOverall(prev.Overall)
+        );
+
+        setText(
+            "trendOverall2",
+            formatOverall(curr.Overall)
+        );
+
+
+        setText(
+            "trendXP1",
+            formatXP(prev.XP)
+        );
+
+        setText(
+            "trendXP2",
+            formatXP(curr.XP)
+        );
+
+
+        setText(
+            "trendTier1",
+            getPitcherTier(
+                Number(prev.Overall)
+            )
+        );
+
+        setText(
+            "trendTier2",
+            getPitcherTier(
+                Number(curr.Overall)
+            )
+        );
+
+
+        // ---------------------------------
+        // Raw Profile Stats
+        // ---------------------------------
+
+        // ERA
+        setText(
+            "trendERARaw1",
+            Number(prev.ERA).toFixed(2)
+        );
+
+        setText(
+            "trendERARaw2",
+            Number(curr.ERA).toFixed(2)
+        );
+
+
+        // WHIP
+        setText(
+            "trendWHIPRaw1",
+            Number(prev.WHIP).toFixed(2)
+        );
+
+        setText(
+            "trendWHIPRaw2",
+            Number(curr.WHIP).toFixed(2)
+        );
+
+
+        // K%
+        setText(
+            "trendKRaw1",
+            `${Number(prev.Kpct).toFixed(1)}%`
+        );
+
+        setText(
+            "trendKRaw2",
+            `${Number(curr.Kpct).toFixed(1)}%`
+        );
+
+
+        // BB%
+        setText(
+            "trendBBRaw1",
+            `${Number(prev.BBpct).toFixed(1)}%`
+        );
+
+        setText(
+            "trendBBRaw2",
+            `${Number(curr.BBpct).toFixed(1)}%`
+        );
+
+
+        // K/BB
+        setText(
+            "trendKBBRaw1",
+            Number(prev.KBB).toFixed(1)
+        );
+
+        setText(
+            "trendKBBRaw2",
+            Number(curr.KBB).toFixed(1)
+        );
+
+
+        // ---------------------------------
+        // Archetype
+        // ---------------------------------
+
+        setText(
+            "trendArchetype1",
+            prev.Archetype || "--"
+        );
+
+        setText(
+            "trendArchetype2",
+            curr.Archetype || "--"
+        );
+
+
+        setText(
+            "trendMatch1",
+            prev.ArchetypeMatch || "--"
+        );
+
+        setText(
+            "trendMatch2",
+            curr.ArchetypeMatch || "--"
+        );
+
+
+        // ---------------------------------
+        // Profile Shape
+        // ---------------------------------
+
+        setTrendMeter(
+            "trendERAScore1",
+            "trendERAMeter1",
+            prev.ERA_score
+        );
+
+        setTrendMeter(
+            "trendERAScore2",
+            "trendERAMeter2",
+            curr.ERA_score
+        );
+
+
+        setTrendMeter(
+            "trendWHIPScore1",
+            "trendWHIPMeter1",
+            prev.WHIP_score
+        );
+
+        setTrendMeter(
+            "trendWHIPScore2",
+            "trendWHIPMeter2",
+            curr.WHIP_score
+        );
+
+
+        setTrendMeter(
+            "trendKScore1",
+            "trendKMeter1",
+            prev.Kpct_score
+        );
+
+        setTrendMeter(
+            "trendKScore2",
+            "trendKMeter2",
+            curr.Kpct_score
+        );
+
+
+        setTrendMeter(
+            "trendBBScore1",
+            "trendBBMeter1",
+            prev.BBpct_score
+        );
+
+        setTrendMeter(
+            "trendBBScore2",
+            "trendBBMeter2",
+            curr.BBpct_score
+        );
+
+
+        setTrendMeter(
+            "trendKBBScore1",
+            "trendKBBMeter1",
+            prev.KBB_score
+        );
+
+        setTrendMeter(
+            "trendKBBScore2",
+            "trendKBBMeter2",
+            curr.KBB_score
+        );
+
+
+        // ---------------------------------
+        // Trend Analysis
+        // ---------------------------------
+
+        const trendAnalysis =
+            generatePitcherTrendAnalysis(
+                curr,
+                prev
+            );
+
+        setText(
+            "trendAnalysisText",
+            trendAnalysis
+        );
+
+
+        // ---------------------------------
+        // Modal Title
+        // ---------------------------------
+
+        document.getElementById(
+            "trendTitle"
+        ).textContent =
+            `Pitcher Trend (${lastSeason} → ${season})`;
+
+
+        // ---------------------------------
+        // Open Modal
+        // ---------------------------------
+
+        document.getElementById(
+            "trendModal"
+        ).style.display = "flex";
+
+
     }
-}
+    catch (err) {
 
-
-// -------------------------------
-// Trend Table (Season Comparison)
-// -------------------------------
-function buildSeasonComparison(curr, prev, season, lastSeason) {
-
-    const stats = [
-        { key: "ERA",   label: "ERA",   higherIsBetter: false },
-        { key: "WHIP",  label: "WHIP",  higherIsBetter: false },
-        { key: "Kpct",  label: "K%",    higherIsBetter: true  },
-        { key: "BBpct", label: "BB%",   higherIsBetter: false },
-        { key: "KBB",   label: "K/BB",  higherIsBetter: true  },
-
-        // ⭐ NEW
-        { key: "XP",            label: "XP",            higherIsBetter: true },
-        { key: "OverallScore",  label: "Overall Score", higherIsBetter: true }
-    ];
-
-    let rows = stats.map(s => {
-        const a = Number(curr[s.key]);
-        const b = Number(prev[s.key]);
-
-        // Determine arrow
-        const arrow =
-            a === b ? "➖" :
-            s.higherIsBetter
-                ? (a > b ? "▲" : "▼")
-                : (a < b ? "▲" : "▼");
-
-        // Determine CSS class
-        const arrowClass =
-            arrow === "▲" ? "trend-up" :
-            arrow === "▼" ? "trend-down" :
-            "trend-flat";
-
-        // ⭐ Formatting rules
-        let dispA, dispB;
-
-        if (s.key === "ERA" || s.key === "WHIP") {
-            dispA = isNaN(a) ? "--" : a.toFixed(2);
-            dispB = isNaN(b) ? "--" : b.toFixed(2);
-        }
-        else if (s.key === "Kpct" || s.key === "BBpct" || s.key === "KBB") {
-            dispA = isNaN(a) ? "--" : a.toFixed(1);
-            dispB = isNaN(b) ? "--" : b.toFixed(1);
-        }
-        else if (s.key === "XP") {
-            dispA = isNaN(a) ? "--" : Math.round(a);
-            dispB = isNaN(b) ? "--" : Math.round(b);
-        }
-        else if (s.key === "OverallScore") {
-            dispA = isNaN(a) ? "--" : a.toFixed(1);
-            dispB = isNaN(b) ? "--" : b.toFixed(1);
-        }
-
-        return `
-        <tr>
-            <td>${s.label}</td>
-            <td>${dispA}</td>
-            <td>${dispB}</td>
-            <td class="${arrowClass}">${arrow}</td>
-        </tr>
-        `;
-    }).join("");
-
-    return `
-        <table class="trend-table">
-            <thead>
-                <tr>
-                    <th>Stat</th>
-                    <th>${season}</th>
-                    <th>${lastSeason}</th>
-                    <th>Trend</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${rows}
-            </tbody>
-        </table>
-    `;
+        console.error(
+            "Trend error:",
+            err
+        );
+    }
 }
 
 // -------------------------------
