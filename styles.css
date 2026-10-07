@@ -813,7 +813,7 @@ select:focus {
 
     padding: 24px 26px;
 
-    max-width: 650px;
+    max-width: 100%;
     margin: 40px auto 20px;
 
     box-shadow:
