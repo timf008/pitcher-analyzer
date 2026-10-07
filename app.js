@@ -2567,19 +2567,15 @@ async function showCompareModal() {
         document.getElementById("compareName2").textContent =
             `${p2_display} (${s2})`;
 
-        // ----------------------------------
-        // Team
-        // ----------------------------------
+// ----------------------------------
+// Team
+// ----------------------------------
 
-        setText(
-            "compareTeam1",
-            data1.Team || "--"
-        );
+document.getElementById("compareTeam1").textContent =
+    data1.Team || "--";
 
-        setText(
-            "compareTeam2",
-            data2.Team || "--"
-        );
+document.getElementById("compareTeam2").textContent =
+    data2.Team || "--";
 
 
         // -------------------------------
