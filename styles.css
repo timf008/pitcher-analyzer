@@ -1621,7 +1621,7 @@ select:focus {
 
     color: #2f80ed;
 
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 800;
 
     text-align: center;
@@ -1675,7 +1675,7 @@ select:focus {
 }
 
 .trend-profile-label strong {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 800;
 }
 
