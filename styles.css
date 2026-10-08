@@ -1,5 +1,5 @@
 /* -----------------------------------------
-   Batter Analyzer CSS Styles
+   Pitcher Analyzer CSS Styles
 ----------------------------------------- */
 
 .version-label {
@@ -3071,11 +3071,12 @@ select:focus {
     to   { transform: rotate(360deg); }
 }
 
+
 /* -----------------------------------------
-   Batter of the Day - Compact
+   Pitcher of the Day - Compact
 ----------------------------------------- */
 
-#batter-ticker {
+#player-ticker {
     display: flex;
     align-items: center;
 
@@ -3153,14 +3154,22 @@ select:focus {
     background: #cbd6e2;
 }
 
-#bod-overall,
-#bod-xp {
+
+/* Pitcher Overall / XP */
+
+#pod-overall,
+#pod-xp {
     font-weight: 800;
 }
 
+
+/* -----------------------------------------
+   Mobile
+----------------------------------------- */
+
 @media (max-width: 700px) {
 
-    #batter-ticker {
+    #player-ticker {
         height: 32px;
     }
 
@@ -3181,11 +3190,12 @@ select:focus {
         overflow: hidden;
     }
 
-    #bod-summary {
+    #pod-record {
         overflow: hidden;
         text-overflow: ellipsis;
     }
 }
+
 
 /* ==========================================
    FANTASY EDGE
