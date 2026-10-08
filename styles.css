@@ -718,7 +718,7 @@ select:focus {
     justify-content: center;
 
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 2px;
 
     background: #ffffff;
 
@@ -852,7 +852,7 @@ select:focus {
     align-items: stretch;
     justify-content: space-between;
 
-    margin-bottom: 16px;
+    margin-bottom: 2px;
 
     background: #f4f8fd;
 
@@ -979,7 +979,7 @@ select:focus {
 .scouting-note {
     display: flex;
     align-items: stretch;
-    margin-top: 20px;
+    margin-top: 2px;
 
     background: #f7f9fc;
     border: 1px solid #e1e7ef;
