@@ -5143,7 +5143,7 @@ input,select{border-radius:4px}
 .scouting-title label{font-size:11px;letter-spacing:1.6px}#scoutingNote{font-style:normal;font-size:14px;line-height:1.55}
 .percentile-box{min-width:145px;padding:14px;background:#f5f9fd}#overallPercentile{font-size:28px}
 .park-context{margin-top:10px;padding-top:10px}
-.archetype-row{margin:0;border-radius:3px;background:#edf5ff}.archetype-main{padding:12px 16px}.archetype-name{font-size:18px}.archetype-match{min-width:130px;padding:10px}
+.archetype-row{margin:0;border-radius:3px;background:#edf5ff !important}.archetype-main{padding:12px 16px}.archetype-name{font-size:18px}.archetype-match{min-width:130px;padding:10px}
 .tb-panel-title{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--navy);color:#fff;padding:12px 18px}
 .tb-panel-title span{font-size:13px;font-weight:850;letter-spacing:1px}.tb-panel-title small{font-size:10px;color:#b5cbe1}
 .metrics{border-radius:4px}.metrics-columns{grid-template-columns:120px 90px 1fr 70px;padding:10px 16px;font-size:10px;letter-spacing:1px}
