@@ -5163,7 +5163,7 @@ input,select{border-radius:4px}
 .fantasy-edge-panel{overflow:hidden;background:#fff;border:1px solid var(--border)}
 .fantasy-edge-header{background:var(--navy)!important;padding:15px!important;border-radius:0!important}
 .fantasy-edge-header .fantasy-edge{max-width:210px!important;width:100%;height:auto;object-fit:contain}
-.fantasy-edge-subtitle{font-size:9px!important;letter-spacing:1px!important;color:#bdd5eb!important}
+.fantasy-edge-subtitle{font-size:9px!important;letter-spacing:1px!important;color:#173c64!important}
 .fantasy-summary{padding:12px!important}.fantasy-summary-header{padding:0 0 10px!important}.fantasy-summary-title{font-size:14px!important}
 .fantasy-summary-grid{grid-template-columns:1fr!important;gap:10px!important}
 .fantasy-summary-item{min-width:0!important;padding:13px!important;border-radius:4px!important}
@@ -5192,7 +5192,7 @@ input,select{border-radius:4px}
 .tb-dashboard .fantasy-edge-header {
   padding: 13px 16px !important;
   margin: 0 0 12px;
-  background: #0f243e !important;
+  background: #white !important;
   border-radius: 4px !important;
   box-shadow: 0 2px 7px rgba(15,36,62,.08);
 }
@@ -5230,7 +5230,7 @@ input,select{border-radius:4px}
 }
 .tb-dashboard .identity-summary-card { border-left-color: #4a90e2; }
 .tb-dashboard .state-summary-card { border-left-color: #299c83; }
-.tb-dashboard .value-summary-card { border-left-color: #7b91c4; }
+.tb-dashboard .value-summary-card { border-left-color: #ff7a00; }
 .tb-dashboard .fantasy-summary-info {
   margin: 12px 0 0 !important;
   padding: 10px 12px !important;
