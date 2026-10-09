@@ -6073,7 +6073,7 @@ input,select {
 
     color: #ffffff;
 
-    border-radius: 16px 16px 0 0;
+    border-radius: 1px;
 }
 #compareTitle {
     margin: 0;
@@ -6475,7 +6475,7 @@ input,select {
     background: #ffffff !important;
     color: #0f243e;
 
-    border-radius: 1px;
+    border-radius: 1px !important;
 
     overflow: hidden;
 
