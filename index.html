@@ -156,70 +156,152 @@
 </section>
 </div>
 </div>
-</section><div class="tb-dashboard"><main class="tb-primary"><section class="analytics-panel">
-<div class="analytics-header">
-<h2>📈 Player Analytics</h2>
-</div>
-<div class="overall-card">
-<section class="overall">
-<div class="player-card-header">
-<div class="player-name-row">
-<span aria-hidden="true" class="team-color-panel" id="teamColorPanel">
-<span class="team-color-primary"></span>
-<span class="team-color-secondary"></span>
-</span>
-<div class="player-card-name" id="playerTab">
-            Player --
-        </div>
-</div>
-</div>
-<div class="overall-top">
-<p>
-        Overall Score:
-        <span id="overallScore">--</span>
-<span class="analytics-meter">
-<span class="analytics-meter-fill" id="overallMeter"></span>
-</span>
-</p>
-<p>
-        XP:
-        <span id="xpScore">--</span>
-<span class="analytics-meter">
-<span class="analytics-meter-fill" id="xpMeter"></span>
-</span>
-</p>
-<p>
-        Tier:
-        <span id="overallTier">--</span>
-</p>
-</div>
-<div class="scouting-note">
-<div class="scouting-content">
-<div class="scouting-title">
-<svg aria-hidden="true" class="scouting-note-icon" viewbox="0 0 24 24">
-<!-- Clipboard -->
-<rect height="17" rx="2" width="14" x="5" y="4"></rect>
-<!-- Clipboard tab -->
-<path d="M9 4V3.5C9 2.7 9.7 2 10.5 2h3
-             C14.3 2 15 2.7 15 3.5V4"></path>
-<!-- Report lines -->
-<path d="M9 9h6"></path>
-<path d="M9 13h6"></path>
-<path d="M9 17h4"></path>
-</svg>
-<label>SCOUTING NOTE</label>
-</div>
-<p id="scoutingNote">--</p>
-</div>
-<div class="percentile-box">
-<span class="percentile-label">PERCENTILE</span>
-<span id="overallPercentile">--</span>
-</div>
-</div>
-<!-- Pitcher Archetype -->
+</section><div class="tb-dashboard"><main class="tb-primary"><section 
 
-</section>
+<!-- ======================================
+     PLAYER PROFILE BANNER - PITCHER
+====================================== -->
+<div class="player-profile-banner">
+
+    <div class="player-card-header">
+        <div class="player-name-row">
+
+            <img
+                id="playerHeadshot"
+                alt="MLB Player Headshot"
+                style="display:none;"
+            >
+
+            <span
+                aria-hidden="true"
+                class="team-color-panel"
+                id="teamColorPanel"
+            >
+                <span class="team-color-primary"></span>
+                <span class="team-color-secondary"></span>
+            </span>
+
+            <div class="player-card-name" id="playerTab">
+                Player --
+            </div>
+
+        </div>
+    </div>
+
 </div>
+
+
+<!-- ======================================
+     PLAYER ANALYTICS PANEL - PITCHER
+====================================== -->
+<div class="analytics-panel">
+
+    <div class="analytics-header">
+        <h2>📈 Player Analytics</h2>
+    </div>
+
+    <div class="overall-card">
+
+        <section class="overall">
+
+            <!-- Overall / XP / Tier -->
+            <div class="overall-top">
+
+                <p>
+                    Overall Score:
+                    <span id="overallScore">--</span>
+                    <span class="analytics-meter">
+                        <span
+                            class="analytics-meter-fill"
+                            id="overallMeter"
+                        ></span>
+                    </span>
+                </p>
+
+                <p>
+                    XP:
+                    <span id="xpScore">--</span>
+                    <span class="analytics-meter">
+                        <span
+                            class="analytics-meter-fill"
+                            id="xpMeter"
+                        ></span>
+                    </span>
+                </p>
+
+                <p>
+                    Tier:
+                    <span id="overallTier">--</span>
+                </p>
+
+            </div>
+
+
+            <!-- ======================================
+                 SCOUTING NOTE
+            ====================================== -->
+            <div class="scouting-note">
+
+                <div class="scouting-content">
+
+                    <div class="scouting-title">
+
+                        <svg
+                            aria-hidden="true"
+                            class="scouting-note-icon"
+                            viewBox="0 0 24 24"
+                        >
+                            <!-- Clipboard -->
+                            <rect
+                                height="17"
+                                rx="2"
+                                width="14"
+                                x="5"
+                                y="4"
+                            ></rect>
+
+                            <!-- Clipboard tab -->
+                            <path d="M9 4V3.5C9 2.7 9.7 2 10.5 2h3
+                                     C14.3 2 15 2.7 15 3.5V4">
+                            </path>
+
+                            <!-- Report lines -->
+                            <path d="M9 9h6"></path>
+                            <path d="M9 13h6"></path>
+                            <path d="M9 17h4"></path>
+
+                        </svg>
+
+                        <label>SCOUTING NOTE</label>
+
+                    </div>
+
+                    <p id="scoutingNote">--</p>
+
+                </div>
+
+
+                <!-- Percentile -->
+                <div class="percentile-box">
+
+                    <span class="percentile-label">
+                        PERCENTILE
+                    </span>
+
+                    <span id="overallPercentile">--</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+<!-- END PLAYER ANALYTICS -->
+
+
 </section><section class="metrics"><div class="tb-panel-title"><span>FIVE-FACTOR PROFILE</span><small>Normalized performance • 0–10 scale</small></div>
 <div class="metrics-columns">
 <span>STAT</span>
