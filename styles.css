@@ -1,3 +1,4 @@
+
 /* -----------------------------------------
    Pitcher Analyzer CSS Styles
 ----------------------------------------- */
@@ -37,8 +38,8 @@ body {
 }
 
 .section-title {
-  font-size: 1.2em;
-  font-weight: 600;
+    font-size: 1.2em;
+    font-weight: 600;
 }
 
 /* -----------------------------------------
@@ -50,11 +51,14 @@ body {
 }
 
 .header .batter-analyzer {
-    width: 450px;        /* your target size */
-    max-width: 100%;     /* prevents overflow on small screens */
+    width: 450px;
+    /* your target size */
+    max-width: 100%;
+    /* prevents overflow on small screens */
     height: auto;
     display: block;
-    margin: 0 auto;      /* centers the image */
+    margin: 0 auto;
+    /* centers the image */
 }
 
 /* -----------------------------------------
@@ -105,7 +109,6 @@ body {
     box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
 }
 
-
 /* Navy Header */
 
 .search-header {
@@ -123,13 +126,11 @@ body {
     letter-spacing: 0.4px;
 }
 
-
 /* Search Body */
 
 .search-body {
     padding: 18px 20px 6px;
 }
-
 
 /* -----------------------------------------
    Search Layout
@@ -150,7 +151,6 @@ body {
     overflow: visible;
 }
 
-
 /* Player + Season Pair */
 
 .player-search-group {
@@ -165,7 +165,6 @@ body {
     overflow: visible;
 }
 
-
 /* Player Name Takes Available Space */
 
 .player-input {
@@ -178,7 +177,6 @@ body {
     width: 100%;
 }
 
-
 /* Compact Season Selector */
 
 .season-input {
@@ -188,7 +186,6 @@ body {
 .season-input select {
     width: 82px;
 }
-
 
 /* -----------------------------------------
    Player Autocomplete
@@ -202,7 +199,6 @@ body {
     position: relative;
     width: 100%;
 }
-
 
 /* Dropdown */
 
@@ -224,7 +220,6 @@ body {
 
     z-index: 1000;
 }
-
 
 /* Individual Player */
 
@@ -250,7 +245,6 @@ body {
     background: #f5f8fc;
 }
 
-
 /* Player Name */
 
 .autocomplete-player-name {
@@ -263,7 +257,6 @@ body {
     text-overflow: ellipsis;
 }
 
-
 /* Team */
 
 .autocomplete-player-team {
@@ -273,7 +266,6 @@ body {
 
     text-align: right;
 }
-
 
 /* Scrollbar */
 
@@ -294,7 +286,6 @@ body {
     background: #8fa1b2;
 }
 
-
 /* -----------------------------------------
    Action Row
 ----------------------------------------- */
@@ -311,7 +302,6 @@ body {
     min-width: 0;
     padding: 0 10px;
 }
-
 
 /* -----------------------------------------
    Inputs
@@ -356,7 +346,6 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.12);
 }
 
-
 /* -----------------------------------------
    Action Buttons
 ----------------------------------------- */
@@ -380,16 +369,13 @@ select:focus {
 
     cursor: pointer;
 
-    box-shadow:
-        0 5px 10px rgba(15, 36, 62, 0.18),
+    box-shadow: 0 5px 10px rgba(15, 36, 62, 0.18),
         0 1px 2px rgba(0, 0, 0, 0.10);
 
-    transition:
-        transform 0.18s ease,
+    transition: transform 0.18s ease,
         box-shadow 0.18s ease,
         filter 0.18s ease;
 }
-
 
 /* Icon */
 
@@ -407,13 +393,11 @@ select:focus {
     line-height: 1;
 }
 
-
 /* Load */
 
 #loadBtn {
     background: linear-gradient(135deg, #0f243e);
 }
-
 
 /* Trend */
 
@@ -421,13 +405,11 @@ select:focus {
     background: linear-gradient(135deg, #0f243e);
 }
 
-
 /* Compare */
 
 #compareBtn {
     background: linear-gradient(135deg, #0f243e);
 }
-
 
 /* Leaders */
 
@@ -435,20 +417,17 @@ select:focus {
     background: linear-gradient(135deg, #0f243e);
 }
 
-
 /* Swap */
 
 #swapBtn {
     background: linear-gradient(135deg, #0f243e);
 }
 
-
 /* Reset */
 
 #resetBtn {
     background: linear-gradient(135deg, #c63737, #e04b47);
 }
-
 
 /* Hover */
 
@@ -457,19 +436,16 @@ select:focus {
 
     filter: brightness(1.06);
 
-    box-shadow:
-        0 8px 16px rgba(15, 36, 62, 0.23),
+    box-shadow: 0 8px 16px rgba(15, 36, 62, 0.23),
         0 2px 4px rgba(0, 0, 0, 0.10);
 }
-
 
 /* Press */
 
 .controls.row button:active {
     transform: translateY(0);
 
-    box-shadow:
-        0 3px 6px rgba(15, 36, 62, 0.18);
+    box-shadow: 0 3px 6px rgba(15, 36, 62, 0.18);
 }
 
 .btn-icon svg {
@@ -524,7 +500,6 @@ select:focus {
     text-align: center;
 }
 
-
 /* -----------------------------------------
    Metric Rows
 ----------------------------------------- */
@@ -549,7 +524,6 @@ select:focus {
     background: #f9fbfe;
 }
 
-
 /* -----------------------------------------
    Metric Name
 ----------------------------------------- */
@@ -573,7 +547,6 @@ select:focus {
     color: #7a8da5;
 }
 
-
 /* -----------------------------------------
    Raw Value
 ----------------------------------------- */
@@ -585,7 +558,6 @@ select:focus {
     text-align: center;
 }
 
-
 /* -----------------------------------------
    Battery
 ----------------------------------------- */
@@ -593,7 +565,6 @@ select:focus {
 .metric-row .battery {
     width: 100%;
 }
-
 
 /* -----------------------------------------
    Score
@@ -726,7 +697,6 @@ select:focus {
     box-shadow: 0 2px 6px rgba(15, 36, 62, 0.06);
 }
 
-
 /* Each stat */
 
 .overall-top p {
@@ -751,13 +721,11 @@ select:focus {
     text-align: center;
 }
 
-
 /* Vertical dividers */
 
 .overall-top p + p {
     border-left: 1px solid #d7e0e8;
 }
-
 
 /* Overall Score + XP values */
 
@@ -778,7 +746,6 @@ select:focus {
     text-transform: none;
 }
 
-
 /* Tier badge */
 
 .overall-top #overallTier .tier-badge {
@@ -790,7 +757,6 @@ select:focus {
 .overall-battery::after {
     background: var(--color);
 }
-
 
 /* Card container */
 .overall-card {
@@ -804,8 +770,7 @@ select:focus {
     max-width: 100%;
     margin: 40px auto 20px;
 
-    box-shadow:
-        0 4px 12px rgba(15, 36, 62, 0.08),
+    box-shadow: 0 4px 12px rgba(15, 36, 62, 0.08),
         0 1px 3px rgba(15, 36, 62, 0.05);
 
     position: relative;
@@ -853,7 +818,6 @@ select:focus {
     box-shadow: 0 2px 6px rgba(15, 36, 62, 0.04);
 }
 
-
 /* -----------------------------------------
    Archetype Identity
 ----------------------------------------- */
@@ -868,7 +832,6 @@ select:focus {
     padding: 14px 18px;
 }
 
-
 .archetype-icon {
     width: 30px;
     height: 30px;
@@ -882,13 +845,11 @@ select:focus {
     stroke-linejoin: round;
 }
 
-
 .archetype-content {
     display: flex;
     flex-direction: column;
     gap: 3px;
 }
-
 
 .archetype-label {
     color: #607286;
@@ -900,7 +861,6 @@ select:focus {
     text-transform: uppercase;
 }
 
-
 .archetype-name {
     color: #0f243e;
 
@@ -909,7 +869,6 @@ select:focus {
 
     line-height: 1.15;
 }
-
 
 /* -----------------------------------------
    Archetype Match
@@ -930,7 +889,6 @@ select:focus {
     background: #ffffff;
 }
 
-
 .archetype-match-label {
     margin-bottom: 6px;
 
@@ -942,7 +900,6 @@ select:focus {
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
-
 
 .archetype-match-badge {
     display: inline-block;
@@ -1105,7 +1062,6 @@ select:focus {
     background: #edf1f5;
 }
 
-
 /* -----------------------------------------
    Park Context
 ----------------------------------------- */
@@ -1191,7 +1147,7 @@ select:focus {
 
 @media (max-width: 700px) {
 
-        .archetype-row {
+    .archetype-row {
         flex-direction: column;
     }
 
@@ -1233,29 +1189,27 @@ select:focus {
     }
 }
 
-
-
 /* -----------------------------------------
    Trend Modal
 ----------------------------------------- */
 .modal {
-  position: fixed;
-  inset: 0; /* replaces top:0; left:0; width:100%; height:100%; */
-  background: rgba(0,0,0,0.55);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
+    position: fixed;
+    inset: 0;
+    /* replaces top:0; left:0; width:100%; height:100%; */
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
 }
-
 
 .modal-container {
     position: relative;
     z-index: 99999;
-    background: #fff; /* prevents transparency */
+    background: #fff;
+    /* prevents transparency */
 }
-
 
 .modal.hidden {
     display: none;
@@ -1307,7 +1261,6 @@ select:focus {
     z-index: 9999;
 }
 
-
 /* -----------------------------------------
    Modal Shell
 ----------------------------------------- */
@@ -1328,11 +1281,9 @@ select:focus {
     overflow-y: auto;
     overflow-x: hidden;
 
-    box-shadow:
-        0 18px 50px rgba(0, 0, 0, 0.28),
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28),
         0 4px 14px rgba(15, 36, 62, 0.15);
 }
-
 
 /* -----------------------------------------
    Navy Header
@@ -1370,7 +1321,6 @@ select:focus {
     color: #b9d4ef;
 }
 
-
 /* -----------------------------------------
    Close Button
 ----------------------------------------- */
@@ -1402,7 +1352,6 @@ select:focus {
     transform: rotate(90deg);
 }
 
-
 /* -----------------------------------------
    Modal Body
 ----------------------------------------- */
@@ -1410,7 +1359,6 @@ select:focus {
 .trend-content {
     padding: 18px 20px 20px;
 }
-
 
 /* -----------------------------------------
    Player Identity
@@ -1455,7 +1403,6 @@ select:focus {
     font-weight: 700;
 }
 
-
 /* -----------------------------------------
    Two-Season Layout
 ----------------------------------------- */
@@ -1468,7 +1415,6 @@ select:focus {
 
     margin-bottom: 16px;
 }
-
 
 /* -----------------------------------------
    Season Headers
@@ -1506,7 +1452,6 @@ select:focus {
     font-size: 20px;
     font-weight: 800;
 }
-
 
 /* -----------------------------------------
    Summary Metrics
@@ -1566,7 +1511,6 @@ select:focus {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 
 /* -----------------------------------------
    Archetype
@@ -1652,7 +1596,6 @@ select:focus {
     white-space: nowrap;
 }
 
-
 /* -----------------------------------------
    Profile Shape
 ----------------------------------------- */
@@ -1670,8 +1613,7 @@ select:focus {
 
 .trend-profile-row {
     display: grid;
-    grid-template-columns:
-        minmax(0, 1fr)
+    grid-template-columns: minmax(0, 1fr)
         80px
         minmax(0, 1fr);
 
@@ -1785,7 +1727,6 @@ select:focus {
     font-weight: 700;
 }
 
-
 /* -----------------------------------------
    Trend Analysis
 ----------------------------------------- */
@@ -1854,7 +1795,6 @@ select:focus {
     line-height: 1.55;
 }
 
-
 /* -----------------------------------------
    Mobile
 ----------------------------------------- */
@@ -1892,13 +1832,11 @@ select:focus {
         font-size: 19px;
     }
 
-
     /* Keep the two seasons side-by-side */
 
     .trend-season-grid {
         gap: 8px;
     }
-
 
     /* 4 metrics become 2 x 2 inside each season */
 
@@ -1924,7 +1862,6 @@ select:focus {
     .trend-summary-value {
         font-size: 13px;
     }
-
 
     /* Archetype stacks internally */
 
@@ -1953,12 +1890,10 @@ select:focus {
         border-left: none;
     }
 
-
     /* Profile remains season vs season */
 
     .trend-profile-row {
-        grid-template-columns:
-            minmax(0, 1fr)
+        grid-template-columns: minmax(0, 1fr)
             54px
             minmax(0, 1fr);
 
@@ -2013,7 +1948,6 @@ select:focus {
     z-index: 9999;
 }
 
-
 /* -----------------------------------------
    Modal Shell
 ----------------------------------------- */
@@ -2032,11 +1966,9 @@ select:focus {
     overflow-y: auto;
     overflow-x: hidden;
 
-    box-shadow:
-        0 18px 50px rgba(0, 0, 0, 0.28),
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28),
         0 4px 14px rgba(15, 36, 62, 0.15);
 }
-
 
 /* -----------------------------------------
    Navy Header
@@ -2075,7 +2007,6 @@ select:focus {
     color: #b9d4ef;
 }
 
-
 /* Close Button */
 
 #compareClose {
@@ -2104,7 +2035,6 @@ select:focus {
     transform: rotate(90deg);
 }
 
-
 /* -----------------------------------------
    Body
 ----------------------------------------- */
@@ -2112,7 +2042,6 @@ select:focus {
 .compare-content {
     padding: 18px 20px 20px;
 }
-
 
 /* -----------------------------------------
    Two Player Layout
@@ -2125,7 +2054,6 @@ select:focus {
 
     margin-bottom: 14px;
 }
-
 
 /* -----------------------------------------
    Player Headers
@@ -2159,7 +2087,6 @@ select:focus {
     font-weight: 700;
     letter-spacing: 0.5px;
 }
-
 
 /* -----------------------------------------
    Overall / XP / Tier / Park
@@ -2214,7 +2141,6 @@ select:focus {
 
     white-space: nowrap;
 }
-
 
 /* -----------------------------------------
    Archetype
@@ -2298,7 +2224,6 @@ select:focus {
     white-space: nowrap;
 }
 
-
 /* -----------------------------------------
    Profile Shape
 ----------------------------------------- */
@@ -2316,8 +2241,7 @@ select:focus {
 
 .compare-profile-row {
     display: grid;
-    grid-template-columns:
-        minmax(0, 1fr)
+    grid-template-columns: minmax(0, 1fr)
         80px
         minmax(0, 1fr);
 
@@ -2335,7 +2259,6 @@ select:focus {
 .compare-profile-row:nth-child(even) {
     background: #fbfcfe;
 }
-
 
 /* Player Meter Area */
 
@@ -2379,7 +2302,6 @@ select:focus {
     line-height: 1;
 }
 
-
 /* Meter */
 
 .compare-profile-meter {
@@ -2404,7 +2326,6 @@ select:focus {
 
     transition: width 0.45s ease;
 }
-
 
 /* Center Metric Label */
 
@@ -2439,7 +2360,6 @@ select:focus {
     font-size: 9px;
     font-weight: 700;
 }
-
 
 /* -----------------------------------------
    Comparison Summary
@@ -2499,7 +2419,6 @@ select:focus {
     line-height: 1.55;
 }
 
-
 /* -----------------------------------------
    Mobile
 ----------------------------------------- */
@@ -2534,7 +2453,6 @@ select:focus {
         padding: 12px;
     }
 
-
     /* Keep players side-by-side */
 
     .compare-player-grid {
@@ -2553,7 +2471,6 @@ select:focus {
     .compare-player-team {
         font-size: 10px;
     }
-
 
     /* Summary Stats */
 
@@ -2579,7 +2496,6 @@ select:focus {
     .compare-summary-value {
         font-size: 14px;
     }
-
 
     /* Archetype */
 
@@ -2611,12 +2527,10 @@ select:focus {
         margin-top: 0;
     }
 
-
     /* Profile Shape */
 
     .compare-profile-row {
-        grid-template-columns:
-            minmax(0, 1fr)
+        grid-template-columns: minmax(0, 1fr)
             54px
             minmax(0, 1fr);
 
@@ -2645,7 +2559,6 @@ select:focus {
     .compare-profile-label span {
         font-size: 8px;
     }
-
 
     /* Summary */
 
@@ -2681,7 +2594,6 @@ select:focus {
     z-index: 9999;
 }
 
-
 /* -----------------------------------------
    Modal Shell
 ----------------------------------------- */
@@ -2701,11 +2613,9 @@ select:focus {
 
     overflow: hidden;
 
-    box-shadow:
-        0 18px 50px rgba(0, 0, 0, 0.28),
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28),
         0 4px 14px rgba(15, 36, 62, 0.15);
 }
-
 
 /* -----------------------------------------
    Navy Header
@@ -2743,7 +2653,6 @@ select:focus {
     color: #b9d4ef;
 }
 
-
 /* -----------------------------------------
    Close Button
 ----------------------------------------- */
@@ -2775,7 +2684,6 @@ select:focus {
     transform: rotate(90deg);
 }
 
-
 /* -----------------------------------------
    Scroll Area
 ----------------------------------------- */
@@ -2784,7 +2692,6 @@ select:focus {
     max-height: calc(88vh - 78px);
     overflow-y: auto;
 }
-
 
 /* -----------------------------------------
    Leaders Table
@@ -2832,13 +2739,11 @@ select:focus {
     color: #0f243e;
 }
 
-
 /* Slight zebra striping */
 
 .leaders-table tbody tr:nth-child(even) {
     background: #fbfcfe;
 }
-
 
 /* Hover */
 
@@ -2850,7 +2755,6 @@ select:focus {
     background: #eef5fc;
 }
 
-
 /* -----------------------------------------
    Rank Column
 ----------------------------------------- */
@@ -2860,7 +2764,6 @@ select:focus {
     width: 42px;
     font-weight: 800;
 }
-
 
 /* -----------------------------------------
    Clickable Player Name
@@ -2881,7 +2784,6 @@ select:focus {
     text-decoration: underline;
 }
 
-
 /* -----------------------------------------
    Fantasy Identity Pills
 ----------------------------------------- */
@@ -2901,7 +2803,6 @@ select:focus {
     font-weight: 800;
 }
 
-
 /* Breakout */
 
 .leader-identity.breakout {
@@ -2909,7 +2810,6 @@ select:focus {
     background: rgba(126, 211, 33, 0.18);
     border: 1px solid rgba(126, 211, 33, 0.45);
 }
-
 
 /* Overperformer */
 
@@ -2919,7 +2819,6 @@ select:focus {
     border: 1px solid rgba(245, 166, 35, 0.45);
 }
 
-
 /* Sleeper */
 
 .leader-identity.sleeper {
@@ -2927,7 +2826,6 @@ select:focus {
     background: rgba(74, 144, 226, 0.16);
     border: 1px solid rgba(74, 144, 226, 0.4);
 }
-
 
 /* Consistent */
 
@@ -2937,7 +2835,6 @@ select:focus {
     border: 1px solid rgba(155, 155, 155, 0.35);
 }
 
-
 /* Neutral */
 
 .leader-identity.neutral {
@@ -2945,7 +2842,6 @@ select:focus {
     background: #f1f3f5;
     border: 1px solid #d6dbe1;
 }
-
 
 /* -----------------------------------------
    Mobile
@@ -2986,27 +2882,28 @@ select:focus {
     }
 }
 
-
 /* -----------------------------------------
    Modals
 ----------------------------------------- */
-
 
 .modal.hidden {
     display: none;
 }
 
 .modal-content {
-  background: white;
-  border-radius: 10px;
-  max-width: 600px;         /* prevents full-width stretching */
-  width: 100%;
-  max-height: 90dvh;         /* ⭐ prevents vertical overflow */
-  overflow-y: auto;         /* ⭐ scrolls INSIDE the modal */
-  padding: 20px;
-  box-sizing: border-box;
-  text-align: center;
-  position: relative;
+    background: white;
+    border-radius: 10px;
+    max-width: 600px;
+    /* prevents full-width stretching */
+    width: 100%;
+    max-height: 90dvh;
+    /* ⭐ prevents vertical overflow */
+    overflow-y: auto;
+    /* ⭐ scrolls INSIDE the modal */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
 }
 
 .no-data-message {
@@ -3029,33 +2926,37 @@ select:focus {
 
 /* Tier colors */
 .tier-great {
-    background-color: #d4af37; /* gold */
+    background-color: #d4af37;
+    /* gold */
 }
 
 .tier-good {
-    background-color: #2ecc71; /* green */
+    background-color: #2ecc71;
+    /* green */
 }
 
 .tier-fair {
-    background-color: #3498db; /* blue */
+    background-color: #3498db;
+    /* blue */
 }
 
 .tier-average {
-    background-color: #7f8c8d; /* gray */
+    background-color: #7f8c8d;
+    /* gray */
 }
 
 .tier-belowavg {
-    background-color: #e74c3c; /* red */
+    background-color: #e74c3c;
+    /* red */
 }
-
 
 /* -----------------------------------------
    Latest Update Timestamp
 ----------------------------------------- */
 .update-date {
-  font-size: 0.9rem;
-  color: #888;
-  margin-top: 6px;
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 6px;
 }
 
 /* -----------------------------------------
@@ -3067,10 +2968,13 @@ select:focus {
 }
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
-
 
 /* -----------------------------------------
    Pitcher of the Day - Compact
@@ -3095,7 +2999,6 @@ select:focus {
 
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
 }
-
 
 /* Navy label */
 
@@ -3123,7 +3026,6 @@ select:focus {
     font-size: 12px;
 }
 
-
 /* Player information */
 
 .ticker-player {
@@ -3142,7 +3044,6 @@ select:focus {
     font-weight: 500;
 }
 
-
 /* Dividers */
 
 .ticker-divider {
@@ -3154,14 +3055,12 @@ select:focus {
     background: #cbd6e2;
 }
 
-
 /* Pitcher Overall / XP */
 
 #pod-overall,
 #pod-xp {
     font-weight: 800;
 }
-
 
 /* -----------------------------------------
    Mobile
@@ -3196,7 +3095,6 @@ select:focus {
     }
 }
 
-
 /* ==========================================
    FANTASY EDGE
 ========================================== */
@@ -3204,8 +3102,7 @@ select:focus {
 .fantasy-edge-panel {
     margin-top: 24px;
 
-    background:
-        linear-gradient(
+    background: linear-gradient(
             180deg,
             #ffffff 0%,
             #f7fbff 100%
@@ -3216,10 +3113,8 @@ select:focus {
 
     overflow: hidden;
 
-    box-shadow:
-        0 4px 14px rgba(15, 36, 62, 0.06);
+    box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
 }
-
 
 /* ==========================================
    FANTASY EDGE HEADER
@@ -3231,7 +3126,6 @@ select:focus {
     text-align: center;
 }
 
-
 .fantasy-edge {
     display: block;
 
@@ -3240,7 +3134,6 @@ select:focus {
 
     margin: 0 auto;
 }
-
 
 .fantasy-edge-subtitle {
     display: flex;
@@ -3258,11 +3151,9 @@ select:focus {
     letter-spacing: 2px;
 }
 
-
 .fantasy-edge-subtitle span {
     color: #0077ff;
 }
-
 
 /* ==========================================
    FANTASY SUMMARY
@@ -3278,10 +3169,8 @@ select:focus {
     border: 1px solid #dbe4ee;
     border-radius: 16px;
 
-    box-shadow:
-        0 4px 14px rgba(15, 36, 62, 0.05);
+    box-shadow: 0 4px 14px rgba(15, 36, 62, 0.05);
 }
-
 
 /* ==========================================
    SUMMARY HEADER
@@ -3297,14 +3186,12 @@ select:focus {
     margin-bottom: 20px;
 }
 
-
 .fantasy-summary-title {
     color: #0f243e;
 
     font-size: 24px;
     font-weight: 800;
 }
-
 
 .fantasy-summary-subtitle {
     margin-top: 5px;
@@ -3316,7 +3203,6 @@ select:focus {
 
     letter-spacing: 1.8px;
 }
-
 
 .fantasy-summary-tagline {
     padding: 9px 14px;
@@ -3333,7 +3219,6 @@ select:focus {
     white-space: nowrap;
 }
 
-
 /* ==========================================
    SUMMARY GRID
 ========================================== */
@@ -3341,12 +3226,10 @@ select:focus {
 .fantasy-summary-grid {
     display: grid;
 
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
     gap: 16px;
 }
-
 
 .fantasy-summary-item {
     min-width: 0;
@@ -3359,12 +3242,10 @@ select:focus {
     border: 1px solid transparent;
 }
 
-
 /* Identity */
 
 .identity-summary-card {
-    background:
-        linear-gradient(
+    background: linear-gradient(
             135deg,
             #edf6ff,
             #fafcff
@@ -3373,12 +3254,10 @@ select:focus {
     border-color: #d8eaff;
 }
 
-
 /* State */
 
 .state-summary-card {
-    background:
-        linear-gradient(
+    background: linear-gradient(
             135deg,
             #ecfaf3,
             #fbfefc
@@ -3387,12 +3266,10 @@ select:focus {
     border-color: #d5f0e1;
 }
 
-
 /* Value */
 
 .value-summary-card {
-    background:
-        linear-gradient(
+    background: linear-gradient(
             135deg,
             #fff3e9,
             #fffaf6
@@ -3400,7 +3277,6 @@ select:focus {
 
     border-color: #ffe0c5;
 }
-
 
 /* ==========================================
    CARD LABEL
@@ -3416,7 +3292,6 @@ select:focus {
 
     letter-spacing: 1.5px;
 }
-
 
 /* ==========================================
    CARD RESULT
@@ -3436,11 +3311,9 @@ select:focus {
     line-height: 1.2;
 }
 
-
 .summary-card-result strong {
     font-weight: 800;
 }
-
 
 /* ==========================================
    SUMMARY ACCENTS
@@ -3457,7 +3330,6 @@ select:focus {
     position: relative;
 }
 
-
 .summary-accent::before {
     content: "";
 
@@ -3470,21 +3342,17 @@ select:focus {
     height: 2px;
 }
 
-
 .identity-summary-card .summary-accent::before {
     background: #0878e8;
 }
-
 
 .state-summary-card .summary-accent::before {
     background: #27a861;
 }
 
-
 .value-summary-card .summary-accent::before {
     background: #ff7a00;
 }
-
 
 /* ==========================================
    SUMMARY TEXT
@@ -3498,7 +3366,6 @@ select:focus {
     font-size: 14px;
     line-height: 1.55;
 }
-
 
 /* ==========================================
    INFO STRIP
@@ -3523,7 +3390,6 @@ select:focus {
 
     font-size: 12px;
 }
-
 
 .summary-info-icon {
     width: 20px;
@@ -3556,7 +3422,6 @@ select:focus {
         gap: 10px;
     }
 
-
     .fantasy-summary-header {
         flex-direction: column;
         align-items: flex-start;
@@ -3565,11 +3430,9 @@ select:focus {
         margin-bottom: 14px;
     }
 
-
     .fantasy-summary {
         padding: 16px;
     }
-
 
     .fantasy-summary-item {
         min-height: 0;
@@ -3577,13 +3440,11 @@ select:focus {
         padding: 14px 16px;
     }
 
-
     .summary-card-label {
         margin-bottom: 5px;
 
         font-size: 9px;
     }
-
 
     .summary-card-result {
         min-height: 0;
@@ -3591,22 +3452,18 @@ select:focus {
         font-size: 19px;
     }
 
-
     .summary-accent {
         margin: 9px 0 10px;
     }
-
 
     .summary-accent::before {
         width: 50px;
     }
 
-
     .fantasy-summary-item p {
         font-size: 13px;
         line-height: 1.4;
     }
-
 
     .fantasy-summary-info {
         margin-top: 12px;
@@ -3616,7 +3473,6 @@ select:focus {
         font-size: 11px;
     }
 }
-
 
 /* ==========================================
    MOBILE
@@ -3628,11 +3484,9 @@ select:focus {
         padding: 22px 14px 18px;
     }
 
-
     .fantasy-edge {
         width: 90%;
     }
-
 
     .fantasy-edge-subtitle {
         flex-wrap: wrap;
@@ -3643,30 +3497,25 @@ select:focus {
         letter-spacing: 1px;
     }
 
-
     .fantasy-summary {
         margin: 0 14px 16px;
 
         padding: 14px;
     }
 
-
     .fantasy-summary-title {
         font-size: 21px;
     }
 
-
     .fantasy-summary-tagline {
         font-size: 11px;
     }
-
 
     .fantasy-summary-item {
         min-height: 0;
 
         padding: 14px;
     }
-
 
     .summary-card-result {
         font-size: 19px;
@@ -3706,13 +3555,11 @@ select:focus {
 
     overflow: hidden;
 
-    box-shadow:
-        inset 0 1px 3px rgba(15, 36, 62, 0.12),
+    box-shadow: inset 0 1px 3px rgba(15, 36, 62, 0.12),
         0 1px 2px rgba(15, 36, 62, 0.04);
 
     --fill: 0%;
 }
-
 
 /* Blue profile fill */
 
@@ -3732,10 +3579,8 @@ select:focus {
 
     transition: width 0.45s ease;
 
-    box-shadow:
-        inset 0 1px 1px rgba(255, 255, 255, 0.28);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.28);
 }
-
 
 /* 0–10 profile divisions */
 
@@ -3773,10 +3618,8 @@ select:focus {
 
     overflow: hidden;
 
-    box-shadow:
-        0 4px 14px rgba(15, 36, 62, 0.06);
+    box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
 }
-
 
 /* ==========================================
    HEADER
@@ -3791,7 +3634,6 @@ select:focus {
     background: #0f243e;
 }
 
-
 .season-production-header h2 {
     margin: 0;
 
@@ -3802,7 +3644,6 @@ select:focus {
 
     letter-spacing: 0.4px;
 }
-
 
 .season-production-header span {
     display: block;
@@ -3817,7 +3658,6 @@ select:focus {
     letter-spacing: 1.6px;
 }
 
-
 /* ==========================================
    STAT GRID
 ========================================== */
@@ -3825,12 +3665,10 @@ select:focus {
 .season-production-grid {
     display: grid;
 
-    grid-template-columns:
-        repeat(7, minmax(0, 1fr));
+    grid-template-columns: repeat(7, minmax(0, 1fr));
 
     background: #ffffff;
 }
-
 
 .production-stat {
     position: relative;
@@ -3849,11 +3687,9 @@ select:focus {
     border-right: 1px solid #e3e9f0;
 }
 
-
 .production-stat:last-child {
     border-right: none;
 }
-
 
 /* ==========================================
    LABEL
@@ -3870,7 +3706,6 @@ select:focus {
     letter-spacing: 1.3px;
 }
 
-
 /* ==========================================
    VALUE
 ========================================== */
@@ -3884,7 +3719,6 @@ select:focus {
     line-height: 1;
 }
 
-
 /* ==========================================
    TABLET
 ========================================== */
@@ -3892,8 +3726,7 @@ select:focus {
 @media (max-width: 900px) {
 
     .season-production-grid {
-        grid-template-columns:
-            repeat(7, minmax(0, 1fr));
+        grid-template-columns: repeat(7, minmax(0, 1fr));
     }
 
     .production-stat {
@@ -3909,7 +3742,6 @@ select:focus {
     }
 }
 
-
 /* ==========================================
    MOBILE
 ========================================== */
@@ -3917,8 +3749,7 @@ select:focus {
 @media (max-width: 600px) {
 
     .season-production-grid {
-        grid-template-columns:
-            repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     .production-stat {
@@ -3957,7 +3788,6 @@ select:focus {
     box-shadow: none;
 }
 
-
 /* ==========================================
    HEADER
 ========================================== */
@@ -3970,7 +3800,6 @@ select:focus {
 
     margin-bottom: 26px;
 }
-
 
 .watch-header h3 {
     margin: 0;
@@ -3985,7 +3814,6 @@ select:focus {
     white-space: nowrap;
 }
 
-
 .watch-subtitle {
     color: #748399;
 
@@ -3997,7 +3825,6 @@ select:focus {
     white-space: nowrap;
 }
 
-
 .watch-header-line {
     flex: 1;
 
@@ -4006,7 +3833,6 @@ select:focus {
     background: #cbd6e2;
 }
 
-
 /* ==========================================
    CARD GRID
 ========================================== */
@@ -4014,14 +3840,12 @@ select:focus {
 .watch-grid {
     display: grid;
 
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
     gap: 14px;
 
     padding: 0;
 }
-
 
 /* ==========================================
    WATCH CARD
@@ -4048,7 +3872,6 @@ select:focus {
     box-shadow: none;
 }
 
-
 /* Colored top rail */
 
 .watch-card::before {
@@ -4063,7 +3886,6 @@ select:focus {
     height: 4px;
 }
 
-
 /* ==========================================
    CARD TOP
 ========================================== */
@@ -4077,7 +3899,6 @@ select:focus {
     margin-top: 2px;
     margin-bottom: 11px;
 }
-
 
 /* ==========================================
    CARD ICON
@@ -4103,7 +3924,6 @@ select:focus {
     line-height: 1;
 }
 
-
 /* ==========================================
    STATUS BADGE
 ========================================== */
@@ -4122,7 +3942,6 @@ select:focus {
     white-space: nowrap;
 }
 
-
 /* ==========================================
    CONTENT
 ========================================== */
@@ -4132,7 +3951,6 @@ select:focus {
 
     min-width: 0;
 }
-
 
 .watch-title {
     margin-bottom: 7px;
@@ -4147,7 +3965,6 @@ select:focus {
     text-transform: uppercase;
 }
 
-
 .watch-text {
     color: #33485f;
 
@@ -4156,7 +3973,6 @@ select:focus {
     line-height: 1.4;
 }
 
-
 /* ==========================================
    EVIDENCE STRIP
 ========================================== */
@@ -4164,8 +3980,7 @@ select:focus {
 .watch-evidence {
     display: grid;
 
-    grid-template-columns:
-        1fr 1px 1fr;
+    grid-template-columns: 1fr 1px 1fr;
 
     align-items: center;
 
@@ -4181,7 +3996,6 @@ select:focus {
     border-radius: 7px;
 }
 
-
 .watch-stat {
     min-width: 0;
 
@@ -4189,7 +4003,6 @@ select:focus {
 
     text-align: center;
 }
-
 
 .watch-stat-label {
     display: block;
@@ -4204,7 +4017,6 @@ select:focus {
     letter-spacing: 0.7px;
 }
 
-
 .watch-stat-value {
     display: block;
 
@@ -4214,14 +4026,12 @@ select:focus {
     font-weight: 800;
 }
 
-
 .watch-divider {
     width: 1px;
     height: 30px;
 
     background: #d4dfea;
 }
-
 
 .watch-score {
     display: inline-block;
@@ -4234,12 +4044,10 @@ select:focus {
     font-weight: 800;
 }
 
-
 .watch-score small {
     font-size: 14px;
     font-weight: 700;
 }
-
 
 /* ==========================================
    STRENGTH / GOOD
@@ -4249,11 +4057,9 @@ select:focus {
     background: #18b66a;
 }
 
-
 .watch-good .watch-icon {
     background: #12a960;
 }
-
 
 .watch-good .watch-status {
     background: #e9f8f0;
@@ -4263,13 +4069,11 @@ select:focus {
     color: #07904e;
 }
 
-
 .watch-good .watch-score {
     background: #e7f8ef;
 
     color: #0a9d55;
 }
-
 
 /* ==========================================
    MONITOR / NEUTRAL
@@ -4279,11 +4083,9 @@ select:focus {
     background: #f5a623;
 }
 
-
 .watch-neutral .watch-icon {
     background: #f5a623;
 }
-
 
 .watch-neutral .watch-status {
     background: #fff6e7;
@@ -4293,13 +4095,11 @@ select:focus {
     color: #cf7d00;
 }
 
-
 .watch-neutral .watch-score {
     background: #fff5e5;
 
     color: #d47d00;
 }
-
 
 /* ==========================================
    CONCERN / BAD
@@ -4309,11 +4109,9 @@ select:focus {
     background: #df554d;
 }
 
-
 .watch-bad .watch-icon {
     background: #d94d46;
 }
-
 
 .watch-bad .watch-status {
     background: #fff0ef;
@@ -4323,13 +4121,11 @@ select:focus {
     color: #c9433c;
 }
 
-
 .watch-bad .watch-score {
     background: #fff0ef;
 
     color: #c9433c;
 }
-
 
 /* ==========================================
    MOBILE
@@ -4341,7 +4137,6 @@ select:focus {
         padding: 20px 16px;
     }
 
-
     .watch-header {
         flex-wrap: wrap;
 
@@ -4350,11 +4145,9 @@ select:focus {
         margin-bottom: 18px;
     }
 
-
     .watch-header-line {
         display: none;
     }
-
 
     .watch-subtitle {
         width: 100%;
@@ -4362,20 +4155,16 @@ select:focus {
         white-space: normal;
     }
 
-
     .watch-grid {
         grid-template-columns: 1fr;
 
         gap: 10px;
     }
 
-
     .watch-card {
         min-height: auto;
     }
-
 }
-
 
 /* --------------------------------
    What to Watch - Placeholder State
@@ -4628,7 +4417,6 @@ select:focus {
     box-sizing: border-box;
 }
 
-
 /* Lock Icon */
 
 .watch-premium-icon {
@@ -4646,7 +4434,6 @@ select:focus {
     font-size: 40px;
     opacity: 0.75;
 }
-
 
 /* All Access Pill */
 
@@ -4667,7 +4454,6 @@ select:focus {
     white-space: nowrap;
 }
 
-
 /* Description */
 
 .watch-premium-text {
@@ -4676,7 +4462,6 @@ select:focus {
     font-size: 14px;
     font-weight: 700;
 }
-
 
 /* ------------------------------
    Mobile
@@ -4693,7 +4478,6 @@ select:focus {
 
         text-align: center;
     }
-
 }
 
 /* ------------------------------
@@ -4723,7 +4507,6 @@ select:focus {
     box-sizing: border-box;
 }
 
-
 /* Lock */
 
 .fantasy-premium-icon {
@@ -4739,7 +4522,6 @@ select:focus {
     font-size: 40px;
     opacity: 0.75;
 }
-
 
 /* All Access */
 
@@ -4760,7 +4542,6 @@ select:focus {
     white-space: nowrap;
 }
 
-
 /* Title */
 
 .fantasy-premium-title {
@@ -4771,7 +4552,6 @@ select:focus {
     font-size: 17px;
     font-weight: 800;
 }
-
 
 /* Description */
 
@@ -5104,148 +4884,649 @@ select:focus {
    TIMBASEBALL BLUE / BROADCAST EDITION
    Added after the existing stylesheet. Preserves original JS IDs.
    ============================================================= */
-:root{--navy:#0f243e;--navy2:#173c64;--blue:#2678c9;--bright:#439af1;--ice:#eaf3fd;--border:#d6e2ee;--muted:#667b92;--ink:#152c45}
-*{box-sizing:border-box}
-body{background:#eaf0f6;color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif}
-.tb-topnav{background:#0c2037;color:#fff;border-bottom:4px solid #2987dd;box-shadow:0 3px 12px #0b243822}
-.tb-nav-inner{max-width:1390px;margin:auto;min-height:65px;display:flex;align-items:center;justify-content:space-between;gap:25px;padding:0 26px}
-.tb-brand{text-decoration:none;color:white;font-size:23px;font-weight:950;letter-spacing:-1px;white-space:nowrap}
-.tb-brand span{color:#74bbff}.tb-brand small{font-size:10px;letter-spacing:1.7px;color:#b8cde1;margin-left:10px}
-.tb-nav-links{display:flex;gap:30px;font-size:10px;font-weight:800;letter-spacing:1.3px;color:#a5b8ca}.tb-nav-active{color:white;border-bottom:2px solid #4ba4f6;padding:23px 0}
-.tb-season{font-size:10px;letter-spacing:1px;white-space:nowrap;color:#d2e5f7}.tb-season b{color:#48d7a0}
-.container{width:min(1390px,calc(100% - 44px));max-width:none;margin:20px auto 30px;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
-.header{text-align:left;padding:8px 0 15px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.tb-kicker{font-size:11px;letter-spacing:2px;font-weight:900;color:#55728f}.tb-kicker span{color:#2b83cf}
-.header .batter-analyzer{max-height:50px;max-width:270px;width:auto;margin:0 0 0 auto;object-fit:contain}
-.analyzer-tagline{display:none}
-#batter-ticker{border-radius:3px!important;overflow:hidden;margin:0 0 14px!important}
-.search-panel{margin-bottom:16px;border-radius:4px;box-shadow:0 2px 6px #112d4a12}
-.search-header{border-radius:3px 3px 0 0;background:var(--navy);padding:9px 16px}
-.search-header h2{font-size:13px;letter-spacing:1.1px;text-transform:uppercase}
-.search-body{padding:13px 16px 8px}.search-input-row{margin-bottom:10px}
-.input-group label{font-size:10px;text-transform:uppercase;letter-spacing:1px}
-input,select{border-radius:4px}
-.controls.row button{height:36px;border-radius:4px;box-shadow:none;font-size:11px}
-#loadBtn{background:#2678c9}.controls.row button:not(#loadBtn):not(#resetBtn){background:#173c64}
-.tb-dashboard{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(295px,.85fr);gap:17px;align-items:start}
-.tb-primary,.tb-sidebar{min-width:0;display:flex;flex-direction:column;gap:16px}
-.tb-dashboard .analytics-panel,.tb-dashboard .metrics,.tb-dashboard .season-production,.tb-dashboard .watch-section,.tb-dashboard .similar-profiles-section,.tb-dashboard .fantasy-edge-panel{margin:0;min-width:0;border-radius:4px;box-shadow:0 2px 7px #0f243e12}
-.analytics-header{padding:11px 18px;background:var(--navy)}.analytics-header h2{font-size:14px;text-transform:uppercase;letter-spacing:1.1px}
-.analytics-panel .overall-card{padding:17px 19px;background:#fff;display:block}
-.overall{gap:13px;margin:0}.player-card-header{margin:0 0 2px}.player-name-row{justify-content:flex-start}
-.player-card-name{font-size:29px;text-align:left;letter-spacing:-.6px}.team-color-panel{width:8px;height:37px;border:0;border-radius:1px}
-.team-color-panel span{width:50%}
-.overall-top{border-radius:3px;border-color:#c9d8e6;box-shadow:none;background:#f1f6fb;margin:0}
-.overall-top p{padding:14px 7px;font-size:10px;letter-spacing:1px}
-.overall-top span{font-size:29px}.overall-top .analytics-meter{height:4px}
-.scouting-note{margin:0;border-radius:3px;border-color:#dce6f0}
-.scouting-content{padding:16px 18px;background:#fff}.scouting-title{margin-bottom:7px}
-.scouting-title label{font-size:11px;letter-spacing:1.6px}#scoutingNote{font-style:normal;font-size:14px;line-height:1.55}
-.percentile-box{min-width:145px;padding:14px;background:#f5f9fd}#overallPercentile{font-size:28px}
-.park-context{margin-top:10px;padding-top:10px}
-.archetype-row{margin:0;border-radius:3px;background:#edf5ff !important}.archetype-main{padding:12px 16px}.archetype-name{font-size:18px}.archetype-match{min-width:130px;padding:10px}
-.tb-panel-title{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--navy);color:#fff;padding:12px 18px}
-.tb-panel-title span{font-size:13px;font-weight:850;letter-spacing:1px}.tb-panel-title small{font-size:10px;color:#b5cbe1}
-.metrics{border-radius:4px}.metrics-columns{grid-template-columns:120px 90px 1fr 70px;padding:10px 16px;font-size:10px;letter-spacing:1px}
-.metric-row{grid-template-columns:110px 80px minmax(0,1fr) 70px;gap:12px;padding:11px 16px}
-.metric-label{font-size:16px}.metric-direction{font-size:8px}.metric-raw{font-size:17px}.metric-score{font-size:16px;border-radius:3px;padding:6px}
-.season-production{background:#fff}.season-production-header{background:var(--navy)!important;border-radius:0!important;padding:11px 15px!important}
-.season-production-header h2{font-size:13px!important;color:white!important;text-transform:uppercase;letter-spacing:1px}
-.season-production-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;padding:0!important}
-.production-stat{padding:17px 8px!important;min-width:0;border:1px solid #e4ebf2;text-align:center}
-.production-label{font-size:10px!important}.production-stat strong{font-size:22px!important}
-.watch-section,.similar-profiles-section{background:white;border:1px solid var(--border);padding:0!important;overflow:hidden}
-.watch-header,.similar-profiles-header{background:var(--navy)!important;color:white!important;padding:12px 17px!important;display:flex!important;align-items:center;gap:13px}
-.watch-header h3,.similar-profiles-title{color:white!important;font-size:13px!important;font-weight:850!important;letter-spacing:1px!important;margin:0!important}
-.watch-subtitle,.similar-profiles-subtitle{color:#b8cee1!important;font-size:9px!important;letter-spacing:.7px!important}
-.watch-header-line,.similar-profiles-header-line{display:none!important}
-.watch-grid,.similar-profiles-grid{padding:15px!important;gap:12px!important}
-.fantasy-edge-panel{overflow:hidden;background:#fff;border:1px solid var(--border)}
-.fantasy-edge-header{background:var(--navy)!important;padding:15px!important;border-radius:0!important}
-.fantasy-edge-header .fantasy-edge{max-width:210px!important;width:100%;height:auto;object-fit:contain}
-.fantasy-edge-subtitle{font-size:9px!important;letter-spacing:1px!important;color:#173c64!important}
-.fantasy-summary{padding:12px!important}.fantasy-summary-header{padding:0 0 10px!important}.fantasy-summary-title{font-size:14px!important}
-.fantasy-summary-grid{grid-template-columns:1fr!important;gap:10px!important}
-.fantasy-summary-item{min-width:0!important;padding:13px!important;border-radius:4px!important}
-.fantasy-summary-info{font-size:11px!important}
-.footer{max-width:1390px;margin:0 auto 25px!important;text-align:center;color:#6a7d8e}
-.modal{z-index:9999}
-@media(max-width:1050px){.tb-dashboard{grid-template-columns:minmax(0,1.5fr) minmax(265px,1fr)}.tb-nav-links{display:none}.watch-subtitle,.similar-profiles-subtitle{display:none}}
-@media(max-width:800px){.tb-dashboard{grid-template-columns:1fr}.tb-sidebar{display:grid;grid-template-columns:1fr 1fr;align-items:start}.fantasy-summary-grid{grid-template-columns:1fr!important}}
-@media(max-width:620px){.container{width:calc(100% - 20px);margin-top:12px}.tb-nav-inner{padding:0 12px;min-height:58px}.tb-brand{font-size:19px}.tb-brand small,.tb-season{display:none}.header{align-items:flex-start;flex-direction:column}.header .batter-analyzer{margin:0;max-width:250px}.search-input-row{flex-direction:column;align-items:stretch}.player-search-group{width:100%}.action-row{flex-wrap:wrap}.action-row button{flex:1 1 28%;min-width:90px}.tb-sidebar{display:flex}.overall-top{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.overall-top p:nth-child(3){border-left:0;border-top:1px solid #d7e0e8}.overall-top p:nth-child(4){border-top:1px solid #d7e0e8}.analytics-panel .overall-card{padding:13px}.player-card-name{font-size:23px}.scouting-note{flex-direction:column}.percentile-box{border-left:0;border-top:1px solid #d7e0e8}.metrics-columns{grid-template-columns:62px 70px 1fr 50px;font-size:8px;padding:10px}.metric-row{grid-template-columns:58px 65px minmax(0,1fr) 48px;gap:6px;padding:10px}.metric-label{font-size:14px}.metric-direction{font-size:7px;letter-spacing:0}.metric-raw,.metric-score{font-size:13px}.metric-score{min-width:0;padding:5px}.tb-panel-title small{display:none}.season-production-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
-
+:root {
+    --navy: #0f243e;
+    --navy2: #173c64;
+    --blue: #2678c9;
+    --bright: #439af1;
+    --ice: #eaf3fd;
+    --border: #d6e2ee;
+    --muted: #667b92;
+    --ink: #152c45;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    background: #eaf0f6;
+    color: var(--ink);
+    font-family: Inter,"Segoe UI",Arial,sans-serif;
+}
+.tb-topnav {
+    background: #0c2037;
+    color: #fff;
+    border-bottom: 4px solid #2987dd;
+    box-shadow: 0 3px 12px #0b243822;
+}
+.tb-nav-inner {
+    max-width: 1390px;
+    margin: auto;
+    min-height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 0 26px;
+}
+.tb-brand {
+    text-decoration: none;
+    color: white;
+    font-size: 23px;
+    font-weight: 950;
+    letter-spacing: -1px;
+    white-space: nowrap;
+}
+.tb-brand span {
+    color: #74bbff;
+}
+.tb-brand small {
+    font-size: 10px;
+    letter-spacing: 1.7px;
+    color: #b8cde1;
+    margin-left: 10px;
+}
+.tb-nav-links {
+    display: flex;
+    gap: 30px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    color: #a5b8ca;
+}
+.tb-nav-active {
+    color: white;
+    border-bottom: 2px solid #4ba4f6;
+    padding: 23px 0;
+}
+.tb-season {
+    font-size: 10px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    color: #d2e5f7;
+}
+.tb-season b {
+    color: #48d7a0;
+}
+.container {
+    width: min(1390px,calc(100% - 44px));
+    max-width: none;
+    margin: 20px auto 30px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+.header {
+    text-align: left;
+    padding: 8px 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.tb-kicker {
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 900;
+    color: #55728f;
+}
+.tb-kicker span {
+    color: #2b83cf;
+}
+.header .batter-analyzer {
+    max-height: 50px;
+    max-width: 270px;
+    width: auto;
+    margin: 0 0 0 auto;
+    object-fit: contain;
+}
+.analyzer-tagline {
+    display: none;
+}
+#batter-ticker {
+    border-radius: 3px!important;
+    overflow: hidden;
+    margin: 0 0 14px!important;
+}
+.search-panel {
+    margin-bottom: 16px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px #112d4a12;
+}
+.search-header {
+    border-radius: 3px 3px 0 0;
+    background: var(--navy);
+    padding: 9px 16px;
+}
+.search-header h2 {
+    font-size: 13px;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
+.search-body {
+    padding: 13px 16px 8px;
+}
+.search-input-row {
+    margin-bottom: 10px;
+}
+.input-group label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+input,select {
+    border-radius: 4px;
+}
+.controls.row button {
+    height: 36px;
+    border-radius: 4px;
+    box-shadow: none;
+    font-size: 11px;
+}
+#loadBtn {
+    background: #2678c9;
+}
+.controls.row button:not(#loadBtn):not(#resetBtn) {
+    background: #173c64;
+}
+.tb-dashboard {
+    display: grid;
+    grid-template-columns: minmax(0,1.85fr) minmax(295px,.85fr);
+    gap: 17px;
+    align-items: start;
+}
+.tb-primary,.tb-sidebar {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.tb-dashboard .analytics-panel,.tb-dashboard .metrics,.tb-dashboard .season-production,.tb-dashboard .watch-section,.tb-dashboard .similar-profiles-section,.tb-dashboard .fantasy-edge-panel {
+    margin: 0;
+    min-width: 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 7px #0f243e12;
+}
+.analytics-header {
+    padding: 11px 18px;
+    background: var(--navy);
+}
+.analytics-header h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+}
+.analytics-panel .overall-card {
+    padding: 17px 19px;
+    background: #fff;
+    display: block;
+}
+.overall {
+    gap: 13px;
+    margin: 0;
+}
+.player-card-header {
+    margin: 0 0 2px;
+}
+.player-name-row {
+    justify-content: flex-start;
+}
+.player-card-name {
+    font-size: 29px;
+    text-align: left;
+    letter-spacing: -.6px;
+}
+.team-color-panel {
+    width: 8px;
+    height: 37px;
+    border: 0;
+    border-radius: 1px;
+}
+.team-color-panel span {
+    width: 50%;
+}
+.overall-top {
+    border-radius: 3px;
+    border-color: #c9d8e6;
+    box-shadow: none;
+    background: #f1f6fb;
+    margin: 0;
+}
+.overall-top p {
+    padding: 14px 7px;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+.overall-top span {
+    font-size: 29px;
+}
+.overall-top .analytics-meter {
+    height: 4px;
+}
+.scouting-note {
+    margin: 0;
+    border-radius: 3px;
+    border-color: #dce6f0;
+}
+.scouting-content {
+    padding: 16px 18px;
+    background: #fff;
+}
+.scouting-title {
+    margin-bottom: 7px;
+}
+.scouting-title label {
+    font-size: 11px;
+    letter-spacing: 1.6px;
+}
+#scoutingNote {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.55;
+}
+.percentile-box {
+    min-width: 145px;
+    padding: 14px;
+    background: #f5f9fd;
+}
+#overallPercentile {
+    font-size: 28px;
+}
+.park-context {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.archetype-row {
+    margin: 0;
+    border-radius: 3px;
+    background: #edf5ff !important;
+}
+.archetype-main {
+    padding: 12px 16px;
+}
+.archetype-name {
+    font-size: 18px;
+}
+.archetype-match {
+    min-width: 130px;
+    padding: 10px;
+}
+.tb-panel-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 18px;
+}
+.tb-panel-title span {
+    font-size: 13px;
+    font-weight: 850;
+    letter-spacing: 1px;
+}
+.tb-panel-title small {
+    font-size: 10px;
+    color: #b5cbe1;
+}
+.metrics {
+    border-radius: 4px;
+}
+.metrics-columns {
+    grid-template-columns: 120px 90px 1fr 70px;
+    padding: 10px 16px;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+.metric-row {
+    grid-template-columns: 110px 80px minmax(0,1fr) 70px;
+    gap: 12px;
+    padding: 11px 16px;
+}
+.metric-label {
+    font-size: 16px;
+}
+.metric-direction {
+    font-size: 8px;
+}
+.metric-raw {
+    font-size: 17px;
+}
+.metric-score {
+    font-size: 16px;
+    border-radius: 3px;
+    padding: 6px;
+}
+.season-production {
+    background: #fff;
+}
+.season-production-header {
+    background: var(--navy)!important;
+    border-radius: 0!important;
+    padding: 11px 15px!important;
+}
+.season-production-header h2 {
+    font-size: 13px!important;
+    color: white!important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.season-production-grid {
+    display: grid!important;
+    grid-template-columns: repeat(4,minmax(0,1fr))!important;
+    gap: 0!important;
+    padding: 0!important;
+}
+.production-stat {
+    padding: 17px 8px!important;
+    min-width: 0;
+    border: 1px solid #e4ebf2;
+    text-align: center;
+}
+.production-label {
+    font-size: 10px!important;
+}
+.production-stat strong {
+    font-size: 22px!important;
+}
+.watch-section,.similar-profiles-section {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 0!important;
+    overflow: hidden;
+}
+.watch-header,.similar-profiles-header {
+    background: var(--navy)!important;
+    color: white!important;
+    padding: 12px 17px!important;
+    display: flex!important;
+    align-items: center;
+    gap: 13px;
+}
+.watch-header h3,.similar-profiles-title {
+    color: white!important;
+    font-size: 13px!important;
+    font-weight: 850!important;
+    letter-spacing: 1px!important;
+    margin: 0!important;
+}
+.watch-subtitle,.similar-profiles-subtitle {
+    color: #b8cee1!important;
+    font-size: 9px!important;
+    letter-spacing: .7px!important;
+}
+.watch-header-line,.similar-profiles-header-line {
+    display: none!important;
+}
+.watch-grid,.similar-profiles-grid {
+    padding: 15px!important;
+    gap: 12px!important;
+}
+.fantasy-edge-panel {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--border);
+}
+.fantasy-edge-header {
+    background: var(--navy)!important;
+    padding: 15px!important;
+    border-radius: 0!important;
+}
+.fantasy-edge-header .fantasy-edge {
+    max-width: 210px!important;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+.fantasy-edge-subtitle {
+    font-size: 9px!important;
+    letter-spacing: 1px!important;
+    color: #173c64!important;
+}
+.fantasy-summary {
+    padding: 12px!important;
+}
+.fantasy-summary-header {
+    padding: 0 0 10px!important;
+}
+.fantasy-summary-title {
+    font-size: 14px!important;
+}
+.fantasy-summary-grid {
+    grid-template-columns: 1fr!important;
+    gap: 10px!important;
+}
+.fantasy-summary-item {
+    min-width: 0!important;
+    padding: 13px!important;
+    border-radius: 4px!important;
+}
+.fantasy-summary-info {
+    font-size: 11px!important;
+}
+.footer {
+    max-width: 1390px;
+    margin: 0 auto 25px!important;
+    text-align: center;
+    color: #6a7d8e;
+}
+.modal {
+    z-index: 9999;
+}
+@media(max-width:1050px) {
+    .tb-dashboard {
+        grid-template-columns: minmax(0,1.5fr) minmax(265px,1fr);
+    }
+    .tb-nav-links {
+        display: none;
+    }
+    .watch-subtitle,.similar-profiles-subtitle {
+        display: none;
+    }
+}
+@media(max-width:800px) {
+    .tb-dashboard {
+        grid-template-columns: 1fr;
+    }
+    .tb-sidebar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+    .fantasy-summary-grid {
+        grid-template-columns: 1fr!important;
+    }
+}
+@media(max-width:620px) {
+    .container {
+        width: calc(100% - 20px);
+        margin-top: 12px;
+    }
+    .tb-nav-inner {
+        padding: 0 12px;
+        min-height: 58px;
+    }
+    .tb-brand {
+        font-size: 19px;
+    }
+    .tb-brand small,.tb-season {
+        display: none;
+    }
+    .header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .header .batter-analyzer {
+        margin: 0;
+        max-width: 250px;
+    }
+    .search-input-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .player-search-group {
+        width: 100%;
+    }
+    .action-row {
+        flex-wrap: wrap;
+    }
+    .action-row button {
+        flex: 1 1 28%;
+        min-width: 90px;
+    }
+    .tb-sidebar {
+        display: flex;
+    }
+    .overall-top {
+        display: grid;
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+    .overall-top p:nth-child(3) {
+        border-left: 0;
+        border-top: 1px solid #d7e0e8;
+    }
+    .overall-top p:nth-child(4) {
+        border-top: 1px solid #d7e0e8;
+    }
+    .analytics-panel .overall-card {
+        padding: 13px;
+    }
+    .player-card-name {
+        font-size: 23px;
+    }
+    .scouting-note {
+        flex-direction: column;
+    }
+    .percentile-box {
+        border-left: 0;
+        border-top: 1px solid #d7e0e8;
+    }
+    .metrics-columns {
+        grid-template-columns: 62px 70px 1fr 50px;
+        font-size: 8px;
+        padding: 10px;
+    }
+    .metric-row {
+        grid-template-columns: 58px 65px minmax(0,1fr) 48px;
+        gap: 6px;
+        padding: 10px;
+    }
+    .metric-label {
+        font-size: 14px;
+    }
+    .metric-direction {
+        font-size: 7px;
+        letter-spacing: 0;
+    }
+    .metric-raw,.metric-score {
+        font-size: 13px;
+    }
+    .metric-score {
+        min-width: 0;
+        padding: 5px;
+    }
+    .tb-panel-title small {
+        display: none;
+    }
+    .season-production-grid {
+        grid-template-columns: repeat(4,minmax(0,1fr))!important;
+    }
+}
 
 /* ==========================================================
    TiMBaseball refinement: unboxed Fantasy Edge sidebar
    Preserves all DOM IDs and existing behavior.
    ========================================================== */
 .tb-dashboard .fantasy-edge-panel {
-  display: block;
-  margin: 0;
-  padding: 0;
-  overflow: visible;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 .tb-dashboard .fantasy-edge-header {
-  padding: 13px 16px !important;
-  margin: 0 0 12px;
-  background: #ffffff !important;
-  border-radius: 4px !important;
-  box-shadow: 0 2px 7px rgba(15,36,62,.08);
+    padding: 13px 16px !important;
+    margin: 0 0 12px;
+    background: #ffffff !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 7px rgba(15,36,62,.08);
 }
 .tb-dashboard .fantasy-summary {
-  padding: 0 !important;
-  margin: 0;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
+    padding: 0 !important;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
 }
 .tb-dashboard .fantasy-summary-header {
-  padding: 0 2px 11px !important;
-  margin: 0;
-  background: transparent;
-  border: 0;
+    padding: 0 2px 11px !important;
+    margin: 0;
+    background: transparent;
+    border: 0;
 }
 .tb-dashboard .fantasy-summary-grid {
-  display: grid;
-  grid-template-columns: minmax(0,1fr) !important;
-  gap: 13px !important;
-  padding: 0;
-  margin: 0;
-  background: transparent;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) !important;
+    gap: 13px !important;
+    padding: 0;
+    margin: 0;
+    background: transparent;
 }
 .tb-dashboard .fantasy-summary-item {
-  width: 100%;
-  min-width: 0 !important;
-  margin: 0 !important;
-  padding: 17px 18px !important;
-  background: #fff;
-  border: 1px solid #d6e2ee;
-  border-left: 4px solid #2678c9;
-  border-radius: 4px !important;
-  box-shadow: 0 2px 7px rgba(15,36,62,.06);
+    width: 100%;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 17px 18px !important;
+    background: #fff;
+    border: 1px solid #d6e2ee;
+    border-left: 4px solid #2678c9;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 7px rgba(15,36,62,.06);
 }
-.tb-dashboard .identity-summary-card { border-left-color: #4a90e2; }
-.tb-dashboard .state-summary-card { border-left-color: #299c83; }
-.tb-dashboard .value-summary-card { border-left-color: #ff7a00; }
+.tb-dashboard .identity-summary-card {
+    border-left-color: #4a90e2;
+}
+.tb-dashboard .state-summary-card {
+    border-left-color: #299c83;
+}
+.tb-dashboard .value-summary-card {
+    border-left-color: #ff7a00;
+}
 .tb-dashboard .fantasy-summary-info {
-  margin: 12px 0 0 !important;
-  padding: 10px 12px !important;
-  background: #e6eff8;
-  border: 1px solid #d4e2f0;
-  border-radius: 4px;
-  box-shadow: none;
+    margin: 12px 0 0 !important;
+    padding: 10px 12px !important;
+    background: #e6eff8;
+    border: 1px solid #d4e2f0;
+    border-radius: 4px;
+    box-shadow: none;
 }
 @media (max-width: 800px) {
-  .tb-dashboard .fantasy-summary-grid { grid-template-columns: 1fr !important; }
+    .tb-dashboard .fantasy-summary-grid {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 /* Final main-page refinement: Fantasy Edge begins directly with three panels. */
-.tb-dashboard .fantasy-summary-grid { margin-top: 0 !important; }
-.tb-dashboard .fantasy-edge-header { margin-bottom: 10px !important; }
+.tb-dashboard .fantasy-summary-grid {
+    margin-top: 0 !important;
+}
+.tb-dashboard .fantasy-edge-header {
+    margin-bottom: 10px !important;
+}
 
 /* Pitcher-specific modal styling from original */
 #trendBtn {
@@ -5258,14 +5539,14 @@ input,select{border-radius:4px}
     background: linear-gradient(135deg, #0f243e);
 }
 .modal {
-  position: fixed;
-  inset: 0; 
-  background: rgba(0,0,0,0.55);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
 }
 .modal.hidden {
     display: none;
@@ -5273,15 +5554,15 @@ input,select{border-radius:4px}
 .modal-container {
     position: relative;
     z-index: 99999;
-    background: #fff; 
+    background: #fff;
 }
 .modal-content {
     background: #ffffff;
     border-radius: 14px;
     max-width: 650px;
     width: 100%;
-    max-height: 90dvh;        
-    overflow-y: auto;        
+    max-height: 90dvh;
+    overflow-y: auto;
     padding: 30px;
     box-shadow: 0 0 18px rgba(0,0,0,0.25);
     box-sizing: border-box;
@@ -5334,8 +5615,7 @@ input,select{border-radius:4px}
 
     overflow: auto;
 
-    box-shadow:
-        0 18px 50px rgba(0, 0, 0, 0.28),
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28),
         0 4px 14px rgba(15, 36, 62, 0.15);
 }
 .trend-header {
@@ -5471,7 +5751,6 @@ input,select{border-radius:4px}
 .trend-summary-grid {
     display: grid;
 
-    
     grid-template-columns: repeat(3, minmax(0, 1fr));
 
     overflow: hidden;
@@ -5607,8 +5886,7 @@ input,select{border-radius:4px}
 .trend-profile-row {
     display: grid;
 
-    grid-template-columns:
-        minmax(0, 1fr)
+    grid-template-columns: minmax(0, 1fr)
         80px
         minmax(0, 1fr);
 
@@ -5781,8 +6059,7 @@ input,select{border-radius:4px}
     overflow-y: auto;
     overflow-x: hidden;
 
-    box-shadow:
-        0 18px 50px rgba(0, 0, 0, 0.28),
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28),
         0 4px 14px rgba(15, 36, 62, 0.15);
 }
 .compare-header {
@@ -6018,8 +6295,7 @@ input,select{border-radius:4px}
 }
 .compare-profile-row {
     display: grid;
-    grid-template-columns:
-        minmax(0, 1fr)
+    grid-template-columns: minmax(0, 1fr)
         80px
         minmax(0, 1fr);
 
@@ -6203,8 +6479,7 @@ input,select{border-radius:4px}
 
     overflow: hidden;
 
-    box-shadow:
-        0 18px 50px rgba(0, 0, 0, 0.28),
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28),
         0 4px 14px rgba(15, 36, 62, 0.15);
 }
 .leaders-header {
@@ -6405,15 +6680,63 @@ input,select{border-radius:4px}
     font-weight: 600;
 }
 /* Pitcher Analyzer alignment with Batter Analyzer */
-.header .pitcher-analyzer{width:min(370px,100%);height:auto;display:block;margin:0}
-.tb-dashboard .archetype-row{margin:0;background:#fff;border:1px solid #dbe4ee;border-radius:4px;box-shadow:0 2px 7px #0f243e12;min-width:0}
-.tb-dashboard .archetype-main{min-width:0;padding:14px 12px;gap:8px}
-.tb-dashboard .archetype-name{font-size:clamp(13px,1.3vw,17px);overflow-wrap:anywhere}
-.tb-dashboard .archetype-match{min-width:95px;padding:10px 8px}
-.tb-dashboard .archetype-match-badge{font-size:11px;white-space:normal;text-align:center}
-.tb-dashboard .overall-top{grid-template-columns:repeat(3,minmax(0,1fr))}
-.tb-dashboard .overall-top p{min-width:0}
-@media(max-width:620px){.tb-dashboard .overall-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.tb-dashboard .overall-top p:nth-child(3){border-top:0;border-left:1px solid #d7e0e8}.header .pitcher-analyzer{max-width:250px}.tb-dashboard .archetype-main{padding:12px 8px}.tb-dashboard .archetype-match{min-width:85px}}
+.header .pitcher-analyzer {
+    width: min(370px,100%);
+    height: auto;
+    display: block;
+    margin: 0;
+}
+.tb-dashboard .archetype-row {
+    margin: 0;
+    background: #fff;
+    border: 1px solid #dbe4ee;
+    border-radius: 4px;
+    box-shadow: 0 2px 7px #0f243e12;
+    min-width: 0;
+}
+.tb-dashboard .archetype-main {
+    min-width: 0;
+    padding: 14px 12px;
+    gap: 8px;
+}
+.tb-dashboard .archetype-name {
+    font-size: clamp(13px,1.3vw,17px);
+    overflow-wrap: anywhere;
+}
+.tb-dashboard .archetype-match {
+    min-width: 95px;
+    padding: 10px 8px;
+}
+.tb-dashboard .archetype-match-badge {
+    font-size: 11px;
+    white-space: normal;
+    text-align: center;
+}
+.tb-dashboard .overall-top {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+}
+.tb-dashboard .overall-top p {
+    min-width: 0;
+}
+@media(max-width:620px) {
+    .tb-dashboard .overall-top {
+        display: grid;
+        grid-template-columns: repeat(3,minmax(0,1fr));
+    }
+    .tb-dashboard .overall-top p:nth-child(3) {
+        border-top: 0;
+        border-left: 1px solid #d7e0e8;
+    }
+    .header .pitcher-analyzer {
+        max-width: 250px;
+    }
+    .tb-dashboard .archetype-main {
+        padding: 12px 8px;
+    }
+    .tb-dashboard .archetype-match {
+        min-width: 85px;
+    }
+}
 
 /* --------------------------------
    Player Profile Banner
