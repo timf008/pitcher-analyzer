@@ -5087,15 +5087,7 @@ input,select {
     font-size: 29px;
     text-align: left;
     letter-spacing: -.6px;
-}
-.team-color-panel {
-    width: 8px;
-    height: 37px;
-    border: 0;
-    border-radius: 1px;
-}
-.team-color-panel span {
-    width: 50%;
+
 }
 .overall-top {
     border-radius: 3px;
