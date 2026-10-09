@@ -453,6 +453,36 @@ function resetSimilarProfiles() {
     `;
 }
 
+
+// -------------------------------
+// Utility: Update MLB Headshot
+// -------------------------------
+function updatePitcherHeadshot(mlbId) {
+    const img = document.getElementById("playerHeadshot");
+
+    if (!img) return;
+
+    const id = String(mlbId ?? "").trim();
+
+    if (!/^\d+$/.test(id)) {
+        img.removeAttribute("src");
+        img.style.display = "none";
+        return;
+    }
+
+    img.onerror = function () {
+        this.onerror = null;
+        this.removeAttribute("src");
+        this.style.display = "none";
+    };
+
+    img.style.display = "block";
+
+    img.src =
+        `https://img.mlbstatic.com/mlb-photos/image/upload/w_300,q_auto:best/v1/people/${id}/headshot/67/current`;
+}
+
+
 // -------------------------------
 // Utility: Fetch pitcher data
 // -------------------------------
@@ -470,10 +500,13 @@ async function loadPitcher(name, season, silent = false) {
     const data = await res.json();
     const arr = Array.isArray(data) ? data : [data];
 
-    // Similar Profiles
-    if (!silent && arr.length > 0) {
-        updateSimilarProfiles(arr[0].SimilarProfiles);
-    }
+
+// Similar Profiles + MLB Headshot
+if (!silent && arr.length > 0) {
+    updateSimilarProfiles(arr[0].SimilarProfiles);
+    updatePitcherHeadshot(arr[0].mlbId);
+}
+
 
     // ⭐ Only update tab if NOT silent
     if (!silent && arr.length > 0) {
@@ -988,11 +1021,20 @@ async function handleLoad() {
             return;
         }
 
+
         // ⭐ Always normalize to object
         const p = Array.isArray(data) ? data[0] : data;
 
         console.log("FULL pitcher object from backend:", p);
         console.log("XP field:", p?.XP);
+        console.log("MLB ID:", p?.mlbId);
+
+        // -------------------------------
+        // Player Headshot + Similar Profiles
+        // -------------------------------
+        updatePitcherHeadshot(p.mlbId);
+        updateSimilarProfiles(p.SimilarProfiles);
+
 
         // ⭐ Only 5 metrics now
 const eraScore   = scoreERA(p.ERA);
