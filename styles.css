@@ -1276,7 +1276,7 @@ select:focus {
     background: #ffffff !important;
     color: #0f243e;
 
-    border-radius: 16px;
+    border-radius: 1px;
 
     overflow-y: auto;
     overflow-x: hidden;
@@ -1962,7 +1962,7 @@ select:focus {
     background: #ffffff !important;
     color: #0f243e;
 
-    border-radius: 16px;
+    border-radius: 1px;
     overflow-y: auto;
     overflow-x: hidden;
 
@@ -2609,7 +2609,7 @@ select:focus {
     background: #ffffff !important;
     color: #0f243e;
 
-    border-radius: 16px;
+    border-radius: 1px;
 
     overflow: hidden;
 
