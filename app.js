@@ -1002,7 +1002,6 @@ async function handleLoad() {
         // -------------------------------
         // Player Headshot + Similar Profiles
         // -------------------------------
-        updatePitcherHeadshot(p.mlbId);
         updateSimilarProfiles(p.SimilarProfiles);
 
 
