@@ -1018,6 +1018,7 @@ document.getElementById("productionER").textContent = p.ER ?? "--";
 document.getElementById("productionBB").textContent = p.BB ?? "--";
 document.getElementById("productionK").textContent = p.SO ?? "--";
 document.getElementById("productionHR").textContent = p.HR ?? "--";
+document.getElementById("productionFIP").textContent = p.FIP ?? "--";
 
 
 const overall = computeWeightedOverall({
@@ -3804,7 +3805,8 @@ if (xpMeter) {
         "productionER",
         "productionBB",
         "productionK",
-        "productionHR"
+        "productionHR",
+        "productionFIP",
     ].forEach(id => {
         document.getElementById(id).textContent = "--";
     });
