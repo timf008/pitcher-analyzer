@@ -5611,7 +5611,7 @@ input,select {
     background: #ffffff !important;
     color: #0f243e;
 
-    border-radius: 16px;
+    border-radius: 1px;
 
     overflow: auto;
 
@@ -6055,7 +6055,7 @@ input,select {
     background: #ffffff !important;
     color: #0f243e;
 
-    border-radius: 16px;
+    border-radius: 1px;
     overflow-y: auto;
     overflow-x: hidden;
 
@@ -6475,7 +6475,7 @@ input,select {
     background: #ffffff !important;
     color: #0f243e;
 
-    border-radius: 16px;
+    border-radius: 1px;
 
     overflow: hidden;
 
