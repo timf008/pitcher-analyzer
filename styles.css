@@ -6414,3 +6414,70 @@ input,select{border-radius:4px}
 .tb-dashboard .overall-top{grid-template-columns:repeat(3,minmax(0,1fr))}
 .tb-dashboard .overall-top p{min-width:0}
 @media(max-width:620px){.tb-dashboard .overall-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.tb-dashboard .overall-top p:nth-child(3){border-top:0;border-left:1px solid #d7e0e8}.header .pitcher-analyzer{max-width:250px}.tb-dashboard .archetype-main{padding:12px 8px}.tb-dashboard .archetype-match{min-width:85px}}
+
+/* --------------------------------
+   Player Profile Banner
+-------------------------------- */
+
+.player-profile-banner {
+    background: #0f243e;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin-bottom: 14px;
+    overflow: hidden;
+}
+
+.player-profile-banner .player-card-header {
+    margin: 0;
+}
+
+.player-profile-banner .player-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+}
+
+.player-profile-banner #playerHeadshot {
+    width: 110px;
+    height: 125px;
+    object-fit: contain;
+    object-position: center bottom;
+    flex-shrink: 0;
+    background: #e8eef5;
+    border-radius: 6px;
+}
+
+.player-profile-banner .player-card-name {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 800;
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.player-profile-banner .team-color-panel {
+    flex-shrink: 0;
+}
+
+/* Mobile */
+@media (max-width: 620px) {
+    .player-profile-banner {
+        padding: 10px 12px;
+    }
+
+    .player-profile-banner .player-name-row {
+        gap: 10px;
+    }
+
+    .player-profile-banner #playerHeadshot {
+        width: 75px;
+        height: 90px;
+    }
+
+    .player-profile-banner .player-card-name {
+        font-size: 20px;
+    }
+}
