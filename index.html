@@ -1,1916 +1,1199 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Pitcher Analyzer (Stathead Edition)</title>
-    <link rel="stylesheet" href="styles.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8"/>
+<title>Pitcher Analyzer (Stathead Edition)</title>
+<link href="styles.css" rel="stylesheet"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 </head>
 <body>
-
-    <div class="container">
-
+<div class="container">
 <!-- Header -->
-    <header class="header">
-    <img src="images/timbaseball-pitcheranalyzer.png" class="pitcher-analyzer" alt="Pitcher Analyzer">
-
-<div class="analyzer-tagline">
-    ANALYTICS <span>•</span> EVALUATION <span>•</span> INSIGHTS
-</div>
-
+<header class="header tb-brand-header">
+<img alt="Pitcher Analyzer" class="pitcher-analyzer" src="images/timbaseball-pitcheranalyzer.png"/>
+<div class="tb-kicker">THE ANALYTICS DESK <span> / </span> PLAYER EVALUATION</div>
 </header>
-
 <div id="player-ticker">
-
-    <div class="ticker-label">
-        <span class="ticker-star">★</span>
-    </div>
-
-    <div class="ticker-player">
-
-        <strong>
-            <span id="pod-name">...</span>
+<div class="ticker-label">
+<span class="ticker-star">★</span>
+</div>
+<div class="ticker-player">
+<strong>
+<span id="pod-name">...</span>
             (<span id="pod-team">...</span>)
         </strong>
-
-        <span class="ticker-divider"></span>
-
-        <span>
+<span class="ticker-divider"></span>
+<span>
             OVR <strong id="pod-overall">...</strong>
-        </span>
-
-        <span class="ticker-divider"></span>
-
-        <span>
+</span>
+<span class="ticker-divider"></span>
+<span>
             XP <strong id="pod-xp">...</strong>
-        </span>
-
-        <span class="ticker-divider"></span>
-
-        <span id="pod-record" class="ticker-summary">...</span>
-
-    </div>
-
+</span>
+<span class="ticker-divider"></span>
+<span class="ticker-summary" id="pod-record">...</span>
 </div>
-
+</div>
 <section class="search-panel">
-
-    <div class="search-header">
-        <h2>👤 Player Search</h2>
-    </div>
-
-
-    <div class="search-body">
-
-        <div id="playerSearchView">
-
-            <!-- Player Inputs -->
-            <section class="controls search-input-row">
-
-                <!-- Player 1 -->
-                <div class="player-search-group">
-
-                    <div class="input-group player-input">
-                        <label for="playerName">Player Name</label>
-
-                        <div class="autocomplete-wrap">
-                            <input
-                                type="text"
-                                id="playerName"
-                                placeholder="Tarik Skubal"
-                                autocomplete="off"
-                            >
-
-                            <div
-                                id="playerAutocomplete"
-                                class="player-autocomplete"
-                                hidden>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="input-group season-input">
-                        <label for="seasonSelect">Season</label>
-
-                        <select id="seasonSelect">
-                            <option value="2026">2026</option>
-                            <option value="2025">2025</option>
-                            <option value="2024">2024</option>
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
-                        </select>
-                    </div>
-
-                </div>
-
-
-                <!-- Player 2 -->
-                <div class="player-search-group">
-
-                    <div class="input-group player-input">
-                        <label for="playerName2">Compare Player</label>
-
-                        <div class="autocomplete-wrap">
-                            <input
-                                type="text"
-                                id="playerName2"
-                                placeholder="Paul Skenes"
-                                autocomplete="off"
-                            >
-
-                            <div
-                                id="playerAutocomplete2"
-                                class="player-autocomplete"
-                                hidden>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="input-group season-input">
-                        <label for="seasonSelect2">Season</label>
-
-                        <select id="seasonSelect2">
-                            <option value="2026">2026</option>
-                            <option value="2025">2025</option>
-                            <option value="2024">2024</option>
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
-                        </select>
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- Action Buttons -->
-            <section class="controls row action-row">
-
-    <button id="loadBtn">
-        <span class="btn-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="11" cy="11" r="6"></circle>
-                <line x1="16" y1="16" x2="21" y2="21"></line>
-            </svg>
-        </span>
-        <span>Load</span>
-    </button>
-
-    <button id="trendBtn">
-        <span class="btn-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <polyline points="3,17 9,11 13,15 21,7"></polyline>
-                <polyline points="15,7 21,7 21,13"></polyline>
-            </svg>
-        </span>
-        <span>Trend</span>
-    </button>
-
-    <button id="compareBtn">
-        <span class="btn-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="8" cy="8" r="3"></circle>
-                <circle cx="16" cy="8" r="3"></circle>
-                <path d="M3 19c0-3 2-5 5-5s5 2 5 5"></path>
-                <path d="M11 19c0-3 2-5 5-5s5 2 5 5"></path>
-            </svg>
-        </span>
-        <span>Compare</span>
-    </button>
-
-    <button id="leadersBtn">
-        <span class="btn-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8 4h8v4c0 4-2 7-4 7s-4-3-4-7V4z"></path>
-                <path d="M8 6H4v2c0 3 2 5 5 5"></path>
-                <path d="M16 6h4v2c0 3-2 5-5 5"></path>
-                <line x1="12" y1="15" x2="12" y2="19"></line>
-                <line x1="8" y1="20" x2="16" y2="20"></line>
-            </svg>
-        </span>
-        <span>Leaders</span>
-    </button>
-
-    <button id="swapBtn">
-        <span class="btn-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <line x1="4" y1="8" x2="19" y2="8"></line>
-                <polyline points="15,4 19,8 15,12"></polyline>
-                <line x1="20" y1="16" x2="5" y2="16"></line>
-                <polyline points="9,12 5,16 9,20"></polyline>
-            </svg>
-        </span>
-        <span>Swap</span>
-    </button>
-
-    <button id="resetBtn" class="reset">
-        <span class="btn-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 10a8 8 0 1 1 2 7"></path>
-                <polyline points="4,4 4,10 10,10"></polyline>
-            </svg>
-        </span>
-        <span>Reset</span>
-    </button>
-
+<div class="search-header">
+<h2>👤 Player Search</h2>
+</div>
+<div class="search-body">
+<div id="playerSearchView">
+<!-- Player Inputs -->
+<section class="controls search-input-row">
+<!-- Player 1 -->
+<div class="player-search-group">
+<div class="input-group player-input">
+<label for="playerName">Player Name</label>
+<div class="autocomplete-wrap">
+<input autocomplete="off" id="playerName" placeholder="Tarik Skubal" type="text"/>
+<div class="player-autocomplete" hidden="" id="playerAutocomplete">
+</div>
+</div>
+</div>
+<div class="input-group season-input">
+<label for="seasonSelect">Season</label>
+<select id="seasonSelect">
+<option value="2026">2026</option>
+<option value="2025">2025</option>
+<option value="2024">2024</option>
+<option value="2023">2023</option>
+<option value="2022">2022</option>
+<option value="2021">2021</option>
+<option value="2020">2020</option>
+</select>
+</div>
+</div>
+<!-- Player 2 -->
+<div class="player-search-group">
+<div class="input-group player-input">
+<label for="playerName2">Compare Player</label>
+<div class="autocomplete-wrap">
+<input autocomplete="off" id="playerName2" placeholder="Paul Skenes" type="text"/>
+<div class="player-autocomplete" hidden="" id="playerAutocomplete2">
+</div>
+</div>
+</div>
+<div class="input-group season-input">
+<label for="seasonSelect2">Season</label>
+<select id="seasonSelect2">
+<option value="2026">2026</option>
+<option value="2025">2025</option>
+<option value="2024">2024</option>
+<option value="2023">2023</option>
+<option value="2022">2022</option>
+<option value="2021">2021</option>
+<option value="2020">2020</option>
+</select>
+</div>
+</div>
 </section>
-
-        </div>
-
-    </div>
-
+<!-- Action Buttons -->
+<section class="controls row action-row">
+<button id="loadBtn">
+<span class="btn-icon">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="6"></circle>
+<line x1="16" x2="21" y1="16" y2="21"></line>
+</svg>
+</span>
+<span>Load</span>
+</button>
+<button id="trendBtn">
+<span class="btn-icon">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<polyline points="3,17 9,11 13,15 21,7"></polyline>
+<polyline points="15,7 21,7 21,13"></polyline>
+</svg>
+</span>
+<span>Trend</span>
+</button>
+<button id="compareBtn">
+<span class="btn-icon">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<circle cx="8" cy="8" r="3"></circle>
+<circle cx="16" cy="8" r="3"></circle>
+<path d="M3 19c0-3 2-5 5-5s5 2 5 5"></path>
+<path d="M11 19c0-3 2-5 5-5s5 2 5 5"></path>
+</svg>
+</span>
+<span>Compare</span>
+</button>
+<button id="leadersBtn">
+<span class="btn-icon">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<path d="M8 4h8v4c0 4-2 7-4 7s-4-3-4-7V4z"></path>
+<path d="M8 6H4v2c0 3 2 5 5 5"></path>
+<path d="M16 6h4v2c0 3-2 5-5 5"></path>
+<line x1="12" x2="12" y1="15" y2="19"></line>
+<line x1="8" x2="16" y1="20" y2="20"></line>
+</svg>
+</span>
+<span>Leaders</span>
+</button>
+<button id="swapBtn">
+<span class="btn-icon">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<line x1="4" x2="19" y1="8" y2="8"></line>
+<polyline points="15,4 19,8 15,12"></polyline>
+<line x1="20" x2="5" y1="16" y2="16"></line>
+<polyline points="9,12 5,16 9,20"></polyline>
+</svg>
+</span>
+<span>Swap</span>
+</button>
+<button class="reset" id="resetBtn">
+<span class="btn-icon">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<path d="M4 10a8 8 0 1 1 2 7"></path>
+<polyline points="4,4 4,10 10,10"></polyline>
+</svg>
+</span>
+<span>Reset</span>
+</button>
 </section>
-
-
-<!-- ==========================================
-     SEASON PRODUCTION
-========================================== -->
-
-<section class="season-production">
-
-    <div class="season-production-header">
-        <div>
-            <h2>⚾ Season Production</h2>
-        </div>
-    </div>
-
-    <div class="season-production-grid">
-
-        <div class="production-stat">
-            <span class="production-label">IP</span>
-            <strong id="productionIP">--</strong>
-        </div>
-
-        <div class="production-stat">
-            <span class="production-label">H</span>
-            <strong id="productionH">--</strong>
-        </div>
-
-        <div class="production-stat">
-            <span class="production-label">R</span>
-            <strong id="productionR">--</strong>
-        </div>
-
-        <div class="production-stat">
-            <span class="production-label">ER</span>
-            <strong id="productionER">--</strong>
-        </div>
-
-        <div class="production-stat">
-            <span class="production-label">BB</span>
-            <strong id="productionBB">--</strong>
-        </div>
-
-        <div class="production-stat">
-            <span class="production-label">K</span>
-            <strong id="productionK">--</strong>
-        </div>
-
-        <div class="production-stat">
-            <span class="production-label">HR</span>
-            <strong id="productionHR">--</strong>
-        </div>
-
-    </div>
-
-</section>
-
-        <!-- Metric Grid -->
-<section class="metrics">
-
-    <div class="metrics-columns">
-        <span>STAT</span>
-        <span>VALUE</span>
-        <span>PROFILE (0-10)</span>
-        <span>SCORE</span>
-    </div>
-
-    <div class="metric-row">
-        <div class="metric-name">
-            <span class="metric-label">ERA</span>
-            <span class="metric-direction">LOWER IS BETTER</span>
-        </div>
-
-        <span class="metric-raw" id="raw-era">--</span>
-
-        <div class="battery" id="battery-era"></div>
-
-        <span class="metric-score" id="score-era">--</span>
-    </div>
-
-    <div class="metric-row">
-        <div class="metric-name">
-            <span class="metric-label">WHIP</span>
-            <span class="metric-direction">LOWER IS BETTER</span>
-        </div>
-
-        <span class="metric-raw" id="raw-whip">--</span>
-
-        <div class="battery" id="battery-whip"></div>
-
-        <span class="metric-score" id="score-whip">--</span>
-    </div>
-
-    <div class="metric-row">
-        <div class="metric-name">
-            <span class="metric-label">K%</span>
-            <span class="metric-direction">HIGHER IS BETTER</span>
-        </div>
-
-        <span class="metric-raw" id="raw-kpct">--</span>
-
-        <div class="battery" id="battery-kpct"></div>
-
-        <span class="metric-score" id="score-kpct">--</span>
-    </div>
-
-    <div class="metric-row">
-        <div class="metric-name">
-            <span class="metric-label">BB%</span>
-            <span class="metric-direction">LOWER IS BETTER</span>
-        </div>
-
-        <span class="metric-raw" id="raw-bbpct">--</span>
-
-        <div class="battery" id="battery-bbpct"></div>
-
-        <span class="metric-score" id="score-bbpct">--</span>
-    </div>
-
-    <div class="metric-row">
-        <div class="metric-name">
-            <span class="metric-label">K/BB</span>
-            <span class="metric-direction">HIGHER IS BETTER</span>
-        </div>
-
-        <span class="metric-raw" id="raw-kbb">--</span>
-
-        <div class="battery" id="battery-kbb"></div>
-
-        <span class="metric-score" id="score-kbb">--</span>
-    </div>
-</section>
-
-
-<hr>
-
-<section class="analytics-panel">
-
-    <div class="analytics-header">
-        <h2>📈 Player Analytics</h2>
-    </div>
-
-    <div class="overall-card">
-
-        <section class="overall">
-
+</div>
+</div>
+</section><div class="tb-dashboard"><main class="tb-primary"><section class="analytics-panel">
+<div class="analytics-header">
+<h2>📈 Player Analytics</h2>
+</div>
+<div class="overall-card">
+<section class="overall">
 <div class="player-card-header">
-
-    <div class="player-name-row">
-
-        <span class="team-color-panel" id="teamColorPanel" aria-hidden="true">
-            <span class="team-color-primary"></span>
-            <span class="team-color-secondary"></span>
-        </span>
-
-        <div class="player-card-name" id="playerTab">
+<div class="player-name-row">
+<span aria-hidden="true" class="team-color-panel" id="teamColorPanel">
+<span class="team-color-primary"></span>
+<span class="team-color-secondary"></span>
+</span>
+<div class="player-card-name" id="playerTab">
             Player --
         </div>
-
-    </div>
-
 </div>
-
-            <div class="overall-top">
-
-    <p>
+</div>
+<div class="overall-top">
+<p>
         Overall Score:
         <span id="overallScore">--</span>
-
-        <span class="analytics-meter">
-            <span class="analytics-meter-fill" id="overallMeter"></span>
-        </span>
-    </p>
-
-    <p>
+<span class="analytics-meter">
+<span class="analytics-meter-fill" id="overallMeter"></span>
+</span>
+</p>
+<p>
         XP:
         <span id="xpScore">--</span>
-
-        <span class="analytics-meter">
-            <span class="analytics-meter-fill" id="xpMeter"></span>
-        </span>
-    </p>
-
-    <p>
+<span class="analytics-meter">
+<span class="analytics-meter-fill" id="xpMeter"></span>
+</span>
+</p>
+<p>
         Tier:
         <span id="overallTier">--</span>
-    </p>
-
+</p>
 </div>
-
-            <div class="scouting-note">
-
-                <div class="scouting-content">
-                    <div class="scouting-title">
-                        <svg class="scouting-note-icon"
-     viewBox="0 0 24 24"
-     aria-hidden="true">
-
-    <!-- Clipboard -->
-    <rect x="5" y="4" width="14" height="17" rx="2"></rect>
-
-    <!-- Clipboard tab -->
-    <path d="M9 4V3.5C9 2.7 9.7 2 10.5 2h3
+<div class="scouting-note">
+<div class="scouting-content">
+<div class="scouting-title">
+<svg aria-hidden="true" class="scouting-note-icon" viewbox="0 0 24 24">
+<!-- Clipboard -->
+<rect height="17" rx="2" width="14" x="5" y="4"></rect>
+<!-- Clipboard tab -->
+<path d="M9 4V3.5C9 2.7 9.7 2 10.5 2h3
              C14.3 2 15 2.7 15 3.5V4"></path>
-
-    <!-- Report lines -->
-    <path d="M9 9h6"></path>
-    <path d="M9 13h6"></path>
-    <path d="M9 17h4"></path>
-
+<!-- Report lines -->
+<path d="M9 9h6"></path>
+<path d="M9 13h6"></path>
+<path d="M9 17h4"></path>
 </svg>
-                        <label>SCOUTING NOTE</label>
-                    </div>
-
-                    <p id="scoutingNote">--</p>
-                </div>
-
-                <div class="percentile-box">
-                    <span class="percentile-label">PERCENTILE</span>
-                    <span id="overallPercentile">--</span>
-                </div>
-
-            </div>
-
-<!-- Pitcher Archetype -->
-<div class="archetype-row">
-
-    <div class="archetype-main">
-
-        <svg class="archetype-icon"
-             viewBox="0 0 24 24"
-             aria-hidden="true">
-
-            <circle cx="12" cy="12" r="6"></circle>
-            <circle cx="12" cy="12" r="2"></circle>
-
-            <path d="M12 2v4"></path>
-            <path d="M12 18v4"></path>
-            <path d="M2 12h4"></path>
-            <path d="M18 12h4"></path>
-
-        </svg>
-
-        <div class="archetype-content">
-
-            <span class="archetype-label">
-                ARCHETYPE
-            </span>
-
-            <span class="archetype-name"
-                  id="pitcherArchetype">--</span>
-
-        </div>
-
-    </div>
-
-
-    <div class="archetype-match">
-
-        <span class="archetype-match-label">
-            MATCH
-        </span>
-
-        <span class="archetype-match-badge"
-              id="pitcherArchetypeMatch">--</span>
-
-    </div>
-
+<label>SCOUTING NOTE</label>
 </div>
-
-        </section>
-
-    </div>
+<p id="scoutingNote">--</p>
+</div>
+<div class="percentile-box">
+<span class="percentile-label">PERCENTILE</span>
+<span id="overallPercentile">--</span>
+</div>
+</div>
+<!-- Pitcher Archetype -->
 
 </section>
-
-<!-- What to Watch -->
-<div class="watch-section">
-
-    <div class="watch-header">
-
-        <h3>WHAT TO WATCH</h3>
-
-        <span class="watch-subtitle">
+</div>
+</section><section class="metrics"><div class="tb-panel-title"><span>FIVE-FACTOR PROFILE</span><small>Normalized performance • 0–10 scale</small></div>
+<div class="metrics-columns">
+<span>STAT</span>
+<span>VALUE</span>
+<span>PROFILE (0-10)</span>
+<span>SCORE</span>
+</div>
+<div class="metric-row">
+<div class="metric-name">
+<span class="metric-label">ERA</span>
+<span class="metric-direction">LOWER IS BETTER</span>
+</div>
+<span class="metric-raw" id="raw-era">--</span>
+<div class="battery" id="battery-era"></div>
+<span class="metric-score" id="score-era">--</span>
+</div>
+<div class="metric-row">
+<div class="metric-name">
+<span class="metric-label">WHIP</span>
+<span class="metric-direction">LOWER IS BETTER</span>
+</div>
+<span class="metric-raw" id="raw-whip">--</span>
+<div class="battery" id="battery-whip"></div>
+<span class="metric-score" id="score-whip">--</span>
+</div>
+<div class="metric-row">
+<div class="metric-name">
+<span class="metric-label">K%</span>
+<span class="metric-direction">HIGHER IS BETTER</span>
+</div>
+<span class="metric-raw" id="raw-kpct">--</span>
+<div class="battery" id="battery-kpct"></div>
+<span class="metric-score" id="score-kpct">--</span>
+</div>
+<div class="metric-row">
+<div class="metric-name">
+<span class="metric-label">BB%</span>
+<span class="metric-direction">LOWER IS BETTER</span>
+</div>
+<span class="metric-raw" id="raw-bbpct">--</span>
+<div class="battery" id="battery-bbpct"></div>
+<span class="metric-score" id="score-bbpct">--</span>
+</div>
+<div class="metric-row">
+<div class="metric-name">
+<span class="metric-label">K/BB</span>
+<span class="metric-direction">HIGHER IS BETTER</span>
+</div>
+<span class="metric-raw" id="raw-kbb">--</span>
+<div class="battery" id="battery-kbb"></div>
+<span class="metric-score" id="score-kbb">--</span>
+</div>
+</section><div class="watch-section">
+<div class="watch-header">
+<h3>WHAT TO WATCH</h3>
+<span class="watch-subtitle">
             KEY STRENGTHS AND AREAS TO MONITOR
         </span>
-
-        <span class="watch-header-line"></span>
-
-    </div>
-
-    <div class="watch-grid" id="watchGrid">
-        <!-- Cards generated dynamically by JavaScript -->
-    </div>
-
+<span class="watch-header-line"></span>
 </div>
-
-<!-- Similar Profiles -->
-<div class="similar-profiles-section">
-
-    <div class="similar-profiles-header">
-
-        <span class="similar-profiles-title">
+<div class="watch-grid" id="watchGrid">
+<!-- Cards generated dynamically by JavaScript -->
+</div>
+</div><div class="similar-profiles-section">
+<div class="similar-profiles-header">
+<span class="similar-profiles-title">
             SIMILAR PROFILES
         </span>
-
-        <span class="similar-profiles-subtitle">
+<span class="similar-profiles-subtitle">
             PLAYERS WITH A SIMILAR STATISTICAL PROFILE
         </span>
-
-        <span class="similar-profiles-header-line"></span>
-    </div>
-
-    <div class="similar-profiles-grid" id="similarProfiles">
-
-        <div class="similar-profile-card placeholder"></div>
-        <div class="similar-profile-card placeholder"></div>
-        <div class="similar-profile-card placeholder"></div>
-
-    </div>
-
+<span class="similar-profiles-header-line"></span>
 </div>
-
-<div class="fantasy-edge-panel">
-
-    <div class="fantasy-edge-header">
-
-        <img
-            src="images/fantasy_edge.png"
-            class="fantasy-edge"
-            alt="Fantasy Edge"
-        >
-
-        <div class="fantasy-edge-subtitle">
+<div class="similar-profiles-grid" id="similarProfiles">
+<div class="similar-profile-card placeholder"></div>
+<div class="similar-profile-card placeholder"></div>
+<div class="similar-profile-card placeholder"></div>
+</div>
+</div></main><aside class="tb-sidebar"><section class="season-production">
+<div class="season-production-header">
+<div>
+<h2>⚾ Season Production</h2>
+</div>
+</div>
+<div class="season-production-grid">
+<div class="production-stat">
+<span class="production-label">IP</span>
+<strong id="productionIP">--</strong>
+</div>
+<div class="production-stat">
+<span class="production-label">H</span>
+<strong id="productionH">--</strong>
+</div>
+<div class="production-stat">
+<span class="production-label">R</span>
+<strong id="productionR">--</strong>
+</div>
+<div class="production-stat">
+<span class="production-label">ER</span>
+<strong id="productionER">--</strong>
+</div>
+<div class="production-stat">
+<span class="production-label">BB</span>
+<strong id="productionBB">--</strong>
+</div>
+<div class="production-stat">
+<span class="production-label">K</span>
+<strong id="productionK">--</strong>
+</div>
+<div class="production-stat">
+<span class="production-label">HR</span>
+<strong id="productionHR">--</strong>
+<div class="production-stat">
+<span class="production-label">FIP</span>
+<strong id="productionFIP">--</strong>
+</div>
+</div>
+</section><div class="archetype-row">
+<div class="archetype-main">
+<svg aria-hidden="true" class="archetype-icon" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="6"></circle>
+<circle cx="12" cy="12" r="2"></circle>
+<path d="M12 2v4"></path>
+<path d="M12 18v4"></path>
+<path d="M2 12h4"></path>
+<path d="M18 12h4"></path>
+</svg>
+<div class="archetype-content">
+<span class="archetype-label">
+                ARCHETYPE
+            </span>
+<span class="archetype-name" id="pitcherArchetype">--</span>
+</div>
+</div>
+<div class="archetype-match">
+<span class="archetype-match-label">
+            MATCH
+        </span>
+<span class="archetype-match-badge" id="pitcherArchetypeMatch">--</span>
+</div>
+</div><div class="fantasy-edge-panel">
+<div class="fantasy-edge-header">
+<img alt="Fantasy Edge" class="fantasy-edge" src="images/fantasy_edge.png"/>
+<div class="fantasy-edge-subtitle">
             IDENTIFY TALENT
             <span>•</span>
             ASSESS RISK
             <span>•</span>
             FIND VALUE
         </div>
-
-    </div>
-
-
-    <!-- -----------------------------------------
+</div>
+<!-- -----------------------------------------
          Fantasy Summary
     ------------------------------------------ -->
-
-    <div class="fantasy-summary" id="fantasySummary">
-
-    <div class="fantasy-premium-lock" id="fantasyPremiumLock" hidden>
-
-    <div class="fantasy-premium-icon">🔒</div>
-
-    <div class="fantasy-premium-badge">
+<div class="fantasy-summary" id="fantasySummary">
+<div class="fantasy-premium-lock" hidden="" id="fantasyPremiumLock">
+<div class="fantasy-premium-icon">🔒</div>
+<div class="fantasy-premium-badge">
         ALL ACCESS
     </div>
-
-    <div class="fantasy-premium-title">
+<div class="fantasy-premium-title">
         Unlock Fantasy Edge
     </div>
-
-    <div class="fantasy-premium-text">
+<div class="fantasy-premium-text">
         Fantasy Identity • Fantasy State • Fantasy Value
     </div>
-
 </div>
-
 <div id="fantasyPremiumContent">
 
-        <div class="fantasy-summary-header">
-
-            <div>
-                <div class="fantasy-summary-title">
-                    📋 Fantasy Summary
-                </div>
-
-                <div class="fantasy-summary-subtitle">
-                    KEY TAKEAWAYS FOR FANTASY MANAGERS
-                </div>
-            </div>
-
-            <div class="fantasy-summary-tagline">
-                Smarter insights. Better decisions.
-            </div>
-
-        </div>
-
-
-        <div class="fantasy-summary-grid">
-
-            <!-- Identity -->
-            <div class="fantasy-summary-item identity-summary-card">
-
-                <div class="summary-card-label">
+<div class="fantasy-summary-grid">
+<!-- Identity -->
+<div class="fantasy-summary-item identity-summary-card">
+<div class="summary-card-label">
                     FANTASY IDENTITY
                 </div>
-
-                <div class="summary-card-result">
-                    <strong id="summaryIdentity">
+<div class="summary-card-result">
+<strong id="summaryIdentity">
                         --
                     </strong>
-                </div>
-
-                <div class="summary-accent"></div>
-
+</div>
+<div class="summary-accent"></div>
 <!-- Fantasy Identity Context -->
 <div class="identity-context">
-
-    <div class="identity-scale">
-
-        <div class="identity-band breakout">
-            <span>BREAKOUT STAR</span>
-        </div>
-
-        <div class="identity-band overperformer">
-            <span>OVERPERFORMER</span>
-        </div>
-
-        <div class="identity-band sleeper">
-            <span>SLEEPER CANDIDATE</span>
-        </div>
-
-        <div class="identity-band consistent">
-            <span>CONSISTENT PERFORMER</span>
-        </div>
-
-        <div class="identity-band neutral">
-            <span>NEUTRAL</span>
-        </div>
-
-    </div>
-
+<div class="identity-scale">
+<div class="identity-band breakout">
+<span>BREAKOUT STAR</span>
 </div>
-
-                <p id="summaryIdentityText">
+<div class="identity-band overperformer">
+<span>OVERPERFORMER</span>
+</div>
+<div class="identity-band sleeper">
+<span>SLEEPER CANDIDATE</span>
+</div>
+<div class="identity-band consistent">
+<span>CONSISTENT PERFORMER</span>
+</div>
+<div class="identity-band neutral">
+<span>NEUTRAL</span>
+</div>
+</div>
+</div>
+<p id="summaryIdentityText">
                     Load a player to view their Fantasy Identity analysis.
                 </p>
-
-            </div>
-
-
-            <!-- State -->
+</div>
+<!-- State -->
 <div class="fantasy-summary-item state-summary-card">
-
-    <div class="summary-card-label">
+<div class="summary-card-label">
         FANTASY STATE
     </div>
-
-    <div class="summary-card-result">
-        <strong id="summaryState">
+<div class="summary-card-result">
+<strong id="summaryState">
             --
         </strong>
-    </div>
-
-    <div class="summary-accent"></div>
-
-    <!-- Fantasy State Context -->
-    <div class="state-context" id="stateContext">
-
-        <div class="state-scale">
-
-            <div class="state-bands">
-
-                <div class="state-band strong">
-                    <span>STRONG</span>
-                    <small>+2.28%</small>
-                </div>
-
-                <div class="state-band stable">
-                    <span>STABLE</span>
-                    <small>-2.28%</small>
-                </div>
-
-                <div class="state-band vulnerable">
-                    <span>VULNERABLE</span>
-                    <small>-4.56%</small>
-                </div>
-
-                <div class="state-band high-risk">
-                    <span>HIGH RISK</span>
-                    <small>&lt; -4.56%</small>
-                </div>
-
-            </div>
-
-            <!-- Position Rail -->
-            <div class="state-rail">
-                <div class="state-marker" id="stateMarker"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <p id="summaryStateText">
+</div>
+<div class="summary-accent"></div>
+<!-- Fantasy State Context -->
+<div class="state-context" id="stateContext">
+<div class="state-scale">
+<div class="state-bands">
+<div class="state-band strong">
+<span>STRONG</span>
+<small>+2.28%</small>
+</div>
+<div class="state-band stable">
+<span>STABLE</span>
+<small>-2.28%</small>
+</div>
+<div class="state-band vulnerable">
+<span>VULNERABLE</span>
+<small>-4.56%</small>
+</div>
+<div class="state-band high-risk">
+<span>HIGH RISK</span>
+<small>&lt; -4.56%</small>
+</div>
+</div>
+<!-- Position Rail -->
+<div class="state-rail">
+<div class="state-marker" id="stateMarker"></div>
+</div>
+</div>
+</div>
+<p id="summaryStateText">
         Load a player to view their Fantasy State analysis.
     </p>
-
 </div>
-
-
-            <!-- Value -->
+<!-- Value -->
 <div class="fantasy-summary-item value-summary-card">
-
-    <div class="summary-card-label">
+<div class="summary-card-label">
         FANTASY VALUE
     </div>
-
-    <div class="summary-card-result">
-        <strong id="summaryValue">
+<div class="summary-card-result">
+<strong id="summaryValue">
             --
         </strong>
-    </div>
-
-    <div class="summary-accent"></div>
-
-    <!-- Fantasy Value Context -->
-    <div class="value-context" id="valueContext">
-
-        <div class="value-scale">
-
-            <div class="value-bands">
-
-                <div class="value-band extreme">
-    <span>EXTREME</span>
-    <small>-1.5σ</small>
 </div>
-
+<div class="summary-accent"></div>
+<!-- Fantasy Value Context -->
+<div class="value-context" id="valueContext">
+<div class="value-scale">
+<div class="value-bands">
+<div class="value-band extreme">
+<span>EXTREME</span>
+<small>-1.5σ</small>
+</div>
 <div class="value-band elevated">
-    <span>ELEVATED</span>
-    <small>-0.5σ</small>
+<span>ELEVATED</span>
+<small>-0.5σ</small>
 </div>
-
 <div class="value-band expected">
-    <span>EXPECTED</span>
-    <small>0σ</small>
+<span>EXPECTED</span>
+<small>0σ</small>
 </div>
-
 <div class="value-band below">
-    <span>BELOW</span>
-    <small>+0.5σ</small>
+<span>BELOW</span>
+<small>+0.5σ</small>
 </div>
-
 <div class="value-band suppressed">
-    <span>SUPPRESSED</span>
-    <small>+1.5σ</small>
+<span>SUPPRESSED</span>
+<small>+1.5σ</small>
 </div>
-
-            </div>
-
-            <!-- Position Rail -->
-            <div class="value-rail">
-                <div class="value-marker" id="valueMarker"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <p id="summaryValueText">
+</div>
+<!-- Position Rail -->
+<div class="value-rail">
+<div class="value-marker" id="valueMarker"></div>
+</div>
+</div>
+</div>
+<p id="summaryValueText">
         Load a player to view their Fantasy Value analysis.
     </p>
-
 </div>
-
 <div class="fantasy-summary-info">
-    <span class="summary-info-icon">i</span>
+<span class="summary-info-icon">i</span>
 
     Fantasy Edge combines production, skill quality, and divergence
     to provide a complete view of a player's fantasy profile.
 </div>
-
 </div> <!-- fantasyPremiumContent -->
-
 </div> <!-- fantasySummary -->
-
 </div> <!-- fantasy-edge-panel -->
+</div></aside></div>
+<!-- ==========================================
+     SEASON PRODUCTION
+========================================== -->
 
-</div>
+<!-- Metric Grid -->
+
+
+
+<!-- What to Watch -->
+
+<!-- Similar Profiles -->
+
 
 <!-- Trend Modal (Season Comparison) -->
-<div id="trendModal" class="modal hidden">
-
-    <div class="modal-content trend-modal">
-
-        <!-- Header -->
-        <div class="trend-header">
-
-            <div>
-                <h2 id="trendTitle">Pitcher Trend</h2>
-
-                <div class="trend-subtitle">
+<div class="modal hidden" id="trendModal">
+<div class="modal-content trend-modal">
+<!-- Header -->
+<div class="trend-header">
+<div>
+<h2 id="trendTitle">Pitcher Trend</h2>
+<div class="trend-subtitle">
                     Season-to-season profile and performance movement
                 </div>
-            </div>
-
-            <span id="trendClose" class="close">&times;</span>
-
-        </div>
-
-
-        <div class="trend-content">
-
-            <!-- =========================================
+</div>
+<span class="close" id="trendClose">×</span>
+</div>
+<div class="trend-content">
+<!-- =========================================
                  PLAYER
             ========================================== -->
-            <div class="trend-player">
-
-                <div class="trend-player-label">
+<div class="trend-player">
+<div class="trend-player-label">
                     PLAYER
                 </div>
-
-                <div class="trend-player-name"
-                     id="trendPlayerName">
+<div class="trend-player-name" id="trendPlayerName">
                     --
                 </div>
-
-                <div class="trend-player-team"
-                     id="trendPlayerTeam">
+<div class="trend-player-team" id="trendPlayerTeam">
                     --
                 </div>
-
-            </div>
-
-
-            <!-- =========================================
+</div>
+<!-- =========================================
                  SEASON HEADERS
             ========================================== -->
-            <div class="trend-season-grid">
-
-                <!-- Prior Season -->
-                <div class="trend-season-card">
-
-                    <span class="trend-season-label">
+<div class="trend-season-grid">
+<!-- Prior Season -->
+<div class="trend-season-card">
+<span class="trend-season-label">
                         PRIOR SEASON
                     </span>
-
-                    <span class="trend-season-year"
-                          id="trendSeason1">
+<span class="trend-season-year" id="trendSeason1">
                         --
                     </span>
-
-                </div>
-
-
-                <!-- Current Season -->
-                <div class="trend-season-card">
-
-                    <span class="trend-season-label">
+</div>
+<!-- Current Season -->
+<div class="trend-season-card">
+<span class="trend-season-label">
                         CURRENT SEASON
                     </span>
-
-                    <span class="trend-season-year"
-                          id="trendSeason2">
+<span class="trend-season-year" id="trendSeason2">
                         --
                     </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
+</div>
+</div>
+<!-- =========================================
                  SUMMARY METRICS
             ========================================== -->
-            <div class="trend-season-grid">
-
-                <!-- Prior Season -->
-                <div class="trend-summary-grid">
-
-                    <div class="trend-summary-stat">
-                        <span class="trend-summary-label">
+<div class="trend-season-grid">
+<!-- Prior Season -->
+<div class="trend-summary-grid">
+<div class="trend-summary-stat">
+<span class="trend-summary-label">
                             OVERALL
                         </span>
-
-                        <span class="trend-summary-value"
-                              id="trendOverall1">
+<span class="trend-summary-value" id="trendOverall1">
                             --
                         </span>
-                    </div>
-
-                    <div class="trend-summary-stat">
-                        <span class="trend-summary-label">
+</div>
+<div class="trend-summary-stat">
+<span class="trend-summary-label">
                             XP
                         </span>
-
-                        <span class="trend-summary-value"
-                              id="trendXP1">
+<span class="trend-summary-value" id="trendXP1">
                             --
                         </span>
-                    </div>
-
-                    <div class="trend-summary-stat">
-                        <span class="trend-summary-label">
+</div>
+<div class="trend-summary-stat">
+<span class="trend-summary-label">
                             TIER
                         </span>
-
-                        <span class="trend-summary-value"
-                              id="trendTier1">
+<span class="trend-summary-value" id="trendTier1">
                             --
                         </span>
-                    </div>
-
-                </div>
-
-
-                <!-- Current Season -->
-                <div class="trend-summary-grid">
-
-                    <div class="trend-summary-stat">
-                        <span class="trend-summary-label">
+</div>
+</div>
+<!-- Current Season -->
+<div class="trend-summary-grid">
+<div class="trend-summary-stat">
+<span class="trend-summary-label">
                             OVERALL
                         </span>
-
-                        <span class="trend-summary-value"
-                              id="trendOverall2">
+<span class="trend-summary-value" id="trendOverall2">
                             --
                         </span>
-                    </div>
-
-                    <div class="trend-summary-stat">
-                        <span class="trend-summary-label">
+</div>
+<div class="trend-summary-stat">
+<span class="trend-summary-label">
                             XP
                         </span>
-
-                        <span class="trend-summary-value"
-                              id="trendXP2">
+<span class="trend-summary-value" id="trendXP2">
                             --
                         </span>
-                    </div>
-
-                    <div class="trend-summary-stat">
-                        <span class="trend-summary-label">
+</div>
+<div class="trend-summary-stat">
+<span class="trend-summary-label">
                             TIER
                         </span>
-
-                        <span class="trend-summary-value"
-                              id="trendTier2">
+<span class="trend-summary-value" id="trendTier2">
                             --
                         </span>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
+</div>
+</div>
+</div>
+<!-- =========================================
                  ARCHETYPE
             ========================================== -->
-            <div class="trend-season-grid">
-
-                <!-- Prior Season -->
-                <div class="trend-archetype">
-
-                    <div class="trend-archetype-main">
-
-                        <span class="trend-archetype-label">
+<div class="trend-season-grid">
+<!-- Prior Season -->
+<div class="trend-archetype">
+<div class="trend-archetype-main">
+<span class="trend-archetype-label">
                             ARCHETYPE
                         </span>
-
-                        <span class="trend-archetype-name"
-                              id="trendArchetype1">
+<span class="trend-archetype-name" id="trendArchetype1">
                             --
                         </span>
-
-                    </div>
-
-                    <div class="trend-archetype-match">
-
-                        <span class="trend-match-label">
+</div>
+<div class="trend-archetype-match">
+<span class="trend-match-label">
                             MATCH
                         </span>
-
-                        <span class="trend-match-value"
-                              id="trendMatch1">
+<span class="trend-match-value" id="trendMatch1">
                             --
                         </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Current Season -->
-                <div class="trend-archetype">
-
-                    <div class="trend-archetype-main">
-
-                        <span class="trend-archetype-label">
+</div>
+</div>
+<!-- Current Season -->
+<div class="trend-archetype">
+<div class="trend-archetype-main">
+<span class="trend-archetype-label">
                             ARCHETYPE
                         </span>
-
-                        <span class="trend-archetype-name"
-                              id="trendArchetype2">
+<span class="trend-archetype-name" id="trendArchetype2">
                             --
                         </span>
-
-                    </div>
-
-                    <div class="trend-archetype-match">
-
-                        <span class="trend-match-label">
+</div>
+<div class="trend-archetype-match">
+<span class="trend-match-label">
                             MATCH
                         </span>
-
-                        <span class="trend-match-value"
-                              id="trendMatch2">
+<span class="trend-match-value" id="trendMatch2">
                             --
                         </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
+</div>
+</div>
+</div>
+<!-- =========================================
                  PROFILE SHAPE
             ========================================== -->
-            <div class="trend-profile">
-
-
-                <!-- ERA -->
-                <div class="trend-profile-row">
-
-                    <!-- Prior Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendERAScore1">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendERARaw1">--</span>
-                        </div>
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendERAMeter1"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="trend-profile-label">
-                        <strong>ERA</strong>
-                        <span>0–10</span>
-                    </div>
-
-
-                    <!-- Current Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendERAMeter2"></div>
-                        </div>
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendERAScore2">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendERARaw2">--</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- WHIP -->
-                <div class="trend-profile-row">
-
-                    <!-- Prior Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendWHIPScore1">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendWHIPRaw1">--</span>
-                        </div>
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendWHIPMeter1"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="trend-profile-label">
-                        <strong>WHIP</strong>
-                        <span>0–10</span>
-                    </div>
-
-
-                    <!-- Current Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendWHIPMeter2"></div>
-                        </div>
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendWHIPScore2">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendWHIPRaw2">--</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- K% -->
-                <div class="trend-profile-row">
-
-                    <!-- Prior Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendKScore1">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendKRaw1">--</span>
-                        </div>
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendKMeter1"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="trend-profile-label">
-                        <strong>K%</strong>
-                        <span>0–10</span>
-                    </div>
-
-
-                    <!-- Current Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendKMeter2"></div>
-                        </div>
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendKScore2">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendKRaw2">--</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- BB% -->
-                <div class="trend-profile-row">
-
-                    <!-- Prior Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendBBScore1">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendBBRaw1">--</span>
-                        </div>
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendBBMeter1"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="trend-profile-label">
-                        <strong>BB%</strong>
-                        <span>0–10</span>
-                    </div>
-
-
-                    <!-- Current Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendBBMeter2"></div>
-                        </div>
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendBBScore2">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendBBRaw2">--</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- K/BB -->
-                <div class="trend-profile-row">
-
-                    <!-- Prior Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendKBBScore1">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendKBBRaw1">--</span>
-                        </div>
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendKBBMeter1"></div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="trend-profile-label">
-                        <strong>K/BB</strong>
-                        <span>0–10</span>
-                    </div>
-
-
-                    <!-- Current Season -->
-                    <div class="trend-profile-player">
-
-                        <div class="trend-profile-meter">
-                            <div class="trend-profile-fill"
-                                 id="trendKBBMeter2"></div>
-                        </div>
-
-                        <div class="trend-profile-values">
-                            <span class="trend-profile-score"
-                                  id="trendKBBScore2">--</span>
-
-                            <span class="trend-profile-raw"
-                                  id="trendKBBRaw2">--</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
+<div class="trend-profile">
+<!-- ERA -->
+<div class="trend-profile-row">
+<!-- Prior Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendERAScore1">--</span>
+<span class="trend-profile-raw" id="trendERARaw1">--</span>
+</div>
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendERAMeter1"></div>
+</div>
+</div>
+<div class="trend-profile-label">
+<strong>ERA</strong>
+<span>0–10</span>
+</div>
+<!-- Current Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendERAMeter2"></div>
+</div>
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendERAScore2">--</span>
+<span class="trend-profile-raw" id="trendERARaw2">--</span>
+</div>
+</div>
+</div>
+<!-- WHIP -->
+<div class="trend-profile-row">
+<!-- Prior Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendWHIPScore1">--</span>
+<span class="trend-profile-raw" id="trendWHIPRaw1">--</span>
+</div>
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendWHIPMeter1"></div>
+</div>
+</div>
+<div class="trend-profile-label">
+<strong>WHIP</strong>
+<span>0–10</span>
+</div>
+<!-- Current Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendWHIPMeter2"></div>
+</div>
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendWHIPScore2">--</span>
+<span class="trend-profile-raw" id="trendWHIPRaw2">--</span>
+</div>
+</div>
+</div>
+<!-- K% -->
+<div class="trend-profile-row">
+<!-- Prior Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendKScore1">--</span>
+<span class="trend-profile-raw" id="trendKRaw1">--</span>
+</div>
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendKMeter1"></div>
+</div>
+</div>
+<div class="trend-profile-label">
+<strong>K%</strong>
+<span>0–10</span>
+</div>
+<!-- Current Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendKMeter2"></div>
+</div>
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendKScore2">--</span>
+<span class="trend-profile-raw" id="trendKRaw2">--</span>
+</div>
+</div>
+</div>
+<!-- BB% -->
+<div class="trend-profile-row">
+<!-- Prior Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendBBScore1">--</span>
+<span class="trend-profile-raw" id="trendBBRaw1">--</span>
+</div>
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendBBMeter1"></div>
+</div>
+</div>
+<div class="trend-profile-label">
+<strong>BB%</strong>
+<span>0–10</span>
+</div>
+<!-- Current Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendBBMeter2"></div>
+</div>
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendBBScore2">--</span>
+<span class="trend-profile-raw" id="trendBBRaw2">--</span>
+</div>
+</div>
+</div>
+<!-- K/BB -->
+<div class="trend-profile-row">
+<!-- Prior Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendKBBScore1">--</span>
+<span class="trend-profile-raw" id="trendKBBRaw1">--</span>
+</div>
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendKBBMeter1"></div>
+</div>
+</div>
+<div class="trend-profile-label">
+<strong>K/BB</strong>
+<span>0–10</span>
+</div>
+<!-- Current Season -->
+<div class="trend-profile-player">
+<div class="trend-profile-meter">
+<div class="trend-profile-fill" id="trendKBBMeter2"></div>
+</div>
+<div class="trend-profile-values">
+<span class="trend-profile-score" id="trendKBBScore2">--</span>
+<span class="trend-profile-raw" id="trendKBBRaw2">--</span>
+</div>
+</div>
+</div>
+</div>
+<!-- =========================================
                  TREND ANALYSIS
             ========================================== -->
-            <div id="trendAnalysis"
-                 class="trend-analysis">
-
-                <div class="trend-analysis-icon">
-
-                    <svg viewBox="0 0 24 24"
-                         aria-hidden="true">
-
-                        <line x1="5"
-                              y1="20"
-                              x2="5"
-                              y2="14"></line>
-
-                        <line x1="12"
-                              y1="20"
-                              x2="12"
-                              y2="9"></line>
-
-                        <line x1="19"
-                              y1="20"
-                              x2="19"
-                              y2="4"></line>
-
-                    </svg>
-
-                </div>
-
-                <div class="trend-analysis-content">
-
-                    <div class="trend-analysis-title">
+<div class="trend-analysis" id="trendAnalysis">
+<div class="trend-analysis-icon">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<line x1="5" x2="5" y1="20" y2="14"></line>
+<line x1="12" x2="12" y1="20" y2="9"></line>
+<line x1="19" x2="19" y1="20" y2="4"></line>
+</svg>
+</div>
+<div class="trend-analysis-content">
+<div class="trend-analysis-title">
                         Trend Analysis
                     </div>
-
-                    <div id="trendAnalysisText"
-                         class="trend-analysis-text">
+<div class="trend-analysis-text" id="trendAnalysisText">
                         --
                     </div>
-
-                </div>
-
-            </div>
-
-        </div>
-        <!-- END trend-content -->
-
-    </div>
-    <!-- END trend-modal -->
-
+</div>
+</div>
+</div>
+<!-- END trend-content -->
+</div>
+<!-- END trend-modal -->
 </div>
 <!-- END trendModal -->
-
 <!-- =========================================
      Compare Player Modal
 ========================================= -->
-
-<div id="compareModal" class="modal">
-
-    <div class="modal-content compare-box">
-
-
-        <!-- =========================================
+<div class="modal" id="compareModal">
+<div class="modal-content compare-box">
+<!-- =========================================
              HEADER
         ========================================== -->
-
-        <div class="compare-header">
-
-            <div>
-                <h2 id="compareTitle">Pitcher Comparison</h2>
-
-                <div class="compare-subtitle">
+<div class="compare-header">
+<div>
+<h2 id="compareTitle">Pitcher Comparison</h2>
+<div class="compare-subtitle">
                     Side-by-side comparison of pitcher profile shape
                 </div>
-            </div>
-
-            <span id="compareClose" class="close">&times;</span>
-
-        </div>
-
-
-        <!-- =========================================
+</div>
+<span class="close" id="compareClose">×</span>
+</div>
+<!-- =========================================
              CONTENT
         ========================================== -->
-
-        <div class="compare-content">
-
-
+<div class="compare-content">
 <!-- =========================================
      PLAYER HEADERS
 ========================================== -->
 <div class="compare-player-grid">
-
-    <!-- Player 1 -->
-    <div class="compare-player-card">
-
-        <div class="compare-player-name"
-             id="compareName1">
+<!-- Player 1 -->
+<div class="compare-player-card">
+<div class="compare-player-name" id="compareName1">
             Player 1
         </div>
-
-        <div class="compare-player-team"
-             id="compareTeam1">
+<div class="compare-player-team" id="compareTeam1">
             --
         </div>
-
-    </div>
-
-
-    <!-- Player 2 -->
-    <div class="compare-player-card">
-
-        <div class="compare-player-name"
-             id="compareName2">
+</div>
+<!-- Player 2 -->
+<div class="compare-player-card">
+<div class="compare-player-name" id="compareName2">
             Player 2
         </div>
-
-        <div class="compare-player-team"
-             id="compareTeam2">
+<div class="compare-player-team" id="compareTeam2">
             --
         </div>
-
-    </div>
-
 </div>
-
-
+</div>
 <!-- Player Summaries -->
 <div class="compare-player-grid">
-
-    <!-- Player 1 -->
-    <div class="compare-summary-grid">
-
-        <div class="compare-summary-stat">
-            <span class="compare-summary-label">OVERALL</span>
-            <span class="compare-summary-value" id="compareOverall1">--</span>
-        </div>
-
-        <div class="compare-summary-stat">
-            <span class="compare-summary-label">XP</span>
-            <span class="compare-summary-value" id="compareXP1">--</span>
-        </div>
-
-        <div class="compare-summary-stat">
-            <span class="compare-summary-label">TIER</span>
-            <span class="compare-summary-value" id="compareTier1">--</span>
-        </div>
-
-    </div>
-
-
-    <!-- Player 2 -->
-    <div class="compare-summary-grid">
-
-        <div class="compare-summary-stat">
-            <span class="compare-summary-label">OVERALL</span>
-            <span class="compare-summary-value" id="compareOverall2">--</span>
-        </div>
-
-        <div class="compare-summary-stat">
-            <span class="compare-summary-label">XP</span>
-            <span class="compare-summary-value" id="compareXP2">--</span>
-        </div>
-
-        <div class="compare-summary-stat">
-            <span class="compare-summary-label">TIER</span>
-            <span class="compare-summary-value" id="compareTier2">--</span>
-        </div>
-
-    </div>
-
+<!-- Player 1 -->
+<div class="compare-summary-grid">
+<div class="compare-summary-stat">
+<span class="compare-summary-label">OVERALL</span>
+<span class="compare-summary-value" id="compareOverall1">--</span>
 </div>
-
-
-            <!-- =========================================
+<div class="compare-summary-stat">
+<span class="compare-summary-label">XP</span>
+<span class="compare-summary-value" id="compareXP1">--</span>
+</div>
+<div class="compare-summary-stat">
+<span class="compare-summary-label">TIER</span>
+<span class="compare-summary-value" id="compareTier1">--</span>
+</div>
+</div>
+<!-- Player 2 -->
+<div class="compare-summary-grid">
+<div class="compare-summary-stat">
+<span class="compare-summary-label">OVERALL</span>
+<span class="compare-summary-value" id="compareOverall2">--</span>
+</div>
+<div class="compare-summary-stat">
+<span class="compare-summary-label">XP</span>
+<span class="compare-summary-value" id="compareXP2">--</span>
+</div>
+<div class="compare-summary-stat">
+<span class="compare-summary-label">TIER</span>
+<span class="compare-summary-value" id="compareTier2">--</span>
+</div>
+</div>
+</div>
+<!-- =========================================
      ARCHETYPE
 ========================================== -->
 <div class="compare-player-grid">
-
-    <!-- Player 1 -->
-    <div class="compare-archetype">
-
-        <div class="compare-archetype-main">
-
-            <span class="compare-archetype-label">
+<!-- Player 1 -->
+<div class="compare-archetype">
+<div class="compare-archetype-main">
+<span class="compare-archetype-label">
                 ARCHETYPE
             </span>
-
-            <span class="compare-archetype-name"
-                  id="compareArchetype1">
+<span class="compare-archetype-name" id="compareArchetype1">
                 --
             </span>
-
-        </div>
-
-        <div class="compare-archetype-match">
-
-            <span class="compare-match-label">
-                MATCH
-            </span>
-
-            <span class="compare-match-value"
-                  id="compareMatch1">
-                --
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- Player 2 -->
-    <div class="compare-archetype">
-
-        <div class="compare-archetype-main">
-
-            <span class="compare-archetype-label">
-                ARCHETYPE
-            </span>
-
-            <span class="compare-archetype-name"
-                  id="compareArchetype2">
-                --
-            </span>
-
-        </div>
-
-        <div class="compare-archetype-match">
-
-            <span class="compare-match-label">
-                MATCH
-            </span>
-
-            <span class="compare-match-value"
-                  id="compareMatch2">
-                --
-            </span>
-
-        </div>
-
-    </div>
-
 </div>
-
-
-            <!-- =========================================
+<div class="compare-archetype-match">
+<span class="compare-match-label">
+                MATCH
+            </span>
+<span class="compare-match-value" id="compareMatch1">
+                --
+            </span>
+</div>
+</div>
+<!-- Player 2 -->
+<div class="compare-archetype">
+<div class="compare-archetype-main">
+<span class="compare-archetype-label">
+                ARCHETYPE
+            </span>
+<span class="compare-archetype-name" id="compareArchetype2">
+                --
+            </span>
+</div>
+<div class="compare-archetype-match">
+<span class="compare-match-label">
+                MATCH
+            </span>
+<span class="compare-match-value" id="compareMatch2">
+                --
+            </span>
+</div>
+</div>
+</div>
+<!-- =========================================
                  FIVE-METRIC PROFILE
             ========================================== -->
-
-            <div class="compare-section">
-
-                <div class="compare-section-title">
+<div class="compare-section">
+<div class="compare-section-title">
                     FIVE-METRIC PROFILE
                 </div>
-
 <div class="compare-profile">
-
-
 <!-- =====================================
      ERA
 ====================================== -->
-
 <div class="compare-profile-row">
-
-    <!-- Player 1 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareERAScore1">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareERARaw1">--</span>
-        </div>
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareERAMeter1"></div>
-        </div>
-
-    </div>
-
-    <!-- Center Metric -->
-    <div class="compare-profile-label">
-        <strong>ERA</strong>
-        <span>0–10</span>
-    </div>
-
-    <!-- Player 2 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareERAMeter2"></div>
-        </div>
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareERAScore2">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareERARaw2">--</span>
-        </div>
-
-    </div>
-
+<!-- Player 1 -->
+<div class="compare-profile-player">
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareERAScore1">--</span>
+<span class="compare-profile-raw" id="compareERARaw1">--</span>
 </div>
-
-
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareERAMeter1"></div>
+</div>
+</div>
+<!-- Center Metric -->
+<div class="compare-profile-label">
+<strong>ERA</strong>
+<span>0–10</span>
+</div>
+<!-- Player 2 -->
+<div class="compare-profile-player">
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareERAMeter2"></div>
+</div>
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareERAScore2">--</span>
+<span class="compare-profile-raw" id="compareERARaw2">--</span>
+</div>
+</div>
+</div>
 <!-- =====================================
      WHIP
 ====================================== -->
-
 <div class="compare-profile-row">
-
-    <!-- Player 1 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareWHIPScore1">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareWHIPRaw1">--</span>
-        </div>
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareWHIPMeter1"></div>
-        </div>
-
-    </div>
-
-    <!-- Center Metric -->
-    <div class="compare-profile-label">
-        <strong>WHIP</strong>
-        <span>0–10</span>
-    </div>
-
-    <!-- Player 2 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareWHIPMeter2"></div>
-        </div>
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareWHIPScore2">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareWHIPRaw2">--</span>
-        </div>
-
-    </div>
-
+<!-- Player 1 -->
+<div class="compare-profile-player">
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareWHIPScore1">--</span>
+<span class="compare-profile-raw" id="compareWHIPRaw1">--</span>
 </div>
-
-
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareWHIPMeter1"></div>
+</div>
+</div>
+<!-- Center Metric -->
+<div class="compare-profile-label">
+<strong>WHIP</strong>
+<span>0–10</span>
+</div>
+<!-- Player 2 -->
+<div class="compare-profile-player">
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareWHIPMeter2"></div>
+</div>
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareWHIPScore2">--</span>
+<span class="compare-profile-raw" id="compareWHIPRaw2">--</span>
+</div>
+</div>
+</div>
 <!-- =====================================
      K%
 ====================================== -->
-
 <div class="compare-profile-row">
-
-    <!-- Player 1 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareKScore1">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareKRaw1">--</span>
-        </div>
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareKMeter1"></div>
-        </div>
-
-    </div>
-
-    <!-- Center Metric -->
-    <div class="compare-profile-label">
-        <strong>K%</strong>
-        <span>0–10</span>
-    </div>
-
-    <!-- Player 2 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareKMeter2"></div>
-        </div>
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareKScore2">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareKRaw2">--</span>
-        </div>
-
-    </div>
-
+<!-- Player 1 -->
+<div class="compare-profile-player">
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareKScore1">--</span>
+<span class="compare-profile-raw" id="compareKRaw1">--</span>
 </div>
-
-
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareKMeter1"></div>
+</div>
+</div>
+<!-- Center Metric -->
+<div class="compare-profile-label">
+<strong>K%</strong>
+<span>0–10</span>
+</div>
+<!-- Player 2 -->
+<div class="compare-profile-player">
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareKMeter2"></div>
+</div>
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareKScore2">--</span>
+<span class="compare-profile-raw" id="compareKRaw2">--</span>
+</div>
+</div>
+</div>
 <!-- =====================================
      BB%
 ====================================== -->
-
 <div class="compare-profile-row">
-
-    <!-- Player 1 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareBBScore1">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareBBRaw1">--</span>
-        </div>
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareBBMeter1"></div>
-        </div>
-
-    </div>
-
-    <!-- Center Metric -->
-    <div class="compare-profile-label">
-        <strong>BB%</strong>
-        <span>0–10</span>
-    </div>
-
-    <!-- Player 2 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareBBMeter2"></div>
-        </div>
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareBBScore2">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareBBRaw2">--</span>
-        </div>
-
-    </div>
-
+<!-- Player 1 -->
+<div class="compare-profile-player">
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareBBScore1">--</span>
+<span class="compare-profile-raw" id="compareBBRaw1">--</span>
 </div>
-
-
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareBBMeter1"></div>
+</div>
+</div>
+<!-- Center Metric -->
+<div class="compare-profile-label">
+<strong>BB%</strong>
+<span>0–10</span>
+</div>
+<!-- Player 2 -->
+<div class="compare-profile-player">
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareBBMeter2"></div>
+</div>
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareBBScore2">--</span>
+<span class="compare-profile-raw" id="compareBBRaw2">--</span>
+</div>
+</div>
+</div>
 <!-- =====================================
      K/BB
 ====================================== -->
-
 <div class="compare-profile-row">
-
-    <!-- Player 1 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareKBBScore1">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareKBBRaw1">--</span>
-        </div>
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareKBBMeter1"></div>
-        </div>
-
-    </div>
-
-    <!-- Center Metric -->
-    <div class="compare-profile-label">
-        <strong>K/BB</strong>
-        <span>0–10</span>
-    </div>
-
-    <!-- Player 2 -->
-    <div class="compare-profile-player">
-
-        <div class="compare-profile-meter">
-            <div class="compare-profile-fill"
-                 id="compareKBBMeter2"></div>
-        </div>
-
-        <div class="compare-profile-values">
-            <span class="compare-profile-score"
-                  id="compareKBBScore2">--</span>
-
-            <span class="compare-profile-raw"
-                  id="compareKBBRaw2">--</span>
-        </div>
-
-    </div>
-
+<!-- Player 1 -->
+<div class="compare-profile-player">
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareKBBScore1">--</span>
+<span class="compare-profile-raw" id="compareKBBRaw1">--</span>
 </div>
-
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareKBBMeter1"></div>
 </div>
-
 </div>
-
-            <!-- =========================================
+<!-- Center Metric -->
+<div class="compare-profile-label">
+<strong>K/BB</strong>
+<span>0–10</span>
+</div>
+<!-- Player 2 -->
+<div class="compare-profile-player">
+<div class="compare-profile-meter">
+<div class="compare-profile-fill" id="compareKBBMeter2"></div>
+</div>
+<div class="compare-profile-values">
+<span class="compare-profile-score" id="compareKBBScore2">--</span>
+<span class="compare-profile-raw" id="compareKBBRaw2">--</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- =========================================
                  COMPARISON SUMMARY
             ========================================== -->
-
-            <div id="comparisonSummary"
-                 class="comparison-summary">
-
-                <div class="comparison-summary-icon">
+<div class="comparison-summary" id="comparisonSummary">
+<div class="comparison-summary-icon">
                     ≡
                 </div>
-
-
-                <div class="comparison-summary-content">
-
-                    <div class="comparison-summary-title">
+<div class="comparison-summary-content">
+<div class="comparison-summary-title">
                         Comparison Summary
                     </div>
-
-                    <div id="comparisonSummaryText"
-                         class="comparison-summary-text">
+<div class="comparison-summary-text" id="comparisonSummaryText">
                         --
                     </div>
-
-                </div>
-
-            </div>
-
-
-        </div>
-        <!-- END compare-content -->
-
-
-    </div>
-    <!-- END modal-content compare-box -->
-
-
+</div>
+</div>
+</div>
+<!-- END compare-content -->
+</div>
+<!-- END modal-content compare-box -->
 </div>
 <!-- END compareModal -->
-
-
-<div id="leadersModal" class="modal">
-
-    <div class="modal-content leaders-modal">
-
-        <div class="leaders-header">
-
-            <div>
-                <h2 id="leadersTitle">League Leaders</h2>
-                <div class="leaders-subtitle">
+<div class="modal" id="leadersModal">
+<div class="modal-content leaders-modal">
+<div class="leaders-header">
+<div>
+<h2 id="leadersTitle">League Leaders</h2>
+<div class="leaders-subtitle">
                     Top 50 • Sorted by Overall Score
                 </div>
-            </div>
-
-            <span id="leadersClose" class="close">&times;</span>
-
-        </div>
-
-        <div class="leaders-table-wrap">
-
-            <table class="leaders-table">
-
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Player</th>
-                        <th>Team</th>
-                        <th>XP</th>
-                        <th>Overall Score</th>
-                        <th>Fantasy Identity</th>
-                    </tr>
-                </thead>
-
-                <tbody id="leadersBody">
-                    <!-- JS will inject rows here -->
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
 </div>
-
-
-
-        <footer class="footer">
-            <small>Data source: Stathead (Sports Reference). Pitcher Analyzer – personal analytics tool.</small>
+<span class="close" id="leadersClose">×</span>
+</div>
+<div class="leaders-table-wrap">
+<table class="leaders-table">
+<thead>
+<tr>
+<th>#</th>
+<th>Player</th>
+<th>Team</th>
+<th>XP</th>
+<th>Overall Score</th>
+<th>Fantasy Identity</th>
+</tr>
+</thead>
+<tbody id="leadersBody">
+<!-- JS will inject rows here -->
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<footer class="footer">
+<small>Data source: Stathead (Sports Reference). Pitcher Analyzer – personal analytics tool.</small>
 <div id="lastUpdated"></div>
 <span class="version-label">V 1.0.1</span>
-        </footer>
-
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-
+</footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="app.js"></script>
-
 </body>
 </html>
