@@ -219,7 +219,7 @@ const teamColors = {
     BOS: ["#BD3039", "#0C2340"],
 
     CHC: ["#0E3386", "#CC3433"],
-    CWS: ["#000000", "#C4CED4"],
+    CHW: ["#000000", "#C4CED4"],
     CIN: ["#C6011F", "#000000"],
     CLE: ["#E31937", "#0C2340"],
     COL: ["#33006F", "#C4CED4"],
@@ -969,6 +969,173 @@ setupPlayerAutocomplete({
     seasonId: "seasonSelect2"
 });
 
+
+ // --------------------------------------
+ // Player News — FantasyPros (Pitchers)
+ // --------------------------------------
+
+const PLAYER_NEWS_BACKEND =
+    "https://pitcher-analyzer-backend.onrender.com";
+
+let playerNewsRequest = 0;
+
+function resetPlayerNews() {
+    playerNewsRequest++;
+
+    const section = document.getElementById("playerNewsSection");
+    const list = document.getElementById("playerNewsList");
+
+    if (list) list.replaceChildren();
+    if (section) section.hidden = true;
+}
+
+function getPlayerMLBID(p) {
+    const id =
+        p?.mlbId ??
+        p?.MLBID ??
+        p?.MLBAMID ??
+        p?.mlbamid ??
+        p?.mlb_id;
+
+    return /^\d{6}$/.test(String(id ?? ""))
+        ? String(id)
+        : null;
+}
+
+function playerNewsMessage(message) {
+    const list = document.getElementById("playerNewsList");
+    if (!list) return;
+
+    list.replaceChildren();
+
+    const p = document.createElement("p");
+    p.className = "player-news-message";
+    p.textContent = message;
+    list.appendChild(p);
+}
+
+async function loadPlayerNews(mlbId) {
+    const section = document.getElementById("playerNewsSection");
+    const list = document.getElementById("playerNewsList");
+
+    if (!section || !list) return;
+
+    const request = ++playerNewsRequest;
+    section.hidden = false;
+
+    if (!mlbId) {
+        playerNewsMessage(
+            "Player news unavailable: no MLBID in player data."
+        );
+        return;
+    }
+
+    playerNewsMessage("Loading player news...");
+
+    try {
+        const response = await fetch(
+            `${PLAYER_NEWS_BACKEND}/api/player-news/${mlbId}`
+        );
+
+        if (!response.ok) {
+            throw new Error(`News API returned ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Ignore requests for previously selected players
+        if (request !== playerNewsRequest) return;
+
+        list.replaceChildren();
+
+        const articles = Array.isArray(data.articles)
+            ? data.articles.slice(0, 3)
+            : [];
+
+        if (!articles.length) {
+            playerNewsMessage("No recent player news available.");
+            return;
+        }
+
+        articles.forEach(article => {
+            const card = document.createElement("article");
+            card.className = "player-news-card";
+
+            const date = document.createElement("div");
+            date.className = "player-news-date";
+
+            // Preserve the source's calendar date
+            const datePart = String(article.date || "")
+                .split(" ")[0];
+
+            if (/^\d{4}-\d{2}-\d{2}$/.test(datePart)) {
+                const [year, month, day] = datePart.split("-");
+
+                date.textContent = new Date(
+                    Date.UTC(+year, +month - 1, +day)
+                ).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                    timeZone: "UTC"
+                });
+            }
+
+            const title = document.createElement("h3");
+            title.textContent = article.title || "Player Update";
+
+            card.append(date, title);
+
+            if (article.description) {
+                const description = document.createElement("p");
+                description.textContent = article.description;
+                card.appendChild(description);
+            }
+
+            if (article.impact) {
+                const impact = document.createElement("div");
+                impact.className = "player-news-impact";
+
+                const label = document.createElement("strong");
+                label.textContent = "FANTASY IMPACT";
+
+                const commentary = document.createElement("p");
+                commentary.textContent = article.impact;
+
+                impact.append(label, commentary);
+                card.appendChild(impact);
+            }
+
+            if (
+                typeof article.link === "string" &&
+                article.link.startsWith(
+                    "https://www.fantasypros.com/"
+                )
+            ) {
+                const link = document.createElement("a");
+                link.href = article.link;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.textContent = "Read at FantasyPros ↗";
+
+                card.appendChild(link);
+            }
+
+            list.appendChild(card);
+        });
+
+    } catch (error) {
+        if (request !== playerNewsRequest) return;
+
+        console.error("Player news error:", error);
+
+        playerNewsMessage(
+            "Player news is temporarily unavailable."
+        );
+    }
+}
+
+
 // -------------------------------
 // Main: Load player + update UI (backend-only)
 // -------------------------------
@@ -994,6 +1161,8 @@ async function handleLoad() {
 
         // ⭐ Always normalize to object
         const p = Array.isArray(data) ? data[0] : data;
+
+        loadPlayerNews(getPlayerMLBID(p));
 
         console.log("FULL pitcher object from backend:", p);
         console.log("XP field:", p?.XP);
@@ -3872,6 +4041,7 @@ if (xpMeter) {
     renderWatchPlaceholders();
     resetTeamColorPanel();
     resetSimilarProfiles();
+    resetPlayerNews();
 
 
     // Clear Fantasy Summary
