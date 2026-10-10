@@ -599,8 +599,8 @@ select:focus {
 
 .team-color-panel {
     display: inline-flex;
-    width: 22px;
-    height: 16px;
+    width: 28px;
+    height: 18px;
 
     border: 2px solid #e8eef5;
     border-radius: 4px;
