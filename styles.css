@@ -1986,7 +1986,7 @@ select:focus {
 
     color: #ffffff;
 
-    border-radius: 16px 16px 0 0;
+    border-radius: 1px;
 }
 
 #compareTitle {
@@ -6795,5 +6795,131 @@ input,select {
 
     .player-profile-banner .player-card-name {
         font-size: 20px;
+    }
+}
+
+/* -----------------------------------------
+   Player News — FantasyPros
+----------------------------------------- */
+
+.player-news-section[hidden] {
+    display: none;
+}
+
+.player-news-section {
+    margin: 20px 0 24px;
+    background: #fff;
+    border: 1px solid #dbe4ee;
+    border-radius: 1px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
+}
+
+.player-news-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 20px;
+    background: #0f243e;
+    color: #fff;
+}
+
+.player-news-header h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    letter-spacing: 0.6px;
+}
+
+.player-news-source {
+    font-size: 11px;
+    color: #d3deea;
+}
+
+/* Article Cards */
+
+.player-news-card {
+    padding: 18px 20px;
+    border-bottom: 1px solid #e5ebf2;
+}
+
+.player-news-card:last-child {
+    border-bottom: 0;
+}
+
+.player-news-date {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.player-news-card h3 {
+    margin: 7px 0 8px;
+    color: #0f243e;
+    font-size: 16px;
+}
+
+.player-news-card p {
+    margin: 0 0 10px;
+    color: #33465c;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+/* Fantasy Impact Commentary */
+
+.player-news-impact {
+    padding: 12px 14px;
+    margin: 10px 0;
+    background: #f4f7fb;
+    border-left: 3px solid #2f80ed;
+    border-radius: 4px;
+}
+
+.player-news-impact strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #365779;
+}
+
+.player-news-impact p {
+    margin: 0;
+}
+
+/* Article Links */
+
+.player-news-card a {
+    color: #1265b1;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.player-news-card a:hover {
+    text-decoration: underline;
+}
+
+/* Loading / Empty States */
+
+.player-news-message {
+    padding: 18px 20px;
+    margin: 0;
+    color: #607286;
+    font-size: 13px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .player-news-header {
+        flex-wrap: wrap;
+    }
+
+    .player-news-card {
+        padding: 15px;
     }
 }
