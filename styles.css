@@ -3799,7 +3799,7 @@ select:focus {
 
     gap: 28px;
 
-    margin-bottom: 26px;
+    margin-bottom: 4px;
 }
 
 .watch-header h3 {
@@ -4235,7 +4235,7 @@ select:focus {
     align-items: center;
     gap: 10px;
 
-    margin-bottom: 16px;
+    margin-bottom: 4px;
 }
 
 .similar-profiles-title {
