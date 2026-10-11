@@ -1683,7 +1683,7 @@ select:focus {
 
     flex: 1;
 
-    height: 10px;
+    height: 12px;
 
     overflow: hidden;
 
@@ -6827,8 +6827,9 @@ input,select {
 
 .player-news-header h2 {
     margin: 0;
-    font-size: 1.05rem;
-    letter-spacing: 0.6px;
+    font-size: 14px;
+    font-weight: 850px;
+    letter-spacing: 1px;
 }
 
 .player-news-source {
