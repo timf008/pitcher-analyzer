@@ -636,7 +636,7 @@ select:focus {
 
     background: #ffffff;
     border: 1px solid #dbe4ee;
-    border-radius: 16px;
+    border-radius: 0px;
     overflow: hidden;
 
     box-shadow: 0 4px 14px rgba(15, 36, 62, 0.06);
@@ -6737,7 +6737,7 @@ input,select {
 
 .player-profile-banner {
     background: #0f243e;
-    border-radius: 10px;
+    border-radius: 1px;
     padding: 12px 20px;
     margin-bottom: 14px;
     overflow: hidden;
