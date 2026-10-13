@@ -1239,18 +1239,27 @@ select:focus {
     font-weight: bold;
 }
 
-/* -----------------------------------------
-   Trend Modal
------------------------------------------ */
+/* =========================================
+   TiMBASEBALL — TREND MODAL
+   Dark Analytics Dashboard
+========================================= */
 
 #trendModal {
+    --trend-bg: #0c2442;
+    --trend-card: #183653;
+    --trend-elevated: #234563;
+    --trend-border: #315477;
+    --trend-text: #ffffff;
+    --trend-muted: #b9cce0;
+    --trend-blue: #55b6ff;
+
     position: fixed;
     inset: 0;
 
     width: 100%;
     height: 100dvh;
 
-    background: rgba(15, 36, 62, 0.55);
+    background: rgba(5, 15, 29, 0.78);
 
     display: none;
     justify-content: center;
@@ -1269,36 +1278,42 @@ select:focus {
 #trendModal .modal-content {
     width: 980px;
     max-width: 95%;
-
     max-height: 92dvh;
 
     padding: 0;
 
-    background: #ffffff !important;
-    color: #0f243e;
+    background: var(--trend-bg) !important;
+    color: var(--trend-text);
 
+    border: 1px solid var(--trend-border);
     border-radius: 1px;
 
     overflow-y: auto;
     overflow-x: hidden;
 
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28),
-        0 4px 14px rgba(15, 36, 62, 0.15);
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.45),
+        0 0 30px rgba(47, 128, 237, 0.10);
 }
 
 /* -----------------------------------------
-   Navy Header
+   Header
 ----------------------------------------- */
 
-.trend-header {
+#trendModal .trend-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 12px 22px;
+    padding: 14px 22px;
 
-    background: linear-gradient(135deg, #0b131d, #0f3e73);
+    background: linear-gradient(
+        135deg,
+        #091a30 0%,
+        #103b69 100%
+    );
 
+    border-bottom: 1px solid var(--trend-border);
     color: #ffffff;
 }
 
@@ -1306,20 +1321,19 @@ select:focus {
     margin: 0;
 
     text-align: left;
-
     font-size: 1.45rem;
     font-weight: 800;
     letter-spacing: 0.3px;
 }
 
-.trend-subtitle {
+#trendModal .trend-subtitle {
     margin-top: 3px;
 
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.3px;
 
-    color: #b9d4ef;
+    color: var(--trend-muted);
 }
 
 /* -----------------------------------------
@@ -1335,21 +1349,18 @@ select:focus {
     height: 34px;
 
     border-radius: 50%;
-
     background: rgba(255, 255, 255, 0.12);
 
     color: #ffffff;
-
     font-size: 24px;
     line-height: 1;
 
     cursor: pointer;
-
     transition: 0.2s;
 }
 
 #trendClose:hover {
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(85, 182, 255, 0.25);
     transform: rotate(90deg);
 }
 
@@ -1357,49 +1368,47 @@ select:focus {
    Modal Body
 ----------------------------------------- */
 
-.trend-content {
+#trendModal .trend-content {
     padding: 18px 20px 20px;
+    background: var(--trend-bg);
 }
 
 /* -----------------------------------------
    Player Identity
 ----------------------------------------- */
 
-.trend-player {
+#trendModal .trend-player {
     margin-bottom: 16px;
-    padding: 14px 18px;
+    padding: 16px 18px;
 
-    background: #f4f8fd;
-
-    border: 1px solid #d7e3f1;
+    background: var(--trend-card);
+    border: 1px solid var(--trend-border);
     border-radius: 10px;
 
     text-align: center;
 }
 
-.trend-player-label {
+#trendModal .trend-player-label {
     margin-bottom: 3px;
 
-    color: #607286;
-
+    color: var(--trend-muted);
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.5px;
 }
 
-.trend-player-name {
-    color: #0f243e;
+#trendModal .trend-player-name {
+    color: var(--trend-text);
 
     font-size: 22px;
     font-weight: 800;
     line-height: 1.2;
 }
 
-.trend-player-team {
+#trendModal .trend-player-team {
     margin-top: 3px;
 
-    color: #607286;
-
+    color: var(--trend-muted);
     font-size: 12px;
     font-weight: 700;
 }
@@ -1408,12 +1417,11 @@ select:focus {
    Two-Season Layout
 ----------------------------------------- */
 
-.trend-season-grid {
+#trendModal .trend-season-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 18px;
-
     margin-bottom: 16px;
 }
 
@@ -1421,7 +1429,7 @@ select:focus {
    Season Headers
 ----------------------------------------- */
 
-.trend-season-card {
+#trendModal .trend-season-card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1429,26 +1437,24 @@ select:focus {
 
     padding: 12px 16px;
 
-    background: #ffffff;
-
-    border: 1px solid #dbe4ee;
+    background: var(--trend-card);
+    border: 1px solid var(--trend-border);
     border-radius: 10px;
 
-    box-shadow: 0 2px 6px rgba(15, 36, 62, 0.04);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.trend-season-label {
+#trendModal .trend-season-label {
     margin-bottom: 3px;
 
-    color: #607286;
-
+    color: var(--trend-muted);
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.3px;
 }
 
-.trend-season-year {
-    color: #0f243e;
+#trendModal .trend-season-year {
+    color: var(--trend-text);
 
     font-size: 20px;
     font-weight: 800;
@@ -1458,40 +1464,37 @@ select:focus {
    Summary Metrics
 ----------------------------------------- */
 
-.trend-summary-grid {
+#trendModal .trend-summary-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 
     overflow: hidden;
 
-    background: #ffffff;
-
-    border: 1px solid #dbe4ee;
+    background: var(--trend-card);
+    border: 1px solid var(--trend-border);
     border-radius: 10px;
 }
 
-.trend-summary-stat {
+#trendModal .trend-summary-stat {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     min-width: 0;
-
     padding: 12px 8px;
 
-    border-right: 1px solid #e5ebf2;
+    border-right: 1px solid var(--trend-border);
 }
 
-.trend-summary-stat:last-child {
+#trendModal .trend-summary-stat:last-child {
     border-right: none;
 }
 
-.trend-summary-label {
+#trendModal .trend-summary-label {
     margin-bottom: 5px;
 
-    color: #607286;
-
+    color: var(--trend-muted);
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 1px;
@@ -1499,14 +1502,12 @@ select:focus {
     white-space: nowrap;
 }
 
-.trend-summary-value {
+#trendModal .trend-summary-value {
     max-width: 100%;
 
-    color: #0f243e;
-
+    color: var(--trend-text);
     font-size: 15px;
     font-weight: 800;
-
     text-align: center;
 
     overflow: hidden;
@@ -1517,80 +1518,72 @@ select:focus {
    Archetype
 ----------------------------------------- */
 
-.trend-archetype {
+#trendModal .trend-archetype {
     display: flex;
     align-items: stretch;
 
     min-width: 0;
-
     overflow: hidden;
 
-    background: #f4f8fd;
-
-    border: 1px solid #d7e3f1;
+    background: var(--trend-card);
+    border: 1px solid var(--trend-border);
     border-radius: 10px;
 
-    box-shadow: 0 2px 6px rgba(15, 36, 62, 0.04);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.trend-archetype-main {
+#trendModal .trend-archetype-main {
     display: flex;
     flex: 1;
     flex-direction: column;
     justify-content: center;
 
     min-width: 0;
-
     padding: 13px 16px;
 }
 
-.trend-archetype-label,
-.trend-match-label {
-    color: #607286;
+#trendModal .trend-archetype-label,
+#trendModal .trend-match-label {
+    color: var(--trend-muted);
 
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 1.3px;
 }
 
-.trend-archetype-name {
+#trendModal .trend-archetype-name {
     margin-top: 4px;
 
-    color: #0f243e;
-
+    color: var(--trend-text);
     font-size: 17px;
     font-weight: 800;
     line-height: 1.15;
 }
 
-.trend-archetype-match {
+#trendModal .trend-archetype-match {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     min-width: 125px;
-
     padding: 10px 14px;
 
-    background: #ffffff;
-
-    border-left: 1px solid #d7e3f1;
+    background: var(--trend-elevated);
+    border-left: 1px solid var(--trend-border);
 }
 
-.trend-match-value {
+#trendModal .trend-match-value {
     display: inline-block;
 
     margin-top: 5px;
     padding: 5px 9px;
 
-    background: #eef3f8;
-
-    border: 1px solid #cbd6e2;
+    background: var(--trend-bg);
+    border: 1px solid #42688d;
     border-radius: 999px;
 
-    color: #536a82;
-
+    color: #b9dcff;
     font-size: 11px;
     font-weight: 800;
 
@@ -1601,65 +1594,60 @@ select:focus {
    Profile Shape
 ----------------------------------------- */
 
-.trend-profile {
+#trendModal .trend-profile {
     margin-bottom: 18px;
-
     overflow: hidden;
 
-    background: #ffffff;
-
-    border: 1px solid #dbe4ee;
+    background: var(--trend-card);
+    border: 1px solid var(--trend-border);
     border-radius: 12px;
 }
 
-.trend-profile-row {
+#trendModal .trend-profile-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr)
+    grid-template-columns:
+        minmax(0, 1fr)
         80px
         minmax(0, 1fr);
 
     align-items: center;
-
     min-height: 62px;
 
     padding: 0 16px;
-
-    border-bottom: 1px solid #edf1f5;
+    border-bottom: 1px solid var(--trend-border);
 }
 
-.trend-profile-row:last-child {
+#trendModal .trend-profile-row:last-child {
     border-bottom: none;
 }
 
-.trend-profile-player {
+#trendModal .trend-profile-player {
     display: flex;
     align-items: center;
 
     min-width: 0;
-
     gap: 10px;
 }
 
-.trend-profile-player:first-child {
+#trendModal .trend-profile-player:first-child {
     justify-content: flex-end;
 }
 
-.trend-profile-player:last-child {
+#trendModal .trend-profile-player:last-child {
     justify-content: flex-start;
 }
 
-.trend-profile-score {
+#trendModal .trend-profile-score {
     flex: 0 0 34px;
 
-    color: #2f80ed;
-
+    color: var(--trend-blue);
     font-size: 16px;
     font-weight: 800;
 
     text-align: center;
 }
 
-.trend-profile-values {
+#trendModal .trend-profile-values {
     display: flex;
     flex: 0 0 42px;
     flex-direction: column;
@@ -1667,63 +1655,60 @@ select:focus {
     justify-content: center;
 }
 
-.trend-profile-raw {
+#trendModal .trend-profile-raw {
     margin-top: 2px;
 
-    color: #8a9aab;
-
+    color: var(--trend-muted);
     font-size: 10px;
     font-style: italic;
     font-weight: 600;
     line-height: 1;
 }
 
-.trend-profile-meter {
+#trendModal .trend-profile-meter {
     position: relative;
-
     flex: 1;
 
     height: 12px;
-
     overflow: hidden;
 
-    background: #e7edf4;
-
+    background: #304d6b;
     border-radius: 999px;
 }
 
-.trend-profile-fill {
+#trendModal .trend-profile-fill {
     width: 0%;
     height: 100%;
 
-    background: #2f80ed;
+    background: linear-gradient(
+        90deg,
+        #2f80ed,
+        #55b6ff
+    );
 
     border-radius: inherit;
-
     transition: width 0.35s ease;
 }
 
-.trend-profile-label {
+#trendModal .trend-profile-label {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    color: #0f243e;
-
+    color: var(--trend-text);
     text-align: center;
 }
 
-.trend-profile-label strong {
+#trendModal .trend-profile-label strong {
     font-size: 15px;
     font-weight: 800;
 }
 
-.trend-profile-label span {
+#trendModal .trend-profile-label span {
     margin-top: 2px;
 
-    color: #8a9aab;
-
+    color: var(--trend-muted);
     font-size: 9px;
     font-weight: 700;
 }
@@ -1732,22 +1717,21 @@ select:focus {
    Trend Analysis
 ----------------------------------------- */
 
-.trend-analysis {
+#trendModal .trend-analysis {
     display: flex;
     align-items: flex-start;
 
     gap: 14px;
-
     margin-top: 18px;
-    padding: 16px 18px;
+    padding: 18px;
 
-    background: #f6f9fc;
-
-    border: 1px solid #dbe4ee;
+    background: var(--trend-card);
+    border: 1px solid var(--trend-border);
+    border-left: 3px solid var(--trend-blue);
     border-radius: 12px;
 }
 
-.trend-analysis-icon {
+#trendModal .trend-analysis-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1757,14 +1741,13 @@ select:focus {
     width: 34px;
     height: 34px;
 
-    background: #e7eef6;
-
+    background: var(--trend-elevated);
     border-radius: 50%;
 
-    color: #31577e;
+    color: var(--trend-blue);
 }
 
-.trend-analysis-icon svg {
+#trendModal .trend-analysis-icon svg {
     width: 18px;
     height: 18px;
 
@@ -1775,25 +1758,148 @@ select:focus {
     stroke-linejoin: round;
 }
 
-.trend-analysis-content {
+#trendModal .trend-analysis-content {
     flex: 1;
     min-width: 0;
 }
 
-.trend-analysis-title {
-    margin-bottom: 5px;
+#trendModal .trend-analysis-title {
+    margin-bottom: 7px;
 
-    color: #102a49;
-
+    color: var(--trend-text);
     font-size: 14px;
     font-weight: 800;
 }
 
-.trend-analysis-text {
-    color: #425b76;
+#trendModal .trend-analysis-text {
+    color: #c4d5e7;
 
     font-size: 13px;
-    line-height: 1.55;
+    line-height: 1.65;
+}
+
+/* -----------------------------------------
+   Mobile
+----------------------------------------- */
+
+@media (max-width: 700px) {
+
+    #trendModal {
+        padding: 8px;
+    }
+
+    #trendModal .modal-content {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 12px;
+    }
+
+    #trendModal .trend-header {
+        padding: 14px 16px;
+    }
+
+    #trendTitle {
+        font-size: 1.2rem;
+    }
+
+    #trendModal .trend-subtitle {
+        font-size: 10px;
+    }
+
+    #trendModal .trend-content {
+        padding: 12px;
+    }
+
+    #trendModal .trend-player-name {
+        font-size: 19px;
+    }
+
+    /* Keep seasons side-by-side */
+
+    #trendModal .trend-season-grid {
+        gap: 8px;
+    }
+
+    /* Four metrics become 2 x 2 */
+
+    #trendModal .trend-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #trendModal .trend-summary-stat {
+        padding: 10px 5px;
+        border-bottom: 1px solid var(--trend-border);
+    }
+
+    #trendModal .trend-summary-stat:nth-child(2) {
+        border-right: none;
+    }
+
+    #trendModal .trend-summary-stat:nth-child(3),
+    #trendModal .trend-summary-stat:nth-child(4) {
+        border-bottom: none;
+    }
+
+    #trendModal .trend-summary-value {
+        font-size: 13px;
+    }
+
+    /* Archetype stacks internally */
+
+    #trendModal .trend-archetype {
+        flex-direction: column;
+    }
+
+    #trendModal .trend-archetype-main {
+        align-items: center;
+        padding: 10px 8px;
+        text-align: center;
+    }
+
+    #trendModal .trend-archetype-name {
+        font-size: 14px;
+    }
+
+    #trendModal .trend-archetype-match {
+        min-width: 0;
+        padding: 8px;
+
+        border-top: 1px solid var(--trend-border);
+        border-left: none;
+    }
+
+    /* Profile remains season vs season */
+
+    #trendModal .trend-profile-row {
+        grid-template-columns:
+            minmax(0, 1fr)
+            54px
+            minmax(0, 1fr);
+
+        min-height: 58px;
+        padding: 0 8px;
+    }
+
+    #trendModal .trend-profile-player {
+        gap: 5px;
+    }
+
+    #trendModal .trend-profile-score {
+        flex-basis: 28px;
+        font-size: 11px;
+    }
+
+    #trendModal .trend-profile-meter {
+        height: 8px;
+    }
+
+    #trendModal .trend-profile-label strong {
+        font-size: 11px;
+    }
+
+    #trendModal .trend-profile-label span {
+        font-size: 8px;
+    }
 }
 
 /* -----------------------------------------
@@ -1927,17 +2033,25 @@ select:focus {
 }
 
 /* -----------------------------------------
-   Compare Modal
+   Compare Modal — Dark Dashboard Theme
 ----------------------------------------- */
 
 #compareModal {
+    --compare-bg: #0c2442;
+    --compare-card: #183653;
+    --compare-elevated: #234563;
+    --compare-border: #315477;
+    --compare-text: #ffffff;
+    --compare-muted: #b9cce0;
+    --compare-blue: #55b6ff;
+
     position: fixed;
     inset: 0;
 
     width: 100%;
     height: 100dvh;
 
-    background: rgba(15, 36, 62, 0.55);
+    background: rgba(5, 15, 29, 0.78);
 
     display: none;
     justify-content: center;
@@ -1960,57 +2074,67 @@ select:focus {
 
     padding: 0;
 
-    background: #ffffff !important;
-    color: #0f243e;
+    background: var(--compare-bg) !important;
+    color: var(--compare-text);
 
+    border: 1px solid var(--compare-border);
     border-radius: 1px;
+
     overflow-y: auto;
     overflow-x: hidden;
 
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28),
-        0 4px 14px rgba(15, 36, 62, 0.15);
+    box-shadow:
+        0 22px 60px rgba(0, 0, 0, 0.45),
+        0 4px 16px rgba(0, 0, 0, 0.22);
 }
 
 /* -----------------------------------------
-   Navy Header
+   Header
 ----------------------------------------- */
 
-.compare-header {
+#compareModal .compare-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
 
-    padding: 14px 22px;
+    padding: 16px 22px;
 
-    background: linear-gradient(135deg, #0b131d, #0f3e73);
+    background: linear-gradient(
+        135deg,
+        #091a30,
+        #103b69
+    );
 
     color: #ffffff;
 
-    border-radius: 1px;
+    border-bottom: 1px solid var(--compare-border);
 }
 
-#compareTitle {
+#compareModal #compareTitle {
     margin: 0;
 
     text-align: left;
+
+    color: #ffffff;
 
     font-size: 1.45rem;
     font-weight: 800;
     letter-spacing: 0.3px;
 }
 
-.compare-subtitle {
-    margin-top: 3px;
+#compareModal .compare-subtitle {
+    margin-top: 4px;
 
     font-size: 12px;
     font-weight: 500;
 
-    color: #b9d4ef;
+    color: var(--compare-muted);
 }
 
 /* Close Button */
 
-#compareClose {
+#compareModal #compareClose {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2028,11 +2152,13 @@ select:focus {
     font-size: 24px;
     cursor: pointer;
 
-    transition: 0.2s;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
-#compareClose:hover {
-    background: rgba(255, 255, 255, 0.22);
+#compareModal #compareClose:hover {
+    background: rgba(85, 182, 255, 0.25);
     transform: rotate(90deg);
 }
 
@@ -2040,19 +2166,21 @@ select:focus {
    Body
 ----------------------------------------- */
 
-.compare-content {
-    padding: 18px 20px 20px;
+#compareModal .compare-content {
+    padding: 20px;
 }
 
 /* -----------------------------------------
    Two Player Layout
 ----------------------------------------- */
 
-.compare-player-grid {
+#compareModal .compare-player-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 18px;
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
 
+    gap: 18px;
     margin-bottom: 14px;
 }
 
@@ -2060,29 +2188,29 @@ select:focus {
    Player Headers
 ----------------------------------------- */
 
-.compare-player-card {
-    padding: 15px 18px;
+#compareModal .compare-player-card {
+    padding: 17px 18px;
 
-    background: #ffffff;
+    background: var(--compare-card);
 
-    border: 1px solid #dbe4ee;
+    border: 1px solid var(--compare-border);
     border-radius: 12px;
 
     text-align: center;
 }
 
-.compare-player-name {
-    color: #0f243e;
+#compareModal .compare-player-name {
+    color: #ffffff;
 
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.25;
 }
 
-.compare-player-team {
-    margin-top: 4px;
+#compareModal .compare-player-team {
+    margin-top: 5px;
 
-    color: #607286;
+    color: var(--compare-muted);
 
     font-size: 12px;
     font-weight: 700;
@@ -2093,19 +2221,20 @@ select:focus {
    Overall / XP / Tier / Park
 ----------------------------------------- */
 
-.compare-summary-grid {
+#compareModal .compare-summary-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
 
     overflow: hidden;
 
-    background: #ffffff;
+    background: var(--compare-card);
 
-    border: 1px solid #dbe4ee;
+    border: 1px solid var(--compare-border);
     border-radius: 10px;
 }
 
-.compare-summary-stat {
+#compareModal .compare-summary-stat {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2113,31 +2242,31 @@ select:focus {
 
     min-width: 0;
 
-    padding: 11px 7px;
+    padding: 13px 6px;
 
-    border-right: 1px solid #e2e8f0;
+    border-right: 1px solid var(--compare-border);
 
     text-align: center;
 }
 
-.compare-summary-stat:last-child {
+#compareModal .compare-summary-stat:last-child {
     border-right: none;
 }
 
-.compare-summary-label {
-    margin-bottom: 4px;
+#compareModal .compare-summary-label {
+    margin-bottom: 6px;
 
-    color: #607286;
+    color: var(--compare-muted);
 
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
 }
 
-.compare-summary-value {
-    color: #0f243e;
+#compareModal .compare-summary-value {
+    color: #ffffff;
 
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 800;
 
     white-space: nowrap;
@@ -2147,19 +2276,19 @@ select:focus {
    Archetype
 ----------------------------------------- */
 
-.compare-archetype {
+#compareModal .compare-archetype {
     display: flex;
     align-items: stretch;
 
     overflow: hidden;
 
-    background: #f4f8fd;
+    background: var(--compare-card);
 
-    border: 1px solid #d7e3f1;
+    border: 1px solid var(--compare-border);
     border-radius: 10px;
 }
 
-.compare-archetype-main {
+#compareModal .compare-archetype-main {
     flex: 1;
 
     display: flex;
@@ -2168,30 +2297,29 @@ select:focus {
 
     min-width: 0;
 
-    padding: 12px 16px;
+    padding: 13px 16px;
 }
 
-.compare-archetype-label,
-.compare-match-label {
-    color: #607286;
+#compareModal .compare-archetype-label,
+#compareModal .compare-match-label {
+    color: var(--compare-muted);
 
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: 1.3px;
+    letter-spacing: 1px;
 }
 
-.compare-archetype-name {
-    margin-top: 3px;
+#compareModal .compare-archetype-name {
+    margin-top: 5px;
 
-    color: #0f243e;
+    color: #ffffff;
 
     font-size: 17px;
     font-weight: 800;
-
-    line-height: 1.2;
+    line-height: 1.25;
 }
 
-.compare-archetype-match {
+#compareModal .compare-archetype-match {
     min-width: 105px;
 
     display: flex;
@@ -2201,23 +2329,23 @@ select:focus {
 
     padding: 10px 12px;
 
-    background: #ffffff;
+    background: var(--compare-elevated);
 
-    border-left: 1px solid #d7e3f1;
+    border-left: 1px solid var(--compare-border);
 }
 
-.compare-match-value {
+#compareModal .compare-match-value {
     display: inline-block;
 
-    margin-top: 5px;
-    padding: 4px 9px;
+    margin-top: 6px;
+    padding: 5px 10px;
 
-    background: #eef3f8;
+    background: #294b6b;
 
-    border: 1px solid #cbd6e2;
+    border: 1px solid #46749b;
     border-radius: 999px;
 
-    color: #536a82;
+    color: #dceeff;
 
     font-size: 11px;
     font-weight: 800;
@@ -2229,41 +2357,42 @@ select:focus {
    Profile Shape
 ----------------------------------------- */
 
-.compare-profile {
+#compareModal .compare-profile {
     margin-top: 4px;
 
     overflow: hidden;
 
-    background: #ffffff;
+    background: var(--compare-card);
 
-    border: 1px solid #dbe4ee;
+    border: 1px solid var(--compare-border);
     border-radius: 12px;
 }
 
-.compare-profile-row {
+#compareModal .compare-profile-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr)
+    grid-template-columns:
+        minmax(0, 1fr)
         80px
         minmax(0, 1fr);
 
     align-items: center;
 
-    min-height: 62px;
+    min-height: 64px;
 
-    border-bottom: 1px solid #edf1f5;
+    border-bottom: 1px solid var(--compare-border);
 }
 
-.compare-profile-row:last-child {
+#compareModal .compare-profile-row:last-child {
     border-bottom: none;
 }
 
-.compare-profile-row:nth-child(even) {
-    background: #fbfcfe;
+#compareModal .compare-profile-row:nth-child(even) {
+    background: #1c3c5b;
 }
 
 /* Player Meter Area */
 
-.compare-profile-player {
+#compareModal .compare-profile-player {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -2273,55 +2402,58 @@ select:focus {
     padding: 10px 16px;
 }
 
-.compare-profile-score {
-    flex: 0 0 34px;
-
-    color: #2f80ed;
-
-    font-size: 16px;
-    font-weight: 800;
-
-    text-align: center;
-}
-
-.compare-profile-values {
+#compareModal .compare-profile-values {
     display: flex;
-    flex: 0 0 42px;
+    flex: 0 0 44px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.compare-profile-raw {
-    margin-top: 2px;
+#compareModal .compare-profile-score {
+    color: var(--compare-blue);
 
-    color: #8a9aab;
+    font-size: 17px;
+    font-weight: 800;
 
-    font-size: 10px;
+    text-align: center;
+}
+
+#compareModal .compare-profile-raw {
+    margin-top: 3px;
+
+    color: var(--compare-muted);
+
+    font-size: 11px;
     font-style: italic;
     font-weight: 600;
-    line-height: 1;
+    line-height: 1.1;
 }
 
 /* Meter */
 
-.compare-profile-meter {
+#compareModal .compare-profile-meter {
     flex: 1;
+    min-width: 0;
 
     height: 12px;
 
     overflow: hidden;
 
-    background: #e6ebf1;
+    background: #304d6b;
 
     border-radius: 999px;
 }
 
-.compare-profile-fill {
+#compareModal .compare-profile-fill {
     width: 0%;
     height: 100%;
 
-    background: #2f80ed;
+    background: linear-gradient(
+        90deg,
+        #2f80ed,
+        #55b6ff
+    );
 
     border-radius: inherit;
 
@@ -2330,7 +2462,7 @@ select:focus {
 
 /* Center Metric Label */
 
-.compare-profile-label {
+#compareModal .compare-profile-label {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2338,27 +2470,27 @@ select:focus {
 
     align-self: stretch;
 
-    background: #f4f7fb;
+    background: #102d4c;
 
-    border-left: 1px solid #e2e8f0;
-    border-right: 1px solid #e2e8f0;
+    border-left: 1px solid var(--compare-border);
+    border-right: 1px solid var(--compare-border);
 
-    color: #0f243e;
+    color: #ffffff;
 
     text-align: center;
 }
 
-.compare-profile-label strong {
+#compareModal .compare-profile-label strong {
     font-size: 15px;
     font-weight: 800;
 }
 
-.compare-profile-label span {
-    margin-top: 2px;
+#compareModal .compare-profile-label span {
+    margin-top: 3px;
 
-    color: #71849a;
+    color: var(--compare-muted);
 
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 700;
 }
 
@@ -2366,21 +2498,22 @@ select:focus {
    Comparison Summary
 ----------------------------------------- */
 
-.comparison-summary {
+#compareModal .comparison-summary {
     display: flex;
     align-items: flex-start;
     gap: 14px;
 
     margin-top: 18px;
-    padding: 16px 18px;
+    padding: 18px;
 
-    background: #f6f9fc;
+    background: var(--compare-card);
 
-    border: 1px solid #dbe4ee;
+    border: 1px solid var(--compare-border);
+    border-left: 4px solid var(--compare-blue);
     border-radius: 12px;
 }
 
-.comparison-summary-icon {
+#compareModal .comparison-summary-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2389,36 +2522,37 @@ select:focus {
     width: 34px;
     height: 34px;
 
-    background: #e7eef6;
+    background: var(--compare-elevated);
 
     border-radius: 50%;
 
-    color: #31577e;
+    color: var(--compare-blue);
 
     font-size: 18px;
     font-weight: 800;
 }
 
-.comparison-summary-content {
+#compareModal .comparison-summary-content {
     flex: 1;
     min-width: 0;
 }
 
-.comparison-summary-title {
-    margin-bottom: 5px;
+#compareModal .comparison-summary-title {
+    margin-bottom: 7px;
 
-    color: #102a49;
+    color: #ffffff;
 
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 800;
 }
 
-.comparison-summary-text {
-    color: #425b76;
+#compareModal .comparison-summary-text {
+    color: #d2e1f0;
 
-    font-size: 13px;
-    line-height: 1.55;
+    font-size: 14px;
+    line-height: 1.65;
 }
+
 
 /* -----------------------------------------
    Mobile
