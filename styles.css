@@ -2074,7 +2074,7 @@ select:focus {
 
     padding: 0;
 
-    background: var(--compare-bg) !important;
+    background: var(--compare-bg);
     color: var(--compare-text);
 
     border: 1px solid var(--compare-border);
