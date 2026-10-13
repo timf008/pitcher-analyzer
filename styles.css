@@ -2224,7 +2224,7 @@ select:focus {
 #compareModal .compare-summary-grid {
     display: grid;
     grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+        repeat(3, minmax(0, 1fr));
 
     overflow: hidden;
 
@@ -2551,6 +2551,26 @@ select:focus {
 
     font-size: 14px;
     line-height: 1.65;
+}
+
+/* -----------------------------------------
+   Pitcher Five-Metric Profile Heading
+----------------------------------------- */
+
+#compareModal .compare-section {
+    margin-top: 18px;
+}
+
+#compareModal .compare-section-title {
+    margin-bottom: 10px;
+    padding-left: 4px;
+
+    color: #b9cce0;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
 }
 
 
