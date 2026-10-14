@@ -1625,6 +1625,8 @@ async function handleTrend() {
         const lastSeason =
             season - 1;
 
+showLoading();
+
 
         // ---------------------------------
         // Fetch both seasons
@@ -2036,6 +2038,16 @@ async function handleTrend() {
             "Trend error:",
             err
         );
+
+    }
+    finally {
+
+        // ---------------------------------
+        // Hide Universal Loading Spinner
+        // ---------------------------------
+
+        hideLoading();
+
     }
 }
 
@@ -3094,6 +3106,8 @@ async function showCompareModal() {
             return;
         }
 
+showLoading();
+
 
         // -------------------------------
         // Load Pitchers
@@ -3441,12 +3455,20 @@ document.getElementById("compareTeam2").textContent =
         ).style.display = "flex";
 
 
-    } catch (err) {
+        }
+    catch (err) {
 
         console.error(
             "Compare error:",
             err
         );
+
+    }
+    finally {
+
+
+        hideLoading();
+
     }
 }
 
@@ -3465,6 +3487,8 @@ function handleLeaders() {
 async function loadLeaders() {
 
     try {
+
+        showLoading();
         const season = document.getElementById("seasonSelect").value;
 
         const data = await fetch(
@@ -3478,11 +3502,19 @@ async function loadLeaders() {
 
         buildLeadersTable(data);
 
-    } catch (err) {
-        console.error("Pitching Leaders error:", err);
-        alert("Error loading leaderboard.");
-    }
-}
+     }
+     catch (err) {
+
+         console.error("Leaders error:", err);
+         alert("Error loading leaderboard.");
+
+     }
+     finally {
+
+         hideLoading();
+
+     }
+ }
 
 
 // -------------------------------
