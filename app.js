@@ -453,6 +453,21 @@ function resetSimilarProfiles() {
     `;
 }
 
+// ---------------------------------
+// Universal Loading Indicator
+// ---------------------------------
+
+function showLoading() {
+    document.getElementById("globalLoading")
+        .style.display = "flex";
+}
+
+function hideLoading() {
+    document.getElementById("globalLoading")
+        .style.display = "none";
+}
+
+
 
 // -------------------------------
 // Utility: Fetch pitcher data
@@ -1150,6 +1165,8 @@ async function handleLoad() {
             return;
         }
 
+showLoading();
+
         const data = await loadPitcher(name, season);
 
         // ⭐ Correct error handling
@@ -1540,9 +1557,17 @@ if (!hasAllAccess()) {
             : "--";
 }
 
-    } catch (err) {
-        console.error("Error loading player:", err);
-    }
+}
+catch (err) {
+
+    console.error("Error loading player:", err);
+
+}
+finally {
+
+    hideLoading();
+
+}
 }
 
 
