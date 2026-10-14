@@ -6069,3 +6069,41 @@ input,select {
         padding: 15px;
     }
 }
+
+/* ---------------------------------
+   Universal Loading Indicator
+--------------------------------- */
+
+.search-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.global-loading {
+    display: none;
+    align-items: center;
+    gap: 10px;
+
+    color: #55b6ff;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.global-spinner {
+    width: 20px;
+    height: 20px;
+
+    border: 3px solid #315477;
+    border-top-color: #55b6ff;
+    border-radius: 50%;
+
+    animation: globalSpin 0.8s linear infinite;
+}
+
+@keyframes globalSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
