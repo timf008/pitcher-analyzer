@@ -1245,13 +1245,13 @@ select:focus {
 ========================================= */
 
 #trendModal {
-    --trend-bg: #0c2442;
-    --trend-card: #183653;
-    --trend-elevated: #234563;
-    --trend-border: #315477;
-    --trend-text: #ffffff;
-    --trend-muted: #b9cce0;
-    --trend-blue: #55b6ff;
+    --trend-bg: #edf3f9;
+    --trend-card: #ffffff;
+    --trend-elevated: #edf5ff;
+    --trend-border: #d2dfed;
+    --trend-text: #0c2442;
+    --trend-muted: #59718d;
+    --trend-blue: #2f80ed;
 
     position: fixed;
     inset: 0;
@@ -1286,14 +1286,14 @@ select:focus {
     color: var(--trend-text);
 
     border: 1px solid var(--trend-border);
-    border-radius: 1px;
+    border-radius: 12px;
 
     overflow-y: auto;
     overflow-x: hidden;
 
     box-shadow:
         0 24px 70px rgba(0, 0, 0, 0.45),
-        0 0 30px rgba(47, 128, 237, 0.10);
+        0 0 30px rgba(47, 128, 237, 0.06);
 }
 
 /* -----------------------------------------
@@ -1333,7 +1333,7 @@ select:focus {
     font-weight: 500;
     letter-spacing: 0.3px;
 
-    color: var(--trend-muted);
+    color: #c5d8eb;
 }
 
 /* -----------------------------------------
@@ -1580,10 +1580,10 @@ select:focus {
     padding: 5px 9px;
 
     background: var(--trend-bg);
-    border: 1px solid #42688d;
+    border: 1px solid #c9d9e8;
     border-radius: 999px;
 
-    color: #b9dcff;
+    color: #385a7b;
     font-size: 11px;
     font-weight: 800;
 
@@ -1672,7 +1672,7 @@ select:focus {
     height: 12px;
     overflow: hidden;
 
-    background: #304d6b;
+    background: #e1e6ed;
     border-radius: 999px;
 }
 
@@ -1772,7 +1772,7 @@ select:focus {
 }
 
 #trendModal .trend-analysis-text {
-    color: #c4d5e7;
+    color: #354b63;
 
     font-size: 13px;
     line-height: 1.65;
@@ -2032,376 +2032,238 @@ select:focus {
     }
 }
 
-/* -----------------------------------------
-   Compare Modal — Dark Dashboard Theme
------------------------------------------ */
+/* =========================================
+   TiMBASEBALL — PITCHER COMPARE MODAL
+   Light Dashboard Theme
+   CSS-only restyle; existing class names retained
+========================================= */
 
 #compareModal {
-    --compare-bg: #0c2442;
-    --compare-card: #183653;
-    --compare-elevated: #234563;
-    --compare-border: #315477;
-    --compare-text: #ffffff;
-    --compare-muted: #b9cce0;
-    --compare-blue: #55b6ff;
+    --compare-bg: #eaf1f8;
+    --compare-card: #ffffff;
+    --compare-elevated: #eef4fb;
+    --compare-border: #d2dfec;
+    --compare-text: #0c2442;
+    --compare-muted: #55708d;
+    --compare-blue: #2f80ed;
 
     position: fixed;
     inset: 0;
-
     width: 100%;
     height: 100dvh;
-
-    background: rgba(5, 15, 29, 0.78);
-
+    background: rgba(5, 15, 29, 0.72);
     display: none;
     justify-content: center;
     align-items: center;
-
     padding: 20px;
     box-sizing: border-box;
-
     z-index: 9999;
 }
 
-/* -----------------------------------------
-   Modal Shell
------------------------------------------ */
-
+/* Modal Shell */
 #compareModal .compare-box {
     width: 980px;
     max-width: 95%;
     max-height: 92dvh;
-
     padding: 0;
-
     background: var(--compare-bg);
     color: var(--compare-text);
-
     border: 1px solid var(--compare-border);
-    border-radius: 1px;
-
+    border-radius: 12px;
     overflow-y: auto;
     overflow-x: hidden;
-
-    box-shadow:
-        0 22px 60px rgba(0, 0, 0, 0.45),
-        0 4px 16px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, .35), 0 4px 16px rgba(0, 0, 0, .12);
 }
 
-/* -----------------------------------------
-   Header
------------------------------------------ */
-
+/* Header */
 #compareModal .compare-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-
     padding: 16px 22px;
-
-    background: linear-gradient(
-        135deg,
-        #091a30,
-        #103b69
-    );
-
+    background: linear-gradient(135deg, #091a30, #103b69);
     color: #ffffff;
-
-    border-bottom: 1px solid var(--compare-border);
+    border-bottom: 1px solid #315477;
 }
-
 #compareModal #compareTitle {
     margin: 0;
-
     text-align: left;
-
     color: #ffffff;
-
     font-size: 1.45rem;
     font-weight: 800;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
-
 #compareModal .compare-subtitle {
     margin-top: 4px;
-
     font-size: 12px;
     font-weight: 500;
-
-    color: var(--compare-muted);
+    color: #c2d6eb;
 }
-
-/* Close Button */
-
 #compareModal #compareClose {
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex: 0 0 34px;
     width: 34px;
     height: 34px;
-
     border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.12);
-
+    background: rgba(255, 255, 255, .12);
     color: #ffffff;
-
     font-size: 24px;
     cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease;
+    transition: background .2s ease, transform .2s ease;
 }
-
 #compareModal #compareClose:hover {
-    background: rgba(85, 182, 255, 0.25);
+    background: rgba(85, 182, 255, .25);
     transform: rotate(90deg);
 }
 
-/* -----------------------------------------
-   Body
------------------------------------------ */
-
+/* Body and two-player layout */
 #compareModal .compare-content {
     padding: 20px;
+    background: var(--compare-bg);
 }
-
-/* -----------------------------------------
-   Two Player Layout
------------------------------------------ */
-
 #compareModal .compare-player-grid {
     display: grid;
-    grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
-
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
     margin-bottom: 14px;
 }
-
-/* -----------------------------------------
-   Player Headers
------------------------------------------ */
-
 #compareModal .compare-player-card {
     padding: 17px 18px;
-
     background: var(--compare-card);
-
     border: 1px solid var(--compare-border);
-    border-radius: 12px;
-
+    border-radius: 10px;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(12, 36, 66, .04);
 }
-
 #compareModal .compare-player-name {
-    color: #ffffff;
-
+    color: var(--compare-text);
     font-size: 21px;
     font-weight: 800;
     line-height: 1.25;
 }
-
 #compareModal .compare-player-team {
     margin-top: 5px;
-
     color: var(--compare-muted);
-
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 }
 
-/* -----------------------------------------
-   Overall / XP / Tier / Park
------------------------------------------ */
-
+/* Pitcher summary: Overall / XP / Tier — 3 columns preserved */
 #compareModal .compare-summary-grid {
     display: grid;
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     overflow: hidden;
-
     background: var(--compare-card);
-
     border: 1px solid var(--compare-border);
     border-radius: 10px;
 }
-
 #compareModal .compare-summary-stat {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     min-width: 0;
-
     padding: 13px 6px;
-
     border-right: 1px solid var(--compare-border);
-
     text-align: center;
 }
-
-#compareModal .compare-summary-stat:last-child {
-    border-right: none;
-}
-
+#compareModal .compare-summary-stat:last-child { border-right: none; }
 #compareModal .compare-summary-label {
     margin-bottom: 6px;
-
     color: var(--compare-muted);
-
     font-size: 10px;
     font-weight: 800;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
 }
-
 #compareModal .compare-summary-value {
-    color: #ffffff;
-
+    color: var(--compare-text);
     font-size: 18px;
     font-weight: 800;
-
     white-space: nowrap;
 }
 
-/* -----------------------------------------
-   Archetype
------------------------------------------ */
-
+/* Archetype */
 #compareModal .compare-archetype {
     display: flex;
     align-items: stretch;
-
     overflow: hidden;
-
-    background: var(--compare-card);
-
+    background: var(--compare-elevated);
     border: 1px solid var(--compare-border);
     border-radius: 10px;
 }
-
 #compareModal .compare-archetype-main {
     flex: 1;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     min-width: 0;
-
     padding: 13px 16px;
 }
-
 #compareModal .compare-archetype-label,
 #compareModal .compare-match-label {
     color: var(--compare-muted);
-
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1px;
 }
-
 #compareModal .compare-archetype-name {
     margin-top: 5px;
-
-    color: #ffffff;
-
+    color: var(--compare-text);
     font-size: 17px;
     font-weight: 800;
     line-height: 1.25;
 }
-
 #compareModal .compare-archetype-match {
     min-width: 105px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     padding: 10px 12px;
-
-    background: var(--compare-elevated);
-
+    background: #e5eff9;
     border-left: 1px solid var(--compare-border);
 }
-
 #compareModal .compare-match-value {
     display: inline-block;
-
     margin-top: 6px;
     padding: 5px 10px;
-
-    background: #294b6b;
-
-    border: 1px solid #46749b;
+    background: #f1f6fc;
+    border: 1px solid #c9d8e8;
     border-radius: 999px;
-
-    color: #dceeff;
-
+    color: #47617e;
     font-size: 11px;
     font-weight: 800;
-
     white-space: nowrap;
 }
 
-/* -----------------------------------------
-   Profile Shape
------------------------------------------ */
-
+/* Five-metric profile */
 #compareModal .compare-profile {
     margin-top: 4px;
-
     overflow: hidden;
-
     background: var(--compare-card);
-
     border: 1px solid var(--compare-border);
     border-radius: 12px;
 }
-
 #compareModal .compare-profile-row {
     display: grid;
-    grid-template-columns:
-        minmax(0, 1fr)
-        80px
-        minmax(0, 1fr);
-
+    grid-template-columns: minmax(0, 1fr) 80px minmax(0, 1fr);
     align-items: center;
-
     min-height: 64px;
-
     border-bottom: 1px solid var(--compare-border);
 }
-
-#compareModal .compare-profile-row:last-child {
-    border-bottom: none;
-}
-
-#compareModal .compare-profile-row:nth-child(even) {
-    background: #1c3c5b;
-}
-
-/* Player Meter Area */
-
+#compareModal .compare-profile-row:last-child { border-bottom: none; }
+#compareModal .compare-profile-row:nth-child(even) { background: #f5f9fd; }
 #compareModal .compare-profile-player {
     display: flex;
     align-items: center;
     gap: 12px;
-
     min-width: 0;
-
     padding: 10px 16px;
 }
-
 #compareModal .compare-profile-values {
     display: flex;
     flex: 0 0 44px;
@@ -2409,170 +2271,107 @@ select:focus {
     align-items: center;
     justify-content: center;
 }
-
 #compareModal .compare-profile-score {
-    color: var(--compare-blue);
-
+    color: #2389e7;
     font-size: 17px;
     font-weight: 800;
-
     text-align: center;
 }
-
 #compareModal .compare-profile-raw {
     margin-top: 3px;
-
     color: var(--compare-muted);
-
     font-size: 11px;
     font-style: italic;
     font-weight: 600;
     line-height: 1.1;
 }
-
-/* Meter */
-
 #compareModal .compare-profile-meter {
     flex: 1;
     min-width: 0;
-
     height: 12px;
-
     overflow: hidden;
-
-    background: #304d6b;
-
+    background: #e1e6ed;
     border-radius: 999px;
 }
-
 #compareModal .compare-profile-fill {
     width: 0%;
     height: 100%;
-
-    background: linear-gradient(
-        90deg,
-        #2f80ed,
-        #55b6ff
-    );
-
+    background: linear-gradient(90deg, #2f80ed, #55b6ff);
     border-radius: inherit;
-
-    transition: width 0.45s ease;
+    transition: width .45s ease;
 }
-
-/* Center Metric Label */
-
 #compareModal .compare-profile-label {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     align-self: stretch;
-
-    background: #102d4c;
-
+    background: #eef4fb;
     border-left: 1px solid var(--compare-border);
     border-right: 1px solid var(--compare-border);
-
-    color: #ffffff;
-
+    color: var(--compare-text);
     text-align: center;
 }
-
 #compareModal .compare-profile-label strong {
     font-size: 15px;
     font-weight: 800;
 }
-
 #compareModal .compare-profile-label span {
     margin-top: 3px;
-
     color: var(--compare-muted);
-
     font-size: 10px;
     font-weight: 700;
 }
 
-/* -----------------------------------------
-   Comparison Summary
------------------------------------------ */
-
+/* Comparison summary */
 #compareModal .comparison-summary {
     display: flex;
     align-items: flex-start;
     gap: 14px;
-
     margin-top: 18px;
     padding: 18px;
-
     background: var(--compare-card);
-
     border: 1px solid var(--compare-border);
     border-left: 4px solid var(--compare-blue);
     border-radius: 12px;
 }
-
 #compareModal .comparison-summary-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex: 0 0 34px;
     width: 34px;
     height: 34px;
-
     background: var(--compare-elevated);
-
     border-radius: 50%;
-
     color: var(--compare-blue);
-
     font-size: 18px;
     font-weight: 800;
 }
-
-#compareModal .comparison-summary-content {
-    flex: 1;
-    min-width: 0;
-}
-
+#compareModal .comparison-summary-content { flex: 1; min-width: 0; }
 #compareModal .comparison-summary-title {
     margin-bottom: 7px;
-
-    color: #ffffff;
-
+    color: var(--compare-text);
     font-size: 15px;
     font-weight: 800;
 }
-
 #compareModal .comparison-summary-text {
-    color: #d2e1f0;
-
+    color: #405975;
     font-size: 14px;
     line-height: 1.65;
 }
 
-/* -----------------------------------------
-   Pitcher Five-Metric Profile Heading
------------------------------------------ */
-
-#compareModal .compare-section {
-    margin-top: 18px;
-}
-
+/* Pitcher five-metric profile heading */
+#compareModal .compare-section { margin-top: 18px; }
 #compareModal .compare-section-title {
     margin-bottom: 10px;
     padding-left: 4px;
-
-    color: #b9cce0;
-
+    color: var(--compare-muted);
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.2px;
     text-transform: uppercase;
 }
-
 
 /* -----------------------------------------
    Mobile
