@@ -2202,6 +2202,7 @@ select:focus {
     justify-content: center;
     min-width: 0;
     padding: 13px 16px;
+    background: #ffffff;
 }
 #compareModal .compare-archetype-label,
 #compareModal .compare-match-label {
