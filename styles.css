@@ -2754,7 +2754,7 @@ select:focus {
 ----------------------------------------- */
 
 #leadersModal .modal-content {
-    width: 760px;
+    width: 980px;
     max-width: 95%;
 
     max-height: 88vh;
