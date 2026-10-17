@@ -153,8 +153,8 @@ function safeScore(value) {
 
 function clearLeaderState() {
     document.getElementById("overallScore").textContent = "--";
-    document.getElementById("overallTier").innerHTML = "";
-    document.getElementById("scoutingNote").innerHTML = "";
+    document.getElementById("overallTier").innerHTML = "--";
+    document.getElementById("scoutingNote").innerHTML = "--";
 }
 
 window.addEventListener("DOMContentLoaded", clearLeaderState);
