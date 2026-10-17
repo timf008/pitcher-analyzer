@@ -2934,40 +2934,111 @@ Overall / XP Mini Meters
     font-weight: bold;
 }
 
+/* -----------------------------------------
+   TiMBaseball — Compact Scouting Tier Badge
+----------------------------------------- */
+
 .tier-badge {
-    display: inline-block;
-    padding: 4px 10px;
+    --tier-color: #3498db;
+
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    width: auto;
+    max-width: 100%;
+
+    padding: 7px 12px;
+
+    border: 1.5px solid var(--tier-color);
     border-radius: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
+
+    background: #f0f7ff;
+
+    color: var(--tier-color);
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1;
+
+    white-space: nowrap;
+    box-sizing: border-box;
 }
 
-/* Tier colors */
+/* Shield stays to the LEFT of the text */
+.tier-badge::before {
+    content: "★";
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 25px;
+    height: 29px;
+    flex: 0 0 25px;
+
+    margin: 0;
+
+    background: var(--tier-color);
+    color: #ffffff;
+
+    font-size: 14px;
+
+    clip-path: polygon(
+        50% 0%,
+        100% 17%,
+        100% 66%,
+        50% 100%,
+        0% 66%,
+        0% 17%
+    );
+}
+
+
+/* -----------------------------------------
+   TiMBaseball — Tier Color Mapping
+----------------------------------------- */
+
+/* Elite — Gold */
+.tier-elite,
 .tier-great {
-    background-color: #d4af37;
-    /* gold */
+    --tier-color: #d4af37;
 }
 
+/* Impact — Green */
+.tier-impact,
 .tier-good {
-    background-color: #2ecc71;
-    /* green */
+    --tier-color: #2ecc71;
 }
 
+/* Solid — Blue */
+.tier-solid,
 .tier-fair {
-    background-color: #3498db;
-    /* blue */
+    --tier-color: #3498db;
 }
 
+/* Developing — Gray */
+.tier-developing,
 .tier-average {
-    background-color: #7f8c8d;
-    /* gray */
+    --tier-color: #7f8c8d;
 }
 
+/* Limited — Red */
+.tier-limited,
 .tier-belowavg {
-    background-color: #e74c3c;
-    /* red */
+    --tier-color: #e74c3c;
+}
+
+/* Override broad .overall-top span styling */
+.overall-top #overallTier .tier-badge {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+
+    color: var(--tier-color) !important;
+    font-size: 18px;
+    line-height: 1;
 }
 
 /* -----------------------------------------
